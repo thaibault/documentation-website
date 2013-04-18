@@ -10,9 +10,10 @@
         <title>installArchLinux</title>
         <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
     </head>
-    <body>
 
 <!--endregion-->
+
+    <body>
 
 <!--region body-->
 
