@@ -26,7 +26,7 @@
             jQuery(function(jQuery) {
                 jQuery('body div.toc a[href^="#"]').click(function(event) {
                     event.preventDefault();
-                    jQuery.scrollTo(jQuery(this).attr('href'));
+                    jQuery.scrollTo(jQuery(this).attr('href'), 'slow');
                 });
             });
         </script>
@@ -51,7 +51,7 @@
         </div>
         <div id="main_content_wrap" class="outer">
             <section id="main_content" class="inner">
-                <% rendered_markdown %>
+                <%rendered_markdown%>
             </section>
         </div>
 
@@ -71,10 +71,10 @@
     <!--endregion-->
 
         <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+            var gaJsHost = (('https:' === document.location.protocol) ? 'https://ssl.' : 'http://www.');
+            document.write(unescape('%3Cscript src="' + gaJsHost + 'google-analytics.com/ga.js" type="text/javascript"%3E%3C/script%3E'));
             try {
-                var pageTracker = _gat._getTracker("UA-40191664-1");
+                var pageTracker = _gat._getTracker('<%traking_code%>');
                 pageTracker._trackPageview();
             } catch(err) {}
         </script>
