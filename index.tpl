@@ -24,8 +24,11 @@
         <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>jquery-scrollTo-1.4.3.1.js"></script>
         <script type="text/javascript">
             jQuery(function(jQuery) {
-                console.log(jQuery('body div.toc a[href^="#"]'));
-                jQuery.scrollTo();
+                jQuery('body div.toc a[href^="#"]').click(function(event) {
+                    event.preventDefault();
+                    console.log('Scroll to ' + jQuery(jQuery(this).attr('href')));
+                    // jQuery.scrollTo();
+                });
             });
         </script>
     </head>
