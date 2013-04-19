@@ -26,8 +26,7 @@
             jQuery(function(jQuery) {
                 jQuery('body div.toc a[href^="#"]').click(function(event) {
                     event.preventDefault();
-                    console.log('Scroll to ' + jQuery(jQuery(this).attr('href')));
-                    // jQuery.scrollTo();
+                    jQuery.scrollTo(jQuery(this).attr('href'));
                 });
             });
         </script>
