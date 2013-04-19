@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="chrome=1" />
         <meta name="description" content="installArchLinux : This script provides a full unnatted way to install arch linux from any live environement." />
         <title>installArchLinux</title>
-        <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="styleSheets/main.css">
     </head>
 
 <!--endregion-->
