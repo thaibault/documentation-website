@@ -17,8 +17,8 @@
     <head>
         <meta charset='utf-8' />
         <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-        <meta name="description" content="installArchLinux : This script provides a full unnatted way to install arch linux from any live environement." />
-        <title>installArchLinux</title>
+        <meta name="description" content="<%tagline%>" />
+        <title><%name%></title>
         <link rel="stylesheet" type="text/css" media="screen" href="<%STYLE_SHEET_PATH%>main.css">
         <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>jquery-1.9.1.js"></script>
         <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>jquery-scrollTo-1.4.3.1.js"></script>
@@ -74,7 +74,7 @@
             var gaJsHost = (('https:' === document.location.protocol) ? 'https://ssl.' : 'http://www.');
             document.write(unescape('%3Cscript src="' + gaJsHost + 'google-analytics.com/ga.js" type="text/javascript"%3E%3C/script%3E'));
             try {
-                var pageTracker = _gat._getTracker('<%traking_code%>');
+                var pageTracker = _gat._getTracker('<%google_traking_code%>');
                 pageTracker._trackPageview();
             } catch(err) {}
         </script>
