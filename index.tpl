@@ -40,12 +40,12 @@
 
         <div id="header_wrap" class="outer">
             <header class="inner">
-                <a id="forkme_banner" href="https://github.com/thaibault/installArchLinux">View on GitHub</a>
-                <h1 id="project_title">installArchLinux</h1>
-                <h2 id="project_tagline">This script provides a full unnatted way to install arch linux from any live environement.</h2>
+                <a id="forkme_banner" href="https://github.com/thaibault/<%name%>">View on GitHub</a>
+                <h1 id="project_title"><%name%></h1>
+                <h2 id="project_tagline"><%tagline%></h2>
                 <section id="downloads">
-                    <a class="zip_download_link" href="https://github.com/thaibault/installArchLinux/zipball/master">Download this project as a .zip file</a>
-                    <a class="tar_download_link" href="https://github.com/thaibault/installArchLinux/tarball/master">Download this project as a tar.gz file</a>
+                    <a class="zip_download_link" href="https://github.com/thaibault/<%name%>/zipball/master">Download this project as a .zip file</a>
+                    <a class="tar_download_link" href="https://github.com/thaibault/<%name%>/tarball/master">Download this project as a tar.gz file</a>
                 </section>
             </header>
         </div>
@@ -60,10 +60,7 @@
         <div id="footer_wrap" class="outer">
             <footer class="inner">
                 <p class="copyright">
-                    installArchLinux maintained by <a href="https://github.com/thaibault">thaibault</a>
-                </p>
-                <p>
-                    Published with <a href="http://pages.github.com">GitHub Pages</a>
+                    <%name%> maintained by <a href="https://github.com/thaibault">thaibault</a>
                 </p>
             </footer>
         </div>
