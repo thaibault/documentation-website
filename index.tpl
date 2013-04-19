@@ -1,3 +1,14 @@
+<% # region locations 
+
+<% IMAGE_PATH = 'image/'
+<% IMAGE_APPLE_TOUCH_ICON_PATH = IMAGE_PATH + 'appleTouchIcon/'
+<% LESS_PATH = 'less/'
+<% STYLE_SHEET_PATH = 'styleSheet/'
+<% COFFEE_SCRIPT_PATH = 'coffeeScript/'
+<% JAVA_SCRIPT_PATH = 'javaScript/'
+
+<% # endregion
+
 <!DOCTYPE html>
 <html>
 
@@ -8,7 +19,15 @@
         <meta http-equiv="X-UA-Compatible" content="chrome=1" />
         <meta name="description" content="installArchLinux : This script provides a full unnatted way to install arch linux from any live environement." />
         <title>installArchLinux</title>
-        <link rel="stylesheet" type="text/css" media="screen" href="styleSheet/main.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="<%STYLE_SHEET_PATH%>main.css">
+        <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>jquery-scrollTo-1.4.3.1.js"></script>
+        <script type="text/javascript">
+            jQuery(function(jQuery) {
+                console.log(jQuery('body div.toc a[href^="#"]'));
+                jQuery.scrollTo();
+            });
+        </script>
     </head>
 
 <!--endregion-->
