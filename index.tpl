@@ -51,7 +51,7 @@
         </div>
         <div id="main_content_wrap" class="outer">
             <section id="main_content" class="inner">
-                <%rendered_markdown%>
+                <% print(rendered_markdown)
             </section>
         </div>
 
