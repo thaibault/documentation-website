@@ -24,8 +24,13 @@
         <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>jquery-scrollTo-1.4.3.1.js"></script>
         <script type="text/javascript">
             jQuery(function(jQuery) {
-                jQuery('body div.toc a[href^="#"]').click(function(event) {
+                jQuery('body div.toc a[href^="#"]').click(function() {
                     jQuery.scrollTo(jQuery(this).attr('href'), 'slow');
+                });
+                jQuery('body a[href="#legal-notice"]').click(function() {
+                    jQuery('body section#main_content').fadeOut('slow', function() {
+                        jQuery('body section#legal-notice').fadeIn('slow');
+                    });
                 });
             });
         </script>
@@ -52,6 +57,12 @@
             <section id="main_content" class="inner">
                 <% print(rendered_markdown)
             </section>
+            <section id="legal-notice" class="legal-notice">
+                <p>
+                    Torben Sickert
+                    ...
+                </p>
+            </section>
         </div>
 
     <!--region footer-->
@@ -61,6 +72,7 @@
                 <p class="copyright">
                     <%name%> maintained by <a href="https://github.com/thaibault">thaibault</a>
                 </p>
+                <a href="#legal-notice">legal notice</a>
             </footer>
         </div>
         
