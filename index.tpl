@@ -59,8 +59,19 @@
             </section>
             <section id="legal-notice" class="legal-notice">
                 <p>
+                    Anbieter:
+                    <br />
                     Torben Sickert
-                    ...
+                    <br />
+                    Christoph-Mang-Str. 14
+                    <br />
+                    79100 Freiburg
+                    <br />
+                    Tel. 0049 (0) 176 / 10248185
+                    <br />
+                    Internet: <a href="http://thaibault.github.io/<%name%>">http://thaibault.github.io/<%name%></a>
+                    <br />
+                    Email: <a href="mailto:t.sickert@gmail.com">t.sickert@gmail.com</a>
                 </p>
             </section>
         </div>
