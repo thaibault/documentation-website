@@ -2,8 +2,10 @@
 
 <% IMAGE_PATH = 'image/'
 <% IMAGE_APPLE_TOUCH_ICON_PATH = IMAGE_PATH + 'appleTouchIcon/'
+
 <% LESS_PATH = 'less/'
 <% STYLE_SHEET_PATH = 'styleSheet/'
+
 <% COFFEE_SCRIPT_PATH = 'coffeeScript/'
 <% JAVA_SCRIPT_PATH = 'javaScript/'
 
@@ -20,6 +22,13 @@
         <meta name="description" content="<%tagline%>" />
         <title><%name%></title>
         <link rel="stylesheet" type="text/css" media="screen" href="<%STYLE_SHEET_PATH%>main.css">
+
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<%IMAGE_APPLE_TOUCH_ICON_PATH%>144x144-precomposed.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<%IMAGE_APPLE_TOUCH_ICON_PATH%>114x114-precomposed.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<%IMAGE_APPLE_TOUCH_ICON_PATH%>72x72-precomposed.png" />
+        <link rel="apple-touch-icon-precomposed" href="<%IMAGE_APPLE_TOUCH_ICON_PATH%>57x57-precomposed.png" />
+        <link rel="shortcut icon" type="image/x-icon" href="<%IMAGE_PATH%>favicon.ico" />
+
         <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>jquery-1.9.1.js"></script>
         <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>jquery-scrollTo-1.4.3.1.js"></script>
         <script type="text/javascript">
