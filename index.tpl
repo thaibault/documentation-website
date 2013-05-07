@@ -29,20 +29,11 @@
         <link rel="apple-touch-icon-precomposed" href="<%IMAGE_APPLE_TOUCH_ICON_PATH%>57x57-precomposed.png" />
         <link rel="shortcut icon" type="image/x-icon" href="<%IMAGE_PATH%>favicon.ico" />
 
-        <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>jquery-1.9.1.js"></script>
-        <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>jquery-scrollTo-1.4.3.1.js"></script>
-        <script type="text/javascript">
-            jQuery(function(jQuery) {
-                jQuery('body div.toc a[href^="#"]').click(function() {
-                    jQuery.scrollTo(jQuery(this).attr('href'), 'slow');
-                });
-                jQuery('body a[href="#legal-notice"]').click(function() {
-                    jQuery('body section#main_content').fadeOut('slow', function() {
-                        jQuery('body section#legal-notice').fadeIn('slow');
-                    });
-                });
-            });
-        </script>
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]><script src="<%JAVA_SCRIPT_PATH%>html5shiv-3.6.2.js"></script><![endif]-->
+        <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>coffeeScript-1.6.2.js"></script>
+        <script type="text/coffeescript" src="<%COFFEE_SCRIPT_PATH%>require-1.0.coffee"></script>
+        <script type="text/coffeescript" src="<%COFFEE_SCRIPT_PATH%>main.coffee"></script>
     </head>
 
 <!--endregion-->
