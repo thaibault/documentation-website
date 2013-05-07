@@ -33,6 +33,9 @@
         <!--[if lt IE 9]><script src="<%JAVA_SCRIPT_PATH%>html5shiv-3.6.2.js"></script><![endif]-->
         <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>coffeeScript-1.6.2.js"></script>
         <script type="text/coffeescript" src="<%COFFEE_SCRIPT_PATH%>require-1.0.coffee"></script>
+        <script type="text/javascript">
+            window.OPTIONS = {'trackingCode': '<%google_traking_code%>', 'logging': true};
+        </script>
         <script type="text/coffeescript" src="<%COFFEE_SCRIPT_PATH%>main.coffee"></script>
     </head>
 
@@ -88,15 +91,6 @@
         </div>
         
     <!--endregion-->
-
-        <script type="text/javascript">
-            var gaJsHost = (('https:' === document.location.protocol) ? 'https://ssl.' : 'http://www.');
-            document.write(unescape('%3Cscript src="' + gaJsHost + 'google-analytics.com/ga.js" type="text/javascript"%3E%3C/script%3E'));
-            try {
-                var pageTracker = _gat._getTracker('<%google_traking_code%>');
-                pageTracker._trackPageview();
-            } catch(err) {}
-        </script>
 
 <!--endregion-->
 
