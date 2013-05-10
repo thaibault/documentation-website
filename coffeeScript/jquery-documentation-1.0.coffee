@@ -92,10 +92,10 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
             @returns {jQuery.Tools} Returns the current instance.
         ###
         initialize: (options) ->
+            console.log this._domNodes.tableOfContentLinks
+            console.log options
             super options
             this._domNodes = this.grapDomNodes this._options.domNodes
-            console.log this._domNodes.tableOfContentLinks
-            console.log options 
             this.on this._domNodes.tableOfContentLinks, 'click', ->
                 alert 5
                 jQuery.scrollTo jQuery(this).attr('href'), 'slow'
