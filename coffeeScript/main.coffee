@@ -2,6 +2,7 @@
 
 ## standalone
 ## this.jQuery.noConflict(true) (jQuery) ->
+##     alert('A')
 ##     jQuery.Documentation window.GLOBALS
 this.require.noConflict = true
 this.require.asyncronModulePatternHandling =
