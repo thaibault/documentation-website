@@ -2,7 +2,7 @@
 
 ## standalone
 ## this.jQuery.noConflict(true) (jQuery) ->
-##     jQuery.Documentation 'logging': true
+##     jQuery.Documentation window.GLOBALS
 this.require.noConflict = true
 this.require.asyncronModulePatternHandling =
     '^.+\.coffee$': (coffeeScriptCode, module) =>
