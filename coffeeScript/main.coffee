@@ -2,7 +2,7 @@
 
 ## standalone
 ## this.jQuery.noConflict(true) (jQuery) ->
-##     jQuery.Documentation window.GLOBALS
+##     jQuery.Documentation window.OPTIONS
 this.require.noConflict = true
 this.require.asyncronModulePatternHandling =
     '^.+\.coffee$': (coffeeScriptCode, module) =>
@@ -23,6 +23,6 @@ this.require(
         function is called when the dom-tree was loaded.
     ###
     # Production mode:
-    # jQuery.noConflict(true) (jQuery) -> jQuery.Documentation window.GLOBALS
-    jQuery (jQuery) -> jQuery.Documentation window.GLOBALS)
+    # jQuery.noConflict(true) (jQuery) -> jQuery.Documentation window.OPTIONS
+    jQuery (jQuery) -> jQuery.Documentation window.OPTIONS)
 ##
