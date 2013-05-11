@@ -11,17 +11,31 @@
 
 <% # endregion
 
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html
+
+<!-- region browser sniffing -->
+
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
+
+<!-- endregion -->
 
 <!--region header-->
 
     <head>
+        <title><%name%></title>
+
+    <!-- meta informations -->
+
         <meta charset='utf-8' />
         <meta http-equiv="X-UA-Compatible" content="chrome=1" />
         <meta name="description" content="<%tagline%>" />
-        <title><%name%></title>
-        <link rel="stylesheet" type="text/css" media="screen" href="<%STYLE_SHEET_PATH%>main.css">
+
+    <!-- endregion -->
+
+    <!-- region fav and touch icons -->
 
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<%IMAGE_APPLE_TOUCH_ICON_PATH%>144x144-precomposed.png" />
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<%IMAGE_APPLE_TOUCH_ICON_PATH%>114x114-precomposed.png" />
@@ -29,6 +43,11 @@
         <link rel="apple-touch-icon-precomposed" href="<%IMAGE_APPLE_TOUCH_ICON_PATH%>57x57-precomposed.png" />
         <link rel="shortcut icon" type="image/x-icon" href="<%IMAGE_PATH%>favicon.ico" />
 
+    <!-- endregion -->
+
+    <!-- region ressources -->
+
+        <link type="text/css" rel="stylesheet/less" media="screen" href="<%LESS_PATH%>main.less">
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]><script src="<%JAVA_SCRIPT_PATH%>html5shiv-3.6.2.js"></script><![endif]-->
         <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>coffeeScript-1.6.2.js"></script>
@@ -37,11 +56,14 @@
             window.OPTIONS = {'trackingCode': '<%google_traking_code%>', 'logging': true};
         </script>
         <script type="text/coffeescript" src="<%COFFEE_SCRIPT_PATH%>main.coffee"></script>
+
+    <!-- endregion -->
+
     </head>
 
 <!--endregion-->
 
-    <body>
+    <body class="documentation">
 
 <!--region body-->
 

@@ -14,8 +14,8 @@ this.require.asyncronModulePatternHandling =
             this.console.log this.CoffeeScript.compile coffeeScriptCode
             throw exception
 this.require(
-    [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']], (jQuery)
-->
+    [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']],
+(jQuery) ->
     ###
         Embedd jQuery and require full compatible to all other
         JavaScripts.
