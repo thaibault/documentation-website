@@ -67,9 +67,9 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
             domNodeSelectorPrefix: 'body.documentation'
             domNodes:
                 tableOfContentLinks: 'div.toc a[href^="#"]'
-                imprintLink: 'a[href="#legal-notice"]'
+                imprintLink: 'a[href="#imprint"]'
+                imprintContent: 'section#imprint'
                 mainContent: 'section#main_content'
-                imprintContent: 'section#legal-notice'
             trackingCode: 'UA-0-0'
         ###*
             Holds all needed dom nodes.
