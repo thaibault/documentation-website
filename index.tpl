@@ -82,7 +82,7 @@
             <section id="main_content" class="inner">
                 <% print(rendered_markdown)
             </section>
-            <section id="legal-notice" class="legal-notice">
+            <section id="imprint" class="imprint">
                 <p>
                     Anbieter:
                     <br />
@@ -108,7 +108,7 @@
                 <p class="copyright">
                     <%name%> maintained by <a href="https://github.com/thaibault">thaibault</a>
                 </p>
-                <a href="#legal-notice">legal notice</a>
+                <a href="#imprint">imprint</a>
             </footer>
         </div>
         
