@@ -1,5 +1,7 @@
 #!/bin/bash --login
 
+# region header
+
 # Copyright Torben Sickert 16.12.2012
 
 # License
@@ -9,6 +11,8 @@
 
 # vim: set tabstop=4 shiftwidth=4 expandtab:
 # vim: foldmethod=marker foldmarker=region,endregion:
+
+# endregion
 
 # Prints a dummy documentation content.
 function printDummyDocumentationContent() {
