@@ -101,6 +101,7 @@ endregion
                 <% print(rendered_markdown)
             </section>
             <section id="imprint" class="imprint">
+                <h1>Imprint</h1>
                 <p>
                     Anbieter:
                     <br />
