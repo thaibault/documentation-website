@@ -78,7 +78,7 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
             domNodes:
                 tableOfContentLinks: 'div.toc a[href^="#"]'
                 imprintLink: 'a[href="#imprint"]'
-                imprintContent: 'section#imprint'
+                imprintContent: 'section.imprint'
                 mainContent: 'section#main_content'
             trackingCode: 'UA-0-0'
         ###*
