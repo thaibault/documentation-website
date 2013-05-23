@@ -104,6 +104,7 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
         initialize: (options) ->
             super options
             this._domNodes = this.grapDomNodes this._options.domNodes
+            this._domNodes.imprintContent.hide()
             this.on this._domNodes.tableOfContentLinks, 'click', ->
                 jQuery.scrollTo jQuery(this).attr('href'), 'slow'
             this.on this._domNodes.imprintLink, 'click', =>
