@@ -132,7 +132,7 @@ a {
 
 footer a:hover {
     color: #43adff;
-    text-shadow: #0090ff 0px 0px 2px;
+    /*text-shadow: #0090ff 0px 0px 2px;*/
 }
 
 em {
@@ -169,9 +169,6 @@ pre, code {
     border-radius: 2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
-
-
-
 }
 
 pre {
@@ -245,12 +242,12 @@ th {
     padding: 10px;
     background: #373737;
     color: #fff;
- }
+}
 
 td {
     padding: 10px;
     border: 1px solid #373737;
- }
+}
 
 form {
     background: #f2f2f2;
@@ -427,10 +424,154 @@ Small Device Styles
     }
 }
 
-header {
-    h1, h2 {
-        a {
-            color: #fff;
+// region constants
+
+@imagePath: '../image/';
+
+@maximumSmartphoneWidth: 767px;
+@maximumTabletWidth: 979px;
+
+@color1: #1b1b1b;
+
+// endregion
+
+/* region stylesheets */
+
+body.documentation {
+
+    /* region media query change indicator */
+
+    border-left-width: 0;
+    /* desktop mode */
+    border-left-style: dashed;
+    @media (max-width: @maximumTabletWidth) {
+        border-left-style: solid;
+    }
+    @media (max-width: @maximumSmartphoneWidth) {
+        border-left-style: dotted;
+    }
+
+    /* endregion */
+
+    /* region icons */
+
+    // nicht mehr notwendig wenn bootstrap integriert wurde.
+    [class^="icon-"], [class*=" icon-"] {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin-top: 1px;
+        line-height: 14px;
+        vertical-align: text-top;
+        background-image: url("../img/glyphicons-halflings.png");
+        background-position: 14px 14px;
+        background-repeat: no-repeat;
+    }
+    [class^="icon-"], [class*=" icon-"] {
+        background-image: url('@{imagePath}bootstrap-2.3.1/glyphicons-halflings.png');
+    }
+    .icon-white,
+    .nav-pills > .active > a > [class^="icon-"],
+    .nav-pills > .active > a > [class*=" icon-"],
+    .nav-list > .active > a > [class^="icon-"],
+    .nav-list > .active > a > [class*=" icon-"],
+    .navbar-inverse .nav > .active > a > [class^="icon-"],
+    .navbar-inverse .nav > .active > a > [class*=" icon-"],
+    .dropdown-menu > li > a:hover > [class^="icon-"],
+    .dropdown-menu > li > a:focus > [class^="icon-"],
+    .dropdown-menu > li > a:hover > [class*=" icon-"],
+    .dropdown-menu > li > a:focus > [class*=" icon-"],
+    .dropdown-menu > .active > a > [class^="icon-"],
+    .dropdown-menu > .active > a > [class*=" icon-"],
+    .dropdown-submenu:hover > a > [class^="icon-"],
+    .dropdown-submenu:focus > a > [class^="icon-"],
+    .dropdown-submenu:hover > a > [class*=" icon-"],
+    .dropdown-submenu:focus > a > [class*=" icon-"] {
+        background-image: url('@{imagePath}bootstrap-2.3.1/glyphicons-halflings-white.png');
+    }
+    // nicht mehr notwendig wenn bootstrap integriert wurde.
+    .icon-arrow-left {
+        background-position: -240px -96px;
+    }
+    .icon-arrow-home {
+        margin-right: 10px;
+        margin-top: 12px;
+        float: left;
+    }
+
+    /* endregion */
+
+    /* region header */
+
+    header {
+        h1, h2 {
+            a {
+                color: #fff;
+            }
         }
     }
+
+    /* endregion */
+
+    /* region buttons */
+
+    a[href="#top"] {
+        position: fixed;
+        z-index: 4;
+        bottom: 35px;
+        right: 30px;
+    }
+
+    /* endregion */
+
+    /* region window loading cover */
+
+    div.window-loading-cover {
+        background-color: white;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        z-index: 20;
+
+        div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background-color: @color1;
+        }
+    }
+
+    /* endregion */
+
+    /* region sections */
+
+        /* region imprint */
+
+    section.imprint {
+        p {
+            margin-bottom: 45px;
+        }
+        a[href="#"] {
+            float: left;
+            margin-top: 7px;
+        }
+        a:hover {
+            color: #0069ba;
+        }
+    }
+
+        /* endregion */
+
+    /* endregion */
+
+    /* region footer */
+
+    footer a:hover {
+        color: #0069ba;
+    }
+
+    /* endregion */
+
 }
+
+// endregion

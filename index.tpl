@@ -40,6 +40,12 @@ endregion -->
 
 <!-- endregion -->
 
+<% # region runtime
+
+<% START_UP_ANIMATION_NUMBER = 1
+
+<% # endregion
+
 <!-- region header -->
 
     <head>
@@ -81,25 +87,56 @@ endregion -->
 
 <!-- endregion -->
 
-    <body class="documentation">
-
 <!-- region body -->
+
+    <body class="documentation">
+        <div class="window-loading-cover"><div></div></div>
+
+    <!-- region header -->
 
         <div id="header_wrap" class="outer">
             <header class="inner">
-                <a id="forkme_banner" href="https://github.com/thaibault/<%name%>">View on GitHub</a>
-                <h1 id="project_title"><a href="http://thaibault.github.io/<%name%>"><%name%></h1>
-                <h2 id="project_tagline"><%tagline%></h2>
+                <% START_UP_ANIMATION_NUMBER += 1
+                <a class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%>" id="forkme_banner" href="https://github.com/thaibault/<%name%>">
+                    View on GitHub
+                </a>
+                <% START_UP_ANIMATION_NUMBER += 1
+                <h1 class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%>" id="project_title">
+                    <a href="http://thaibault.github.io/<%name%>">
+                        <%name%>
+                    </a>
+                </h1>
+                <% START_UP_ANIMATION_NUMBER += 1
+                <h2 class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%>" id="project_tagline">
+                    <%tagline%>
+                </h2>
                 <section id="downloads">
-                    <a class="zip_download_link" href="https://github.com/thaibault/<%name%>/zipball/master">Download this project as a .zip file</a>
-                    <a class="tar_download_link" href="https://github.com/thaibault/<%name%>/tarball/master">Download this project as a tar.gz file</a>
+                    <a class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER + 2%> zip_download_link" href="https://github.com/thaibault/<%name%>/zipball/master">
+                        Download this project as a .zip file
+                    </a>
+                    <a class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER + 1%> tar_download_link" href="https://github.com/thaibault/<%name%>/tarball/master">Download this project as a tar.gz file</a>
+                    <% START_UP_ANIMATION_NUMBER += 2
                 </section>
             </header>
         </div>
+
+    <!-- endregion -->
+
+    <!-- region sections -->
+
         <div id="main_content_wrap" class="outer">
-            <section id="main_content" class="inner">
+
+        <!-- region main content -->
+
+            <% START_UP_ANIMATION_NUMBER += 1
+            <section id="main_content" class="inner start-up-animation-number-<%START_UP_ANIMATION_NUMBER%>">
                 <% print(rendered_markdown)
             </section>
+
+        <!-- endregion -->
+
+        <!-- region imprint -->
+
             <section class="imprint inner">
                 <h1>Imprint</h1>
                 <p>
@@ -116,18 +153,26 @@ endregion -->
                     Email: <a href="mailto:t.sickert@gmail.com">t.sickert@gmail.com</a>
                     <br />
                     Website: <a href="http://thaibault.github.io/website">http://thaibault.github.io/website</a>
+                    <br />
+                    <i class="icon-arrow-home icon-arrow-left"></i><a href="#">home</a>
                 </p>
             </section>
         </div>
+
+        <!-- endregion -->
+
+    <!-- endregion -->
 
     <!-- region footer -->
 
         <div id="footer_wrap" class="outer">
             <footer class="inner">
-                <p class="copyright">
-                    <%name%> maintained by <a href="https://github.com/thaibault">thaibault</a>
+                <% START_UP_ANIMATION_NUMBER += 1
+                <p class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> copyright">
+                    <%name%> maintained by <a href="https://github.com/thaibault">thaibault</a> &middot; &copy; 2013 Torben Sickert, Inc. &middot; <a href="#imprint">imprint</a>
                 </p>
-                <a href="#imprint">imprint</a>
+                <% START_UP_ANIMATION_NUMBER += 1
+                <p class="pull-right"><a href="#top">top</a></p>
             </footer>
         </div>
 

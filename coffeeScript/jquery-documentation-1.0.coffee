@@ -70,6 +70,7 @@ this.window.require([
             domNodes:
                 tableOfContentLinks: 'div.toc a[href^="#"]'
                 imprintLink: 'a[href="#imprint"]'
+                homeLink: 'a[href="#"]'
                 imprintContent: 'section.imprint'
                 mainContent: 'section#main_content'
             trackingCode: 'UA-0-0'
@@ -101,6 +102,42 @@ this.window.require([
             this.on this._domNodes.imprintLink, 'click', =>
                 this._domNodes.mainContent.fadeOut 'slow', =>
                     this._domNodes.imprintContent.fadeIn 'slow'
+            this.on this._domNodes.homeLink, 'click', =>
+                this._domNodes.imprintContent.fadeOut 'slow', =>
+                    this._domNodes.mainContent.fadeIn 'slow'
+
+        # endregion
+
+        # region event handler
+
+        ###*
+            @description This method triggers if we change the current section.
+
+            @returns {jQuery.Tools} Returns the current instance.
+        ###
+        _onSwitchSection: (hash) ->
+            if hash isnt '#imprint'
+                this._domNodes.imprintContent.fadeOut 'slow', =>
+                    this._domNodes.mainContent.fadeIn 'slow'
+            this._domNodes.tableOfContentLinks.add(
+                this._domNodes.imprintLink
+            ).filter("a[href=\"#{hash}\"]").trigger 'click'
+            super()
+        ###*
+            @description This method triggers if all startup animations are
+                         ready.
+
+            @returns {jQuery.Tools} Returns the current instance.
+        ###
+        _onStartUpAnimationComplete: ->
+            # All start up effects are ready. Handle direct
+            # section links.
+            this._domNodes.tableOfContentLinks.add(
+                this._domNodes.imprintLink
+            ).filter("a[href=\"#{window.location.href.substr(
+                window.location.href.indexOf '#'
+            )}\"]").trigger 'click',
+            super()
 
         # endregion
 
