@@ -1,5 +1,12 @@
 ## require
 
+# region modline
+
+# vim: set tabstop=4 shiftwidth=4 expandtab:
+# vim: foldmethod=marker foldmarker=region,endregion:
+
+# endregion
+
 # region header
 
 # Copyright Torben Sickert 16.12.2012
@@ -8,9 +15,6 @@
 #    This library written by Torben Sickert stand under a creative commons
 #    naming 3.0 unported license.
 #    see http://creativecommons.org/licenses/by/3.0/deed.de
-
-# vim: set tabstop=4 shiftwidth=4 expandtab:
-# vim: foldmethod=marker foldmarker=region,endregion:
 
 ###!
     jQuery plugin for "jquery-1.9.1".
@@ -22,8 +26,8 @@
     @author t.sickert@gmail.com (Torben Sickert)
     @version 1.0 stable
     @fileOverview
-    This module provides common resuable logic a simple project documentation
-    webpage.
+    This module provides common reusable logic a simple project documentation
+    web page.
 ###
 
 ###*
@@ -33,14 +37,9 @@
 ## standalone
 ## ((jQuery) ->
 this.window.require([
-    ['less', 'less-1.3.3'],
-
-    ['jQuery.Tools', 'jquery-tools-1.0.coffee'],
-
-    ['jQuery.fn.carousel', 'bootstrap-2.3.1'],
-
-    ['jQuery.scrollTo', 'jquery-scrollTo-1.4.3.1']],
-(less, jQuery) ->
+    ['jQuery.Website', 'jquery-website-1.0.coffee'],
+    ['jQuery.fn.carousel', 'bootstrap-2.3.1']],
+(jQuery) ->
 ##
 
 # endregion
@@ -51,17 +50,11 @@ this.window.require([
         @memberOf jQuery
         @class
     ###
-    class Documentation extends jQuery.Tools.class
+    class Documentation extends jQuery.Website.class
 
     # region private properties
 
         __name__: 'Documentation'
-        __googleAnalyticsCode: "
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', '{1}', 'github.io');ga('send', 'pageview');"
 
     # endregion
 
@@ -73,8 +66,7 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
             @property {Object}
         ###
         _options:
-            logging: false
-            domNodeSelectorPrefix: 'body.documentation'
+            domNodeSelectorPrefix: 'body.{1}'
             domNodes:
                 tableOfContentLinks: 'div.toc a[href^="#"]'
                 imprintLink: 'a[href="#imprint"]'
@@ -103,25 +95,14 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
         ###
         initialize: (options) ->
             super options
-            this._domNodes = this.grapDomNodes this._options.domNodes
             this._domNodes.imprintContent.hide()
             this.on this._domNodes.tableOfContentLinks, 'click', ->
                 jQuery.scrollTo jQuery(this).attr('href'), 'slow'
             this.on this._domNodes.imprintLink, 'click', =>
                 this._domNodes.mainContent.fadeOut 'slow', =>
                     this._domNodes.imprintContent.fadeIn 'slow'
-            this._handleGooleAnalytics(this._options.trackingCode)
 
         # endregion
-
-    # endregion
-
-    # region protected methods
-
-        _handleGooleAnalytics: (trackingCode) ->
-            window.eval this.stringFormat(
-                this.__googleAnalyticsCode, trackingCode)
-            this
 
     # endregion
 
@@ -129,6 +110,8 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
     jQuery.Documentation = ->
         self = new Documentation
         self._controller.apply self, arguments
+    ###* @ignore ###
+    jQuery.Documentation.class = Documentation
 
 # endregion
 

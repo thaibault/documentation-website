@@ -18,7 +18,7 @@ License
 
 endregion -->
 
-<% # region locations 
+<% # region locations
 
 <% IMAGE_PATH = 'image/'
 <% IMAGE_APPLE_TOUCH_ICON_PATH = IMAGE_PATH + 'appleTouchIcon/'
@@ -40,12 +40,12 @@ endregion -->
 
 <!-- endregion -->
 
-<!--region header-->
+<!-- region header -->
 
     <head>
         <title><%name%></title>
 
-    <!-- meta informations -->
+    <!-- region meta informations -->
 
         <meta charset='utf-8' />
         <meta http-equiv="X-UA-Compatible" content="chrome=1" />
@@ -79,16 +79,16 @@ endregion -->
 
     </head>
 
-<!--endregion-->
+<!-- endregion -->
 
     <body class="documentation">
 
-<!--region body-->
+<!-- region body -->
 
         <div id="header_wrap" class="outer">
             <header class="inner">
                 <a id="forkme_banner" href="https://github.com/thaibault/<%name%>">View on GitHub</a>
-                <h1 id="project_title"><%name%></h1>
+                <h1 id="project_title"><a href="http://thaibault.github.io/<%name%>"><%name%></h1>
                 <h2 id="project_tagline"><%tagline%></h2>
                 <section id="downloads">
                     <a class="zip_download_link" href="https://github.com/thaibault/<%name%>/zipball/master">Download this project as a .zip file</a>
@@ -103,7 +103,7 @@ endregion -->
             <section class="imprint inner">
                 <h1>Imprint</h1>
                 <p>
-                    Anbieter:
+                    Anbieter von <a href="http://thaibault.github.io/<%name%>">http://thaibault.github.io/<%name%></a>:
                     <br />
                     Torben Sickert
                     <br />
@@ -113,14 +113,14 @@ endregion -->
                     <br />
                     Tel. 0049 (0) 176 / 10248185
                     <br />
-                    Internet: <a href="http://thaibault.github.io/<%name%>">http://thaibault.github.io/<%name%></a>
-                    <br />
                     Email: <a href="mailto:t.sickert@gmail.com">t.sickert@gmail.com</a>
+                    <br />
+                    Website: <a href="http://thaibault.github.io/website">http://thaibault.github.io/website</a>
                 </p>
             </section>
         </div>
 
-    <!--region footer-->
+    <!-- region footer -->
 
         <div id="footer_wrap" class="outer">
             <footer class="inner">
@@ -130,10 +130,10 @@ endregion -->
                 <a href="#imprint">imprint</a>
             </footer>
         </div>
-        
-    <!--endregion-->
 
-<!--endregion-->
+    <!-- endregion -->
+
+<!-- endregion -->
 
     </body>
 </html>
