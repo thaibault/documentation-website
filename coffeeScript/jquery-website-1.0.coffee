@@ -36,7 +36,6 @@ this.window.require([
     ['jQuery.fn.carousel', 'bootstrap-2.3.1'],
 
     ['jQuery.scrollTo', 'jquery-scrollTo-1.4.3.1'],
-    ['jQuery.fn.touchwipe', 'jquery-touchwipe.1.1.1'],
 
     ['jQuery.fn.spin', 'jquery-spin-1.2.8'],
 
