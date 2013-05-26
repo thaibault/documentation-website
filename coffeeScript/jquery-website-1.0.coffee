@@ -406,7 +406,7 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
             else
                 jQuery.scrollTo(
                     {top: "-=#{distanceToScroll}px", left: '-=0'},
-                    {onAfter: onAfter})
+                    {duration: 'normal', onAfter: onAfter})
             this
         ###*
             @description Scrolls to top of page. Runs the given function
