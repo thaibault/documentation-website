@@ -130,7 +130,7 @@ endregion -->
 
             <% START_UP_ANIMATION_NUMBER += 1
             <section id="main_content" class="inner start-up-animation-number-<%START_UP_ANIMATION_NUMBER%>">
-                <% print(rendered_markdown)
+                <%rendered_markdown%>
             </section>
 
         <!-- endregion -->
