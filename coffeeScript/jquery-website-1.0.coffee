@@ -91,6 +91,7 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
             addtionalPageLoadingTimeInMilliseconds: 0
             mediaQueryCssIndicatorStyleType: 'border-left-style'
             trackingCode: 'UA-0-0'
+            scrollInLinearTime: false
             mediaQueryCssIndicator:
                 desktop: 'dashed'
                 tablet: 'solid'
@@ -390,17 +391,22 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
         ###
         _scrollToTop: (onAfter=jQuery.noop()) ->
             distanceToTop = this._domNodes.window.scrollTop()
-            menuHeight = this._domNodes.topDomNode.find(
-                'div.navbar'
-            ).outerHeight()
-            distanceToScroll = distanceToTop + menuHeight
-            if distanceToTop < menuHeight
-                distanceToScroll = distanceToScroll + menuHeight -
-                    distanceToTop
-            jQuery.scrollTo(
-                {top: "-=#{distanceToScroll}px", left: '-=0'},
-                # Scroll as fast as we have distance to top.
-                {duration: distanceToScroll, onAfter: onAfter})
+            if this._options.scrollInLinearTime
+                menuHeight = this._domNodes.topDomNode.find(
+                    'div.navbar'
+                ).outerHeight()
+                distanceToScroll = distanceToTop + menuHeight
+                if distanceToTop < menuHeight
+                    distanceToScroll = distanceToScroll + menuHeight -
+                        distanceToTop
+                jQuery.scrollTo(
+                    {top: "-=#{distanceToScroll}px", left: '-=0'},
+                    # Scroll as fast as we have distance to top.
+                    {duration: distanceToScroll, onAfter: onAfter})
+            else
+                jQuery.scrollTo(
+                    {top: "-=#{distanceToScroll}px", left: '-=0'},
+                    {onAfter: onAfter})
             this
         ###*
             @description Scrolls to top of page. Runs the given function
