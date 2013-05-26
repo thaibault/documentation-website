@@ -129,7 +129,7 @@ endregion -->
         <!-- region main content -->
 
             <% START_UP_ANIMATION_NUMBER += 1
-            <section id="main_content" class="inner start-up-animation-number-<%START_UP_ANIMATION_NUMBER%>">
+            <section id="main_content" class="main-content inner start-up-animation-number-<%START_UP_ANIMATION_NUMBER%>">
                 <%rendered_markdown%>
             </section>
 
