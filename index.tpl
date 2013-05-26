@@ -140,7 +140,7 @@ endregion -->
             <section class="about-this-website inner">
                 <h1>About this website</h1>
                 <p>
-                    Anbieter von <a href="http://thaibault.github.io/<%name%>">http://thaibault.github.io/<%name%></a>:
+                    Provider of <a href="http://thaibault.github.io/<%name%>">http://thaibault.github.io/<%name%></a>:
                     <br />
                     Torben Sickert
                     <br />
