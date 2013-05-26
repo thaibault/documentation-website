@@ -135,10 +135,10 @@ endregion -->
 
         <!-- endregion -->
 
-        <!-- region imprint -->
+        <!-- region legal notes -->
 
-            <section class="imprint inner">
-                <h1>Imprint</h1>
+            <section class="about-this-website inner">
+                <h1>About this website</h1>
                 <p>
                     Anbieter von <a href="http://thaibault.github.io/<%name%>">http://thaibault.github.io/<%name%></a>:
                     <br />
@@ -169,7 +169,7 @@ endregion -->
             <footer class="inner">
                 <% START_UP_ANIMATION_NUMBER += 1
                 <p class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> copyright">
-                    <%name%> maintained by <a href="https://github.com/thaibault">thaibault</a> &middot; &copy; 2013 Torben Sickert, Inc. &middot; <a href="#imprint">imprint</a>
+                    <%name%> maintained by <a href="https://github.com/thaibault">thaibault</a> &middot; &copy; 2013 Torben Sickert, Inc. &middot; <a href="#about-this-website">about this website</a>
                 </p>
                 <% START_UP_ANIMATION_NUMBER += 1
                 <p class="pull-right"><a href="#top">top</a></p>

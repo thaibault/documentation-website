@@ -69,9 +69,9 @@ this.window.require([
             domNodeSelectorPrefix: 'body.{1}'
             domNodes:
                 tableOfContentLinks: 'div.toc a[href^="#"]'
-                imprintLink: 'a[href="#imprint"]'
+                legalNotesLink: 'a[href="#about-this-website"]'
                 homeLink: 'a[href="#"]'
-                imprintContent: 'section.imprint'
+                legalNotesContent: 'section.about-this-website'
                 mainContent: 'section#main_content'
             trackingCode: 'UA-0-0'
         ###*
@@ -96,14 +96,14 @@ this.window.require([
         ###
         initialize: (options) ->
             super options
-            this._domNodes.imprintContent.hide()
+            this._domNodes.legalNotesContent.hide()
             this.on this._domNodes.tableOfContentLinks, 'click', ->
                 jQuery.scrollTo jQuery(this).attr('href'), 'slow'
-            this.on this._domNodes.imprintLink, 'click', =>
+            this.on this._domNodes.legalNotesLink, 'click', =>
                 this._domNodes.mainContent.fadeOut 'slow', =>
-                    this._domNodes.imprintContent.fadeIn 'slow'
+                    this._domNodes.legalNotesContent.fadeIn 'slow'
             this.on this._domNodes.homeLink, 'click', =>
-                this._domNodes.imprintContent.fadeOut 'slow', =>
+                this._domNodes.legalNotesContent.fadeOut 'slow', =>
                     this._domNodes.mainContent.fadeIn 'slow'
 
         # endregion
@@ -116,11 +116,11 @@ this.window.require([
             @returns {jQuery.Tools} Returns the current instance.
         ###
         _onSwitchSection: (hash) ->
-            if hash isnt '#imprint'
-                this._domNodes.imprintContent.fadeOut 'slow', =>
+            if hash isnt '#about-this-website'
+                this._domNodes.legalNotesContent.fadeOut 'slow', =>
                     this._domNodes.mainContent.fadeIn 'slow'
             this._domNodes.tableOfContentLinks.add(
-                this._domNodes.imprintLink
+                this._domNodes.legalNotesLink
             ).filter("a[href=\"#{hash}\"]").trigger 'click'
             super()
         ###*
@@ -133,7 +133,7 @@ this.window.require([
             # All start up effects are ready. Handle direct
             # section links.
             this._domNodes.tableOfContentLinks.add(
-                this._domNodes.imprintLink
+                this._domNodes.legalNotesLink
             ).filter("a[href=\"#{window.location.href.substr(
                 window.location.href.indexOf '#'
             )}\"]").trigger 'click',
