@@ -390,8 +390,8 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
             @returns {jQuery.Tools} Returns the current instance.
         ###
         _scrollToTop: (onAfter=jQuery.noop()) ->
-            distanceToTop = this._domNodes.window.scrollTop()
             if this._options.scrollInLinearTime
+                distanceToTop = this._domNodes.window.scrollTop()
                 menuHeight = this._domNodes.topDomNode.find(
                     'div.navbar'
                 ).outerHeight()
@@ -405,8 +405,8 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
                     {duration: distanceToScroll, onAfter: onAfter})
             else
                 jQuery.scrollTo(
-                    {top: "-=#{distanceToScroll}px", left: '-=0'},
-                    {duration: 'normal', onAfter: onAfter})
+                    {top: 0, left: 0},
+                    {duration: 'slow', onAfter: onAfter})
             this
         ###*
             @description Scrolls to top of page. Runs the given function
