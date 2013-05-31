@@ -264,7 +264,7 @@ Full-Width Styles
 
 .inner {
     position: relative;
-    max-width: 640px;
+    max-width: 650px;
     padding: 20px 10px;
     margin: 0 auto;
 }
@@ -380,7 +380,6 @@ Small Device Styles
     }
 
     .inner {
-        min-width: 320px;
         max-width: 480px;
     }
 
@@ -573,6 +572,16 @@ body.documentation {
 
     /* endregion */
 
+    /* region responsive */
+
+    @media (max-width: 700px) {
+        a[href="#top"] {
+            visibility: hidden;
+        }
+    }
+
+    /* endregion */
+
 }
 
-// endregion
+/* endregion */
