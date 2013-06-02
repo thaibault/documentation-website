@@ -26,9 +26,6 @@
     @name jQuery
     @see www.jquery.com
 ###
-
-# ['jQuery.fn.spin', 'jquery-spin-1.2.8'],
-
 ## standalone
 ## ((jQuery) ->
 this.window.require([
@@ -40,6 +37,7 @@ this.window.require([
 
     ['jQuery.scrollTo', 'jquery-scrollTo-1.4.3.1'],
 
+    ['jQuery.fn.spin', 'jquery-spin-1.2.8'],
 
     ['jQuery.fn.hashchange', 'jquery-observeHashChange-1.0']],
 (less, jQuery) ->
