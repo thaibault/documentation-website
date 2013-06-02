@@ -1,4 +1,5 @@
 //fgnass.github.com/spin.js#v1.2.8
+//NOTE: pre was renamed to ppre. This provides a yuicompressor bug workaround.
 !function(window, document, jQuery, undefined) {
 
   /**
