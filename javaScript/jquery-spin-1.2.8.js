@@ -6,7 +6,7 @@
    * Licensed under the MIT license
    */
 
-  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
+  var pprefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor pprefixes */
     , animations = {} /* Animation rules keyed by their name */
     , useCssAnimations;
 
@@ -50,12 +50,12 @@
     var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
       , start = 0.01 + i/lines*100
       , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
-      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
-      , pre = prefix && '-'+prefix+'-' || ''
+      , pprefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
+      , ppre = pprefix && '-'+pprefix+'-' || ''
 
     if (!animations[name]) {
       sheet.insertRule(
-        '@' + pre + 'keyframes ' + name + '{' +
+        '@' + ppre + 'keyframes ' + name + '{' +
         '0%{opacity:' + z + '}' +
         start + '%{opacity:' + alpha + '}' +
         (start+0.01) + '%{opacity:1}' +
@@ -69,7 +69,7 @@
   }
 
   /**
-   * Tries various vendor prefixes and returns the first supported property.
+   * Tries various vendor pprefixes and returns the first supported property.
    **/
   function vendor(el, prop) {
     var s = el.style
@@ -78,8 +78,8 @@
 
     if(s[prop] !== undefined) return prop
     prop = prop.charAt(0).toUpperCase() + prop.slice(1)
-    for(i=0; i<prefixes.length; i++) {
-      pp = prefixes[i]+prop
+    for(i=0; i<pprefixes.length; i++) {
+      pp = pprefixes[i]+prop
       if(s[pp] !== undefined) return pp
     }
   }
