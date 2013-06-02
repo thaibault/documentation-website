@@ -8,7 +8,7 @@
 
   var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
     , animations = {} /* Animation rules keyed by their name */
-    , useCssAnimations
+    , useCssAnimations;
 
   /**
    * Utility function to create elements. If no tag name is given,
@@ -16,10 +16,10 @@
    */
   function createEl(tag, prop) {
     var el = document.createElement(tag || 'div')
-      , n
+      , n;
 
     for(n in prop) el[n] = prop[n]
-    return el
+    return el;
   }
 
   /**
@@ -27,9 +27,9 @@
    */
   function ins(parent /* child1, child2, ...*/) {
     for (var i=1, n=arguments.length; i<n; i++)
-      parent.appendChild(arguments[i])
+      parent.appendChild(arguments[i]);
 
-    return parent
+    return parent;
   }
 
   /**
@@ -38,8 +38,8 @@
   var sheet = function() {
     var el = createEl('style', {type : 'text/css'})
     ins(document.getElementsByTagName('head')[0], el)
-    return el.sheet || el.styleSheet
-  }()
+    return el.sheet || el.styleSheet;
+  }();
 
   /**
    * Creates an opacity keyframe animation rule and returns its name.
@@ -152,16 +152,16 @@
         , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
         , mid = o.radius+o.length+o.width
         , ep // element position
-        , tp // target position
+        , tp; // target position
 
       if (target) {
-        target.insertBefore(el, target.firstChild||null)
-        tp = pos(target)
-        ep = pos(el)
+        target.insertBefore(el, target.firstChild||null);
+        tp = pos(target);
+        ep = pos(el);
         css(el, {
-          left: (o.left == 'auto' ? tp.x-ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + 'px',
-          top: (o.top == 'auto' ? tp.y-ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid)  + 'px'
-        })
+          left: (((o.left == 'auto')?(tp.x-ep.x + (target.offsetWidth >> 1)):(parseInt(o.left, 10) + mid)) + 'px'),
+          top: (((o.top == 'auto')?(tp.y-ep.y + (target.offsetHeight >> 1)):(parseInt(o.top, 10) + mid)) + 'px')
+        });
       }
 
       el.setAttribute('aria-role', 'progressbar')
@@ -173,18 +173,18 @@
           , fps = o.fps
           , f = fps/o.speed
           , ostep = (1-o.opacity) / (f*o.trail / 100)
-          , astep = f/o.lines
+          , astep = f/o.lines;
 
         ;(function anim() {
           i++;
           for (var s=o.lines; s; s--) {
-            var alpha = Math.max(1-(i+s*astep)%f * ostep, o.opacity)
-            self.opacity(el, o.lines-s, alpha, o)
+            var alpha = Math.max(1-(i+s*astep)%f * ostep, o.opacity);
+            self.opacity(el, o.lines-s, alpha, o);
           }
-          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
-        })()
+          self.timeout = self.el && setTimeout(anim, (1000/fps));
+        })();
       }
-      return self
+      return self;
     },
 
     stop: function() {
