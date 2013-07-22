@@ -32,6 +32,6 @@ this.require(
         function is called when the dom-tree was loaded.
     ###
     jQuery.noConflict(true) (jQuery) -> jQuery.Documentation(
-        googleTrackingCode: 'google_traking_code'
+        googleTrackingCode: '<%GOOGLE_TRACKING_CODE%>'
         logging: true)
 ##
