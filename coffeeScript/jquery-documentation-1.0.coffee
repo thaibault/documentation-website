@@ -1,4 +1,4 @@
-## require
+#!/usr/bin/env require
 
 # region modline
 
