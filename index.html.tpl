@@ -153,7 +153,8 @@ endregion -->
                     <br />
                     Website: <a href="http://thaibault.github.io/website">http://thaibault.github.io/website</a>
                     <br />
-                    <i class="icon-arrow-home icon-arrow-left"></i><a href="#">home</a>
+                    <span class="glyphicon glyphicon-arrow-left arrow-left-home"></span>
+                    <a href="#">home</a>
                 </p>
             </section>
         </div>
