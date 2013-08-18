@@ -55,6 +55,7 @@ License
         // css3
         background:         linear-gradient(@from, @to);
         .direction;
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)", @to, @from));
     }
     // Shows a border around given dom node.
     .bordered(
@@ -66,14 +67,12 @@ License
         border-right: @type @thickness @right-color;
         border-bottom: @type @thickness @bottom-color;
     }
-    /*
-        Mixin for CSS-property "tab-size", generates cross-browser-compatible
-        "tab-size" output.
-     */
+    // Mixin for CSS-property "tab-size", generates cross-browser-compatible
+    // "tab-size" output.
     .tab-size(@value: 4) {
-        -moz-tab-size: @value;
-          -o-tab-size: @value;
-             tab-size: @value;
+        -moz-tab-size: @arguments;
+          -o-tab-size: @arguments;
+             tab-size: @arguments;
     }
     // Generates cross browser compatible "transform" for a given element.
     .transform(@arguments) {
@@ -94,10 +93,8 @@ License
     .scale(@ratio:1.5){
         .transform(scale(@arguments));
     }
-    /*
-        Generates cross-browser-compatible "transition" output for a given
-        element.
-    */
+    // Generates cross-browser-compatible "transition" output for a given
+    // element.
     .transition(@duration: 0.2s, @ease: ease-out) {
         -webkit-transition: @arguments;
            -moz-transition: @arguments;
@@ -192,10 +189,8 @@ License
         column-rule-style: @columnRuleStyle;
         column-rule-width: @columnRuleWidth;
     }
-    /*
-        This property is used to determine whether the backgrounds extends
-        into the border or not.
-    */
+    // This property is used to determine whether the backgrounds extends
+    // into the border or not.
     .background-clip(@value: padding-box) {
         -webkit-background-clip: @arguments;
            -moz-background-clip: @arguments;
@@ -203,13 +198,13 @@ License
     }
     // Make a dom node transparent.
     .opacity(@opacity) {
-       -webkit-opacity: @arguments;
+        -webkit-opacity: @arguments;
         // safari 1.x
-        -khtml-opacity: @arguments;
+         -khtml-opacity: @arguments;
         // netscape
-          -moz-opacity: @arguments;
+           -moz-opacity: @arguments;
         // css3
-               opacity: @arguments;
+                opacity: @arguments;
         @opacityInPercent: @opacity * 100;
         // internetExplorer 8
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=@{opacityInPercent})";
