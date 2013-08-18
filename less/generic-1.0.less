@@ -55,7 +55,8 @@ License
         // css3
         background:         linear-gradient(@from, @to);
         .direction;
-        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)", @to, @from));
+        // NOTE: Won't parse sometimes.
+        // filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)", @to, @from));
     }
     // Shows a border around given dom node.
     .bordered(
