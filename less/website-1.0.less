@@ -24,13 +24,13 @@ License
 
 // endregion
 
-// region constants
+// region consta nts
 
 @imagePath: '../image/';
 @fontPath: '../font/';
 
-@maximumSmartphoneWidth: 767px;
-@maximumTabletWidth: 979px;
+@minimumTabletWidth: 767px;
+@minimumDesktopWidth: 979px;
 
 @color1: #1b1b1b;
 @color2: #1b1b1b;
@@ -57,13 +57,13 @@ body {
     /* region media query change indicator */
 
     border-left-width: 0;
-    /* desktop mode */
-    border-left-style: dashed;
-    @media (max-width: @maximumTabletWidth) {
+    /* smartphone mode */
+    border-left-style: dotted;
+    @media (min-width: @minimumTabletWidth) {
         border-left-style: solid;
     }
-    @media (max-width: @maximumSmartphoneWidth) {
-        border-left-style: dotted;
+    @media (min-width: @minimumDesktopWidth) {
+        border-left-style: dashed;
     }
 
     /* endregion */
