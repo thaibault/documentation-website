@@ -82,11 +82,39 @@ function printDummyDocumentationContent() {
 <span class="c1">// An 80 chars comment: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</span>
 <span class="c1">// A 120 chars comment: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</span>
 <span class="nx">tools</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span>
-</pre></div></td></tr></table><p>Use as extension for object orientated jquery plugin using inheritance and<br/>dom node reference. This plugin pattern gives their instance back.</p><table class=codehilitetable><tr><td class=linenos><div class=linenodiv></pre>
+</pre>
                 </div>
             </td>
         </tr>
     </tbody>
+    <tbody>
+        <tr>
+            <td class="linenos">
+                <div class="linenodiv">
+                    <pre> 10
+ 11
+ 12
+ 100
+ 111
+ 999</pre>
+                </div>
+            </td>
+            <td class="code">
+                <div class="codehilite">
+                    <pre><span class="err">#</span><span class="o">!</span><span class="err">/usr/bin/env javaScript</span>
+
+<span class="kd">var</span> <span class="nx">tools</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">Tools</span><span class="p">({</span><span class="s1">&#39;logging&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+<span class="c1">// An 80 chars comment: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</span>
+<span class="c1">// A 120 chars comment: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</span>
+<span class="nx">tools</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span>
+</pre>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    <div class="codehilite">
+        <pre>&gt;&gt;&gt; /path/to/boostNode/runnable/macro.py -p /path/to/boostNode -e py</pre>
+    </div>
 </table>
 <h3 id="e">e</h2>
 <p>

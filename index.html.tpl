@@ -93,7 +93,7 @@ endregion -->
                     View on GitHub
                 </a>
                 <% START_UP_ANIMATION_NUMBER += 1
-                <h1 class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%>" class="project-title">
+                <h1 class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> project-title">
                     <a href="http://thaibault.github.io/<%NAME%>"><%NAME%></a>
                 </h1>
                 <% START_UP_ANIMATION_NUMBER += 1
