@@ -35,7 +35,6 @@ body.documentation {
 
     color: #373737;
     background: #212121;
-    font-size: 16px;
     font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
     line-height: 1.5;
 
@@ -63,7 +62,7 @@ body.documentation {
 
         /* endregion */
 
-    /* region headlines */
+        /* region headlines */
 
     h1, h2, h3, h4, h5, h6 {
         margin: 10px 0;
@@ -94,14 +93,14 @@ body.documentation {
         font-size: 16px;
     }
 
-    /* endregion */
+        /* endregion */
 
-    /* region links */
+        /* region links */
 
     a[href="#top"] {
         position: fixed;
         z-index: 4;
-        bottom: 35px;
+        bottom: 30px;
         right: 45px;
     }
     a {
@@ -111,24 +110,13 @@ body.documentation {
 
         transition: color 0.5s ease;
         transition: text-shadow 0.5s ease;
-        -webkit-transition: color 0.5s ease;
-        -webkit-transition: text-shadow 0.5s ease;
-        -moz-transition: color 0.5s ease;
-        -moz-transition: text-shadow 0.5s ease;
-        -o-transition: color 0.5s ease;
-        -o-transition: text-shadow 0.5s ease;
-        -ms-transition: color 0.5s ease;
-        -ms-transition: text-shadow 0.5s ease;
     }
     a:hover {
         color: #0069ba;
     }
 
-    /* endregion */
+        /* endregion */
 
-    p {
-        margin: 9px 0 13px 0;
-    }
     hr {
         height: 1px;
         margin-bottom: 5px;
@@ -253,11 +241,12 @@ body.documentation {
             /* region code blocks */
 
             div.codehilite pre {
-                width: 699px;
                 #generic > .border-radius(@borderInPixel);
                 #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
             }
             table {
+                border-collapse: collapse;
+
                 margin-bottom: 20px;
                 text-align: left;
 
@@ -268,29 +257,30 @@ body.documentation {
                     color: #fff;
                 }
                 tbody tr {
-                    td.linenos div.linenodiv pre, td.code div.codehilite pre {
-                        margin: 0;
-                        #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
-                        white-space: pre;
-                    }
-                    td.linenos div.linenodiv pre {
-                        width: 42px;
-                        padding: 10px 8px 10px 0;
-                        text-align: right;
-                        color: #666666;
+                    td.linenos, td.code {
+                        padding: 0;
 
-                        #generic > .rounded-border(0, 0, @borderInPixel, @borderInPixel);
-                    }
-                    td.code div.codehilite pre {
-                        width: 654px;
-                        padding: 10px;
-                        overflow: auto;
-                        #generic > .rounded-border(@borderInPixel, @borderInPixel, 0, 0);
+                        div.linenodiv pre, div.codehilite pre {
+                            #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
+                            white-space: pre;
+                        }
+                        div.linenodiv pre {
+                            padding: 10px 8px 10px 0;
+                            text-align: right;
+                            color: #666666;
 
-                        /* Don't highlight syntax errors. */
-                        .err {
-                            color: #222;
-                            border: 0;
+                            #generic > .rounded-border(0, 0, @borderInPixel, @borderInPixel);
+                        }
+                        div.codehilite pre {
+                            padding: 10px;
+                            overflow: auto;
+                            #generic > .rounded-border(@borderInPixel, @borderInPixel, 0, 0);
+
+                            /* Don't highlight syntax errors. */
+                            .err {
+                                color: #222;
+                                border: 0;
+                            }
                         }
                     }
                 }
@@ -341,6 +331,78 @@ body.documentation {
             }
         }
     }
+
+    /* endregion */
+
+    /* region responsive */
+
+        /* region smartphone */
+
+    font-size: 13px;
+
+    div.main-content-wrap section.main-content {
+        pre {
+            font-size: 9px;
+        }
+        div.codehilite pre {
+            width: 447px;
+        }
+        table tbody tr {
+            td.linenos div.linenodiv pre {
+                width: 30px;
+            }
+            td.code div.codehilite pre {
+                width: 417px;
+            }
+        }
+    }
+    a[href="#top"] {
+        visibility: hidden;
+    }
+
+        /* endregion */
+
+        /* region tablet */
+
+    @media (min-width: @minimumTabletWidthInPX) {
+        font-size: 16px;
+
+        div.main-content-wrap section.main-content {
+            pre {
+                font-size: 13px;
+            }
+            div.codehilite pre {
+                width: 696px;
+            }
+            table tbody tr {
+                td.linenos div.linenodiv pre {
+                    width: 42px;
+                }
+                td.code div.codehilite pre {
+                    width: 654px;
+                }
+            }
+        }
+        a[href="#top"] {
+            visibility: visible;
+            position: fixed;
+            z-index: 4;
+            bottom: 30px;
+            right: 5px;
+        }
+
+        /* endregion */
+
+        /* region desktop */
+
+        @media (min-width: @minimumDesktopWidthInPX) {
+            a[href="#top"] {
+                right: 45px;
+            }
+        }
+    }
+
+        /* endregion */
 
     /* endregion */
 
