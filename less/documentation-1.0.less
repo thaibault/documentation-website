@@ -45,7 +45,6 @@ body.documentation {
     }
     .inner {
         position: relative;
-        width: 719px;
         padding: 20px 10px;
         margin: 0 auto;
     }
@@ -70,27 +69,6 @@ body.documentation {
         color: #222222;
         font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
         letter-spacing: -1px;
-    }
-    h1 {
-        font-size: 36px;
-        font-weight: 700;
-    }
-    h2 {
-        padding-bottom: 10px;
-        font-size: 32px;
-        background: url('@{imagePath}hr-background.png') repeat-x bottom;
-    }
-    h3 {
-        font-size: 24px;
-    }
-    h4 {
-        font-size: 21px;
-    }
-    h5 {
-        font-size: 18px;
-    }
-    h6 {
-        font-size: 16px;
     }
 
         /* endregion */
@@ -117,12 +95,52 @@ body.documentation {
 
         /* endregion */
 
-    hr {
-        height: 1px;
-        margin-bottom: 5px;
-        border: none;
-        background: url('@{imagePath}hr-background.png') repeat-x center;
+        /* region image */
+
+            /* region generic */
+
+    [class^="icon-"], [class*=" icon-"] {
+        #generic > .icon;
     }
+    // NOTE: We explicit inherit form ".icon" to prepare this class to be super
+    // classes as well.
+    .icon-blacktocat {
+        #generic > .icon;
+        background-position: -92px 0px;
+        width: 30px;
+        height: 30px;
+    }
+    .icon-download {
+        #generic > .icon;
+        background-position: -99px -35px;
+        width: 16px;
+        height: 20px;
+    }
+    .icon-gray-archiv {
+        #generic > .icon;
+        background-position: 0px -68px;
+        width: 88px;
+        height: 72px;
+    }
+    .icon-blue-archiv {
+        .icon-gray-archiv;
+        background-position: 0px 2px;
+    }
+
+            /* endregion */
+
+    i.icon-github {
+        .icon-blacktocat;
+        margin-bottom: -2px;
+        margin-top: -6px;
+    }
+    i.icon-download-tarball {
+        .icon-download;
+        margin-top: 39px;
+        margin-left: 7px;
+    }
+
+        /* endregion */
 
     /* endregion
 
@@ -139,15 +157,20 @@ body.documentation {
                 #generic > .rounded-border(0, 2px, 2px, 0);
                 display: block;
                 position: absolute;
-                top:0;
+                top: 0;
                 right: 10px;
                 z-index: 10;
-                padding: 10px 50px 10px 10px;
+                padding: 10px;
                 color: #fff;
-                background: url('@{imagePath}blacktocat.png') #0090ff no-repeat 95% 50%;
+                background-color: #0090ff;
                 font-weight: 700;
             }
+            a.forkme-banner:hover {
+                background-color: #585858;
+            }
             h1.project-title, h2.project-tagline {
+                border: none;
+
                 a {
                     color: #fff;
                 }
@@ -155,13 +178,11 @@ body.documentation {
             h1.project-title {
                 margin: 0;
                 color: #fff;
-                font-size: 42px;
                 font-weight: 700;
                 text-shadow: #111 0px 0px 10px;
             }
             h2.project-tagline {
                 color: #fff;
-                font-size: 24px;
                 font-weight: 300;
                 background: none;
                 text-shadow: #111 0px 0px 10px;
@@ -173,10 +194,10 @@ body.documentation {
                 bottom: -40px;
                 right: 0;
                 height: 70px;
-                background: url('@{imagePath}download-icon.png') no-repeat 0% 90%;
 
                 a.zip-source-download, a.zip-distribution-bundle-download,
-                a.tar-gz-source-download {
+                a.tar-gz-source-download,  {
+                    .icon-gray-archiv;
                     text-align: center;
                     padding-top: 28px;
                     padding-top: 29px;
@@ -187,19 +208,14 @@ body.documentation {
                     width: 90px;
                     height: 70px;
                     overflow: hidden;
-                    background: url('@{imagePath}archiv-icon.png') no-repeat bottom left;
                 }
-                a.zip-distribution-bundle-download, a.tar-gz-source-download {
-                    margin-left: 10px;
-                }
-                a.tar-gz-source-download {
-                    background: url('@{imagePath}archiv-icon.png') no-repeat bottom right;
-                }
+                a.zip-source-download:hover,
+                a.zip-distribution-bundle-download:hover,
                 a.tar-gz-source-download:hover {
-                    background: url('@{imagePath}archiv-icon.png') no-repeat top right;
-                }
-                a.zip-source-download:hover, a.zip-distribution-bundle-download:hover {
-                    background: url('@{imagePath}archiv-icon.png') no-repeat top left;
+                    .icon-blue-archiv;
+                    color: #f2f2f2;
+                    width: 90px;
+                    height: 70px;
                 }
             }
         }
@@ -243,6 +259,7 @@ body.documentation {
             div.codehilite pre {
                 #generic > .border-radius(@borderInPixel);
                 #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
+                background-color: #ececec;
             }
             table {
                 border-collapse: collapse;
@@ -253,7 +270,7 @@ body.documentation {
                 th {
                     font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
                     padding: 10px;
-                    background: #373737;
+                    background-color: #ececec;
                     color: #fff;
                 }
                 tbody tr {
@@ -268,6 +285,7 @@ body.documentation {
                             padding: 10px 8px 10px 0;
                             text-align: right;
                             color: #666666;
+                            background-color: #f0f0f0;
 
                             #generic > .rounded-border(0, 0, @borderInPixel, @borderInPixel);
                         }
@@ -275,6 +293,7 @@ body.documentation {
                             padding: 10px;
                             overflow: auto;
                             #generic > .rounded-border(@borderInPixel, @borderInPixel, 0, 0);
+                            background-color: #ececec;
 
                             /* Don't highlight syntax errors. */
                             .err {
@@ -340,6 +359,41 @@ body.documentation {
 
     font-size: 13px;
 
+            /* region headlines */
+
+    div.header-wrap.outer header.inner {
+        h1.project-title {
+            font-size: 32px;
+        }
+        h2.project-tagline {
+            font-size: 24px;
+        }
+    }
+    h1 {
+        font-size: 28px;
+    }
+    h2 {
+        font-size: 24px;
+        border-bottom: 1px dashed #bdbdbd;
+    }
+    h3 {
+        font-size: 21px;
+    }
+    h4 {
+        font-size: 18px;
+    }
+    h5 {
+        font-size: 14px;
+    }
+    h6 {
+        font-size: 12px;
+    }
+
+            /* endregion */
+
+    .inner {
+        width: 460px;
+    }
     div.main-content-wrap section.main-content {
         pre {
             font-size: 9px;
@@ -367,6 +421,43 @@ body.documentation {
     @media (min-width: @minimumTabletWidthInPX) {
         font-size: 16px;
 
+            /* region headlines */
+
+        div.header-wrap.outer header.inner {
+            h1.project-title {
+                font-size: 42px;
+            }
+            h2.project-tagline {
+                font-size: 24px;
+            }
+        }
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+        }
+        h2 {
+            padding-bottom: 10px;
+            font-size: 32px;
+            border-bottom: 1px dashed #bdbdbd;
+        }
+        h3 {
+            font-size: 24px;
+        }
+        h4 {
+            font-size: 21px;
+        }
+        h5 {
+            font-size: 18px;
+        }
+        h6 {
+            font-size: 16px;
+        }
+
+            /* endregion */
+
+        .inner {
+            width: 715px;
+        }
         div.main-content-wrap section.main-content {
             pre {
                 font-size: 13px;

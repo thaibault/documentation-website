@@ -91,6 +91,7 @@ endregion -->
                 <% START_UP_ANIMATION_NUMBER += 1
                 <a class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> forkme-banner" href="https://github.com/thaibault/<%NAME%>">
                     View on GitHub
+                    <i class="icon-github"></i>
                 </a>
                 <% START_UP_ANIMATION_NUMBER += 1
                 <h1 class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> project-title">
@@ -101,6 +102,7 @@ endregion -->
                     <%TAGLINE%>
                 </h2>
                 <section class="downloads">
+                    <i class="icon-download-tarball"></i>
                     <% if FileHandler(location=DISTRIBUTION_BUNDLE_FILE_PATH, must_exist=False):
                         <% START_UP_ANIMATION_NUMBER += 1
                         <a class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> zip-source-download" href="https://github.com/thaibault/<%NAME%>/zipball/master">
