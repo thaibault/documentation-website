@@ -25,7 +25,8 @@ function printDummyDocumentationContent() {
 <div class="toc">
     <ul>
         <li><a href="#inhalt">Inhalt</a></li>
-        <li><a href="#einstieg">Einstieg</a></li>
+        <li>
+            <a href="#einstieg">Einstieg</a>
             <ul>
                 <li><a href="#a">a</a></li>
                 <li><a href="#b">b</a></li>
@@ -33,7 +34,8 @@ function printDummyDocumentationContent() {
         </li>
         <li><a href="#c">c</a>
         <ul>
-            <li><a href="#d">d</a>
+            <li>
+                <a href="#d">d</a>
                 <ul>
                     <li><a href="#e">e</a></li>
                 </ul>
@@ -61,6 +63,9 @@ function printDummyDocumentationContent() {
 <p>
     Lorem ipsum dolor sit amet...
 </p>
+<div class="codehilite">
+    <pre>&gt;&gt;&gt; /path/to/boostNode/runnable/macro.py -p /path/to/boostNode -e py</pre>
+</div>
 <table class="codehilitetable">
     <tbody>
         <tr>
@@ -112,11 +117,8 @@ function printDummyDocumentationContent() {
             </td>
         </tr>
     </tbody>
-    <div class="codehilite">
-        <pre>&gt;&gt;&gt; /path/to/boostNode/runnable/macro.py -p /path/to/boostNode -e py</pre>
-    </div>
 </table>
-<h3 id="e">e</h2>
+<h3 id="e">e</h3>
 <p>
     Lorem ipsum dolor sit amet...
 </p>
