@@ -260,6 +260,11 @@ body.documentation {
                 #generic > .border-radius(@borderInPixel);
                 #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
                 background-color: #ececec;
+
+                /* Don't highlight syntax errors. */
+                .err {
+                    border: 0;
+                }
             }
             table {
                 border-collapse: collapse;
@@ -297,7 +302,6 @@ body.documentation {
 
                             /* Don't highlight syntax errors. */
                             .err {
-                                color: #222;
                                 border: 0;
                             }
                         }
