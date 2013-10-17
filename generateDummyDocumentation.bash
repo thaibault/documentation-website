@@ -21,12 +21,18 @@
 # Prints a dummy documentation content.
 function printDummyDocumentationContent() {
     cat << EOF
-<h1 id="inhalt">Inhalt</h1>
+<h1 id="content">
+    Content<!--<l class="deDE">Inhalt</l>-->
+</h1>
 <div class="toc">
     <ul>
-        <li><a href="#inhalt">Inhalt</a></li>
         <li>
-            <a href="#einstieg">Einstieg</a>
+            <a href="#content">Content<!--<l class="deDE">Inhalt</l>--></a>
+        </li>
+        <li>
+            <a href="#getting-in">
+                Getting in<!--<l class="deDE">Einstieg</l>-->
+            </a>
             <ul>
                 <li><a href="#a">a</a></li>
                 <li><a href="#b">b</a></li>
@@ -43,7 +49,7 @@ function printDummyDocumentationContent() {
         </ul>
     </ul>
 </div>
-<h1 id="einstieg">Einstieg</h1>
+<h1 id="getting-in">Getting in<!--<l class="deDE">Einstieg</l>--></h1>
 <p>
     Lorem ipsum dolor sit amet...
 </p>

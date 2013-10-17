@@ -90,7 +90,7 @@ endregion -->
             <header class="inner">
                 <% START_UP_ANIMATION_NUMBER += 1
                 <a class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> forkme-banner" href="https://github.com/thaibault/<%NAME%>">
-                    View on GitHub
+                    View on GitHub<!--<l class="deDE">GitHub-Projekt</l>-->
                     <i class="icon-github"></i>
                 </a>
                 <% START_UP_ANIMATION_NUMBER += 1
@@ -100,6 +100,9 @@ endregion -->
                 <% START_UP_ANIMATION_NUMBER += 1
                 <h2 class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> project-tagline">
                     <%TAGLINE%>
+                    <br />
+                    <a href="#language-deDE">deDE</a>
+                    <a href="#language-enUS">enUS</a>
                 </h2>
                 <section class="downloads">
                     <i class="icon-download-tarball"></i>
@@ -141,9 +144,13 @@ endregion -->
         <!-- region legal notes -->
 
             <section class="about-this-website inner">
-                <h1>About this website</h1>
+                <h1>About this website<!--<l class="deDE">Impressum</l>--></h1>
                 <p>
-                    Provider of <a href="http://thaibault.github.io/<%NAME%>">http://thaibault.github.io/<%NAME%></a>:
+                    Provider of
+                    <!--<l class="deDE">Anbieter von</l>-->
+                    <a href="http://thaibault.github.io/<%NAME%>">
+                        http://thaibault.github.io/<%NAME%>
+                    </a>:
                     <br />
                     Torben Sickert
                     <br />
@@ -153,12 +160,17 @@ endregion -->
                     <br />
                     Tel. 0049 (0) 176 / 10248185
                     <br />
-                    Email: <a href="mailto:t.sickert@gmail.com">t.sickert@gmail.com</a>
+                    Email:
+                    <a href="mailto:t.sickert@gmail.com">t.sickert@gmail.com</a>
                     <br />
-                    Website: <a href="http://thaibault.github.io/website">http://thaibault.github.io/website</a>
+                    Website:
+                    <!--<l class="deDE">Webseite:</l>-->
+                    <a href="http://thaibault.github.io/website">http://thaibault.github.io/website</a>
                     <br />
                     <span class="glyphicon glyphicon-arrow-left arrow-left-home"></span>
-                    <a href="#home">home</a>
+                    <a href="#home">
+                        home<!--<l class="deDE">Startseite</l>-->
+                    </a>
                 </p>
             </section>
         </div>
@@ -174,9 +186,12 @@ endregion -->
                 <% START_UP_ANIMATION_NUMBER += 1
                 <p class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> copyright">
                     <%NAME%> maintained by
+                    <!--<l class="deDE"><%NAME%> betrieben von</l>-->
                     <a href="https://github.com/thaibault">thaibault</a>
                     &middot; &copy; 2013 Torben Sickert, Inc. &middot;
-                    <a href="#about-this-website">about this website</a>
+                    <a href="#about-this-website">
+                        about this website<!--<l class="deDE">Impressum</l>-->
+                    </a>
                 </p>
                 <% START_UP_ANIMATION_NUMBER += 1
                 <p class="pull-right"><a href="#top">top</a></p>
