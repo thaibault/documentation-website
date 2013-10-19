@@ -37,5 +37,5 @@ this.require(
         tests and removing the main jQuery object.
     ###
     jQuery.noConflict(true) (jQuery) -> jQuery.Documentation(
-        googleTrackingCode: '<%GOOGLE_TRACKING_CODE%>'))
+        googleTrackingCode: '<%GOOGLE_TRACKING_CODE%>', logging: true))
 ##
