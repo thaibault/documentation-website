@@ -22,16 +22,16 @@
 function printDummyDocumentationContent() {
     cat << EOF
 <h1 id="content">
-    Content<!--<l class="deDE">Inhalt</l>-->
+    Content<!--deDE:Inhalt-->
 </h1>
 <div class="toc">
     <ul>
         <li>
-            <a href="#content">Content<!--<l class="deDE">Inhalt</l>--></a>
+            <a href="#content">Content<!--deDE:Inhalt--></a>
         </li>
         <li>
             <a href="#getting-in">
-                Getting in<!--<l class="deDE">Einstieg</l>-->
+                Getting in<!--deDE:Einstieg-->
             </a>
             <ul>
                 <li><a href="#a">a</a></li>
@@ -49,7 +49,7 @@ function printDummyDocumentationContent() {
         </ul>
     </ul>
 </div>
-<h1 id="getting-in">Getting in<!--<l class="deDE">Einstieg</l>--></h1>
+<h1 id="getting-in">Getting in<!--deDE:Einstieg--></h1>
 <p>
     Lorem ipsum dolor sit amet...
 </p>

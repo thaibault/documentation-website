@@ -187,14 +187,23 @@ body.documentation {
                 background: none;
                 text-shadow: #111 0px 0px 10px;
             }
-            section.downloads {
+            section.header-links {
                 position: absolute;
-                width: 210px;
+                width: 290px;
                 z-index: 10;
                 bottom: -40px;
                 right: 0;
                 height: 70px;
 
+                a[href^="#language-"] {
+                    padding-right: 10px;
+                    padding-top: 35px;
+                    float: left;
+                    color: #ababab;
+                }
+                a[href^="#language-"]:hover {
+                    color: #898989;
+                }
                 a.zip-source-download, a.zip-distribution-bundle-download,
                 a.tar-gz-source-download {
                     .icon-gray-archiv;
