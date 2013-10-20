@@ -29,7 +29,7 @@
 ###
 
 ## standalone
-## do ($=jQuery) ->
+## do ($=window.jQuery) ->
 this.window.require([
     ['jQuery.Website', 'jquery-website-1.0.coffee'],
     ['jQuery.Lang', 'jquery-lang-1.0.coffee']
