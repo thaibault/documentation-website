@@ -116,7 +116,12 @@ this.require([
         # endregion
 
         ###*
-            TODO
+            @description Switches the current language to given language. This
+                         method is mutual synchronized.
+
+            @param {String} language New language.
+
+            @returns {$.Tools} Returns the current instance.
         ###
         switch: (language) ->
             language = this._normalizeLanguage language
@@ -182,7 +187,11 @@ this.require([
     # region protected methods
 
         ###*
-            TODO
+            @description Normalizes a given language string.
+
+            @param {String} language New language.
+
+            @returns {String} Returns the normalized version of given language.
         ###
         _normalizeLanguage: (language) ->
             for key, value of this._options.languageMapping
