@@ -30,7 +30,7 @@
 ## standalone
 ## do ($=this.jQuery) ->
 this.require([
-    ['jQuery', 'jquery-2.0.3'],
+    ['jQuery', 'jquery-2.0.3']
     ['jQuery.cookie', 'jquery-cookie-1.4.0.js']
 
     ['jQuery.Tools', 'jquery-tools-1.0.coffee']
