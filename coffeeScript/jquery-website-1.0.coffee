@@ -29,7 +29,7 @@ this.require([
     ['jQuery.fn.carousel', 'bootstrap-3.0.0'],
     ['jQuery.scrollTo', 'jquery-scrollTo-1.4.3.1'],
     ['jQuery.fn.spin', 'jquery-spin-1.2.8'],
-    ['jQuery.fn.hashchange', 'jquery-observeHashChange-1.0']
+    ['jQuery.fn.hashchange', 'jquery-observeHashChange-1.0'],
 
     ['jQuery.Tools', 'jquery-tools-1.0.coffee'],
     ['jQuery.Lang', 'jquery-lang-1.0.coffee']],
