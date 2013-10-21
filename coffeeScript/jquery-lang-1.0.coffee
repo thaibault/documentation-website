@@ -29,7 +29,12 @@
 
 ## standalone
 ## do ($=this.jQuery) ->
-this.require([['jQuery.Tools', 'jquery-tools-1.0.coffee']], ($) ->
+this.require([
+    ['jQuery', 'jquery-2.0.3'],
+    ['jQuery.cookie', 'jquery-cookie-1.4.0.js']
+
+    ['jQuery.Tools', 'jquery-tools-1.0.coffee']
+], ($) ->
 ##
 
 # endregion
@@ -62,7 +67,15 @@ this.require([['jQuery.Tools', 'jquery-tools-1.0.coffee']], ($) ->
             replacementDomNodeName: '#comment'
             replaceDomNodeName: '#text'
             toolsLockDescription: '{1}Switch'
+            languageHashPrefix: 'lang-'
+            currentLanguageIndicatorClassName: 'current'
+            cookieDescription: '{1}Last'
             domNodes: {}
+            languageMapping:
+                deDE: ['de', 'de-de']
+                enUS: ['en', 'en-us']
+                enEN: ['en-en']
+                frFR: ['fr', 'fr-fr']
         _domNodes: {}
         _domNodesToFade: null
         _numberOfFadedDomNodes: 0
@@ -87,8 +100,17 @@ this.require([['jQuery.Tools', 'jquery-tools-1.0.coffee']], ($) ->
             super options
             this._options.toolsLockDescription = this.stringFormat(
                 this._options.toolsLockDescription, this.__name__)
-            this.currentLanguage = this._options.default
+            this._options.cookieDescription = this.stringFormat(
+                this._options.cookieDescription, this.__name__)
             this._domNodes = this.grabDomNodes this._options.domNodes
+            this.currentLanguage = this._options.default
+            this.switch this._determineUsefulLanguage()
+            this.on $(
+                "a[href^=\"##{this._options.languageHashPrefix}\"]"
+            ), 'click', (event) =>
+                event.preventDefault()
+                this.switch $(event.target).attr('href').substr(
+                    this._options.languageHashPrefix.length + 1)
             this
 
         # endregion
@@ -97,6 +119,8 @@ this.require([['jQuery.Tools', 'jquery-tools-1.0.coffee']], ($) ->
             TODO
         ###
         switch: (language) ->
+            language = this._normalizeLanguage language
+            this.debug 'Switch to {1}', language
             this.acquireLock(this._options.toolsLockDescription, =>
                 this._domNodesToFade = null
                 this._replacements = []
@@ -156,6 +180,30 @@ this.require([['jQuery.Tools', 'jquery-tools-1.0.coffee']], ($) ->
     # endregion
 
     # region protected methods
+
+        ###*
+            TODO
+        ###
+        _normalizeLanguage: (language) ->
+            for key, value of this._options.languageMapping
+                if $.inArray(key.toLowerCase(), value) is -1
+                    value.push key.toLowerCase()
+                if $.inArray(language.toLowerCase(), value) isnt -1
+                    return key.substring(0, 2) + key.substring 2
+            return this._options.default
+
+        ###*
+            TODO
+        ###
+        _determineUsefulLanguage: ->
+            if $.cookie(this._options.cookieDescription)?
+                return $.cookie this._options.cookieDescription
+            this.log navigator.language
+            if navigator.language?
+                $.cookie this._options.cookieDescription, navigator.language
+                return navigator.language
+            $.cookie this._options.cookieDescription, this._options.default
+            this._options.default
 
         ###*
             TODO
@@ -255,7 +303,23 @@ this.require([['jQuery.Tools', 'jquery-tools-1.0.coffee']], ($) ->
                     "#{replacement.textToReplace}"
                 replacement.$currentLanguageDomNode.remove()
                 replacement.$commentNodeToReplace.remove()
+            this._switchCurrentLanguageIndicator language
+            $.cookie this._options.cookieDescription, language
             this.currentLanguage = language
+            this
+
+        ###*
+            TODO
+        ###
+        _switchCurrentLanguageIndicator: (language) ->
+            $(
+                "a[href=\"##{this._options.languageHashPrefix}" +
+                "#{this.currentLanguage}\"]." +
+                this._options.currentLanguageIndicatorClassName
+            ).removeClass this._options.currentLanguageIndicatorClassName
+            $(
+                "a[href=\"##{this._options.languageHashPrefix}#{language}\"]"
+            ).addClass this._options.currentLanguageIndicatorClassName
             this
 
     # endregion

@@ -17,7 +17,7 @@
     @author t.sickert@gmail.com (Torben Sickert)
     @version 1.0 stable
     @fileOverview
-    This module provides common logic for the whole webpage.
+    This module provides common logic for the whole web page.
 ###
 
 ## standalone
@@ -25,15 +25,14 @@
 this.require([
     ['less.Parser', 'less-1.4.1'],
 
-    ['jQuery.Tools', 'jquery-tools-1.0.coffee'],
-
+    ['jQuery', 'jquery-2.0.3'],
     ['jQuery.fn.carousel', 'bootstrap-3.0.0'],
-
     ['jQuery.scrollTo', 'jquery-scrollTo-1.4.3.1'],
-
     ['jQuery.fn.spin', 'jquery-spin-1.2.8'],
+    ['jQuery.fn.hashchange', 'jquery-observeHashChange-1.0']
 
-    ['jQuery.fn.hashchange', 'jquery-observeHashChange-1.0']],
+    ['jQuery.Tools', 'jquery-tools-1.0.coffee'],
+    ['jQuery.Lang', 'jquery-lang-1.0.coffee']],
 (less, lessParser, $) ->
 ##
 
@@ -108,6 +107,7 @@ this.require([
                 zIndex: 2e9 # The z-index (defaults to 2000000000)
                 top: 'auto' # Top position relative to parent in px
                 left: 'auto' # Left position relative to parent in px
+            language: {}
         ###*
             Holds all needed dom nodes.
 
@@ -162,6 +162,9 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
             this._addNavigationEvents()._addMediaQueryChangeEvents(
             )._triggerWindowResizeEvents()._handleGoogleAnalytics(
                 this._options.trackingCode)
+            if not this._options.language.logging?
+                this._options.language.logging = this._options.logging
+            $.Lang this._options.language
 
         # endregion
 
@@ -280,7 +283,7 @@ ga('create', '{1}', 'github.io');ga('send', 'pageview');"
                             ].concat this.argumentsObjectToArray arguments))
             this
         ###*
-            @description This method triggers if viewport arrives at special
+            @description This method triggers if view port arrives at special
                          areas.
 
             @returns {$.Tools} Returns the current instance.

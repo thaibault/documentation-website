@@ -28,13 +28,8 @@
     web page.
 ###
 
-## standalone
-## do ($=this.jQuery) ->
-this.require([
-    ['jQuery.Website', 'jquery-website-1.0.coffee'],
-    ['jQuery.Lang', 'jquery-lang-1.0.coffee']
-], ($) ->
-##
+## standalone do ($=this.jQuery) ->
+this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
 
 # endregion
 
@@ -56,7 +51,6 @@ this.require([
         _options:
             domNodeSelectorPrefix: 'body.{1}'
             domNodes:
-                changeLanguageLinks: 'a[href^="#language-"]'
                 tableOfContentLinks: 'div.toc a[href^="#"]'
                 legalNotesLink: 'a[href="#about-this-website"]'
                 homeLink: 'a[href="#home"]'
@@ -65,14 +59,12 @@ this.require([
                 codeLines:
                     'table.codehilitetable tr td.code div.codehilite pre span'
             trackingCode: 'UA-0-0'
-            language: {}
         ###*
             Holds all needed dom nodes.
 
             @property {Object}
         ###
         _domNodes: {}
-        _languageHandler: {}
         __name__: 'Documentation'
 
     # endregion
@@ -91,13 +83,6 @@ this.require([
         initialize: (options) ->
             super options
             this._domNodes.legalNotesContent.hide()
-            if not this._options.language.logging?
-                this._options.language.logging = this._options.logging
-            this._languageHandler = $.Lang this._options.language
-            this.on this._domNodes.changeLanguageLinks, 'click', (event) =>
-                this._languageHandler.switch $(event.target).attr(
-                    'href'
-                ).substr('language-'.length + 1)
             this._makeCodeEllipsis()
             this.on this._domNodes.tableOfContentLinks, 'click', ->
                 $.scrollTo $(this).attr('href'), 'slow'
