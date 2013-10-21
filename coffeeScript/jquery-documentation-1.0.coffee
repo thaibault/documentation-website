@@ -59,12 +59,6 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                 codeLines:
                     'table.codehilitetable tr td.code div.codehilite pre span'
             trackingCode: 'UA-0-0'
-        ###*
-            Holds all needed dom nodes.
-
-            @property {Object}
-        ###
-        _domNodes: {}
         __name__: 'Documentation'
 
     # endregion
@@ -78,7 +72,7 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
 
             @param {Object} options An options object.
 
-            @returns {$.Tools} Returns the current instance.
+            @returns {$.Documentation} Returns the current instance.
         ###
         initialize: (options) ->
             super options
@@ -101,7 +95,7 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         ###*
             @description This method triggers if we change the current section.
 
-            @returns {$.Tools} Returns the current instance.
+            @returns {$.Documentation} Returns the current instance.
         ###
         _onSwitchSection: (hash) ->
             if hash isnt '#about-this-website'
@@ -115,7 +109,7 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             @description This method triggers if all startup animations are
                          ready.
 
-            @returns {$.Tools} Returns the current instance.
+            @returns {$.Documentation} Returns the current instance.
         ###
         _onStartUpAnimationComplete: ->
             # All start up effects are ready. Handle direct
@@ -133,7 +127,7 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             @description This method makes dotes after code lines which are too
                          long. This prevents line wrapping.
 
-            @returns {$.Tools} Returns the current instance.
+            @returns {$.Documentation} Returns the current instance.
         ###
         _makeCodeEllipsis: ->
             this._domNodes.codeLines.each(->
