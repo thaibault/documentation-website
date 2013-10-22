@@ -23,7 +23,7 @@
 ## standalone
 ## do ($=this.jQuery) ->
 this.require([
-    ['less.Parser', 'less-1.4.1']
+    ['less.Parser', 'less-1.5.0']
 
     ['jQuery', 'jquery-2.0.3']
     ['jQuery.fn.carousel', 'bootstrap-3.0.0']
