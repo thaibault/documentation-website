@@ -24,13 +24,13 @@ License
 
 // endregion
 
-// region constants
+// region constants 
 
 @imagePath: '../image/';
 @fontPath: '../font/';
 
-@minimumTabletWidthInPX: 767px;
-@minimumDesktopWidthInPX: 979px;
+@minimumTabletWidthInPixel: 767px;
+@minimumDesktopWidthInPixel: 979px;
 
 @color1: #1b1b1b;
 @color2: #1b1b1b;
@@ -59,10 +59,10 @@ body {
     border-left-width: 0;
     /* smartphone mode */
     border-left-style: dotted;
-    @media (min-width: @minimumTabletWidthInPX) {
+    @media (min-width: @minimumTabletWidthInPixel) {
         border-left-style: solid;
     }
-    @media (min-width: @minimumDesktopWidthInPX) {
+    @media (min-width: @minimumDesktopWidthInPixel) {
         border-left-style: dashed;
     }
 
