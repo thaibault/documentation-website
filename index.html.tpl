@@ -39,9 +39,10 @@ endregion -->
 
 <% # endregion
 
+<html lang="<%LANGUAGE%>">
+
 <!-- region header -->
 
-<html lang="<%LANGUAGE%>">
     <head>
 
     <!-- region meta informations -->
@@ -146,8 +147,8 @@ endregion -->
                 </h1>
                 <p>
                     Provider of
-                    <!--deDE:Anbieter von-->
-                    <!--frFR:Fournisseur de-->
+                    <!--deDE:Anbieter von -->
+                    <!--frFR:Fournisseur de -->
                     <a href="http://thaibault.github.io/<%NAME%>">http://thaibault.github.io/<%NAME%></a>:
                     <br />
                     Torben Sickert
@@ -196,7 +197,8 @@ endregion -->
 
     <!-- endregion -->
 
+    </body>
+
 <!-- endregion -->
 
-    </body>
 </html>
