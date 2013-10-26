@@ -59,6 +59,11 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                 codeLines:
                     'table.codehilitetable tr td.code div.codehilite pre span'
             trackingCode: 'UA-0-0'
+        ###*
+            Saves the class name for introspection.
+
+            @property {String}
+        ###
         __name__: 'Documentation'
 
     # endregion
