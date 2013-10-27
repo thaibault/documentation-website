@@ -4328,6 +4328,7 @@ a.list-group-item.active > .badge,
 }
 
 .carousel-caption .btn {
+            /* TODO
   text-shadow: none;
 }
 
@@ -4349,7 +4350,7 @@ a.list-group-item.active > .badge,
   .carousel-indicators {
     bottom: 20px;
   }
-}
+}*/
 
 .jumbotron {
   padding: 30px;
