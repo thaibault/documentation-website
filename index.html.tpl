@@ -137,7 +137,7 @@ endregion -->
 
         <!-- endregion -->
 
-        <!-- region legal notes -->
+        <!-- region about this website -->
 
             <section class="about-this-website inner">
                 <h1>
