@@ -50,15 +50,22 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         ###
         _options:
             domNodeSelectorPrefix: 'body.{1}'
-            domNodes:
+            domNode:
                 tableOfContentLinks: 'div.toc a[href^="#"]'
-                legalNotesLink: 'a[href="#about-this-website"]'
+                aboutThisWebsiteLink: 'a[href="#about-this-website"]'
                 homeLink: 'a[href="#home"]'
-                legalNotesContent: 'section.about-this-website'
-                mainContent: 'section.main-content'
+                aboutThisWebsiteSection: 'section.about-this-website'
+                mainSection: 'section.main-content'
                 codeLines:
                     'table.codehilitetable tr td.code div.codehilite pre span'
             trackingCode: 'UA-0-0'
+            section:
+                aboutThisWebsite:
+                    fadeOut: duration: 'slow'
+                    fadeIn: duration: 'slow'
+                main:
+                    fadeOut: duration: 'slow'
+                    fadeIn: duration: 'slow'
         ###*
             Saves the class name for introspection.
 
@@ -81,17 +88,25 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         ###
         initialize: (options) ->
             super options
-            this._domNodes.legalNotesContent.hide()
+            this.$domNode.aboutThisWebsiteSection.hide()
             this._makeCodeEllipsis()
-            this.on this._domNodes.tableOfContentLinks, 'click', ->
+            this.on this.$domNode.tableOfContentLinks, 'click', ->
                 $.scrollTo $(this).attr('href'), 'slow'
-            this.on this._domNodes.legalNotesLink, 'click', =>
-                this._domNodes.mainContent.fadeOut 'slow', =>
-                    this._domNodes.legalNotesContent.fadeIn 'slow'
-            this.on this._domNodes.homeLink, 'click', (event) =>
+            # Handle section switch between documentation and
+            # "about this website".
+            this._options.section.aboutThisWebsite.fadeOut.always = =>
+                this.$domNode.mainSection.fadeIn(
+                    this._options.section.main.fadeIn)
+            this._options.section.main.fadeOut.always = =>
+                this.$domNode.aboutThisWebsiteSection.fadeIn(
+                    this._options.section.aboutThisWebsite.fadeIn)
+            this.on this.$domNode.aboutThisWebsiteLink, 'click', =>
+                this.$domNode.mainSection.fadeOut(
+                    this._options.section.main.fadeOut)
+            this.on this.$domNode.homeLink, 'click', (event) =>
                 event.preventDefault()
-                this._domNodes.legalNotesContent.fadeOut 'slow', =>
-                    this._domNodes.mainContent.fadeIn 'slow'
+                this.$domNode.aboutThisWebsiteSection.fadeOut(
+                    this._options.section.aboutThisWebsite.fadeOut)
 
         # endregion
 
@@ -103,11 +118,8 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             @returns {$.Documentation} Returns the current instance.
         ###
         _onSwitchSection: (hash) ->
-            if hash isnt '#about-this-website'
-                this._domNodes.legalNotesContent.fadeOut 'slow', =>
-                    this._domNodes.mainContent.fadeIn 'slow'
-            this._domNodes.tableOfContentLinks.add(
-                this._domNodes.legalNotesLink
+            this.$domNode.tableOfContentLinks.add(
+                this.$domNode.aboutThisWebsiteLink
             ).filter("a[href=\"#{hash}\"]").trigger 'click'
             super()
         ###*
@@ -119,11 +131,11 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         _onStartUpAnimationComplete: ->
             # All start up effects are ready. Handle direct
             # section links.
-            this._domNodes.tableOfContentLinks.add(
-                this._domNodes.legalNotesLink
+            this.$domNode.tableOfContentLinks.add(
+                this.$domNode.aboutThisWebsiteLink
             ).filter("a[href=\"#{window.location.href.substr(
                 window.location.href.indexOf '#'
-            )}\"]").trigger 'click',
+            )}\"]").trigger 'click'
             super()
 
         # endregion
@@ -135,18 +147,15 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             @returns {$.Documentation} Returns the current instance.
         ###
         _makeCodeEllipsis: ->
-            this._domNodes.codeLines.each(->
+            this.$domNode.codeLines.each ->
                 if $(this).text().length > 80
-                    $(this).text(
-                        "#{$(this).text().substr(0, 76)}..."))
+                    $(this).text "#{$(this).text().substr(0, 76)}..."
             this
 
     # endregion
 
     ###* @ignore ###
-    $.Documentation = ->
-        self = new Documentation
-        self._controller.apply self, arguments
+    $.Documentation = -> $.Tools().controller Documentation, arguments
     ###* @ignore ###
     $.Documentation.class = Documentation
 

@@ -39,7 +39,7 @@ endregion -->
 
 <% # endregion
 
-<html lang="<%LANGUAGE%>">
+<html lang="<% LANGUAGE %>">
 
 <!-- region header -->
 
@@ -49,32 +49,32 @@ endregion -->
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="<%TAGLINE%>" />
+        <meta name="description" content="<% TAGLINE %>" />
 
     <!-- endregion -->
 
     <!-- region fav and touch icons -->
 
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<%IMAGE_APPLE_TOUCH_ICON_PATH%>144x144-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<%IMAGE_APPLE_TOUCH_ICON_PATH%>114x114-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<%IMAGE_APPLE_TOUCH_ICON_PATH%>72x72-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" href="<%IMAGE_APPLE_TOUCH_ICON_PATH%>57x57-precomposed.png" />
-        <link rel="shortcut icon" type="image/x-icon" href="<%IMAGE_PATH%>favicon.ico" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<% IMAGE_APPLE_TOUCH_ICON_PATH %>144x144-precomposed.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<% IMAGE_APPLE_TOUCH_ICON_PATH %>114x114-precomposed.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<% IMAGE_APPLE_TOUCH_ICON_PATH %>72x72-precomposed.png" />
+        <link rel="apple-touch-icon-precomposed" href="<% IMAGE_APPLE_TOUCH_ICON_PATH %>57x57-precomposed.png" />
+        <link rel="shortcut icon" type="image/x-icon" href="<% IMAGE_PATH %>favicon.ico" />
 
     <!-- endregion -->
 
     <!-- region resources -->
 
-        <link type="text/css" rel="stylesheet/less" media="screen" href="<%LESS_PATH%>documentation-1.0.less">
+        <link type="text/css" rel="stylesheet/less" media="screen" href="<% LESS_PATH %>documentation-1.0.less">
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]><script src="<%JAVA_SCRIPT_PATH%>html5shiv-3.6.2.js"></script><![endif]-->
-        <script type="text/javascript" src="<%JAVA_SCRIPT_PATH%>coffeeScript-1.6.3.js"></script>
-        <script type="text/coffeescript" src="<%COFFEE_SCRIPT_PATH%>require-1.0.coffee"></script>
-        <script type="text/coffeescript" src="<%COFFEE_SCRIPT_PATH%>main.coffee"></script>
+        <!--[if lt IE 9]><script src="<% JAVA_SCRIPT_PATH %>html5shiv-3.6.2.js"></script><![endif]-->
+        <script type="text/javascript" src="<% JAVA_SCRIPT_PATH %>coffeeScript-1.6.3.js"></script>
+        <script type="text/coffeescript" src="<% COFFEE_SCRIPT_PATH %>require-1.0.coffee"></script>
+        <script type="text/coffeescript" src="<% COFFEE_SCRIPT_PATH %>main.coffee"></script>
 
     <!-- endregion -->
 
-        <title><%NAME%></title>
+        <title><% NAME %></title>
 
     </head>
 
@@ -90,34 +90,34 @@ endregion -->
         <div class="header-wrap outer">
             <header class="inner">
                 <% START_UP_ANIMATION_NUMBER += 1
-                <a class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> forkme-banner" href="https://github.com/thaibault/<%NAME%>">View on GitHub<!--deDE:GitHub-Projekt--><!--frFR:GitHub-Project--><i class="icon-github"></i></a>
+                <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> forkme-banner" href="https://github.com/thaibault/<% NAME %>">View on GitHub<!--deDE:GitHub-Projekt--><!--frFR:GitHub-Project--><i class="icon-github"></i></a>
                 <% START_UP_ANIMATION_NUMBER += 1
-                <h1 class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> project-title">
-                    <a href="http://thaibault.github.io/<%NAME%>"><%NAME%></a>
+                <h1 class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-title">
+                    <a href="http://thaibault.github.io/<% NAME %>"><% NAME %></a>
                 </h1>
                 <% START_UP_ANIMATION_NUMBER += 1
-                <h2 class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> project-tagline">
-                    <%TAGLINE%>
+                <h2 class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-tagline">
+                    <% TAGLINE %>
                     <br />
                 </h2>
                 <section class="header-links">
                     <% START_UP_ANIMATION_NUMBER += 1
-                    <a href="#lang-deDE" class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%>">de</a>
+                    <a href="#lang-deDE" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">de</a>
                     <% START_UP_ANIMATION_NUMBER += 1
-                    <a href="#lang-enUS" class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%>">en</a>
+                    <a href="#lang-enUS" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">en</a>
                     <% START_UP_ANIMATION_NUMBER += 1
-                    <a href="#lang-frFR" class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%>">fr</a>
+                    <a href="#lang-frFR" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">fr</a>
                     <% START_UP_ANIMATION_NUMBER += 1
-                    <i class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> icon-download-tarball"></i>
+                    <i class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> icon-download-tarball"></i>
                     <% START_UP_ANIMATION_NUMBER += 2
                     <% if FileHandler(location=DISTRIBUTION_BUNDLE_FILE_PATH, must_exist=False):
-                        <a class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> zip-source-download" href="https://github.com/thaibault/<%NAME%>/zipball/master">src.zip</a>
+                        <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">src.zip</a>
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> zip-distribution-bundle-download" href="<%DISTRIBUTION_BUNDLE_FILE_PATH%>">app.zip</a>
+                        <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-distribution-bundle-download" href="<% DISTRIBUTION_BUNDLE_FILE_PATH %>">app.zip</a>
                     <% else:
-                        <a class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> zip-source-download" href="https://github.com/thaibault/<%NAME%>/zipball/master">.zip</a>
+                        <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">.zip</a>
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> tar-gz-source-download" href="https://github.com/thaibault/<%NAME%>/tarball/master">.tar.gz</a>
+                        <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> tar-gz-source-download" href="https://github.com/thaibault/<% NAME %>/tarball/master">.tar.gz</a>
                 </section>
             </header>
         </div>
@@ -131,8 +131,8 @@ endregion -->
         <!-- region main content -->
 
             <% START_UP_ANIMATION_NUMBER += 1
-            <section class="main-content inner start-up-animation-number-<%START_UP_ANIMATION_NUMBER%>">
-                <%RENDERED_MARKDOWN%>
+            <section class="main-content inner start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">
+                <% RENDERED_MARKDOWN %>
             </section>
 
         <!-- endregion -->
@@ -149,7 +149,7 @@ endregion -->
                     Provider of
                     <!--deDE:Anbieter von -->
                     <!--frFR:Fournisseur de -->
-                    <a href="http://thaibault.github.io/<%NAME%>">http://thaibault.github.io/<%NAME%></a>:
+                    <a href="http://thaibault.github.io/<% NAME %>">http://thaibault.github.io/<% NAME %></a>:
                     <br />
                     Torben Sickert
                     <br />
@@ -182,10 +182,10 @@ endregion -->
         <div class="footer-wrap outer">
             <footer class="inner">
                 <% START_UP_ANIMATION_NUMBER += 1
-                <p class="start-up-animation-number-<%START_UP_ANIMATION_NUMBER%> copyright">
-                    <%NAME%> maintained by
-                    <!--deDE:<%NAME%> betrieben von -->
-                    <!--frFR:<%NAME%> exploité par -->
+                <p class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> copyright">
+                    <% NAME %> maintained by
+                    <!--deDE:<% NAME %> betrieben von -->
+                    <!--frFR:<% NAME %> exploité par -->
                     <a href="https://github.com/thaibault">thaibault</a>
                     &middot; &copy; 2013 Torben Sickert, Inc. &middot;
                     <a href="#about-this-website">about this website<!--deDE:Impressum--><!--frFR:Mentions légales--></a>
