@@ -163,7 +163,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             self = this
             $(this._options.domNodeSelectorPrefix).find(
                 ':not(iframe)'
-            ).contents().each(->
+            ).contents().each ->
                 if this.nodeName is self._options.showExampleDomNodeName
                     content = $.trim $(this).text()
                     if content
