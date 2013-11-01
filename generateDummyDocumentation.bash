@@ -30,9 +30,7 @@ function printDummyDocumentationContent() {
             <a href="#content">Content<!--deDE:Inhalt--></a>
         </li>
         <li>
-            <a href="#getting-in">
-                Getting in<!--deDE:Einstieg-->
-            </a>
+            <a href="#getting-in">Getting in<!--deDE:Einstieg--></a>
             <ul>
                 <li><a href="#a">a</a></li>
                 <li><a href="#b">b</a></li>
@@ -42,9 +40,7 @@ function printDummyDocumentationContent() {
         <ul>
             <li>
                 <a href="#d">d</a>
-                <ul>
-                    <li><a href="#e">e</a></li>
-                </ul>
+                <ul><li><a href="#e">e</a></li></ul>
             </li>
         </ul>
     </ul>

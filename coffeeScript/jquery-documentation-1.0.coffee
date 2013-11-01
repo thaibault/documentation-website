@@ -50,14 +50,17 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         ###
         _options:
             domNodeSelectorPrefix: 'body.{1}'
+            showExamplePattern: '^showExample(:.+)?$'
+            showExampleDomNodeName: '#comment'
             domNode:
-                tableOfContentLinks: 'div.toc a[href^="#"]'
+                tableOfContentLinks: 'div.toc > ul > li > a[href^="#"]'
                 aboutThisWebsiteLink: 'a[href="#about-this-website"]'
                 homeLink: 'a[href="#home"]'
                 aboutThisWebsiteSection: 'section.about-this-website'
                 mainSection: 'section.main-content'
                 codeLines:
-                    'table.codehilitetable tr td.code div.codehilite pre span'
+                    'table.codehilitetable > tbody > tr > td.code > '
+                    'div.codehilite pre > span, div.codehilite > pre'
             trackingCode: 'UA-0-0'
             section:
                 aboutThisWebsite:
@@ -88,24 +91,25 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         ###
         initialize: (options) ->
             super options
-            this.$domNode.aboutThisWebsiteSection.hide()
+            this.$domNodes.aboutThisWebsiteSection.hide()
             this._makeCodeEllipsis()
-            this.on this.$domNode.tableOfContentLinks, 'click', ->
+            this.on this.$domNodes.tableOfContentLinks, 'click', ->
                 $.scrollTo $(this).attr('href'), 'slow'
             # Handle section switch between documentation and
             # "about this website".
             this._options.section.aboutThisWebsite.fadeOut.always = =>
-                this.$domNode.mainSection.fadeIn(
+                this.$domNodes.mainSection.fadeIn(
                     this._options.section.main.fadeIn)
             this._options.section.main.fadeOut.always = =>
-                this.$domNode.aboutThisWebsiteSection.fadeIn(
+                this.$domNodes.aboutThisWebsiteSection.fadeIn(
                     this._options.section.aboutThisWebsite.fadeIn)
-            this.on this.$domNode.aboutThisWebsiteLink, 'click', =>
-                this.$domNode.mainSection.fadeOut(
+            this.on this.$domNodes.aboutThisWebsiteLink, 'click', =>
+                this.$domNodes.mainSection.fadeOut(
                     this._options.section.main.fadeOut)
-            this.on this.$domNode.homeLink, 'click', (event) =>
-                this.$domNode.aboutThisWebsiteSection.fadeOut(
+            this.on this.$domNodes.homeLink, 'click', (event) =>
+                this.$domNodes.aboutThisWebsiteSection.fadeOut(
                     this._options.section.aboutThisWebsite.fadeOut)
+            this._showExamples()
 
         # endregion
 
@@ -117,8 +121,8 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             @returns {$.Documentation} Returns the current instance.
         ###
         _onSwitchSection: (hash) ->
-            this.$domNode.tableOfContentLinks.add(
-                this.$domNode.aboutThisWebsiteLink
+            this.$domNodes.tableOfContentLinks.add(
+                this.$domNodes.aboutThisWebsiteLink
             ).filter("a[href=\"#{hash}\"]").trigger 'click'
             super()
         ###*
@@ -130,8 +134,8 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         _onStartUpAnimationComplete: ->
             # All start up effects are ready. Handle direct
             # section links.
-            this.$domNode.tableOfContentLinks.add(
-                this.$domNode.aboutThisWebsiteLink
+            this.$domNodes.tableOfContentLinks.add(
+                this.$domNodes.aboutThisWebsiteLink
             ).filter("a[href=\"#{window.location.href.substr(
                 window.location.href.indexOf '#'
             )}\"]").trigger 'click'
@@ -146,9 +150,25 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             @returns {$.Documentation} Returns the current instance.
         ###
         _makeCodeEllipsis: ->
-            this.$domNode.codeLines.each ->
+            this.$domNodes.codeLines.each ->
                 if $(this).text().length > 80
                     $(this).text "#{$(this).text().substr(0, 76)}..."
+            this
+        ###*
+            @description Shows marked example codes directly in browser.
+
+            @returns {$.Documentation} Returns the current instance.
+        ###
+        _showExamples: ->
+            self = this
+            $(this._options.domNodeSelectorPrefix).find(
+                ':not(iframe)'
+            ).contents().each(->
+                if this.nodeName is self._options.showExampleDomNodeName
+                    content = $.trim $(this).text()
+                    if content
+                        this.log content
+                        this._options.showExamplePattern
             this
 
     # endregion
