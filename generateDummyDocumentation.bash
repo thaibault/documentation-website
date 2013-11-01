@@ -68,6 +68,7 @@ function printDummyDocumentationContent() {
 <div class="codehilite">
     <pre>&gt;&gt;&gt; /path/to/boostNode/runnable/macro.py -p /path/to/boostNode -e py</pre>
 </div>
+<!--showExample: javaScript-->
 <table class="codehilitetable">
     <tbody>
         <tr>

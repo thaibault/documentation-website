@@ -50,7 +50,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         ###
         _options:
             domNodeSelectorPrefix: 'body.{1}'
-            showExamplePattern: '^showExample(:.+)?$'
+            showExamplePattern: '^showExample(:(.+))?$'
             showExampleDomNodeName: '#comment'
             domNode:
                 tableOfContentLinks: 'div.toc > ul > li > a[href^="#"]'
@@ -60,7 +60,8 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                 mainSection: 'section.main-content'
                 codeLines:
                     'table.codehilitetable > tbody > tr > td.code > ' +
-                    'div.codehilite pre > span, div.codehilite > pre'
+                    'div.codehilite > pre > span, section > div.codehilite ' +
+                    '> pre'
             trackingCode: 'UA-0-0'
             section:
                 aboutThisWebsite:
@@ -143,6 +144,9 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
 
         # endregion
 
+        # TODO we have to delete html around text in a tree for the next two
+        # features.
+
         ###*
             @description This method makes dotes after code lines which are too
                          long. This prevents line wrapping.
@@ -161,14 +165,12 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         ###
         _showExamples: ->
             self = this
-            $(this._options.domNodeSelectorPrefix).find(
-                ':not(iframe)'
-            ).contents().each ->
+            this.$domNodes.parent.find(':not(iframe)').contents().each ->
                 if this.nodeName is self._options.showExampleDomNodeName
-                    content = $.trim $(this).text()
-                    if content
-                        this.log content
-                        this._options.showExamplePattern
+                    match = this.textContent.match(new RegExp(
+                        self._options.showExamplePattern))
+                    if match and match.length is 3
+                        self.log match
             this
 
     # endregion

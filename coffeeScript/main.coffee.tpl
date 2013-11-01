@@ -30,7 +30,7 @@ this.less =
     dumpLineNumbers: 'all'
     relativeUrls: false
     rootpath: ''
-    logLevel: 2
+    logLevel: 0
     #sourceMap: true
 ##
 
