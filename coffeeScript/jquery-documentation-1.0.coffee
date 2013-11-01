@@ -104,7 +104,6 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                 this.$domNode.mainSection.fadeOut(
                     this._options.section.main.fadeOut)
             this.on this.$domNode.homeLink, 'click', (event) =>
-                event.preventDefault()
                 this.$domNode.aboutThisWebsiteSection.fadeOut(
                     this._options.section.aboutThisWebsite.fadeOut)
 
@@ -154,10 +153,14 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
 
     # endregion
 
+    # region handle $ extending
+
     ###* @ignore ###
     $.Documentation = -> $.Tools().controller Documentation, arguments
     ###* @ignore ###
     $.Documentation.class = Documentation
+
+    # endregion
 
 # endregion
 

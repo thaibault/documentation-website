@@ -191,12 +191,12 @@ endregion -->
                     <a href="#about-this-website">about this website<!--deDE:Impressum--><!--frFR:Mentions légales--></a>
                 </p>
                 <% START_UP_ANIMATION_NUMBER += 1
-                <p class="pull-right"><a href="#top">top</a></p>
             </footer>
         </div>
 
     <!-- endregion -->
 
+        <a href="#top">top</a>
     </body>
 
 <!-- endregion -->
