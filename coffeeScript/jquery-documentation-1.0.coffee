@@ -59,7 +59,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                 aboutThisWebsiteSection: 'section.about-this-website'
                 mainSection: 'section.main-content'
                 codeLines:
-                    'table.codehilitetable > tbody > tr > td.code > '
+                    'table.codehilitetable > tbody > tr > td.code > ' +
                     'div.codehilite pre > span, div.codehilite > pre'
             trackingCode: 'UA-0-0'
             section:
