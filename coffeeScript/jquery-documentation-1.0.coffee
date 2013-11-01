@@ -29,7 +29,7 @@
 ###
 
 ## standalone do ($=this.jQuery) ->
-this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
+this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
 
 # endregion
 
@@ -163,6 +163,3 @@ this.require([['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
     # endregion
 
 # endregion
-
-## standalone
-)
