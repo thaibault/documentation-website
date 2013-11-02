@@ -90,6 +90,8 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         ###
         initialize: (options) ->
             super options
+            if not window.location.hash
+                window.location.hash = this.$domNodes.homeLink.attr 'href'
             this.$domNodes.aboutThisWebsiteSection.hide()
             # NOTE: We have to render examples first to avoid having dots in
             # example code.
@@ -137,7 +139,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             this.$domNodes.tableOfContentLinks.add(
                 this.$domNodes.aboutThisWebsiteLink
             ).filter("a[href=\"#{window.location.href.substr(
-                window.location.href.indexOf '#'
+                window.location.href
             )}\"]").trigger 'click'
             super()
 
