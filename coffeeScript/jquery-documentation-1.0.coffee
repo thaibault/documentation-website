@@ -216,6 +216,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                     match = this.textContent.match(new RegExp(
                         self._options.showExamplePattern))
                     if match
+                        console.log match
                         $codeDomNode = $(this).next()
                         code = $codeDomNode.find(
                             self.$domNodes.codeWrapper
