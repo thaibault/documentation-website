@@ -91,7 +91,9 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         initialize: (options) ->
             super options
             this.$domNodes.aboutThisWebsiteSection.hide()
-            this._makeCodeEllipsis()
+            # NOTE: We have to render examples first to avoid having dots in
+            # example code.
+            this._showExamples()._makeCodeEllipsis()
             this.on this.$domNodes.tableOfContentLinks, 'click', ->
                 $.scrollTo $(this).attr('href'), 'slow'
             # Handle section switch between documentation and
@@ -108,7 +110,6 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             this.on this.$domNodes.homeLink, 'click', (event) =>
                 this.$domNodes.aboutThisWebsiteSection.fadeOut(
                     this._options.section.aboutThisWebsite.fadeOut)
-            this._showExamples()
 
         # endregion
 
@@ -231,8 +232,6 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                             # TODO wrap js style arround
                             $codeDomNode.after code
                         else
-                            console.log code
-                            console.log $codeDomNode
                             $codeDomNode.after code
             this
 
