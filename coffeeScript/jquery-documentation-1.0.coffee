@@ -50,7 +50,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         ###
         _options:
             domNodeSelectorPrefix: 'body.{1}'
-            showExamplePattern: '^showExample(: *([^ ]+))?$'
+            showExamplePattern: '^ *showExample(: *([^ ]+))? *$'
             showExampleDomNodeName: '#comment'
             domNode:
                 tableOfContentLinks: 'div.toc > ul > li > a[href^="#"]'
