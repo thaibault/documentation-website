@@ -221,16 +221,22 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                         code = $codeDomNode.find(
                             self.$domNodes.codeWrapper
                         ).text()
-                        if match[2]?.toLowerCase() is 'javascript'
-                            # TODO wrap js arround
-                            $codeDomNode.after code
+                        if not code
+                            code = $codeDomNode.text()
+                        if $.inArray(
+                            match[2]?.toLowerCase(), ['javascript', 'js']
+                        ) isnt -1
+                            $codeDomNode.after($('<script>').attr(
+                                'type', 'text/javascript'
+                            ).text code)
                         else if match[2]? and $.inArray(
                             match[2].toLowerCase(), [
                                 'css', 'cascadingstylesheets', 'stylesheets',
                                 'sheets', 'style']
                         ) isnt -1
-                            # TODO wrap js style arround
-                            $codeDomNode.after code
+                            $codeDomNode.after($('<style>').attr(
+                                'type', 'text/css'
+                            ).text code)
                         else
                             $codeDomNode.after code
             this

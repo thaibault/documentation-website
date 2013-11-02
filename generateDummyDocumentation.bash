@@ -92,6 +92,14 @@ function printDummyDocumentationContent() {
         </td>
     </tr>
 </table>
+<!--showExample:js-->
+<div class="codehilite">
+    <pre>window.test = 5 * 2;</pre>
+</div>
+<!--showExample:css-->
+<div class="codehilite">
+    <pre>border: 0px solid black;</pre>
+</div>
 <table class="codehilitetable">
     <tbody>
         <tr>
