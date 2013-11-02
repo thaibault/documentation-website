@@ -50,7 +50,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         ###
         _options:
             domNodeSelectorPrefix: 'body.{1}'
-            showExamplePattern: '^showExample(:(.+))?$'
+            showExamplePattern: '^showExample(: *([^ ]+))?$'
             showExampleDomNodeName: '#comment'
             domNode:
                 tableOfContentLinks: 'div.toc > ul > li > a[href^="#"]'
@@ -58,10 +58,8 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                 homeLink: 'a[href="#home"]'
                 aboutThisWebsiteSection: 'section.about-this-website'
                 mainSection: 'section.main-content'
-                codeLines:
-                    'table.codehilitetable > tbody > tr > td.code > ' +
-                    'div.codehilite > pre > span, section > div.codehilite ' +
-                    '> pre'
+                codeWrapper: 'div.codehilite'
+                codeChildren: 'pre'
             trackingCode: 'UA-0-0'
             section:
                 aboutThisWebsite:
@@ -144,9 +142,6 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
 
         # endregion
 
-        # TODO we have to delete html around text in a tree for the next two
-        # features.
-
         ###*
             @description This method makes dotes after code lines which are too
                          long. This prevents line wrapping.
@@ -154,10 +149,61 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             @returns {$.Documentation} Returns the current instance.
         ###
         _makeCodeEllipsis: ->
-            this.$domNodes.codeLines.each ->
-                if $(this).text().length > 80
-                    $(this).text "#{$(this).text().substr(0, 76)}..."
+            self = this
+            this.$domNodes.codeWrapper.children(
+                this.$domNodes.codeChildren
+            ).each ->
+                $this = $ this
+                newContent = ''
+                codeLines = $this.html().split '\n'
+                $.each codeLines, (index, value) ->
+                    excess = 0
+                    try
+                        excess = $(value).text().length - 79
+                    catch error
+                        if value.length > 79
+                            value = "#{value.substr(0, 76)}..."
+                    if excess > 0
+                        newContent += self._replaceExcessWithDots value, excess
+                    else
+                        newContent += value
+                    if index + 1 isnt codeLines.length
+                        newContent += "\n"
+                $this.html newContent
             this
+        ###*
+            @description Replaces given html content with a shorter version
+                         trimmed by given amount of excess.
+
+            @param {String} content String to trim.
+            @param {Number} excess Amount of excess.
+
+            @returns {String} Returns the trimmed content.
+        ###
+        _replaceExcessWithDots: (content, excess) ->
+            # Add space for ending dots.
+            excess += 3
+            newContent = ''
+            $($(content).get().reverse()).each ->
+                # Wrap element to get not only the inner html.
+                $wrapper = $(this).wrap('<div>').parent()
+                contentSnippet = $wrapper.html()
+                if not contentSnippet
+                    contentSnippet = this.textContent
+                if excess
+                    if this.textContent.length < excess
+                        excess -= this.textContent.length
+                        contentSnippet = ''
+                    else if this.textContent.length >= excess
+                        this.textContent = "#{this.textContent.substr(
+                            0, this.textContent.length - excess - 1
+                        )}..."
+                        excess = 0
+                        contentSnippet = $wrapper.html()
+                        if not contentSnippet
+                            contentSnippet = this.textContent
+                newContent = contentSnippet + newContent
+            newContent
         ###*
             @description Shows marked example codes directly in browser.
 
@@ -169,8 +215,23 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                 if this.nodeName is self._options.showExampleDomNodeName
                     match = this.textContent.match(new RegExp(
                         self._options.showExamplePattern))
-                    if match and match.length is 3
-                        self.log match
+                    if match
+                        $codeDomNode = $(this).next()
+                        code = $codeDomNode.find(
+                            self.$domNodes.codeWrapper
+                        ).text()
+                        if match[2]?.toLowerCase() is 'javascript'
+                            # TODO wrap js arround
+                            $codeDomNode.after code
+                        else if match[2]? and $.inArray(
+                            match[2].toLowerCase(), [
+                                'css', 'cascadingstylesheets', 'stylesheets',
+                                'sheets', 'style']
+                        ) isnt -1
+                            # TODO wrap js style arround
+                            $codeDomNode.after code
+                        else
+                            $codeDomNode.after code
             this
 
     # endregion

@@ -68,33 +68,31 @@ function printDummyDocumentationContent() {
 <div class="codehilite">
     <pre>&gt;&gt;&gt; /path/to/boostNode/runnable/macro.py -p /path/to/boostNode -e py</pre>
 </div>
-<!--showExample: javaScript-->
-<table class="codehilitetable">
-    <tbody>
-        <tr>
-            <td class="linenos">
-                <div class="linenodiv">
-                    <pre> 1
- 2
- 3
- 4
- 5
- 6</pre>
-                </div>
-            </td>
-            <td class="code">
-                <div class="codehilite">
-                    <pre><span class="err">#</span><span class="o">!</span><span class="err">/usr/bin/env javaScript</span>
+<div class="codehilite">
+    <pre>&gt;&gt;&gt; /path/to/boostNode/runnable/macro.py -p /path/to/boostNode -e py --looooooooong options -shorter</pre>
+</div>
 
-<span class="kd">var</span> <span class="nx">tools</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">Tools</span><span class="p">({</span><span class="s1">&#39;logging&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
-<span class="c1">// An 80 chars comment: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</span>
-<span class="c1">// A 120 chars comment: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</span>
-<span class="nx">tools</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span>
+<!--showExample-->
+<table class=codehilitetable>
+    <tr>
+        <td class=linenos>
+            <div class=linenodiv>
+                <pre> 1
+ 2
+ 3</pre>
+            </div>
+        </td>
+        <td class=code>
+            <div class=codehilite>
+                <pre><span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;test&quot;</span> <span class="na">value=</span><span class="s">&quot;4&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
 </pre>
-                </div>
-            </td>
-        </tr>
-    </tbody>
+            </div>
+        </td>
+    </tr>
+</table>
+<table class="codehilitetable">
     <tbody>
         <tr>
             <td class="linenos">
@@ -111,9 +109,9 @@ function printDummyDocumentationContent() {
                 <div class="codehilite">
                     <pre><span class="err">#</span><span class="o">!</span><span class="err">/usr/bin/env javaScript</span>
 
-<span class="kd">var</span> <span class="nx">tools</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">Tools</span><span class="p">({</span><span class="s1">&#39;logging&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
-<span class="c1">// An 80 chars comment: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</span>
-<span class="c1">// A 120 chars comment: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</span>
+<span class="kd">var</span> <span class="nx">tools</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">Tools</span><span class="p">({</span><span class="s1">&#39;logging&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span><span class="kd">var</span> <span class="nx">tools</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">Tools</span><span class="p">({</span><span class="s1">&#39;logging&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+<span class="c1">// An 79 chars comment: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</span>
+<span class="nx">tools</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span>
 <span class="nx">tools</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span>
 </pre>
                 </div>
