@@ -139,7 +139,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             this.$domNodes.tableOfContentLinks.add(
                 this.$domNodes.aboutThisWebsiteLink
             ).filter("a[href=\"#{window.location.href.substr(
-                window.location.href
+                window.location.href.indexOf '#'
             )}\"]").trigger 'click'
             super()
 
