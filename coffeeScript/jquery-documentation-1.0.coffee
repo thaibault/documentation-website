@@ -90,6 +90,8 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             @returns {$.Documentation} Returns the current instance.
         ###
         initialize: (options) ->
+            # NOTE: We will load it after examples are injected.
+            options.activateLanguageSupport = false
             super options
             if not window.location.hash
                 window.location.hash = this.$domNodes.homeLink.attr 'href'
@@ -113,6 +115,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             this.on this.$domNodes.homeLink, 'click', (event) =>
                 this.$domNodes.aboutThisWebsiteSection.fadeOut(
                     this._options.section.aboutThisWebsite.fadeOut)
+            this
 
         # endregion
 
@@ -123,10 +126,12 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
 
             @returns {$.Documentation} Returns the current instance.
         ###
-        _onSwitchSection: ->
+        _onExamplesLoaded: ->
             # NOTE: After injecting new dom nodes we have to grab them for
             # further controller logic.
             this.$domNodes = this.grabDomNode this._options.domNode
+            # New injected dom nodes may take affect on language handler.
+            this._languageHandler = $.Lang this._options.language
             this
         ###*
             @description This method triggers if we change the current section.
