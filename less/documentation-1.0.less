@@ -23,7 +23,18 @@ License
 
 // region constants
 
-@borderInPixel: 1px;
+@fontColor: #373737;
+@linkColor: #0090ff;
+@codeLineNumberColor: #cbcbcd;
+@languageButtonColor: #ababab;
+@currentLanguageButtonColor: #5a5a5a;
+@hoverLanguageButtonColor: #898989;
+@backgroundColor: #fff;
+@codeBackgroundColor: #f7f7f9;
+@codeLineNumberBackgroundColor: #fbfbfc;
+@codeBorderColor: #ddd;
+
+@borderRadiusInPixel: 1px;
 
 // endregion
 
@@ -33,8 +44,8 @@ body.documentation {
 
     /* region global */
 
-    color: #373737;
-    background: #212121;
+    color: @fontColor;
+    background: @backgroundColor;
     font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
     line-height: 1.5;
 
@@ -51,7 +62,7 @@ body.documentation {
 
         /* endregion */
 
-        /* region font */
+        /* region symbol */
 
     span.arrow-left-home {
         margin-right: 10px;
@@ -67,7 +78,7 @@ body.documentation {
         margin: 10px 0;
         font-weight: 700;
         color: #222222;
-        font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
+        font-family: 'Lucida Grande', Calibri, Helvetica, Arial, sans-serif;
         letter-spacing: -1px;
     }
 
@@ -75,15 +86,9 @@ body.documentation {
 
         /* region links */
 
-    a[href="#top"] {
-        position: fixed;
-        z-index: 4;
-        bottom: 30px;
-        right: 45px;
-    }
     a {
         text-decoration: none;
-        color: #007edf;
+        color: @linkColor;
         text-shadow: none;
 
         transition: color 0.5s ease;
@@ -91,6 +96,12 @@ body.documentation {
     }
     a:hover {
         color: #0069ba;
+    }
+    a[href="#top"] {
+        position: fixed;
+        z-index: 4;
+        bottom: 30px;
+        right: 45px;
     }
 
         /* endregion */
@@ -102,8 +113,10 @@ body.documentation {
     [class^="icon-"], [class*=" icon-"] {
         #generic > .icon;
     }
-    // NOTE: We explicit inherit form ".icon" to prepare this class to be super
-    // classes as well.
+    /*
+        NOTE: We explicit inherit form ".icon" to prepare this class to be
+        super classes as well.
+    */
     .icon-blacktocat {
         #generic > .icon;
         background-position: -92px 0px;
@@ -145,6 +158,24 @@ body.documentation {
 
     /* endregion
 
+    /* region window loading cover */
+
+    div.window-loading-cover {
+        background-color: @backgroundColor;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        z-index: 20;
+
+        div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    }
+
+    /* endregion */
+
     /* region header */
 
     div.header-wrap.outer {
@@ -163,7 +194,7 @@ body.documentation {
                 z-index: 10;
                 padding: 10px;
                 color: #fff;
-                background-color: #0090ff;
+                background-color: @linkColor;
                 font-weight: 700;
             }
             a.forkme-banner:hover {
@@ -173,20 +204,20 @@ body.documentation {
                 border: none;
 
                 a {
-                    color: #fff;
+                    color: @backgroundColor;
                 }
+            }
+            h1.project-title, h2.project-tagline {
+                color: @backgroundColor;
+                text-shadow: #111 0px 0px 10px;
             }
             h1.project-title {
                 margin: 0;
-                color: #fff;
                 font-weight: 700;
-                text-shadow: #111 0px 0px 10px;
             }
             h2.project-tagline {
-                color: #fff;
                 font-weight: 300;
                 background: none;
-                text-shadow: #111 0px 0px 10px;
             }
             section.header-links {
                 padding: 0;
@@ -201,13 +232,21 @@ body.documentation {
                     padding-right: 10px;
                     padding-top: 35px;
                     float: left;
-                    color: #ababab;
+                    color: @languageButtonColor;
                 }
                 a[href^="#lang-"].current {
-                    color: #5a5a5a;
+                    color: @currentLanguageButtonColor;
                 }
                 a[href^="#lang-"]:hover {
-                    color: #898989;
+                    color: @hoverLanguageButtonColor;
+                }
+                a.zip-source-download, a.zip-distribution-bundle-download,
+                a.tar-gz-source-download, a.zip-source-download:hover,
+                a.zip-distribution-bundle-download:hover,
+                a.tar-gz-source-download:hover {
+                    color: @backgroundColor;
+                    width: 90px;
+                    height: 70px;
                 }
                 a.zip-source-download, a.zip-distribution-bundle-download,
                 a.tar-gz-source-download {
@@ -216,21 +255,15 @@ body.documentation {
                     text-align: center;
                     padding-top: 28px;
                     padding-top: 29px;
-                    color: #f2f2f2;
                     font-weight: bolder;
                     display: block;
                     float: right;
-                    width: 90px;
-                    height: 70px;
                     overflow: hidden;
                 }
                 a.zip-source-download:hover,
                 a.zip-distribution-bundle-download:hover,
                 a.tar-gz-source-download:hover {
                     .icon-blue-archiv;
-                    color: #f2f2f2;
-                    width: 90px;
-                    height: 70px;
                 }
             }
         }
@@ -238,29 +271,9 @@ body.documentation {
 
      /* endregion */
 
-    /* region window loading cover */
-
-    div.window-loading-cover {
-        background-color: white;
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        z-index: 20;
-
-        div {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            background-color: @color1;
-        }
-    }
-
-    /* endregion */
-
     /* region content */
 
     div.main-content-wrap {
-        background: #f2f2f2;
         border-top: 1px solid #111;
         border-bottom: 1px solid #111;
 
@@ -275,9 +288,11 @@ body.documentation {
             /* region code blocks */
 
             div.codehilite pre {
-                #generic > .border-radius(@borderInPixel);
+                border-color: @codeBorderColor;
+
+                #generic > .border-radius(@borderRadiusInPixel);
                 #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
-                background-color: #ececec;
+                background-color: @codeBackgroundColor;
 
                 /* Don't highlight syntax errors. */
                 .err {
@@ -286,42 +301,34 @@ body.documentation {
             }
             table {
                 border-collapse: collapse;
-
                 margin-bottom: 20px;
                 text-align: left;
 
-                th {
-                    font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-                    padding: 10px;
-                    background-color: #ececec;
-                    color: #fff;
-                }
                 tbody tr {
                     td.linenos, td.code {
+                        border-color: @codeBorderColor;
                         padding: 0;
 
                         div.linenodiv pre, div.codehilite pre {
+                            border-color: @codeBorderColor;
                             #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
                             white-space: pre;
                         }
                         div.linenodiv pre {
+                            #generic > .rounded-border(0, 0, @borderRadiusInPixel, @borderRadiusInPixel);
                             padding: 10px 8px 10px 0;
                             text-align: right;
-                            color: #666666;
-                            background-color: #f0f0f0;
-
-                            #generic > .rounded-border(0, 0, @borderInPixel, @borderInPixel);
+                            color: @codeLineNumberColor;
+                            background-color: @codeLineNumberBackgroundColor;
                         }
                         div.codehilite pre {
+                            #generic > .rounded-border(@borderRadiusInPixel, @borderRadiusInPixel, 0, 0);
                             padding: 10px;
                             overflow: auto;
-                            #generic > .rounded-border(@borderInPixel, @borderInPixel, 0, 0);
-                            background-color: #ececec;
+                            background-color: @codeBackgroundColor;
 
                             /* Don't highlight syntax errors. */
-                            .err {
-                                border: 0;
-                            }
+                            .err { border: 0; }
                         }
                     }
                 }
