@@ -49,6 +49,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             @property {Object}
         ###
         _options:
+            onExamplesLoaded: $.noop()
             domNodeSelectorPrefix: 'body.{1}'
             showExamplePattern: '^ *showExample(: *([^ ]+))? *$'
             showExampleDomNodeName: '#comment'
@@ -117,6 +118,16 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
 
          # region event handler
 
+        ###*
+            @description This method triggers if all examples loaded.
+
+            @returns {$.Documentation} Returns the current instance.
+        ###
+        _onSwitchSection: ->
+            # NOTE: After injecting new dom nodes we have to grab them for
+            # further controller logic.
+            this.$domNodes = this.grabDomNode this._options.domNode
+            this
         ###*
             @description This method triggers if we change the current section.
 
@@ -241,6 +252,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                             ).text code)
                         else
                             $codeDomNode.after code
+            this.fireEvent 'examplesLoaded'
             this
 
     # endregion
