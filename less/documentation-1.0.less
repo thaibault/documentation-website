@@ -103,6 +103,18 @@ body.documentation {
         bottom: 30px;
         right: 45px;
     }
+    a[href^="#lang-"] {
+        padding-right: 10px;
+        padding-top: 35px;
+        float: left;
+        color: @languageButtonColor;
+    }
+    a[href^="#lang-"].current {
+        color: @currentLanguageButtonColor;
+    }
+    a[href^="#lang-"]:hover {
+        color: @hoverLanguageButtonColor;
+    }
 
         /* endregion */
 
@@ -228,18 +240,6 @@ body.documentation {
                 right: 0;
                 height: 70px;
 
-                a[href^="#lang-"] {
-                    padding-right: 10px;
-                    padding-top: 35px;
-                    float: left;
-                    color: @languageButtonColor;
-                }
-                a[href^="#lang-"].current {
-                    color: @currentLanguageButtonColor;
-                }
-                a[href^="#lang-"]:hover {
-                    color: @hoverLanguageButtonColor;
-                }
                 a.zip-source-download, a.zip-distribution-bundle-download,
                 a.tar-gz-source-download, a.zip-source-download:hover,
                 a.zip-distribution-bundle-download:hover,
