@@ -35,7 +35,6 @@ this.less =
 ##
 
 ## standalone
-## #this.jQuery.noConflict(true) ($) ->
 ## this.jQuery(($) ->
 ##     $.Documentation googleTrackingCode: '<%GOOGLE_TRACKING_CODE%>')
 this.require.noConflict = true
@@ -43,7 +42,7 @@ this.require(
     [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']],
 ($) ->
     ###
-        Embed jQuery and require full compatible to all other
+        Embed $ and require full compatible to all other
         JavaScripts.
         The global scope is clean after this sequence. The given
         function is called when the dom-tree was loaded.
@@ -51,7 +50,7 @@ this.require(
     ###
         NOTE: "jQuery.noConflict()" should become "true" for parameter
         "removeAll", because we will end up in race conditions by finishing
-        tests and removing the main jQuery object.
+        tests and removing the main $ object.
     ###
     $.noConflict(true) ($) -> $.Documentation(
         googleTrackingCode: '<%GOOGLE_TRACKING_CODE%>', logging: true))
