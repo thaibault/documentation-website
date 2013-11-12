@@ -23,13 +23,18 @@ License
 
 // region constants
 
-@fontColor: #373737;
+@darkFontColor: #373737;
+@brightFontColor: #fff;
 @linkColor: #0090ff;
-@codeLineNumberColor: #cbcbcd;
+
 @languageButtonColor: #ababab;
 @currentLanguageButtonColor: #5a5a5a;
 @hoverLanguageButtonColor: #898989;
-@backgroundColor: #fff;
+
+@darkBackgroundColor: #212121;
+@brightBackgroundColor: @brightFontColor;
+
+@codeLineNumberColor: #cbcbcd;
 @codeBackgroundColor: #f7f7f9;
 @codeLineNumberBackgroundColor: #fbfbfc;
 @codeBorderColor: #ddd;
@@ -44,8 +49,8 @@ body.documentation {
 
     /* region global */
 
-    color: @fontColor;
-    background: @backgroundColor;
+    color: @darkFontColor;
+    background: @darkBackgroundColor;
     font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
     line-height: 1.5;
 
@@ -173,7 +178,7 @@ body.documentation {
     /* region window loading cover */
 
     div.window-loading-cover {
-        background-color: @backgroundColor;
+        background-color: @darkBackgroundColor;
         position: fixed;
         height: 100%;
         width: 100%;
@@ -191,7 +196,7 @@ body.documentation {
     /* region header */
 
     div.header-wrap.outer {
-        #generic > .linear-gradient(top, #212121, #373737, #212121);
+        #generic > .linear-gradient(top, @darkBackgroundColor, #373737, @darkBackgroundColor);
 
         header.inner {
             padding: 50px 10px 30px 10px;
@@ -205,7 +210,7 @@ body.documentation {
                 right: 10px;
                 z-index: 10;
                 padding: 10px;
-                color: #fff;
+                color: @brightFontColor;
                 background-color: @linkColor;
                 font-weight: 700;
             }
@@ -216,11 +221,11 @@ body.documentation {
                 border: none;
 
                 a {
-                    color: @backgroundColor;
+                    color: @brightFontColor;
                 }
             }
             h1.project-title, h2.project-tagline {
-                color: @backgroundColor;
+                color: @brightFontColor;
                 text-shadow: #111 0px 0px 10px;
             }
             h1.project-title {
@@ -244,7 +249,7 @@ body.documentation {
                 a.tar-gz-source-download, a.zip-source-download:hover,
                 a.zip-distribution-bundle-download:hover,
                 a.tar-gz-source-download:hover {
-                    color: @backgroundColor;
+                    color: @brightFontColor;
                     width: 90px;
                     height: 70px;
                 }
@@ -274,8 +279,7 @@ body.documentation {
     /* region content */
 
     div.main-content-wrap {
-        border-top: 1px solid #111;
-        border-bottom: 1px solid #111;
+        background-color: @brightBackgroundColor;
 
         /*  region content */
 
@@ -363,8 +367,6 @@ body.documentation {
     /* region footer */
 
     div.footer-wrap.outer {
-        background: #212121;
-
         footer.inner {
             width: 100%;
             text-align: center;
