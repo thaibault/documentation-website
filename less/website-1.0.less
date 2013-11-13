@@ -30,8 +30,9 @@ License
 @imagePath: '../image/';
 @fontPath: '../font/';
 
-@minimumTabletWidthInPixel: 767px;
-@minimumDesktopWidthInPixel: 979px;
+@minimumSmallWidthInPixel: 768px;
+@minimumMediumWidthInPixel: 992px;
+@minimumLargeWidthInPixel: 1200px;
 
 @color1: #1b1b1b;
 @color2: #1b1b1b;
@@ -55,28 +56,6 @@ License
          url('@{fontPath}glyphiconshalflings-social-regular.woff') format('woff'),
          url('@{fontPath}glyphiconshalflings-social-regular.ttf') format('truetype'),
          url('@{fontPath}glyphiconshalflings-social-regular.svg#glyphicons_socialregular') format('svg');
-}
-
-/* endregion */
-
-/* region style sheets */
-
-body {
-
-    /* region media query change indicator */
-
-    border-left-width: 0;
-    /* smartphone mode */
-    border-left-style: dotted;
-    @media (min-width: @minimumTabletWidthInPixel) {
-        border-left-style: solid;
-    }
-    @media (min-width: @minimumDesktopWidthInPixel) {
-        border-left-style: dashed;
-    }
-
-    /* endregion */
-
 }
 
 /* endregion */
