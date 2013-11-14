@@ -386,9 +386,11 @@ body.documentation {
 
     /* region responsive */
 
-        /* region smartphone */
+        /* region extra small */
 
     font-size: 13px;
+    @extraSmallWith: 460px;
+    width: @extraSmallWith;
 
             /* region headlines */
 
@@ -422,23 +424,14 @@ body.documentation {
 
             /* endregion */
 
-    .inner {
-        width: 460px;
-    }
+    .inner { width: @extraSmallWith; }
+    @media (min-width: @extraSmallWith) { width: 100%; }
     div.main-content-wrap section.main-content {
-        pre {
-            font-size: 9px;
-        }
-        div.codehilite pre {
-            width: 447px;
-        }
+        pre { font-size: 9px; }
+        div.codehilite pre { width: 447px; }
         table tbody tr {
-            td.linenos div.linenodiv pre {
-                width: 30px;
-            }
-            td.code div.codehilite pre {
-                width: 417px;
-            }
+            td.linenos div.linenodiv pre { width: 30px; }
+            td.code div.codehilite pre { width: 417px; }
         }
     }
     a[href="#top"] {
@@ -447,20 +440,17 @@ body.documentation {
 
         /* endregion */
 
-        /* region tablet */
+        /* region small */
 
-    @media (min-width: @minimumTabletWidthInPixel) {
+    @media (min-width: @minimumSmallWidthInPixel) {
         font-size: 16px;
+        width: 100%;
 
             /* region headlines */
 
         div.header-wrap.outer header.inner {
-            h1.project-title {
-                font-size: 42px;
-            }
-            h2.project-tagline {
-                font-size: 24px;
-            }
+            h1.project-title { font-size: 42px; }
+            h2.project-tagline { font-size: 24px; }
         }
         h1 {
             font-size: 36px;
@@ -471,38 +461,20 @@ body.documentation {
             font-size: 32px;
             border-bottom: 1px dashed #bdbdbd;
         }
-        h3 {
-            font-size: 24px;
-        }
-        h4 {
-            font-size: 21px;
-        }
-        h5 {
-            font-size: 18px;
-        }
-        h6 {
-            font-size: 16px;
-        }
+        h3 { font-size: 24px; }
+        h4 { font-size: 21px; }
+        h5 { font-size: 18px; }
+        h6 { font-size: 16px; }
 
             /* endregion */
 
-        .inner {
-            width: 715px;
-        }
+        .inner { width: 715px; }
         div.main-content-wrap section.main-content {
-            pre {
-                font-size: 13px;
-            }
-            div.codehilite pre {
-                width: 696px;
-            }
+            pre { font-size: 13px; }
+            div.codehilite pre { width: 696px; }
             table tbody tr {
-                td.linenos div.linenodiv pre {
-                    width: 42px;
-                }
-                td.code div.codehilite pre {
-                    width: 654px;
-                }
+                td.linenos div.linenodiv pre { width: 42px; }
+                td.code div.codehilite pre { width: 654px; }
             }
         }
         a[href="#top"] {
@@ -515,12 +487,10 @@ body.documentation {
 
         /* endregion */
 
-        /* region desktop */
+        /* region medium */
 
-        @media (min-width: @minimumDesktopWidthInPixel) {
-            a[href="#top"] {
-                right: 45px;
-            }
+        @media (min-width: @minimumMediumWidthInPixel) {
+            a[href="#top"] { right: 45px; }
         }
     }
 
