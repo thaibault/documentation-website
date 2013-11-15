@@ -233,9 +233,9 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         _showExamples: ->
             self = this
             this.$domNodes.parent.find(':not(iframe)').contents().each ->
-                if this.nodeName is self._options.showExampleDomNodeName
+                if this.nodeName is self._options.showExample.domNodeName
                     match = this.textContent.match(new RegExp(
-                        self._options.showExamplePattern))
+                        self._options.showExample.pattern))
                     if match
                         $codeDomNode = $(this).next()
                         code = $codeDomNode.find(
@@ -259,8 +259,8 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                             ).text code)
                         else
                             $codeDomNode.after $(
-                                self._options.showExample.htmlWrapper.text(
-                                    code))
+                                self._options.showExample.htmlWrapper
+                            ).html code
             this.fireEvent 'examplesLoaded'
             this
 
