@@ -51,8 +51,10 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         _options:
             onExamplesLoaded: $.noop()
             domNodeSelectorPrefix: 'body.{1}'
-            showExamplePattern: '^ *showExample(: *([^ ]+))? *$'
-            showExampleDomNodeName: '#comment'
+            showExample:
+                pattern: '^ *showExample(: *([^ ]+))? *$'
+                domNodeName: '#comment'
+                htmlWrapper: '<div class="show-example-wrapper">'
             domNode:
                 tableOfContentLinks: 'div.toc > ul > li > a[href^="#"]'
                 aboutThisWebsiteLink: 'a[href="#about-this-website"]'
@@ -256,7 +258,9 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                                 'type', 'text/css'
                             ).text code)
                         else
-                            $codeDomNode.after code
+                            $codeDomNode.after $(
+                                self._options.showExample.htmlWrapper.text(
+                                    code))
             this.fireEvent 'examplesLoaded'
             this
 
