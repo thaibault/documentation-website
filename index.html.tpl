@@ -157,7 +157,7 @@ endregion -->
                     <br />
                     79100 Freiburg
                     <br />
-                    Tel. 0049 (0) 176 / 10248185
+                    <a href="tel:004917610248185">Phone<!--deDE:Tel.--><!--frFR:Téléphone--> +49 (0) 176 <span>/</span> 10 248 185</a>
                     <br />
                     Email:
                     <a href="mailto:t.sickert@gmail.com">t.sickert@gmail.com</a>

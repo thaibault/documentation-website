@@ -92,6 +92,10 @@ function printDummyDocumentationContent() {
         </td>
     </tr>
 </table>
+<!--showExample-->
+<div class="codehilite">
+    <pre>&lt;p&gt;test text&lt;/p&gt;</pre>
+</div>
 <!--showExample:js-->
 <div class="codehilite">
     <pre>window.test = 5 * 2;</pre>
