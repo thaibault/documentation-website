@@ -92,18 +92,30 @@ function printDummyDocumentationContent() {
         </td>
     </tr>
 </table>
+<p>
+    Lorem ipsum dolor sit amet...
+</p>
 <!--showExample-->
 <div class="codehilite">
     <pre>&lt;p&gt;test text&lt;/p&gt;</pre>
 </div>
+<p>
+    Lorem ipsum dolor sit amet...
+</p>
 <!--showExample:js-->
 <div class="codehilite">
     <pre>window.test = 5 * 2;</pre>
 </div>
+<p>
+    Lorem ipsum dolor sit amet...
+</p>
 <!--showExample:css-->
 <div class="codehilite">
     <pre>border: 0px solid black;</pre>
 </div>
+<p>
+    Lorem ipsum dolor sit amet...
+</p>
 <table class="codehilitetable">
     <tbody>
         <tr>
