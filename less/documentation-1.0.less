@@ -343,19 +343,20 @@ body.documentation {
 
             div.show-example-wrapper {
                 @padding: 20px;
-                border-bottom: 1px solid @codeBorderColor;
-                background-color: @codeBackgroundColor;
                 #generic > .border-radius(@borderRadiusInPixel);
                 #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
+                border-bottom: 1px solid @codeBorderColor;
+                background-color: @codeBackgroundColor;
                 padding: @padding;
                 padding-top: @padding / 2;
-                font-size: 12px;
-                font-weight: bold;
-                color: #bbb;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                div.title { margin-bottom: @padding / 2; }
 
+                div.title {
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: #bbb;
+                    letter-spacing: 1px;
+                    margin-bottom: @padding / 2;
+                }
                 input.form-control { width: none; }
             }
         }
