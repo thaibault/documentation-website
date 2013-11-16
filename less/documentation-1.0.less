@@ -108,18 +108,14 @@ body.documentation {
         bottom: 30px;
         right: 45px;
     }
-    a[href^="#lang-"] {
+    a[href^="#lang-"] { color: @languageButtonColor; }
+    > div.header-wrap.outer > header.inner > section.header-links > a[href^="#lang-"] {
         padding-right: 10px;
         padding-top: 35px;
         float: left;
-        color: @languageButtonColor;
     }
-    a[href^="#lang-"].current {
-        color: @currentLanguageButtonColor;
-    }
-    a[href^="#lang-"]:hover {
-        color: @hoverLanguageButtonColor;
-    }
+    a[href^="#lang-"].current { color: @currentLanguageButtonColor; }
+    a[href^="#lang-"]:hover { color: @hoverLanguageButtonColor; }
 
         /* endregion */
 
