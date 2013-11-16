@@ -292,20 +292,18 @@ body.documentation {
             /* region code blocks */
 
             div.codehilite pre {
-                border-color: @codeBorderColor;
-
                 #generic > .border-radius(@borderRadiusInPixel);
                 #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
+                border-color: @codeBorderColor;
                 background-color: @codeBackgroundColor;
+                margin: 20px 0 0 0;
 
                 /* Don't highlight syntax errors. */
-                .err {
-                    border: 0;
-                }
+                .err { border: 0; }
             }
             table {
                 border-collapse: collapse;
-                margin-bottom: 20px;
+                margin-top: 20px;
                 text-align: left;
 
                 tbody tr {
@@ -317,6 +315,9 @@ body.documentation {
                             border-color: @codeBorderColor;
                             #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
                             white-space: pre;
+                        }
+                        div.linenodiv pre, div.codehilite pre {
+                            margin: 0;
                         }
                         div.linenodiv pre {
                             #generic > .rounded-border(0, 0, @borderRadiusInPixel, @borderRadiusInPixel);
@@ -340,6 +341,23 @@ body.documentation {
 
             /* endregion */
 
+            div.show-example-wrapper {
+                @padding: 20px;
+                border-bottom: 1px solid @codeBorderColor;
+                background-color: @codeBackgroundColor;
+                #generic > .border-radius(@borderRadiusInPixel);
+                #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
+                padding: @padding;
+                padding-top: @padding / 2;
+                font-size: 12px;
+                font-weight: bold;
+                color: #bbb;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                div.title { margin-bottom: @padding / 2; }
+
+                input.form-control { width: none; }
+            }
         }
 
         /* endregion */
