@@ -64,7 +64,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                                 </div>
                             '''
             domNode:
-                tableOfContentLinks: 'div.toc > ul > li > a[href^="#"]'
+                tableOfContentLinks: 'div.toc > ul > li a[href^="#"]'
                 aboutThisWebsiteLink: 'a[href="#about-this-website"]'
                 homeLink: 'a[href="#home"]'
                 aboutThisWebsiteSection: 'section.about-this-website'
