@@ -31,7 +31,7 @@ endregion -->
 
 <% DISTRIBUTION_BUNDLE_FILE_PATH = 'distributionBundle.zip'
 
-<% if not 'URL' in locals():
+<% if not URL:
     URL = 'http://thaibault.github.io/' + NAME
 
 <% # endregion
