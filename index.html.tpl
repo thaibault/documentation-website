@@ -31,6 +31,9 @@ endregion -->
 
 <% DISTRIBUTION_BUNDLE_FILE_PATH = 'distributionBundle.zip'
 
+<% if not 'URL' in locals():
+    URL = 'http://thaibault.github.io/' + NAME
+
 <% # endregion
 
 <% # region runtime
@@ -93,7 +96,7 @@ endregion -->
                 <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> forkme-banner" href="https://github.com/thaibault/<% NAME %>">View on GitHub<!--deDE:GitHub-Projekt--><!--frFR:GitHub-Project--><i class="icon-github"></i></a>
                 <% START_UP_ANIMATION_NUMBER += 1
                 <h1 class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-title">
-                    <a href="http://thaibault.github.io/<% NAME %>"><% NAME %></a>
+                    <a href="<% URL %>"><% NAME %></a>
                 </h1>
                 <% START_UP_ANIMATION_NUMBER += 1
                 <h2 class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-tagline">
