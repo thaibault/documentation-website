@@ -33,6 +33,8 @@ endregion -->
 
 <% if not URL:
     URL = 'http://thaibault.github.io/' + NAME
+<% if not SOURCE_URL:
+    SOURCE_URL = 'https://github.com/thaibault/' + NAME
 
 <% # endregion
 
@@ -93,7 +95,7 @@ endregion -->
         <div class="header-wrap outer">
             <header class="inner">
                 <% START_UP_ANIMATION_NUMBER += 1
-                <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> forkme-banner" href="https://github.com/thaibault/<% NAME %>">View on GitHub<!--deDE:GitHub-Projekt--><!--frFR:GitHub-Project--><i class="icon-github"></i></a>
+                <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> forkme-banner" href="<% SOURCE_URL %>">View on GitHub<!--deDE:GitHub-Projekt--><!--frFR:GitHub-Project--><i class="icon-github"></i></a>
                 <% START_UP_ANIMATION_NUMBER += 1
                 <h1 class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-title">
                     <a href="<% URL %>"><% NAME %></a>
