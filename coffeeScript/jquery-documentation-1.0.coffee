@@ -56,11 +56,11 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                 domNodeName: '#comment'
                 htmlWrapper: '''
                                 <div class="show-example-wrapper">
-                                    <div class="title">
-                                        Example
-                                        <!--deDE:Beispiel-->
-                                        <!--frFR:Exemple-->:
-                                    </div>
+                                    <h3>
+                                        Example:
+                                        <!--deDE:Beispiel:-->
+                                        <!--frFR:Exemple:-->
+                                    </h3>
                                 </div>
                             '''
             domNode:

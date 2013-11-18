@@ -35,8 +35,8 @@ License
 @brightBackgroundColor: @brightFontColor;
 
 @codeLineNumberColor: #cbcbcd;
-@codeBackgroundColor: #f7f7f9;
-@codeLineNumberBackgroundColor: #fbfbfc;
+@codeBackgroundColor: #fbfbfc;
+@codeLineNumberBackgroundColor: #f7f7f9;
 @codeBorderColor: #ddd;
 
 @borderRadiusInPixel: 1px;
@@ -56,9 +56,7 @@ body.documentation {
 
         /* region grid */
 
-    .outer {
-        width: 100%;
-    }
+    .outer { width: 100%; }
     .inner {
         position: relative;
         padding: 20px 10px;
@@ -326,6 +324,7 @@ body.documentation {
                             padding: 10px;
                             overflow: auto;
                             background-color: @codeBackgroundColor;
+                            border-left: 0;
 
                             /* Don't highlight syntax errors. */
                             .err { border: 0; }
@@ -349,8 +348,8 @@ body.documentation {
                 margin-right: auto;
                 width: 98%;
 
-                div.title {
-                    font-size: 12px;
+                h4 {
+                    // TODO font-size: 12px;
                     font-weight: bold;
                     color: #bbb;
                     letter-spacing: 1px;
@@ -407,13 +406,12 @@ body.documentation {
 
         /* region extra small */
 
-    font-size: 13px;
     @extraSmallWith: 460px;
     width: @extraSmallWith;
 
             /* region headlines */
 
-    div.header-wrap.outer header.inner {
+    /* TODO div.header-wrap.outer header.inner {
         h1.project-title {
             font-size: 32px;
         }
@@ -439,14 +437,14 @@ body.documentation {
     }
     h6 {
         font-size: 12px;
-    }
+    }*/
 
             /* endregion */
 
     .inner { width: @extraSmallWith; }
     @media (min-width: @extraSmallWith) { width: 100%; }
     div.main-content-wrap section.main-content {
-        pre { font-size: 9px; }
+        // TODO pre { font-size: 9px; }
         div.codehilite pre { width: 447px; }
         table tbody tr {
             td.linenos div.linenodiv pre { width: 30px; }
@@ -462,34 +460,34 @@ body.documentation {
         /* region small */
 
     @media (min-width: @minimumSmallWidthInPixel) {
-        font-size: 16px;
+        // TODO font-size: 16px;
         width: 100%;
 
             /* region headlines */
 
-        div.header-wrap.outer header.inner {
+        /* TODO div.header-wrap.outer header.inner {
             h1.project-title { font-size: 42px; }
             h2.project-tagline { font-size: 24px; }
         }
         h1 {
             font-size: 36px;
             font-weight: 700;
-        }
+        }*/
         h2 {
             padding-bottom: 10px;
-            font-size: 32px;
+            // TODO font-size: 32px;
             border-bottom: 1px dashed #bdbdbd;
         }
-        h3 { font-size: 24px; }
+        /* TODO h3 { font-size: 24px; }
         h4 { font-size: 21px; }
         h5 { font-size: 18px; }
-        h6 { font-size: 16px; }
+        h6 { font-size: 16px; }*/
 
             /* endregion */
 
         .inner { width: 715px; }
         div.main-content-wrap section.main-content {
-            pre { font-size: 13px; }
+            // TODO pre { font-size: 13px; }
             div.codehilite pre { width: 696px; }
             table tbody tr {
                 td.linenos div.linenodiv pre { width: 42px; }
