@@ -39,8 +39,6 @@ License
 @codeLineNumberBackgroundColor: #f7f7f9;
 @codeBorderColor: #ddd;
 
-@borderRadiusInPixel: 1px;
-
 // endregion
 
 /* region style sheets */
@@ -79,7 +77,6 @@ body.documentation {
 
     h1, h2, h3, h4, h5, h6 {
         margin: 10px 0;
-        font-weight: 700;
         color: #222222;
         font-family: 'Lucida Grande', Calibri, Helvetica, Arial, sans-serif;
         letter-spacing: -1px;
@@ -285,8 +282,7 @@ body.documentation {
             /* region code blocks */
 
             div.codehilite pre {
-                #generic > .border-radius(@borderRadiusInPixel);
-                #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
+                #generic > .border-radius(0);
                 border-color: @codeBorderColor;
                 background-color: @codeBackgroundColor;
                 margin: 20px 0 0 0;
@@ -306,21 +302,19 @@ body.documentation {
 
                         div.linenodiv pre, div.codehilite pre {
                             border-color: @codeBorderColor;
-                            #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
                             white-space: pre;
                         }
                         div.linenodiv pre, div.codehilite pre {
                             margin: 0;
                         }
                         div.linenodiv pre {
-                            #generic > .rounded-border(0, 0, @borderRadiusInPixel, @borderRadiusInPixel);
                             padding: 10px 8px 10px 0;
                             text-align: right;
                             color: @codeLineNumberColor;
                             background-color: @codeLineNumberBackgroundColor;
+                            #generic > .border-radius(0);
                         }
                         div.codehilite pre {
-                            #generic > .rounded-border(@borderRadiusInPixel, @borderRadiusInPixel, 0, 0);
                             padding: 10px;
                             overflow: auto;
                             background-color: @codeBackgroundColor;
@@ -338,22 +332,19 @@ body.documentation {
 
             div.show-example-wrapper {
                 @padding: 20px;
-                #generic > .border-radius(@borderRadiusInPixel);
-                #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .1));
-                border-bottom: 1px solid @codeBorderColor;
+                border: 1px solid @codeBorderColor;
+                border-top: 0;
                 background-color: @codeBackgroundColor;
                 padding: @padding;
                 padding-top: @padding / 2;
-                margin-left: auto;
-                margin-right: auto;
-                width: 98%;
 
-                h4 {
-                    // TODO font-size: 12px;
+                h3 {
+                    font-size: 12px;
                     font-weight: bold;
                     color: #bbb;
                     letter-spacing: 1px;
                     margin-bottom: @padding / 2;
+                    margin-top: 0;
                 }
                 input.form-control { width: none; }
                 p { margin: 0; }
@@ -409,90 +400,44 @@ body.documentation {
     @extraSmallWith: 460px;
     width: @extraSmallWith;
 
-            /* region headlines */
-
-    /* TODO div.header-wrap.outer header.inner {
-        h1.project-title {
-            font-size: 32px;
-        }
-        h2.project-tagline {
-            font-size: 24px;
-        }
-    }
-    h1 {
-        font-size: 28px;
-    }
-    h2 {
-        font-size: 24px;
-        border-bottom: 1px dashed #bdbdbd;
-    }
-    h3 {
-        font-size: 21px;
-    }
-    h4 {
-        font-size: 18px;
-    }
-    h5 {
-        font-size: 14px;
-    }
-    h6 {
-        font-size: 12px;
-    }*/
-
-            /* endregion */
-
     .inner { width: @extraSmallWith; }
     @media (min-width: @extraSmallWith) { width: 100%; }
     div.main-content-wrap section.main-content {
-        // TODO pre { font-size: 9px; }
+        pre { font-size: 9px; }
         div.codehilite pre { width: 447px; }
         table tbody tr {
             td.linenos div.linenodiv pre { width: 30px; }
             td.code div.codehilite pre { width: 417px; }
         }
+        div.show-example-wrapper { width: 447px; }
     }
-    a[href="#top"] {
-        visibility: hidden;
-    }
+    a[href="#top"] { visibility: hidden; }
 
         /* endregion */
 
         /* region small */
 
     @media (min-width: @minimumSmallWidthInPixel) {
-        // TODO font-size: 16px;
         width: 100%;
 
             /* region headlines */
 
-        /* TODO div.header-wrap.outer header.inner {
-            h1.project-title { font-size: 42px; }
-            h2.project-tagline { font-size: 24px; }
-        }
-        h1 {
-            font-size: 36px;
-            font-weight: 700;
-        }*/
         h2 {
             padding-bottom: 10px;
-            // TODO font-size: 32px;
             border-bottom: 1px dashed #bdbdbd;
         }
-        /* TODO h3 { font-size: 24px; }
-        h4 { font-size: 21px; }
-        h5 { font-size: 18px; }
-        h6 { font-size: 16px; }*/
 
             /* endregion */
 
         .inner { width: 715px; }
         div.main-content-wrap section.main-content {
-            // TODO pre { font-size: 13px; }
-            div.codehilite pre { width: 696px; }
+            pre { font-size: 13px; }
+            div.codehilite pre { width: 695px; }
             table tbody tr {
                 td.linenos div.linenodiv pre { width: 42px; }
-                td.code div.codehilite pre { width: 654px; }
+                td.code div.codehilite pre { width: 653px; }
             }
+            div.show-example-wrapper { width: 100%; }
         }
         a[href="#top"] {
             visibility: visible;

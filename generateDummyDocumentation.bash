@@ -93,7 +93,10 @@ function printDummyDocumentationContent() {
     </tr>
 </table>
 <p>
-    Lorem ipsum dolor sit amet...
+    Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.Lorem ipsum dolor
+    sit amet. Lorem ipsum dolor sit amet. sit amet. Lorem ipsum dolor sit amet.
+    sit amet. Lorem ipsum dolor sit amet. sit amet. Lorem ipsum dolor sit amet.
+    sit amet. Lorem ipsum dolor sit amet...
 </p>
 <!--showExample-->
 <div class="codehilite">
