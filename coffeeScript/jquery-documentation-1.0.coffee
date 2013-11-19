@@ -41,6 +41,17 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
     ###
     class Documentation extends $.Website.class
 
+    # region properties
+
+        ###*
+            Holds the class name to provide inspection features.
+
+            @property {String}
+        ###
+        __name__: 'Documentation'
+
+    # endregion
+
     # region public methods
 
         # region special
@@ -52,7 +63,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
 
             @returns {$.Documentation} Returns the current instance.
         ###
-        initialize: (options={}, @__name__='Documentation') ->
+        initialize: (options={}) ->
             this._options =
                 onExamplesLoaded: $.noop()
                 domNodeSelectorPrefix: 'body.{1}'

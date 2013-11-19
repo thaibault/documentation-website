@@ -157,6 +157,8 @@ for render_file_path in index.html.tpl coffeeScript/main.coffee.tpl; do
     template "$render_file_path" --scope-variables \
         TAGLINE='tagline' NAME='productName' LANGUAGE='en' \
         GOOGLE_TRACKING_CODE='google_traking_code' \
+        URL='https://github.com/thaibault/documentationWebsite' \
+        SOURCE_URL='https://github.com/thaibault/documentationWebsite' \
         RENDERED_MARKDOWN="$(printDummyDocumentationContent)" \
     1>"$(sed --regexp-extended 's/^(.+)\.[^\.]+$/\1/g' <<< \
         "$render_file_path")"
