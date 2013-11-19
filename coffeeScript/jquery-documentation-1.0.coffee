@@ -41,53 +41,6 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
     ###
     class Documentation extends $.Website.class
 
-    # region properties
-
-        ###*
-            Saves default options for manipulating the default behaviour.
-
-            @property {Object}
-        ###
-        _options:
-            onExamplesLoaded: $.noop()
-            domNodeSelectorPrefix: 'body.{1}'
-            showExample:
-                pattern: '^ *showExample(: *([^ ]+))? *$'
-                domNodeName: '#comment'
-                htmlWrapper: '''
-                                <div class="show-example-wrapper">
-                                    <h3>
-                                        Example:
-                                        <!--deDE:Beispiel:-->
-                                        <!--frFR:Exemple:-->
-                                    </h3>
-                                </div>
-                            '''
-            domNode:
-                tableOfContentLinks: 'div.toc > ul > li a[href^="#"]'
-                aboutThisWebsiteLink: 'a[href="#about-this-website"]'
-                homeLink: 'a[href="#home"]'
-                aboutThisWebsiteSection: 'section.about-this-website'
-                mainSection: 'section.main-content'
-                codeWrapper: 'div.codehilite'
-                codeChildren: 'pre'
-            trackingCode: 'UA-0-0'
-            section:
-                aboutThisWebsite:
-                    fadeOut: duration: 'slow'
-                    fadeIn: duration: 'slow'
-                main:
-                    fadeOut: duration: 'slow'
-                    fadeIn: duration: 'slow'
-        ###*
-            Saves the class name for introspection.
-
-            @property {String}
-        ###
-        __name__: 'Documentation'
-
-    # endregion
-
     # region public methods
 
         # region special
@@ -99,8 +52,40 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
 
             @returns {$.Documentation} Returns the current instance.
         ###
-        initialize: (options) ->
+        initialize: (options={}, @__name__='Documentation') ->
+            this._options =
+                onExamplesLoaded: $.noop()
+                domNodeSelectorPrefix: 'body.{1}'
+                showExample:
+                    pattern: '^ *showExample(: *([^ ]+))? *$'
+                    domNodeName: '#comment'
+                    htmlWrapper: '''
+                        <div class="show-example-wrapper">
+                            <h3>
+                                Example:
+                                <!--deDE:Beispiel:-->
+                                <!--frFR:Exemple:-->
+                            </h3>
+                        </div>
+                    '''
+                domNode:
+                    tableOfContentLinks: 'div.toc > ul > li a[href^="#"]'
+                    aboutThisWebsiteLink: 'a[href="#about-this-website"]'
+                    homeLink: 'a[href="#home"]'
+                    aboutThisWebsiteSection: 'section.about-this-website'
+                    mainSection: 'section.main-content'
+                    codeWrapper: 'div.codehilite'
+                    codeChildren: 'pre'
+                trackingCode: 'UA-0-0'
+                section:
+                    aboutThisWebsite:
+                        fadeOut: duration: 'slow'
+                        fadeIn: duration: 'slow'
+                    main:
+                        fadeOut: duration: 'slow'
+                        fadeIn: duration: 'slow'
             # NOTE: We will load it after examples are injected.
+            activateLanguageSupport = options.activateLanguageSupport
             options.activateLanguageSupport = false
             super options
             if not window.location.hash
@@ -108,7 +93,7 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             this.$domNodes.aboutThisWebsiteSection.hide()
             # NOTE: We have to render examples first to avoid having dots in
             # example code.
-            this._showExamples()._makeCodeEllipsis()
+            this._showExamples(activateLanguageSupport)._makeCodeEllipsis()
             this.on this.$domNodes.tableOfContentLinks, 'click', ->
                 $.scrollTo $(this).attr('href'), 'slow'
             # Handle section switch between documentation and
@@ -236,9 +221,13 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         ###*
             @description Shows marked example codes directly in browser.
 
+            @param {Boolean} activateLanguageSupport Indicates weather we will
+                                                     activate language support
+                                                     after loading examples.
+
             @returns {$.Documentation} Returns the current instance.
         ###
-        _showExamples: ->
+        _showExamples: (activateLanguageSupport) ->
             self = this
             this.$domNodes.parent.find(':not(iframe)').contents().each ->
                 if this.nodeName is self._options.showExample.domNodeName
@@ -269,7 +258,8 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                             $codeDomNode.after $(
                                 self._options.showExample.htmlWrapper
                             ).append code
-            this.fireEvent 'examplesLoaded'
+            this.fireEvent(
+                'examplesLoaded', false, this, activateLanguageSupport)
             this
 
     # endregion
