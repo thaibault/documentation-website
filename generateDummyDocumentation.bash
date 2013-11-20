@@ -147,6 +147,44 @@ function printDummyDocumentationContent() {
     </tbody>
 </table>
 <h3 id="e">e</h3>
+
+<table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class=code><div class=codehilite><pre>
+<span class="c">#!/usr/bin/env bash</span>
+
+cat <span class="s">&lt;&lt; EOF</span>
+<span class="s">Usage: $0 &lt;initramfsFilePath&gt; [options]</span>
+
+<span class="s">$__NAME__ installs an arch linux into an initramfs file.</span>
+
+<span class="s">Option descriptions:</span>
+
+<span class="s">\$(installArchLinuxPrintCommandLineOptionDescriptions &quot;\$@&quot; | \</span>
+<span class="s">    sed &#39;/^ *-[a-z] --output-system .*$/,/^$/d&#39;)</span>
+<span class="s">EOF</span>
+
+<span class="nv">myTarget</span><span class="o">=</span><span class="k">\$(</span>mktemp<span class="k">)</span>
+
+installArchLinux <span class="s2">&quot;\$@&quot;</span> --output-system <span class="nv">\$myTarget</span>
+
+<span class="c"># test...</span>
+</pre></div></td></tr></table>
 <p>
     Lorem ipsum dolor sit amet...
 </p>

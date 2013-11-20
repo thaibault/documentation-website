@@ -95,10 +95,14 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                     main:
                         fadeOut: duration: 'slow'
                         fadeIn: duration: 'slow'
-            # NOTE: We will load it after examples are injected.
+            # NOTE: We will initialize language support after examples are
+            # injected if activated via options.
             activateLanguageSupport = options.activateLanguageSupport
             options.activateLanguageSupport = false
             super options
+            if not activateLanguageSupport?
+                activateLanguageSupport =
+                    this._parentOptions.activateLanguageSupport
             if not window.location.hash
                 window.location.hash = this.$domNodes.homeLink.attr 'href'
             this.$domNodes.aboutThisWebsiteSection.hide()
@@ -130,14 +134,19 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
         ###*
             @description This method triggers if all examples loaded.
 
+            @param {Boolean} activateLanguageSupport Indicates weather language
+                                                     support should be
+                                                     initialized.
+
             @returns {$.Documentation} Returns the current instance.
         ###
-        _onExamplesLoaded: ->
+        _onExamplesLoaded: (activateLanguageSupport) ->
             # NOTE: After injecting new dom nodes we have to grab them for
             # further controller logic.
             this.$domNodes = this.grabDomNode this._options.domNode
             # New injected dom nodes may take affect on language handler.
-            this._languageHandler = $.Lang this._options.language
+            if activateLanguageSupport
+                this._languageHandler = $.Lang this._options.language
             this
         ###*
             @description This method triggers if we change the current section.
@@ -182,12 +191,9 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
                 newContent = ''
                 codeLines = $this.html().split '\n'
                 $.each codeLines, (index, value) ->
-                    excess = 0
-                    try
-                        excess = $(value).text().length - 79
-                    catch error
-                        if value.length > 79
-                            value = "#{value.substr(0, 76)}..."
+                    # NOTE: Wrap a div object tu grantee that $ will accept the
+                    # input.
+                    excess = $("<div>#{value}</div>").text().length - 79
                     if excess > 0
                         newContent += self._replaceExcessWithDots value, excess
                     else
@@ -209,9 +215,21 @@ this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
             # Add space for ending dots.
             excess += 3
             newContent = ''
-            $($(content).get().reverse()).each ->
-                # Wrap element to get not only the inner html.
-                $wrapper = $(this).wrap('<div>').parent()
+            try
+                content = $ content
+            catch error
+                # NOTE: Wrap an element around to grantee that $ will accept
+                # the input. We don't wrap an element in general to iterate
+                # through separate dom nodes in next step if possible.
+                content = $ "<wrapper>#{content}</wrapper>"
+                wrapped = true
+            $(content.get().reverse()).each ->
+                # Wrap element to get not only the inner html. Wrap only if not
+                # wrapped already.
+                if wrapped
+                    $wrapper = $ this
+                else
+                    $wrapper = $(this).wrap('<wrapper>').parent()
                 contentSnippet = $wrapper.html()
                 if not contentSnippet
                     contentSnippet = this.textContent
