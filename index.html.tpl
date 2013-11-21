@@ -35,6 +35,8 @@ endregion -->
     <% URL = 'http://thaibault.github.io/' + NAME
 <% if not SOURCE_URL:
     <% SOURCE_URL = 'https://github.com/thaibault/' + NAME
+<% if not LANGUAGES:
+    <% LANGUAGES = 'deDE', 'enUS'
 
 <% # endregion
 
@@ -106,12 +108,9 @@ endregion -->
                     <br />
                 </h2>
                 <section class="header-links">
-                    <% START_UP_ANIMATION_NUMBER += 1
-                    <a href="#lang-deDE" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">de</a>
-                    <% START_UP_ANIMATION_NUMBER += 1
-                    <a href="#lang-enUS" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">en</a>
-                    <% START_UP_ANIMATION_NUMBER += 1
-                    <a href="#lang-frFR" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">fr</a>
+                    <% for language in LANGUAGES:
+                        <% START_UP_ANIMATION_NUMBER += 1
+                        <a href="#lang-<% language %>" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"><% language[:2] %></a>
                     <% START_UP_ANIMATION_NUMBER += 1
                     <i class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> icon-download-tarball"></i>
                     <% START_UP_ANIMATION_NUMBER += 2
