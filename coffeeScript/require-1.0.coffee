@@ -209,16 +209,20 @@ class Require
 
         @property {DomNode}
     ###
-    this.headNode
+    this.injectingNode
+    # TODO use this feature in testing suite!!!
     ###*
         Saves all loaded script resources to prevent double script
-        loading.
+        loading. You can alter this property to specify where to inject
+        required scripts.
+        You can add scripts you have loaded via other mechanisms.
 
         @property {String[]}
     ###
     this.initializedLoadings
     ###*
-        Indicates if require should load resource on its own.
+        Indicates if require should load resource on its own. If set to false
+        require doesn't load any scripts.
 
         @property {Boolean}
     ###
@@ -276,7 +280,7 @@ class Require
             styleNode = document.createElement 'style'
             styleNode.type = 'text/css'
             styleNode.appendChild document.createTextNode cssContent
-            self.headNode.appendChild styleNode
+            self.injectingNode.appendChild styleNode
         '^.+\.coffee$': (coffeeScriptCode, module) ->
             sourceRootPath = self.basePath.default
             if self.basePath.coffee
@@ -362,8 +366,8 @@ class Require
             self.noConflict = false
         if not self.initializedLoadings?
             self.initializedLoadings = []
-        if not self.headNode?
-            self.headNode = document.getElementsByTagName('head')[0]
+        if not self.injectingNode?
+            self.injectingNode = document.getElementsByTagName('head')[0]
         if not self.scriptTypes?
             self.scriptTypes = '.js': 'text/javascript'
         if not self.asyncronModulePatternHandling?
@@ -421,6 +425,7 @@ class Require
             parameter.push parameter[0].slice 0
             # Mark array as initialized.
             parameter.push Require
+        parameter[0] = [parameter[0]] if typeof parameter[0] is 'string'
         if parameter[0].length
             # Grab first needed dependency from given queue.
             module = parameter[0].shift()
@@ -570,7 +575,7 @@ class Require
                 self::_scriptLoaded module, parameters
                 # Delete event after passing it once.
                 scriptNode.onload = null
-        self.headNode.appendChild scriptNode
+        self.injectingNode.appendChild scriptNode
         self
     ###*
         @description Creates a new script loading tag.
