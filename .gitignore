@@ -1,2 +1,5 @@
 # Vim temporary file
 *.swp
+
+# Temporary page render folder
+build
