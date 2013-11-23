@@ -16,8 +16,8 @@ License
 
 endregion -->
 
-Use case<!--deDE:Einsatz--><!--frFR:Utilisier-->
-------------------------------------------------
+Use case
+--------
 
 This is my central development for all of my documentation or project
-presentation webpages.
+presentation web pages.
