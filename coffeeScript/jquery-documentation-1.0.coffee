@@ -28,8 +28,11 @@
     web page.
 ###
 
-## standalone do ($=this.jQuery) ->
-this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], ($) ->
+## standalone
+## do ($=this.jQuery) ->
+this.require.scopeIndicator = 'jQuery.Documentation'
+this.require 'jquery-website-1.0.coffee', ($) ->
+##
 
 # endregion
 
