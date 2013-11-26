@@ -45,7 +45,7 @@ function printDummyDocumentationContent() {
         </ul>
     </ul>
 </div>
-<h1 id="getting-in">Getting in<!--deDE:Einstieg--></h1>
+<h1 id="getting-in"><langReplace>Getting <code>inline code</code>in</langReplace><!--deDE:Einstieg<code>inline code</code>--></h1>
 <p>
     Lorem ipsum dolor sit amet...
 </p>
@@ -193,7 +193,7 @@ EOF
 
 for render_file_path in index.html.tpl coffeeScript/main.coffee.tpl; do
     template "$render_file_path" --scope-variables \
-        TAGLINE='tagline' NAME='productName' LANGUAGE='en' LANGUAGES= \
+        TAGLINE='tagline' NAME='productName' LANGUAGE='en' LANGUAGES='' \
         GOOGLE_TRACKING_CODE='google_traking_code' \
         URL='https://github.com/thaibault/documentationWebsite' \
         SOURCE_URL='https://github.com/thaibault/documentationWebsite' \
