@@ -66,7 +66,10 @@ this.require 'jquery-website-1.0.coffee', ($) ->
 
             @returns {$.Documentation} Returns the current instance.
         ###
-        initialize: (options={}) ->
+        initialize: (
+            options={}, @_startUpAnimationIsComplete=false,
+            @_activateLanguageSupport=false, @_languageHandler=null
+        ) ->
             this._options =
                 onExamplesLoaded: $.noop()
                 domNodeSelectorPrefix: 'body.{1}'
@@ -100,18 +103,18 @@ this.require 'jquery-website-1.0.coffee', ($) ->
                         fadeIn: duration: 'slow'
             # NOTE: We will initialize language support after examples are
             # injected if activated via options.
-            activateLanguageSupport = options.activateLanguageSupport
+            this._activateLanguageSupport = options.activateLanguageSupport
             options.activateLanguageSupport = false
             super options
-            if not activateLanguageSupport?
-                activateLanguageSupport =
+            if not this._activateLanguageSupport?
+                this._activateLanguageSupport =
                     this._parentOptions.activateLanguageSupport
             if not window.location.hash
                 window.location.hash = this.$domNodes.homeLink.attr 'href'
             this.$domNodes.aboutThisWebsiteSection.hide()
             # NOTE: We have to render examples first to avoid having dots in
             # example code.
-            this._showExamples(activateLanguageSupport)._makeCodeEllipsis()
+            this._showExamples()._makeCodeEllipsis()
             this.on this.$domNodes.tableOfContentLinks, 'click', ->
                 $.scrollTo $(this).attr('href'), 'slow'
             # Handle section switch between documentation and
@@ -137,18 +140,15 @@ this.require 'jquery-website-1.0.coffee', ($) ->
         ###*
             @description This method triggers if all examples loaded.
 
-            @param {Boolean} activateLanguageSupport Indicates weather language
-                                                     support should be
-                                                     initialized.
-
             @returns {$.Documentation} Returns the current instance.
         ###
-        _onExamplesLoaded: (activateLanguageSupport) ->
+        _onExamplesLoaded: ->
             # NOTE: After injecting new dom nodes we have to grab them for
             # further controller logic.
             this.$domNodes = this.grabDomNode this._options.domNode
             # New injected dom nodes may take affect on language handler.
-            if activateLanguageSupport
+            if(this._startUpAnimationIsComplete and
+               this._activateLanguageSupport)
                 this._languageHandler = $.Lang this._options.language
             this
         ###*
@@ -168,8 +168,11 @@ this.require 'jquery-website-1.0.coffee', ($) ->
             @returns {$.Documentation} Returns the current instance.
         ###
         _onStartUpAnimationComplete: ->
+            if this._activateLanguageSupport and not this._languageHandler?
+                this._languageHandler = $.Lang this._options.language
             # All start up effects are ready. Handle direct
             # section links.
+            this._startUpAnimationIsComplete = true
             this.$domNodes.tableOfContentLinks.add(
                 this.$domNodes.aboutThisWebsiteLink
             ).filter("a[href=\"#{window.location.href.substr(
@@ -253,13 +256,9 @@ this.require 'jquery-website-1.0.coffee', ($) ->
         ###*
             @description Shows marked example codes directly in browser.
 
-            @param {Boolean} activateLanguageSupport Indicates weather we will
-                                                     activate language support
-                                                     after loading examples.
-
             @returns {$.Documentation} Returns the current instance.
         ###
-        _showExamples: (activateLanguageSupport) ->
+        _showExamples: ->
             self = this
             this.$domNodes.parent.find(':not(iframe)').contents().each ->
                 if this.nodeName is self._options.showExample.domNodeName
@@ -290,8 +289,7 @@ this.require 'jquery-website-1.0.coffee', ($) ->
                             $codeDomNode.after $(
                                 self._options.showExample.htmlWrapper
                             ).append code
-            this.fireEvent(
-                'examplesLoaded', false, this, activateLanguageSupport)
+            this.fireEvent 'examplesLoaded'
             this
 
     # endregion
