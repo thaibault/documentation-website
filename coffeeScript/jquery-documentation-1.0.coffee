@@ -296,9 +296,7 @@ this.require 'jquery-website-1.0.coffee', ($) ->
 
     # region handle $ extending
 
-    ###* @ignore ###
     $.Documentation = -> $.Tools().controller Documentation, arguments
-    ###* @ignore ###
     $.Documentation.class = Documentation
 
     # endregion
