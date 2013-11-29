@@ -42,7 +42,7 @@ endregion -->
 
 <% # region runtime
 
-<% START_UP_ANIMATION_NUMBER = 1
+<% START_UP_ANIMATION_NUMBER = 0
 
 <% # endregion
 
@@ -97,7 +97,12 @@ endregion -->
         <div class="header-wrap outer">
             <header class="inner">
                 <% START_UP_ANIMATION_NUMBER += 1
-                <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> forkme-banner" href="<% SOURCE_URL %>">View on GitHub<!--deDE:GitHub-Projekt--><!--frFR:GitHub-Project--><i class="icon-github"></i></a>
+                <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> forkme-banner" href="<% SOURCE_URL %>">
+                    View on GitHub
+                    <!--deDE:GitHub-Projekt-->
+                    <!--frFR:GitHub-Project-->
+                    <i class="icon-github"></i>
+                </a>
                 <% START_UP_ANIMATION_NUMBER += 1
                 <h1 class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-title">
                     <a href="<% URL %>"><% NAME %></a>
@@ -108,12 +113,10 @@ endregion -->
                     <br />
                 </h2>
                 <section class="header-links">
-                    <% for language in LANGUAGES:
-                        <% START_UP_ANIMATION_NUMBER += 1
-                        <a href="#lang-<% language %>" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"><% language[:2] %></a>
-                    <% START_UP_ANIMATION_NUMBER += 1
-                    <i class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> icon-download-tarball"></i>
-                    <% START_UP_ANIMATION_NUMBER += 2
+                    <!--NOTE: This elements are shown in reverse order.-->
+                    <% START_UP_ANIMATION_NUMBER += 3 + len(LANGUAGES)
+                    <% if FileHandler('api').is_directory():
+                        <% START_UP_ANIMATION_NUMBER += 5 + len(LANGUAGES)
                     <% if FileHandler(location=DISTRIBUTION_BUNDLE_FILE_PATH, must_exist=False):
                         <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">src.zip</a>
                         <% START_UP_ANIMATION_NUMBER -= 1
@@ -122,6 +125,25 @@ endregion -->
                         <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">.zip</a>
                         <% START_UP_ANIMATION_NUMBER -= 1
                         <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> tar-gz-source-download" href="https://github.com/thaibault/<% NAME %>/tarball/master">.tar.gz</a>
+                    <% START_UP_ANIMATION_NUMBER -= 1
+                    <i class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> icon-download-tarball"></i>
+                    <% for language in LANGUAGES:
+                        <% START_UP_ANIMATION_NUMBER -= 1
+                        <a href="#lang-<% language %>" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"><% language[:2] %></a>
+                    <% if FileHandler('api').is_directory():
+                        <% # TODO
+                        <% START_UP_ANIMATION_NUMBER -= 1
+                        <span class="glyphicon glyphicon-arrow-left arrow-left-api start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"></span>
+                        <% START_UP_ANIMATION_NUMBER -= 1
+                        <a href="/api/" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">
+                            API Documentation
+                            <!--deDE:API-Dokumentation-->
+                            <!--frFR:Documentation de l'API-->
+                        </a>
+                        <% START_UP_ANIMATION_NUMBER += 4 + len(LANGUAGES)
+                    <% else:
+                        <% START_UP_ANIMATION_NUMBER += 2 + len(LANGUAGES)
+                    else
                 </section>
             </header>
         </div>
@@ -134,8 +156,7 @@ endregion -->
 
         <!-- region main content -->
 
-            <% START_UP_ANIMATION_NUMBER += 1
-            <section class="main-content inner start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">
+            <section class="main-content inner">
                 <% RENDERED_MARKDOWN %>
             </section>
 
@@ -166,9 +187,7 @@ endregion -->
                     Email:
                     <a href="mailto:t.sickert@gmail.com">t.sickert@gmail.com</a>
                     <br />
-                    Website:
-                    <!--deDE:Webseite:-->
-                    <!--frFR:Site:-->
+                    Website:<!--deDE:Webseite:--><!--frFR:Site:-->
                     <a href="http://thaibault.github.io/website">http://thaibault.github.io/website</a>
                     <br />
                     <span class="glyphicon glyphicon-arrow-left arrow-left-home"></span>
@@ -194,7 +213,6 @@ endregion -->
                     &middot; &copy; 2013 Torben Sickert, Inc. &middot;
                     <a href="#about-this-website">about this website<!--deDE:Impressum--><!--frFR:Mentions légales--></a>
                 </p>
-                <% START_UP_ANIMATION_NUMBER += 1
             </footer>
         </div>
 
