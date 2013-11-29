@@ -135,7 +135,7 @@ endregion -->
                         <% START_UP_ANIMATION_NUMBER -= 1
                         <span class="glyphicon glyphicon-arrow-left arrow-left-api start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"></span>
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a href="/api/" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">
+                        <a href="<% URL %>/api/" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">
                             API Documentation
                             <!--deDE:API-Dokumentation-->
                             <!--frFR:Documentation de l'API-->
