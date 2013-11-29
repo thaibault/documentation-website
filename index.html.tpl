@@ -114,9 +114,10 @@ endregion -->
                 </h2>
                 <section class="header-links">
                     <!--NOTE: This elements are shown in reverse order.-->
-                    <% START_UP_ANIMATION_NUMBER += 3 + len(LANGUAGES)
                     <% if FileHandler('api').is_directory():
                         <% START_UP_ANIMATION_NUMBER += 5 + len(LANGUAGES)
+                    <% else:
+                        <% START_UP_ANIMATION_NUMBER += 3 + len(LANGUAGES)
                     <% if FileHandler(location=DISTRIBUTION_BUNDLE_FILE_PATH, must_exist=False):
                         <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">src.zip</a>
                         <% START_UP_ANIMATION_NUMBER -= 1
@@ -131,7 +132,6 @@ endregion -->
                         <% START_UP_ANIMATION_NUMBER -= 1
                         <a href="#lang-<% language %>" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"><% language[:2] %></a>
                     <% if FileHandler('api').is_directory():
-                        <% # TODO
                         <% START_UP_ANIMATION_NUMBER -= 1
                         <span class="glyphicon glyphicon-arrow-left arrow-left-api start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"></span>
                         <% START_UP_ANIMATION_NUMBER -= 1
@@ -143,7 +143,6 @@ endregion -->
                         <% START_UP_ANIMATION_NUMBER += 4 + len(LANGUAGES)
                     <% else:
                         <% START_UP_ANIMATION_NUMBER += 2 + len(LANGUAGES)
-                    else
                 </section>
             </header>
         </div>
