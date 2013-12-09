@@ -34,9 +34,11 @@ this.less =
     #sourceMap: true
 ##
 
+# TODO logging should be "false" after tracking code ist debugged.
+
 ## standalone
 ## this.jQuery ($) ->
-##     $.Documentation googleTrackingCode: '<%GOOGLE_TRACKING_CODE%>'
+##     $.Documentation googleTrackingCode: '<%GOOGLE_TRACKING_CODE%>', logging: true
 this.require.noConflict = true
 this.require(
     [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']],
