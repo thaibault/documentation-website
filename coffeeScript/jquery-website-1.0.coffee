@@ -442,7 +442,7 @@ ga('send', 'pageview');'''
                     this.__googleAnalyticsCode, trackingCode
                 )))()
                 this.debug(
-                    "Run code: \"#{this.__googleAnalyticsCode}\"",
+                    "Run analytics code: \"#{this.__googleAnalyticsCode}\"",
                     trackingCode)
             catch exception
                 this.warn(
