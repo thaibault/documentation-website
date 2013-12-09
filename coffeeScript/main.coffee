@@ -34,11 +34,11 @@ this.less =
     #sourceMap: true
 ##
 
-# TODO logging ist temporär bis analytics geht
+# TODO logging should be"false" after tracking code ist debugged.
 
 ## standalone
 ## this.jQuery ($) ->
-##     $.Documentation googleTrackingCode: 'google_tracking_code', logging: true
+##     $.Documentation trackingCode: 'google_traking_code', logging: true
 this.require.noConflict = true
 this.require(
     [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']],
@@ -55,6 +55,6 @@ this.require(
         tests and removing the main $ object.
     ###
     $.noConflict(true) ($) -> $.Documentation
-        googleTrackingCode: 'google_tracking_code', logging: true
+        trackingCode: 'google_traking_code', logging: true
 )
 ##
