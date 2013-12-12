@@ -34,7 +34,7 @@ this.less =
     #sourceMap: true
 ##
 
-# TODO logging should be"false" after tracking code ist debugged.
+# TODO logging should be "false" after tracking code ist debugged.
 
 ## standalone
 ## this.jQuery ($) ->
