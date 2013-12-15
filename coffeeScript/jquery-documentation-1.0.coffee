@@ -9,23 +9,36 @@
 
 # region header
 
-# Copyright Torben Sickert 16.12.2012
+###
+[Project page](https://thaibault.github.com/jQuery-lang)
 
-# License
-#    This library written by Torben Sickert stand under a creative commons
-#    naming 3.0 unported license.
-#    see http://creativecommons.org/licenses/by/3.0/deed.de
+This plugin provided client side internationalisation support for websites.
 
-###!
-    Copyright see require on https://github.com/thaibault/require
+Copyright
+---------
 
-    Conventions see require on https://github.com/thaibault/require
+Torben Sickert 16.12.2012
 
-    @author t.sickert@gmail.com (Torben Sickert)
-    @version 1.0 stable
-    @fileOverview
-    This module provides common reusable logic a simple project documentation
-    web page.
+License
+-------
+
+This library written by Torben Sickert stand under a creative commons naming
+3.0 unported license. see http://creativecommons.org/licenses/by/3.0/deed.de
+
+Extending this module
+---------------------
+
+For conventions see require on https://github.com/thaibault/require
+
+Author
+------
+
+t.sickert@gmail.com (Torben Sickert)
+
+Version
+-------
+
+1.0 stable
 ###
 
 ## standalone
@@ -38,18 +51,17 @@ this.require 'jquery-website-1.0.coffee', ($) ->
 
 # region plugins
 
-    ###*
-        @memberOf $
-        @class
-    ###
     class Documentation extends $.Website.class
+        ###
+            This plugin holds all needed methods to extend a whole
+            documentation site.
+        ###
 
     # region properties
 
-        ###*
+        ###
+            **__name__ {String}**
             Holds the class name to provide inspection features.
-
-            @property {String}
         ###
         __name__: 'Documentation'
 
@@ -59,12 +71,12 @@ this.require 'jquery-website-1.0.coffee', ($) ->
 
         # region special
 
-        ###*
-            @description Initializes the interactive web application.
+        ###
+            Initializes the interactive web application.
 
-            @param {Object} options An options object.
+            **options {Object}**          - An options object.
 
-            @returns {$.Documentation} Returns the current instance.
+            **returns {$.Documentation}** - Returns the current instance.
         ###
         initialize: (
             options={}, @_startUpAnimationIsComplete=false,
@@ -136,12 +148,12 @@ this.require 'jquery-website-1.0.coffee', ($) ->
 
          # region event handler
 
-        ###*
-            @description This method triggers if all examples loaded.
-
-            @returns {$.Documentation} Returns the current instance.
-        ###
         _onExamplesLoaded: ->
+            ###
+                This method triggers if all examples loaded.
+
+                **returns {$.Documentation}** - Returns the current instance.
+            ###
             # NOTE: After injecting new dom nodes we have to grab them for
             # further controller logic.
             this.$domNodes = this.grabDomNode this._options.domNode
@@ -150,23 +162,22 @@ this.require 'jquery-website-1.0.coffee', ($) ->
                this._activateLanguageSupport)
                 this._languageHandler = $.Lang this._options.language
             this
-        ###*
-            @description This method triggers if we change the current section.
-
-            @returns {$.Documentation} Returns the current instance.
-        ###
         _onSwitchSection: (hash) ->
+            ###
+                This method triggers if we change the current section.
+
+                **returns {$.Documentation}** - Returns the current instance.
+            ###
             this.$domNodes.tableOfContentLinks.add(
                 this.$domNodes.aboutThisWebsiteLink
             ).filter("a[href=\"#{hash}\"]").trigger 'click'
             super()
-        ###*
-            @description This method triggers if all startup animations are
-                         ready.
-
-            @returns {$.Documentation} Returns the current instance.
-        ###
         _onStartUpAnimationComplete: ->
+            ###
+                This method triggers if all startup animations are ready.
+
+                **returns {$.Documentation}** - Returns the current instance.
+            ###
             if this._activateLanguageSupport and not this._languageHandler?
                 this._languageHandler = $.Lang this._options.language
             # All start up effects are ready. Handle direct
@@ -181,11 +192,11 @@ this.require 'jquery-website-1.0.coffee', ($) ->
 
         # endregion
 
-        ###*
-            @description This method makes dotes after code lines which are too
-                         long. This prevents line wrapping.
+        ###
+            This method makes dotes after code lines which are too long. This
+            prevents line wrapping.
 
-            @returns {$.Documentation} Returns the current instance.
+            **returns {$.Documentation}** - Returns the current instance.
         ###
         _makeCodeEllipsis: ->
             self = this
@@ -207,16 +218,16 @@ this.require 'jquery-website-1.0.coffee', ($) ->
                         newContent += "\n"
                 $this.html newContent
             this
-        ###*
-            @description Replaces given html content with a shorter version
-                         trimmed by given amount of excess.
-
-            @param {String} content String to trim.
-            @param {Number} excess Amount of excess.
-
-            @returns {String} Returns the trimmed content.
-        ###
         _replaceExcessWithDots: (content, excess) ->
+            ###
+                Replaces given html content with a shorter version trimmed by
+                given amount of excess.
+
+                **content {String}** - String to trim.
+                **excess {Number}**  - Amount of excess.
+
+                **returns {String}** - Returns the trimmed content.
+            ###
             # Add space for ending dots.
             excess += 3
             newContent = ''
@@ -252,12 +263,12 @@ this.require 'jquery-website-1.0.coffee', ($) ->
                             contentSnippet = this.textContent
                 newContent = contentSnippet + newContent
             newContent
-        ###*
-            @description Shows marked example codes directly in browser.
-
-            @returns {$.Documentation} Returns the current instance.
-        ###
         _showExamples: ->
+            ###
+                Shows marked example codes directly in browser.
+
+                **returns {$.Documentation}** - Returns the current instance.
+            ###
             self = this
             this.$domNodes.parent.find(':not(iframe)').contents().each ->
                 if this.nodeName is self._options.showExample.domNodeName
