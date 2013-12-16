@@ -17,6 +17,8 @@ License
 */
 
 @import url(../cascadingStyleSheet/bootstrap-3.0.3.css);
+@import url(../cascadingStyleSheet/open-sans.css);
+@import url(../cascadingStyleSheet/open-sans-condensed.css);
 
 @import 'bootstrap-glyphicons-1.0.0';
 @import 'glyphicons-social-1.8';
@@ -56,6 +58,35 @@ License
          url('@{fontPath}glyphicons-halflings-social-regular.woff') format('woff'),
          url('@{fontPath}glyphicons-halflings-social-regular.ttf') format('truetype'),
          url('@{fontPath}glyphicons-halflings-social-regular.svg#glyphicons_socialregular') format('svg');
+}
+
+/* endregion */
+
+/* region global */
+
+body {
+    font-family: 'Open Sans';
+    font-weight: 100;
+
+    /* region headline */
+
+    h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+        font-family: 'Open Sans';
+    }
+    h1, h2 {
+        font-family: 'Open Sans Condensed';
+        font-weight: normal;
+        font-size: 3em;
+    }
+
+    /* endregion */
+
+    /* region link */
+
+    a:hover { text-decoration: none; }
+
+    /* endregion */
+
 }
 
 /* endregion */
