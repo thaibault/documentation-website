@@ -1,9 +1,2 @@
 # Vim temporary file
 *.swp
-.roperproject
-
-# Temporary page render folder
-build
-
-# Rendered html-file
-/index.html
