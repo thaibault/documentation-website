@@ -24,7 +24,7 @@ endregion -->
 <% IMAGE_APPLE_TOUCH_ICON_PATH = IMAGE_PATH + 'appleTouchIcon/'
 
 <% LESS_PATH = 'less/'
-<% STYLE_SHEET_PATH = 'cascardingStyleSheet/'
+<% CASCADING_STYLE_SHEET_PATH = 'cascadingStyleSheet/'
 
 <% COFFEE_SCRIPT_PATH = 'coffeeScript/'
 <% JAVA_SCRIPT_PATH = 'javaScript/'
