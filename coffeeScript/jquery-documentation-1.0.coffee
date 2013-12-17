@@ -104,7 +104,7 @@ this.require 'jquery-website-1.0.coffee', ($) ->
                     aboutThisWebsiteSection: 'section.about-this-website'
                     mainSection: 'section.main-content'
                     codeWrapper: 'div.codehilite'
-                    codeChildren: 'pre'
+                    code: 'div.codehilite > pre, code'
                 section:
                     aboutThisWebsite:
                         fadeOut: duration: 'slow'
@@ -200,14 +200,12 @@ this.require 'jquery-website-1.0.coffee', ($) ->
         ###
         _makeCodeEllipsis: ->
             self = this
-            this.$domNodes.codeWrapper.children(
-                this.$domNodes.codeChildren
-            ).each ->
+            this.$domNodes.code.each ->
                 $this = $ this
                 newContent = ''
                 codeLines = $this.html().split '\n'
                 $.each codeLines, (index, value) ->
-                    # NOTE: Wrap a div object tu grantee that $ will accept the
+                    # NOTE: Wrap a div object to grantee that $ will accept the
                     # input.
                     excess = $("<div>#{value}</div>").text().length - 79
                     if excess > 0
@@ -232,14 +230,15 @@ this.require 'jquery-website-1.0.coffee', ($) ->
             excess += 3
             newContent = ''
             try
-                content = $ content
+                $content = $ content
+                throw 'error' if not $content.length
             catch error
                 # NOTE: Wrap an element around to grantee that $ will accept
                 # the input. We don't wrap an element in general to iterate
                 # through separate dom nodes in next step if possible.
-                content = $ "<wrapper>#{content}</wrapper>"
+                $content = $ "<wrapper>#{content}</wrapper>"
                 wrapped = true
-            $(content.get().reverse()).each ->
+            $($content.get().reverse()).each ->
                 # Wrap element to get not only the inner html. Wrap only if not
                 # wrapped already.
                 if wrapped

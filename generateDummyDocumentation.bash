@@ -21,9 +21,7 @@
 # Prints a dummy documentation content.
 function printDummyDocumentationContent() {
     cat << EOF
-<h1 id="content">
-    Content<!--deDE:Inhalt-->
-</h1>
+<h1 id="content">Content<!--deDE:Inhalt--></h1>
 <div class="toc">
     <ul>
         <li>
@@ -51,7 +49,8 @@ function printDummyDocumentationContent() {
 </p>
 <h2 id="a">a</h2>
 <p>
-    Lorem ipsum dolor sit amet...
+    Lorem ipsum dolor sit amet
+    <code>mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</code>
 </p>
 <h2 id="b">b</h2>
 <p>
