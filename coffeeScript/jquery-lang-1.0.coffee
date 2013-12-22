@@ -196,7 +196,11 @@ this.require [
                         selfFound = false
                         $this.parent().contents().each ->
                             if selfFound and $.trim $(this).text()
+                                console.log '-----------'
+                                console.log this
+                                console.log $this
                                 $this.appendTo this
+                                return false
                             if $this[0] is this
                                 selfFound = true
                             true
