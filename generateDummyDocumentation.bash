@@ -27,10 +27,7 @@ function printDummyDocumentationContent() {
         <li>
             <a href="#content">Content<!--deDE:Inhalt--></a>
         </li>
-        <li>
-            <!--|deDE:Pre-->
-            <a href="#content">Vor</a>
-        </li>
+        <li><!--|deDE:JAU--><a href="#content">Vor</a></li>
         <li>
             <a href="#getting-in">Getting in<!--deDE:Einstieg--></a>
             <ul>
