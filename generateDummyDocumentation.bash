@@ -22,8 +22,9 @@
 function printDummyDocumentationContent() {
     cat << EOF
 <h1 id="content">Content<!--deDE:Inhalt--></h1>
-<!--|deDE:B-->
-<h2 id="a">A</h2>
+<!--|frFR:franz-->
+<!--|deDE:deutsch-->
+<h2 id="a">english</h2>
 <div class="toc">
     <ul>
         <li>
