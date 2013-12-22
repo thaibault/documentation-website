@@ -21,6 +21,7 @@
 # Prints a dummy documentation content.
 function printDummyDocumentationContent() {
     cat << EOF
+<a href="#lang-frFR">fr</a>
 <h1 id="content">Content<!--deDE:Inhalt--></h1>
 <!--|frFR:franz-->
 <!--|deDE:deutsch-->
