@@ -238,6 +238,7 @@ this.require [
                         match = this.textContent.match new RegExp(
                             self._options.replacementLanguagePattern)
                         if match and match[1] is language
+                            # Save known text translations.
                             self.knownLanguage[$.trim(
                                 $currentTextNodeToTranslate.text()
                             )] = $.trim match[2]
@@ -260,8 +261,15 @@ this.require [
                     $currentTextNodeToTranslate = null
                     $currentDomNode = null
                 true
+            this._registerKnownTextNodes()
+            [$lastTextNodeToTranslate, $lastLanguageDomNode]
+        _registerKnownTextNodes: ->
+            ###
+                Iterates all text nodes in known an area with known
+                translations.
 
-            # TODO
+                **returns {$.Lang}**  - Returns the current instance.
+            ###
             this._textNodesWithKnownLanguage = {}
             self = this
             this.$domNodes.knownLanguage.find(
@@ -275,12 +283,14 @@ this.require [
                 ) isnt -1 and $.trim($currentDomNode.text()) and
                     $currentDomNode.parents(
                         self._options.replaceDomNodeNames.join()
-                    ).length is 0 and self.knownLanguage[$.trim(this.textContent)]?
+                    ).length is 0 and self.knownLanguage[$.trim(
+                        this.textContent)]?
                 )
                     self._registerTextNodeToChange $currentDomNode
-                    self._textNodesWithKnownLanguage[self.knownLanguage[$.trim(this.textContent)]] = this
-
-            [$lastTextNodeToTranslate, $lastLanguageDomNode]
+                    self._textNodesWithKnownLanguage[self.knownLanguage[$.trim(
+                        this.textContent
+                    )]] = this
+            this
         _normalizeLanguage: (language) ->
             ###
                 Normalizes a given language string.
@@ -476,11 +486,9 @@ this.require [
                         replacement.textToReplace)
                 replacement.$currentLanguageDomNode.remove()
                 replacement.$commentNodeToReplace.remove()
-
-            # TODO
+            # Translate registered known text nodes.
             $.each this._textNodesWithKnownLanguage, (key, value) ->
                 value.textContent = key
-
             $.cookie this._options.cookieDescription, language
             this.currentLanguage = language
             this
