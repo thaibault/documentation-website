@@ -28,6 +28,7 @@ function printDummyDocumentationContent() {
 <h2 id="a">english</h2>
 <div class="toc">
     <ul>
+        <li><a href="#">english</a></li>
         <li>
             <a href="#content">Content<!--deDE:Inhalt--></a>
         </li>
