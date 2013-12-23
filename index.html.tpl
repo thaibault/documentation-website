@@ -192,6 +192,7 @@ endregion -->
                     <span class="glyphicon glyphicon-arrow-left arrow-left-home"></span>
                     <a href="#home">home<!--deDE:Startseite--><!--frFR:Maison--></a>
                 </p>
+                <% include('aboutThisWebsite')
             </section>
         </div>
 
