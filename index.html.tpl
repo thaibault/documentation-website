@@ -32,7 +32,7 @@ endregion -->
 <% DISTRIBUTION_BUNDLE_FILE_PATH = 'distributionBundle.zip'
 
 <% if not URL:
-    <% URL = 'http://thaibault.github.io/' + NAME
+    <% URL = 'http://thaibault.github.com/' + NAME
 <% if not SOURCE_URL:
     <% SOURCE_URL = 'https://github.com/thaibault/' + NAME
 <% if not LANGUAGES:
