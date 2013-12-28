@@ -3,11 +3,11 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Torben Sickert -- <role> -- <twitter>
 
 # THANKS
 
-    <name>
+    Torben Sickert
 
 # TECHNOLOGY COLOPHON
 

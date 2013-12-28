@@ -26,6 +26,7 @@ License
 @darkFontColor: #373737;
 @brightFontColor: #fff;
 @linkColor: #0090ff;
+@linkHoverColor: #0069ba;
 
 @languageButtonColor: #ababab;
 @currentLanguageButtonColor: #5a5a5a;
@@ -93,7 +94,7 @@ body.documentation {
         transition: color 0.5s ease;
         transition: text-shadow 0.5s ease;
     }
-    a:hover { color: #0069ba; }
+    a:hover { color: @linkHoverColor; }
     a[href$="/api/"] {
         padding-top: 35px;
         float: left;
@@ -165,7 +166,7 @@ body.documentation {
 
         /* endregion */
 
-        /* paragraphs */
+        /* region paragraphs */
 
     p { overflow: auto; }
 
@@ -177,6 +178,7 @@ body.documentation {
 
     div.window-loading-cover {
         background-color: @darkBackgroundColor;
+        /* always cover full viewport */
         position: fixed;
         height: 100%;
         width: 100%;
@@ -265,9 +267,7 @@ body.documentation {
                 }
                 a.zip-source-download:hover,
                 a.zip-distribution-bundle-download:hover,
-                a.tar-gz-source-download:hover {
-                    .icon-blue-archiv;
-                }
+                a.tar-gz-source-download:hover { .icon-blue-archiv; }
             }
         }
     }
@@ -362,15 +362,10 @@ body.documentation {
         /* region about this website */
 
         section.about-this-website {
-            p {
-                margin-bottom: 45px;
-            }
+            p { margin-bottom: 45px; }
             a[href="#home"] {
                 float: left;
                 margin-top: 9px;
-            }
-            a:hover {
-                color: #0069ba;
             }
         }
     }
