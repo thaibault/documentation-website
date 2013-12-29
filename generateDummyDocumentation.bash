@@ -50,9 +50,7 @@ function printDummyDocumentationContent() {
     </ul>
 </div>
 <h1 id="getting-in"><langReplace>Getting <code>inline code</code>in</langReplace><!--deDE:Einstieg<code>inline code</code>--></h1>
-<p>
-    Lorem ipsum dolor sit amet...
-</p>
+<p>Englisch<!--deDE:Deutsch--> ipsum dolor sit amet...</p>
 <h2 id="a">a</h2>
 <p>
     Lorem ipsum dolor sit amet
