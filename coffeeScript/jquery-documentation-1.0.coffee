@@ -107,11 +107,11 @@ this.require 'jquery-website-1.0.coffee', ($) ->
                     code: 'div.codehilite > pre, code'
                 section:
                     aboutThisWebsite:
-                        fadeOut: duration: 'slow'
-                        fadeIn: duration: 'slow'
+                        fadeOut: duration: 'fast'
+                        fadeIn: duration: 'fast'
                     main:
-                        fadeOut: duration: 'slow'
-                        fadeIn: duration: 'slow'
+                        fadeOut: duration: 'fast'
+                        fadeIn: duration: 'fast'
             # NOTE: We will initialize language support after examples are
             # injected if activated via options.
             this._activateLanguageSupport = options.activateLanguageSupport
@@ -191,6 +191,10 @@ this.require 'jquery-website-1.0.coffee', ($) ->
             super()
 
         # endregion
+
+    # endregion
+
+    # region protected methods
 
         ###
             This method makes dotes after code lines which are too long. This
