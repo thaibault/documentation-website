@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'Open Sans Condensed';
+    font-family: open-sans-ondensed;
     src: url('../font/open-sans-condensed/CondensedBold/OpenSans-CondBold-webfont.eot');
     src: url('../font/open-sans-condensed/CondensedBold/OpenSans-CondBold-webfont.eot?#iefix') format('embedded-opentype'),
          url('../font/open-sans-condensed/CondensedBold/OpenSans-CondBold-webfont.woff') format('woff'),
@@ -9,7 +9,7 @@
     font-style: normal;
 }
 @font-face {
-    font-family: 'Open Sans Condensed';
+    font-family: open-sans-ondensed;
     src: url('../font/open-sans-condensed/CondensedLight/OpenSans-CondLight-webfont.eot');
     src: url('../font/open-sans-condensed/CondensedLight/OpenSans-CondLight-webfont.eot?#iefix') format('embedded-opentype'),
          url('../font/open-sans-condensed/CondensedLight/OpenSans-CondLight-webfont.woff') format('woff'),
@@ -19,7 +19,7 @@
     font-style: normal;
 }
 @font-face {
-    font-family: 'Open Sans Condensed';
+    font-family: open-sans-ondensed;
     src: url('../font/open-sans-condensed/CondensedLightItalic/OpenSans-CondLightItalic-webfont.eot');
     src: url('../font/open-sans-condensed/CondensedLightItalic/OpenSans-CondLightItalic-webfont.eot?#iefix') format('embedded-opentype'),
          url('../font/open-sans-condensed/CondensedLightItalic/OpenSans-CondLightItalic-webfont.woff') format('woff'),

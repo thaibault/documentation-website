@@ -16,6 +16,10 @@ License
     see http://creativecommons.org/licenses/by/3.0/deed.de
 */
 
+/* Load "Open Sans" and "Open Sans Condensed" from font google api. */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700);
+/* Import custom "Open Sans" and "Open Sans Condensed" fonts as fallback. */
 @import url(../cascadingStyleSheet/bootstrap-3.0.3.css);
 @import url(../cascadingStyleSheet/open-sans.css);
 @import url(../cascadingStyleSheet/open-sans-condensed.css);
@@ -38,6 +42,9 @@ License
 
 @color1: #1b1b1b;
 @color2: #1b1b1b;
+
+@fontFamily: 'Open Sans', open-sans-custom, sans-serif;
+@fontFamilyCondensed: 'Open Sans Condensed', open-sans-condensed, sans-serif;
 
 // endregion
 
@@ -65,16 +72,16 @@ License
 /* region global */
 
 body {
-    font-family: 'Open Sans';
+    font-family: @fontFamily;
     font-weight: 100;
 
     /* region headline */
 
     h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-        font-family: 'Open Sans';
+        font-family: @fontFamily;
     }
     h1, h2 {
-        font-family: 'Open Sans Condensed';
+        font-family: @fontFamilyCondensed;
         font-weight: normal;
         font-size: 3em;
     }
