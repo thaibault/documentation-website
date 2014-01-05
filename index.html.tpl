@@ -164,7 +164,7 @@ endregion -->
         <!-- region about this website -->
 
             <section class="about-this-website inner">
-                <h1>
+                <h1 id="about-this-website">
                     About this website
                     <!--deDE:Impressum-->
                     <!--frFR:Mentions légales-->

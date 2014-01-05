@@ -137,10 +137,10 @@ this.require 'jquery-website-1.0.coffee', ($) ->
                 this.$domNodes.aboutThisWebsiteSection.fadeIn(
                     this._options.section.aboutThisWebsite.fadeIn)
             this.on this.$domNodes.aboutThisWebsiteLink, 'click', =>
-                this.$domNodes.mainSection.fadeOut(
+                this._scrollToTop().$domNodes.mainSection.fadeOut(
                     this._options.section.main.fadeOut)
             this.on this.$domNodes.homeLink, 'click', (event) =>
-                this.$domNodes.aboutThisWebsiteSection.fadeOut(
+                this._scrollToTop().$domNodes.aboutThisWebsiteSection.fadeOut(
                     this._options.section.aboutThisWebsite.fadeOut)
             this
 
@@ -170,7 +170,9 @@ this.require 'jquery-website-1.0.coffee', ($) ->
             ###
             this.$domNodes.tableOfContentLinks.add(
                 this.$domNodes.aboutThisWebsiteLink
-            ).filter("a[href=\"#{hash}\"]").trigger 'click'
+            ).add(this.$domNodes.homeLink).filter(
+                "a[href=\"#{hash}\"]"
+            ).trigger 'click'
             super()
         _onStartUpAnimationComplete: ->
             ###
