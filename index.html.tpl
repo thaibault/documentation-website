@@ -190,7 +190,7 @@ endregion -->
                     <a href="http://thaibault.github.io/website">http://thaibault.github.io/website</a>
                     <br />
                     <span class="glyphicon glyphicon-arrow-left arrow-left-home"></span>
-                    <a href="#home">home<!--deDE:Startseite--><!--frFR:Maison--></a>
+                    <a href="#home" class="visible-on-javascript-enabled">home<!--deDE:Startseite--><!--frFR:Maison--></a>
                 </p>
                 <% include('aboutThisWebsite')
             </section>
