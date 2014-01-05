@@ -189,7 +189,7 @@ endregion -->
                     Website:<!--deDE:Webseite:--><!--frFR:Site:-->
                     <a href="http://thaibault.github.io/website">http://thaibault.github.io/website</a>
                     <br />
-                    <span class="glyphicon glyphicon-arrow-left arrow-left-home"></span>
+                    <span class="glyphicon glyphicon-arrow-left arrow-left-home visible-on-javascript-enabled"></span>
                     <a href="#home" class="visible-on-javascript-enabled">home<!--deDE:Startseite--><!--frFR:Maison--></a>
                 </p>
                 <% include('aboutThisWebsite')
