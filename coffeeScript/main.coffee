@@ -39,7 +39,6 @@ this.less =
 ## standalone
 ## this.jQuery ($) ->
 ##     $.Documentation trackingCode: 'google_traking_code', logging: true
-this.require.noConflict = true
 this.require(
     [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']],
 ($) ->
@@ -54,7 +53,7 @@ this.require(
         "removeAll", because we will end up in race conditions by finishing
         tests and removing the main $ object.
     ###
-    $.noConflict(true) ($) -> $.Documentation
+    $.noConflict() ($) -> $.Documentation
         trackingCode: 'google_traking_code', logging: true
 )
 ##
