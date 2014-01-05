@@ -90,7 +90,7 @@ endregion -->
 <!-- region body -->
 
     <body class="documentation">
-        <div class="window-loading-cover"><div></div></div>
+        <div class="window-loading-cover visible-on-javascript-enabled"><div></div></div>
 
     <!-- region header -->
 
@@ -130,7 +130,7 @@ endregion -->
                     <i class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> icon-download-tarball"></i>
                     <% for language in LANGUAGES:
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a href="#lang-<% language %>" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"><% language[:2] %></a>
+                        <a href="#lang-<% language %>" class="visible-on-javascript-enabled start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"><% language[:2] %></a>
                     <% if FileHandler('api').is_directory():
                         <% START_UP_ANIMATION_NUMBER -= 1
                         <span class="glyphicon glyphicon-arrow-left arrow-left-api start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"></span>
