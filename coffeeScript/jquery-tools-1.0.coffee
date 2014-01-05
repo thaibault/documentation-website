@@ -123,13 +123,13 @@ this.require [['jQuery', 'jquery-2.0.3']], ($) ->
                 window.console = {} if not window.console?
                 # Only stub the $ empty method.
                 console[method] = $.noop() if not window.console[method]?
-            $(
+            console.log $(
                 this._defaultOptions.domNodeSelectorPrefix + ' ' +
                 this._defaultOptions.domNodes.hideJavaScriptEnabled
             ).filter(->
                 not $(this).data 'javaScriptDependentContentHide'
             ).data('javaScriptDependentContentHide', true).hide()
-            $(
+            console.log $(
                 this._defaultOptions.domNodeSelectorPrefix + ' ' +
                 this._defaultOptions.domNodes.showJavaScriptEnabled
             ).filter(->
