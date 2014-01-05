@@ -88,11 +88,6 @@ this.require [['jQuery', 'jquery-2.0.3']], ($) ->
             'markTimeline', 'profile', 'profileEnd', 'table', 'time',
             'timeEnd', 'timeStamp', 'trace', 'warn']
         ###
-            **_javaScriptDependentContentHandled {Boolean}**
-            Indicates weather javaScript dependent content where hide or shown.
-        ###
-        _javaScriptDependentContentHandled: false
-        ###
             **__tools__ {Boolean}**
             Indicates if an instance was derived from this class.
         ###
@@ -128,16 +123,18 @@ this.require [['jQuery', 'jquery-2.0.3']], ($) ->
                 window.console = {} if not window.console?
                 # Only stub the $ empty method.
                 console[method] = $.noop() if not window.console[method]?
-            if not this.self::_javaScriptDependentContentHandled
-                this.self::_javaScriptDependentContentHandled = true
-                $(
-                    this._defaultOptions.domNodeSelectorPrefix + ' ' +
-                    this._defaultOptions.domNodes.hideJavaScriptEnabled
-                ).hide()
-                $(
-                    this._defaultOptions.domNodeSelectorPrefix + ' ' +
-                    this._defaultOptions.domNodes.showJavaScriptEnabled
-                ).show()
+            $(
+                this._defaultOptions.domNodeSelectorPrefix + ' ' +
+                this._defaultOptions.domNodes.hideJavaScriptEnabled
+            ).filter(->
+                not $(this).data 'javaScriptDependentContentHide'
+            ).data('javaScriptDependentContentHide', true).hide()
+            $(
+                this._defaultOptions.domNodeSelectorPrefix + ' ' +
+                this._defaultOptions.domNodes.showJavaScriptEnabled
+            ).filter(->
+                not $(this).data 'javaScriptDependentContentShow'
+            ).data('javaScriptDependentContentShow', true).show()
             # NOTE: A constructor doesn't return last statement by default.
             return this
         destructor: ->
