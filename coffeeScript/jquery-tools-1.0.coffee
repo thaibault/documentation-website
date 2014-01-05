@@ -130,13 +130,13 @@ this.require [['jQuery', 'jquery-2.0.3']], ($) ->
                 console[method] = $.noop() if not window.console[method]?
             if not this.self::_javaScriptDependentContentHandled
                 this.self::_javaScriptDependentContentHandled = true
-                console.log $(
+                $(
                     this._defaultOptions.domNodeSelectorPrefix + ' ' +
                     this._defaultOptions.domNodes.hideJavaScriptEnabled
                 ).filter(->
                     not $(this).data 'javaScriptDependentContentHide'
                 ).data('javaScriptDependentContentHide', true).hide()
-                console.log $(
+                $(
                     this._defaultOptions.domNodeSelectorPrefix + ' ' +
                     this._defaultOptions.domNodes.showJavaScriptEnabled
                 ).filter(->
