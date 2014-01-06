@@ -210,7 +210,7 @@ endregion -->
                     <!--deDE:<% NAME %> betrieben von -->
                     <!--frFR:<% NAME %> exploité par -->
                     <a href="https://github.com/thaibault">thaibault</a>
-                    &middot; &copy; 2013 Torben Sickert, Inc. &middot;
+                    &middot; &copy; 2013 Torben Sickert &middot;
                     <a href="#about-this-website">about this website<!--deDE:Impressum--><!--frFR:Mentions légales--></a>
                 </p>
             </footer>
