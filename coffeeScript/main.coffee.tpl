@@ -20,7 +20,6 @@
 
 # endregion
 
-# TODO adapt to support less source maps.
 ## standalone
 ##
 this.less =
@@ -33,10 +32,7 @@ this.less =
     relativeUrls: false
     rootpath: ''
     logLevel: 0
-    #sourceMap: true
 ##
-
-# TODO logging should be "false" after tracking code ist debugged.
 
 ## standalone
 ## this.jQuery ($) ->
@@ -56,6 +52,6 @@ this.require(
         tests and removing the main $ object.
     ###
     $.noConflict() ($) -> $.Documentation
-        trackingCode: '<%GOOGLE_TRACKING_CODE%>', logging: true
+        trackingCode: '<%GOOGLE_TRACKING_CODE%>', logging: false
 )
 ##
