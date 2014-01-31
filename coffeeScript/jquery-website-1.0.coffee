@@ -162,8 +162,11 @@ ga('send', 'pageview');'''
             this.$domNodes.windowLoadingSpinner.spin(
                 this._options.windowLoadingSpinner)
             this._bindScrollEvents().$domNodes.parent.show()
-            this.on this.$domNodes.window, 'load', this.getMethod(
-                this._removeLoadingCover)
+            this.on this.$domNodes.window, 'load', =>
+                # TODO
+                console.log 'font loaded'
+                this.getMethod(
+                    this._removeLoadingCover)
             this._addNavigationEvents()._addMediaQueryChangeEvents(
             )._triggerWindowResizeEvents()._handleGoogleAnalytics()
             if not this._options.language.logging?
