@@ -162,7 +162,7 @@ ga('send', 'pageview');'''
             this.$domNodes.windowLoadingSpinner.spin(
                 this._options.windowLoadingSpinner)
             this._bindScrollEvents().$domNodes.parent.show()
-            this.$domNodes.window.ready this.getMethod(
+            this.on this.$domNodes.window, 'load', this.getMethod(
                 this._removeLoadingCover)
             this._addNavigationEvents()._addMediaQueryChangeEvents(
             )._triggerWindowResizeEvents()._handleGoogleAnalytics()
@@ -404,8 +404,6 @@ ga('send', 'pageview');'''
             window.setTimeout((=>
                 lastElementTriggered = false
                 this._options.startUpFadeIn.always = =>
-                    # TODO
-                    console.log 'A'
                     if lastElementTriggered
                         this.fireEvent 'startUpAnimationComplete'
                 $(
