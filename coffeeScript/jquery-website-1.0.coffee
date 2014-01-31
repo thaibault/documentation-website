@@ -166,7 +166,7 @@ ga('send', 'pageview');'''
                 this.windowLoaded = true
                 this._removeLoadingCover()
             if window.less?
-                this.$domNodes.window.ready onLoadedFunction
+                onLoadedFunction()
             else
                 this.on this.$domNodes.window, 'load', onLoadedFunction
             this._addNavigationEvents()._addMediaQueryChangeEvents(
