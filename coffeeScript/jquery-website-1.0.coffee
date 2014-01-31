@@ -404,6 +404,8 @@ ga('send', 'pageview');'''
             window.setTimeout((=>
                 lastElementTriggered = false
                 this._options.startUpFadeIn.always = =>
+                    # TODO
+                    console.log 'A'
                     if lastElementTriggered
                         this.fireEvent 'startUpAnimationComplete'
                 $(
