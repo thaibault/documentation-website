@@ -162,10 +162,13 @@ ga('send', 'pageview');'''
             this.$domNodes.windowLoadingSpinner.spin(
                 this._options.windowLoadingSpinner)
             this._bindScrollEvents().$domNodes.parent.show()
-            # TODO problem wen load schon war
-            this.on this.$domNodes.window, 'load', =>
+            onLoadedFunction = =>
                 this.windowLoaded = true
                 this._removeLoadingCover()
+            if window.less?
+                this.$domNodes.window.ready onLoadedFunction
+            else
+                this.on this.$domNodes.window, 'load', onLoadedFunction
             this._addNavigationEvents()._addMediaQueryChangeEvents(
             )._triggerWindowResizeEvents()._handleGoogleAnalytics()
             if not this._options.language.logging?
