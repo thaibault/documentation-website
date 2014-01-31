@@ -162,9 +162,8 @@ ga('send', 'pageview');'''
             this.$domNodes.windowLoadingSpinner.spin(
                 this._options.windowLoadingSpinner)
             this._bindScrollEvents().$domNodes.parent.show()
+            # TODO problem wen load schon war
             this.on this.$domNodes.window, 'load', =>
-                console.log 'window loaded'
-            this.$domNodes.window.ready =>
                 this.windowLoaded = true
                 this._removeLoadingCover()
             this._addNavigationEvents()._addMediaQueryChangeEvents(
