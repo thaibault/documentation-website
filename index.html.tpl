@@ -32,12 +32,10 @@ endregion -->
 
 <% DISTRIBUTION_BUNDLE_FILE_PATH = 'distributionBundle.zip'
 
-<% if not URL:
-    <% URL = 'http://thaibault.github.com/' + NAME
+URL = URL if URL else 'http://thaibault.github.com/%s' % NAME
 <% if not SOURCE_URL:
-    <% SOURCE_URL = 'https://github.com/thaibault/' + NAME
-<% if not LANGUAGES:
-    <% LANGUAGES = 'deDE', 'enUS'
+    <% SOURCE_URL = 'https://github.com/thaibault/%s' % NAME
+<% LANGUAGES = LANGUAGES if LANGUAGES else 'deDE', 'enUS'
 
 <% # endregion
 
@@ -100,8 +98,7 @@ endregion -->
                 <% START_UP_ANIMATION_NUMBER += 1
                 <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> forkme-banner" href="<% SOURCE_URL %>">
                     View on GitHub
-                    <!--deDE:GitHub-Projekt-->
-                    <!--frFR:GitHub-Project-->
+                    <!--deDE:GitHub-Projekt--><!--frFR:GitHub-Project-->
                     <i class="icon-github"></i>
                 </a>
                 <% START_UP_ANIMATION_NUMBER += 1
@@ -167,13 +164,11 @@ endregion -->
             <section class="about-this-website inner">
                 <h1 id="about-this-website">
                     About this website
-                    <!--deDE:Impressum-->
-                    <!--frFR:Mentions légales-->
+                    <!--deDE:Impressum--><!--frFR:Mentions légales-->
                 </h1>
                 <p>
                     Provider of
-                    <!--deDE:Anbieter von -->
-                    <!--frFR:Fournisseur de -->
+                    <!--deDE:Anbieter von --><!--frFR:Fournisseur de -->
                     <a href="http://thaibault.github.io/<% NAME %>">http://thaibault.github.io/<% NAME %></a>:
                     <br />
                     Torben Sickert

@@ -205,7 +205,9 @@ body.documentation {
     /* region header */
 
     div.header-wrap.outer {
-        #generic > .linear-gradient(top, @darkBackgroundColor, #373737, @darkBackgroundColor);
+        #generic > .linear-gradient(
+            top, @darkBackgroundColor, #373737, @darkBackgroundColor
+        );
 
         header.inner {
             padding: 50px 10px 30px 10px;
@@ -223,9 +225,7 @@ body.documentation {
                 background-color: @linkColor;
                 font-weight: 700;
             }
-            a.forkme-banner:hover {
-                background-color: #585858;
-            }
+            a.forkme-banner:hover { background-color: #585858; }
             h1.project-title, h2.project-tagline {
                 border: none;
 
@@ -253,6 +253,8 @@ body.documentation {
                 bottom: -40px;
                 height: 70px;
 
+        /* region download buttons */
+
                 a.zip-source-download, a.zip-distribution-bundle-download,
                 a.tar-gz-source-download, a.zip-source-download:hover,
                 a.zip-distribution-bundle-download:hover,
@@ -277,6 +279,9 @@ body.documentation {
                 a.zip-source-download:hover,
                 a.zip-distribution-bundle-download:hover,
                 a.tar-gz-source-download:hover { .icon-blue-archiv; }
+
+        /* endregion */
+
             }
         }
     }
@@ -319,9 +324,7 @@ body.documentation {
                             border-color: @codeBorderColor;
                             white-space: pre;
                         }
-                        div.linenodiv pre, div.codehilite pre {
-                            margin: 0;
-                        }
+                        div.linenodiv pre, div.codehilite pre { margin: 0; }
                         div.linenodiv pre {
                             padding: 10px 8px 10px 0;
                             text-align: right;
@@ -392,12 +395,8 @@ body.documentation {
             padding-left: 0;
             padding-right: 0;
 
-            p {
-                color: #f2f2f2;
-            }
-            a:hover {
-                color: #43adff;
-            }
+            p { color: #f2f2f2; }
+            a:hover { color: #43adff; }
         }
     }
 
