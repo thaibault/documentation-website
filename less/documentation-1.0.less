@@ -108,6 +108,9 @@ body.documentation {
         bottom: 30px;
         right: 45px;
     }
+
+            /* region language links */
+
     a[href^="#lang-"] { color: @languageButtonColor; }
     > div.header-wrap.outer > header.inner > section.header-links
     > a[href^="#lang-"] {
@@ -117,6 +120,8 @@ body.documentation {
     }
     a[href^="#lang-"].current { color: @currentLanguageButtonColor; }
     a[href^="#lang-"]:hover { color: @hoverLanguageButtonColor; }
+
+            /* endregion */
 
         /* endregion */
 
@@ -180,13 +185,14 @@ body.documentation {
     /* region window loading cover */
 
     div.window-loading-cover {
-        background-color: @darkBackgroundColor;
+        background-color: @brightBackgroundColor;
         /* always cover full viewport */
         position: fixed;
         height: 100%;
         width: 100%;
         z-index: 20;
 
+        /* Positioning the loading spinner in center in the loading overlay. */
         div {
             position: absolute;
             top: 50%;

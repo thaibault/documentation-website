@@ -90,7 +90,9 @@ endregion
 <h3>
     Privacy Statement for using Google Analytics
     <!--deDE:Datenschutzerklärung für die Nutzung von Google Analytics-->
-    <!--frFR:Déclaration de confidentialité de l'utilisation de Google Analytics-->
+    <!--frFR:
+        Déclaration de confidentialité de l'utilisation de Google Analytics
+    -->
 </h3>
 <p>
     Diese Website benutzt Google Analytics, einen Webanalysedienst der Google

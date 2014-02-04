@@ -35,21 +35,15 @@ this.less =
 ##
 
 ## standalone
-## this.jQuery ($) ->
+## this.jQuery.noConflict() ($) ->
 ##     $.Documentation trackingCode: 'google_traking_code', logging: true
 this.require(
     [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']],
 ($) ->
     ###
-        Embed $ and require full compatible to all other
-        JavaScripts.
-        The global scope is clean after this sequence. The given
-        function is called when the dom-tree was loaded.
-    ###
-    ###
-        NOTE: "jQuery.noConflict()" should become "true" for parameter
-        "removeAll", because we will end up in race conditions by finishing
-        tests and removing the main $ object.
+        Embed $ and require full compatible to all other JavaScripts. The
+        global scope is clean after this sequence. The given function is called
+        when the dom-tree was loaded.
     ###
     $.noConflict() ($) -> $.Documentation
         trackingCode: 'google_traking_code', logging: false
