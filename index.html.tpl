@@ -35,7 +35,7 @@ endregion -->
 <% URL = URL if URL else 'http://thaibault.github.com/%s' % NAME
 <% if not SOURCE_URL:
     <% SOURCE_URL = 'https://github.com/thaibault/%s' % NAME
-<% LANGUAGES = LANGUAGES if LANGUAGES else 'deDE', 'enUS'
+<% LANGUAGES = LANGUAGES if LANGUAGES else ('deDE', 'enUS')
 
 <% # endregion
 
