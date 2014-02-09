@@ -36,7 +36,7 @@ this.less =
 
 ## standalone
 ## this.jQuery.noConflict() ($) ->
-##     $.Documentation trackingCode: '<%GOOGLE_TRACKING_CODE%>', logging: true
+##     $.Documentation trackingCode: '<%GOOGLE_TRACKING_CODE%>'
 this.require(
     [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']],
 ($) ->
@@ -46,6 +46,6 @@ this.require(
         when the dom-tree was loaded.
     ###
     $.noConflict() ($) -> $.Documentation
-        trackingCode: '<%GOOGLE_TRACKING_CODE%>', logging: false
+        trackingCode: '<%GOOGLE_TRACKING_CODE%>', logging: true
 )
 ##
