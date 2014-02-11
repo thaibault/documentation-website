@@ -101,15 +101,24 @@ body {
 
     /* endregion */
 
-    /* region classes */
+}
 
-    // Hide JavaScript dependent dom nodes.
-    .hidden-on-javascript-enabled { display: initial; }
-    // Show JavaScript dependent dom nodes.
-    .visible-on-javascript-enabled { display: none; }
+/* region classes */
+
+/*
+    NOTE: Classes should ne usable for the body itself and their for have to be
+    outside.
+*/
+// Hide JavaScript dependent dom nodes.
+.hidden-on-javascript-enabled { display: initial; }
+// Show JavaScript dependent dom nodes.
+.visible-on-javascript-enabled { display: none; }
+// Disables and hides a scrolling and scrollbar.
+.disable-scrolling {
+    height: 100% !important;
+    overflow: hidden !important;
+}
 
     /* endregion */
-
-}
 
 /* endregion */
