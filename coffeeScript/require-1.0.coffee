@@ -419,7 +419,6 @@ class Require
                         self.basePath[extension] = [path]
                     else if path not in self.basePath[extension]
                         self.basePath[extension].push path
-        console.log self.basePath
         self
 
     _load: (parameter...) ->
