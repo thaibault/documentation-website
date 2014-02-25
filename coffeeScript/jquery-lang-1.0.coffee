@@ -601,6 +601,14 @@ this.require 'jquery-tools-1.0.coffee', ($) ->
                 **returns {$.Lang}**  - Returns the current instance.
             ###
             console.log language
+            console.log "a[href^=\"##{this._options.languageHashPrefix}" +
+                "#{this.currentLanguage}\"]." +
+                this._options.currentLanguageIndicatorClassName
+            console.log $(
+                "a[href^=\"##{this._options.languageHashPrefix}" +
+                "#{this.currentLanguage}\"]." +
+                this._options.currentLanguageIndicatorClassName
+            ).removeClass this._options.currentLanguageIndicatorClassName
             $(
                 "a[href^=\"##{this._options.languageHashPrefix}" +
                 "#{this.currentLanguage}\"]." +
