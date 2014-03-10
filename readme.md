@@ -1,9 +1,4 @@
-<!-- region vim modline
-
-vim: set tabstop=4 shiftwidth=4 expandtab:
-vim: foldmethod=marker foldmarker=region,endregion:
-
-endregion
+<!-- -*- coding: utf-8 -*-
 
 region header
 
@@ -22,3 +17,10 @@ Use case
 
 This is my central development for all of my documentation or project
 presentation web pages.
+
+<!-- region vim modline
+
+vim: set tabstop=4 shiftwidth=4 expandtab:
+vim: foldmethod=marker foldmarker=region,endregion:
+
+endregion -->
