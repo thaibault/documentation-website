@@ -1,13 +1,6 @@
 #!/usr/bin/env coffee
 # -*- coding: utf-8 -*-
 
-# region vim modline
-
-# vim: set tabstop=4 shiftwidth=4 expandtab:
-# vim: foldmethod=marker foldmarker=region,endregion:
-
-# endregion
-
 # region header
 
 # Copyright Torben Sickert 16.12.2012
@@ -36,7 +29,7 @@ this.less =
 
 ## standalone
 ## this.jQuery.noConflict() ($) ->
-##     $.Documentation trackingCode: 'google_traking_code', logging: true
+##     $.Documentation trackingCode: 'google_traking_code'
 this.require(
     [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']],
 ($) ->
@@ -46,6 +39,13 @@ this.require(
         when the dom-tree was loaded.
     ###
     $.noConflict() ($) -> $.Documentation
-        trackingCode: 'google_traking_code', logging: false
+        trackingCode: 'google_traking_code', logging: true
 )
 ##
+
+# region vim modline
+
+# vim: set tabstop=4 shiftwidth=4 expandtab:
+# vim: foldmethod=marker foldmarker=region,endregion:
+
+# endregion

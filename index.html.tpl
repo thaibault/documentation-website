@@ -107,10 +107,10 @@ endregion -->
                 <section class="header-links">
                     <!--NOTE: This elements are shown in reverse order.-->
                     <% if FileHandler('api').is_directory():
-                        <% START_UP_ANIMATION_NUMBER += 5 + len(LANGUAGES)
+                        <% START_UP_ANIMATION_NUMBER += 5 + length(LANGUAGES)
                     <% else:
-                        <% START_UP_ANIMATION_NUMBER += 3 + len(LANGUAGES)
-                    <% if FileHandler(location=DISTRIBUTION_BUNDLE_FILE_PATH, must_exist=False):
+                        <% START_UP_ANIMATION_NUMBER += 3 + length(LANGUAGES)
+                    <% if FileHandler(location=DISTRIBUTION_BUNDLE_FILE_PATH, must_exist=false):
                         <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">src.zip</a>
                         <% START_UP_ANIMATION_NUMBER -= 1
                         <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-distribution-bundle-download" href="<% DISTRIBUTION_BUNDLE_FILE_PATH %>">app.zip</a>
@@ -132,9 +132,9 @@ endregion -->
                             <!--deDE:API-Dokumentation-->
                             <!--frFR:Documentation de l'API-->
                         </a>
-                        <% START_UP_ANIMATION_NUMBER += 4 + len(LANGUAGES)
+                        <% START_UP_ANIMATION_NUMBER += 4 + length(LANGUAGES)
                     <% else:
-                        <% START_UP_ANIMATION_NUMBER += 2 + len(LANGUAGES)
+                        <% START_UP_ANIMATION_NUMBER += 2 + length(LANGUAGES)
                 </section>
             </header>
         </div>
