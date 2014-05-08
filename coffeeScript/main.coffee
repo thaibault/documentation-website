@@ -30,6 +30,9 @@ this.less =
 ## standalone
 ## this.jQuery.noConflict() ($) ->
 ##     $.Documentation trackingCode: 'google_traking_code'
+this.require.localStoragePathReminderPrefix = 'resolvedDependency'
+this.require().basePath.coffee.push "#{this.require.basePath.coffee[0]}jQuery/"
+this.require.basePath.js.push "#{this.require.basePath.js[0]}jQuery/"
 this.require(
     [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']],
 ($) ->
