@@ -28,6 +28,20 @@ this.less =
 ##
 
 ## standalone
+## ;
+###
+    Simple notation for the deployment script to know which dependencies are
+    needed.
+
+    require [
+        'jQuery/jquery-2.1.0', 'jQuery/jquery-observeHashChange-1.0',
+        'jQuery/jquery-scrollTo-1.4.3.1', 'jQuery/jquery-spin-1.2.8',
+
+        'jQuery/jquery-tools-1.0.coffee', 'jQuery/jquery-lang-1.0.coffee',
+        'jQuery/jquery-website-1.0.coffee',
+        'jQuery/jquery-documentation-1.0.coffee'
+    ]
+###
 ## this.jQuery.noConflict() ($) ->
 ##     $.Documentation trackingCode: '<%GOOGLE_TRACKING_CODE%>'
 this.require.localStoragePathReminderPrefix = 'resolvedDependency'

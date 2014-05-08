@@ -35,12 +35,13 @@ this.require().basePath.coffee.push "#{this.require.basePath.coffee[0]}jQuery/"
 this.require.basePath.js.push "#{this.require.basePath.js[0]}jQuery/"
 this.require(
     [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']],
-($) ->
+($) =>
     ###
         Embed $ and require full compatible to all other JavaScripts. The
         global scope is clean after this sequence. The given function is called
         when the dom-tree was loaded.
     ###
+    this.require.clearOldPathReminder()
     $.noConflict() ($) -> $.Documentation
         trackingCode: 'google_traking_code', logging: true
 )
