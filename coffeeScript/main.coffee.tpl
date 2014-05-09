@@ -13,8 +13,23 @@
 
 # endregion
 
-## standalone
-##
+###
+    Simple notation for the deployment script to know which dependencies are
+    needed.
+
+    require [
+        'jQuery/jquery-2.1.0', 'jQuery/jquery-observeHashChange-1.0'
+        'jQuery/jquery-scrollTo-1.4.3.1', 'jQuery/jquery-spin-1.2.8'
+
+        'jQuery/jquery-tools-1.0.coffee', 'jQuery/jquery-lang-1.0.coffee'
+        'jQuery/jquery-website-1.0.coffee'
+        'jQuery/jquery-documentation-1.0.coffee'
+    ]
+###
+
+# # standalone
+# # this.jQuery.noConflict() ($) ->
+# #     $.Documentation trackingCode: '<%GOOGLE_TRACKING_CODE%>'
 this.less =
     env: 'development'
     async: false
@@ -25,25 +40,6 @@ this.less =
     relativeUrls: false
     rootpath: ''
     logLevel: 0
-##
-
-## standalone
-## ;
-###
-    Simple notation for the deployment script to know which dependencies are
-    needed.
-
-    require [
-        'jQuery/jquery-2.1.0', 'jQuery/jquery-observeHashChange-1.0',
-        'jQuery/jquery-scrollTo-1.4.3.1', 'jQuery/jquery-spin-1.2.8',
-
-        'jQuery/jquery-tools-1.0.coffee', 'jQuery/jquery-lang-1.0.coffee',
-        'jQuery/jquery-website-1.0.coffee',
-        'jQuery/jquery-documentation-1.0.coffee'
-    ]
-###
-## this.jQuery.noConflict() ($) ->
-##     $.Documentation trackingCode: '<%GOOGLE_TRACKING_CODE%>'
 this.require.localStoragePathReminderPrefix = 'resolvedDependency'
 this.require().basePath.coffee.push "#{this.require.basePath.coffee[0]}jQuery/"
 this.require.basePath.js.push "#{this.require.basePath.js[0]}jQuery/"
@@ -59,7 +55,7 @@ this.require(
     $.noConflict() ($) -> $.Documentation
         trackingCode: '<%GOOGLE_TRACKING_CODE%>', logging: true
 )
-##
+# #
 
 # region vim modline
 

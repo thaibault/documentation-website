@@ -32,11 +32,11 @@ Version
 1.0 stable
 ###
 
-## standalone
-## do ($=this.jQuery) ->
+# # standalone
+# # do ($=this.jQuery) ->
 this.require.scopeIndicator = 'jQuery.Documentation'
 this.require 'jquery-website-1.0.coffee', ($) ->
-##
+# #
 
 # endregion
 
