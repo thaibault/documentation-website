@@ -12,16 +12,33 @@ This library written by Torben Sickert stand under a creative commons naming
 3.0 unported license. see http://creativecommons.org/licenses/by/3.0/deed.de
 */
 
-/* Load "Open Sans" and "Open Sans Condensed" from font google api. */
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800);
-@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700);
-/* Import custom "Open Sans" and "Open Sans Condensed" fonts as fallback. */
 @import url(../cascadingStyleSheet/bootstrap-3.1.0.css);
 @import url(../cascadingStyleSheet/open-sans.css);
 @import url(../cascadingStyleSheet/open-sans-condensed.css);
 
+/* region font */
+
+@fontPath: '../font/';
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('@{fontPath}glyphicons-halflings/glyphicons-halflings-regular.eot');
+    src: url('@{fontPath}glyphicons-halflings/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+         url('@{fontPath}glyphicons-halflings/glyphicons-halflings-regular.woff') format('woff'),
+         url('@{fontPath}glyphicons-halflings/glyphicons-halflings-regular.ttf') format('truetype'),
+         url('@{fontPath}glyphicons-halflings/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
 @import 'bootstrap-glyphicons-1.0.0';
+@font-face {
+    font-family: 'Glyphicons Social Regular';
+    src: url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.eot');
+    src: url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.eot?#iefix') format('embedded-opentype'),
+         url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.woff') format('woff'),
+         url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.ttf') format('truetype'),
+         url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.svg#glyphicons_socialregular') format('svg');
+}
 @import 'glyphicons-social-1.8';
+
+/* endregion */
 
 @import 'generic-1.0';
 
@@ -30,7 +47,6 @@ This library written by Torben Sickert stand under a creative commons naming
 // region constants
 
 @imagePath: '../image/';
-@fontPath: '../font/';
 
 @minimumSmallWidthInPixel: 768px;
 @minimumMediumWidthInPixel: 992px;
@@ -43,27 +59,6 @@ This library written by Torben Sickert stand under a creative commons naming
 @fontFamilyCondensed: 'Open Sans Condensed', open-sans-condensed, sans-serif;
 
 // endregion
-
-/* region font */
-
-@font-face {
-    font-family: 'Glyphicons Halflings';
-    src: url('@{fontPath}glyphicons-halflings/glyphicons-halflings-regular.eot');
-    src: url('@{fontPath}glyphicons-halflings/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-         url('@{fontPath}glyphicons-halflings/glyphicons-halflings-regular.woff') format('woff'),
-         url('@{fontPath}glyphicons-halflings/glyphicons-halflings-regular.ttf') format('truetype'),
-         url('@{fontPath}glyphicons-halflings/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-}
-@font-face {
-    font-family: 'Glyphicons Social Regular';
-    src: url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.eot');
-    src: url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.eot?#iefix') format('embedded-opentype'),
-         url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.woff') format('woff'),
-         url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.ttf') format('truetype'),
-         url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.svg#glyphicons_socialregular') format('svg');
-}
-
-/* endregion */
 
 /* region global */
 
