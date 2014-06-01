@@ -70,33 +70,6 @@ endregion */
           -o-tab-size: @arguments;
              tab-size: @arguments;
     }
-    // Generates cross browser compatible "transform" for a given element.
-    .transform(@arguments) {
-        // Chrome, Safari, iOS Safari, Android Stock
-        -webkit-transform: @arguments;
-        // Opera 12
-             -o-transform: @arguments;
-        // internetExplorer
-            -ms-transform: @arguments;
-        // IE9
-                transform: @arguments;
-    }
-    // Rotate current dom node.
-    .rotation(@degree:5deg){
-        .transform(rotate(@arguments));
-    }
-    // Scales current dom node.
-    .scale(@ratio:1.5){
-        .transform(scale(@arguments));
-    }
-    // Generates cross-browser-compatible "transition" output for a given
-    // element.
-    .transition(@duration: 0.2s, @ease: ease-out) {
-        -webkit-transition: @arguments;
-           -moz-transition: @arguments;
-             -o-transition: @arguments;
-                transition: @arguments;
-    }
     // Disables or enables selection of content of a given element.
     .user-select(@value: none) {
         -webkit-user-select: @arguments;
@@ -207,6 +180,45 @@ endregion */
         // internetExplorer 5 - 7
             filter: alpha(opacity=@opacityInPercent);
     }
+    // Apply a box layout model to a dom node.
+    .box-sizing(@type: border-box) {
+        // chrome, safari, other webkit browsers
+        -webkit-box-sizing: @type;
+        // netscape, firefox 2.0+
+           -moz-box-sizing: @type;
+        // css3, InternetExplorer 8+, Opera 9.5+
+                box-sizing: @type;
+    }
+
+        // region animation
+
+    // Generates cross browser compatible "transform" for a given element.
+    .transform(@arguments) {
+        // Chrome, Safari, iOS Safari, Android Stock
+        -webkit-transform: @arguments;
+        // Opera 12
+             -o-transform: @arguments;
+        // internetExplorer
+            -ms-transform: @arguments;
+        // IE9
+                transform: @arguments;
+    }
+    // Rotate current dom node.
+    .rotation(@degree:5deg) {
+        .transform(rotate(@arguments));
+    }
+    // Scales current dom node.
+    .scale(@ratio:1.5) {
+        .transform(scale(@arguments));
+    }
+    // Generates cross-browser-compatible "transition" output for a given
+    // element.
+    .transition(@type: all, @duration: 0.2s, @ease: ease) {
+        -webkit-transition: @arguments;
+           -moz-transition: @arguments;
+             -o-transition: @arguments;
+                transition: @arguments;
+    }
     // Defines a transition duration in an animation effect.
     .transition-duration(@duration: 0.2s) {
         -webkit-transition-duration: @arguments;
@@ -226,15 +238,8 @@ endregion */
         -webkit-animation-iteration-count: @iterationNumber;
         -webkit-animation-timing-function: @timingFunction;
     }
-    // Apply a box layout model to a dom node.
-    .box-sizing(@type: border-box) {
-        // chrome, safari, other webkit browsers
-        -webkit-box-sizing: @type;
-        // netscape, firefox 2.0+
-           -moz-box-sizing: @type;
-        // css3, InternetExplorer 8+, Opera 9.5+
-                box-sizing: @type;
-    }
+
+        // endregion
 
     // endregion
 
