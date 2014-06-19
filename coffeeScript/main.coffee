@@ -27,9 +27,12 @@
     ]
 ###
 
+
 # # standalone
 # # this.jQuery.noConflict() ($) ->
-# #     $.Documentation trackingCode: 'google_traking_code'
+# #     $.Documentation trackingCode: 'google_traking_code', language:
+# #         allowedLanguages: ['A']
+# #         sessionDescription: 'documentationWebsite{1}'
 this.less =
     env: 'development'
     async: false
@@ -40,7 +43,8 @@ this.less =
     relativeUrls: false
     rootpath: ''
     logLevel: 0
-this.require.localStoragePathReminderPrefix = 'resolvedDependency'
+this.require.localStoragePathReminderPrefix =
+    'documentationWebsiteResolvedDependency'
 this.require().basePath.coffee.push "#{this.require.basePath.coffee[0]}jQuery/"
 this.require.basePath.js.push "#{this.require.basePath.js[0]}jQuery/"
 this.require(
@@ -53,7 +57,9 @@ this.require(
     ###
     this.require.clearOldPathReminder()
     $.noConflict() ($) -> $.Documentation
-        trackingCode: 'google_traking_code', logging: true
+        trackingCode: 'google_traking_code', logging: true, language:
+            allowedLanguages: ['A']
+            sessionDescription: 'documentationWebsite{1}'
 )
 # #
 

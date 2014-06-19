@@ -30,7 +30,7 @@
 # # standalone
 # # this.jQuery.noConflict() ($) ->
 # #     $.Documentation trackingCode: '<%GOOGLE_TRACKING_CODE%>', language:
-# #         allowedLanguages: <% LANGUAGES %>
+# #         allowedLanguages: <% "['" + "', '".join(LANGUAGES) + "']" if length(LANGUAGES) else '[]' %>
 # #         sessionDescription: 'documentationWebsite{1}'
 this.less =
     env: 'development'
@@ -57,7 +57,7 @@ this.require(
     this.require.clearOldPathReminder()
     $.noConflict() ($) -> $.Documentation
         trackingCode: '<% GOOGLE_TRACKING_CODE %>', logging: true, language:
-            allowedLanguages: <% LANGUAGES %>
+            allowedLanguages: <% "['" + "', '".join(LANGUAGES) + "']" if length(LANGUAGES) else '[]' %>
             sessionDescription: 'documentationWebsite{1}'
 )
 # #
