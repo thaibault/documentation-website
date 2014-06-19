@@ -54,7 +54,7 @@ this.require(
     this.require.clearOldPathReminder()
     $.noConflict() ($) -> $.Documentation
         trackingCode: '<% GOOGLE_TRACKING_CODE %>', logging: true, language:
-            allowedLanguages: <% languages %>
+            allowedLanguages: <% LANGUAGES %>
 )
 # #
 
