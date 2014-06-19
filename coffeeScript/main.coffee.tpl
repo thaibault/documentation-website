@@ -29,7 +29,9 @@
 
 # # standalone
 # # this.jQuery.noConflict() ($) ->
-# #     $.Documentation trackingCode: '<%GOOGLE_TRACKING_CODE%>'
+# #     $.Documentation trackingCode: '<%GOOGLE_TRACKING_CODE%>', language:
+# #         allowedLanguages: <% LANGUAGES %>
+# #         sessionDescription: 'documentationWebsite{1}'
 this.less =
     env: 'development'
     async: false
