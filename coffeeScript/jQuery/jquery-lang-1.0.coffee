@@ -157,9 +157,8 @@ this.require 'jquery-tools-1.0.coffee', ($) ->
 
                 **returns {$.Lang}**  - Returns the current instance.
             ###
-            console.log this._options.allowedLanguages
             if(language isnt true and this._options.allowedLanguages.length and
-               not language in this._options.allowedLanguages)
+               $.inArray(language, this._options.allowedLanguages) is -1)
                 this.debug(
                     '"{1}" isn\'t one of the allowed languages.', language)
                 return this
