@@ -40,7 +40,7 @@ this.less =
     relativeUrls: false
     rootpath: ''
     logLevel: 0
-this.require.localStoragePathReminderPrefix = 'resolvedDependency'
+this.require.localStoragePathReminderPrefix = 'documentationResolvedDependency'
 this.require().basePath.coffee.push "#{this.require.basePath.coffee[0]}jQuery/"
 this.require.basePath.js.push "#{this.require.basePath.js[0]}jQuery/"
 this.require(
