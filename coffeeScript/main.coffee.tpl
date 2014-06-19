@@ -56,7 +56,7 @@ this.require(
     $.noConflict() ($) -> $.Documentation
         trackingCode: '<% GOOGLE_TRACKING_CODE %>', logging: true, language:
             allowedLanguages: <% LANGUAGES %>
-            sessionDescription: 'website{1}'
+            sessionDescription: 'documentationWebsite{1}'
 )
 # #
 
