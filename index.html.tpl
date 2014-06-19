@@ -44,6 +44,7 @@ endregion -->
 <!-- region header -->
 
     <head>
+        <title><% NAME %></title>
 
     <!-- region meta informations -->
 
@@ -73,8 +74,6 @@ endregion -->
         <script type="text/coffeescript" src="<% COFFEE_SCRIPT_PATH %>main.coffee"></script>
 
     <!-- endregion -->
-
-        <title><% NAME %></title>
 
     </head>
 
