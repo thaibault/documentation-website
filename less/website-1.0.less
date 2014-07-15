@@ -13,7 +13,6 @@ This library written by Torben Sickert stand under a creative commons naming
 */
 
 @import url(../cascadingStyleSheet/bootstrap-3.2.0.css);
-@import url(../cascadingStyleSheet/bootstrap-theme-3.2.0.css);
 
 @import url(../cascadingStyleSheet/open-sans.css);
 @import url(../cascadingStyleSheet/open-sans-condensed.css);
@@ -65,46 +64,48 @@ This library written by Torben Sickert stand under a creative commons naming
 /* region global */
 
 body {
-    font-family: @fontFamily;
-    font-weight: 100;
+    div.website {
+        font-family: @fontFamily;
+        font-weight: 100;
 
     /* region headline */
 
-    h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-        font-family: @fontFamily;
-    }
-    h1, h2 {
-        font-family: @fontFamilyCondensed;
-        font-weight: normal;
-        font-size: 3em;
-    }
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+            font-family: @fontFamily;
+        }
+        h1, h2 {
+            font-family: @fontFamilyCondensed;
+            font-weight: normal;
+            font-size: 3em;
+        }
 
     /* endregion */
 
     /* region link */
 
-    a { outline: none; }
-    a:hover {
-        outline: none;
-        text-decoration: none;
-    }
+        a { outline: none; }
+        a:hover {
+            outline: none;
+            text-decoration: none;
+        }
 
     /* endregion */
 
+    }
 }
 
 /* region classes */
 
 /*
-    NOTE: Classes should ne usable for the body itself and their for have to be
+    NOTE: Classes should be usable for the body itself and their for have to be
     outside.
 */
 // Hide JavaScript dependent dom nodes.
-.hidden-on-javascript-enabled { display: initial; }
+.website-hidden-on-javascript-enabled { display: initial; }
 // Show JavaScript dependent dom nodes.
-.visible-on-javascript-enabled { display: none; }
+.website-visible-on-javascript-enabled { display: none; }
 // Disables and hides a scrolling and scrollbar.
-.disable-scrolling {
+.website-disable-scrolling {
     height: 100% !important;
     overflow: hidden !important;
 }

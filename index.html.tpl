@@ -82,132 +82,137 @@ endregion -->
 <!-- region body -->
 
     <body class="documentation">
-        <div class="window-loading-cover visible-on-javascript-enabled"><div></div></div>
+        <div class="website">
+            <div class="window-loading-cover website-visible-on-javascript-enabled">
+                <div></div>
+            </div>
 
     <!-- region header -->
 
-        <div class="header-wrap outer">
-            <header class="inner">
-                <% START_UP_ANIMATION_NUMBER += 1
-                <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> forkme-banner" href="<% SOURCE_URL %>">
-                    View on GitHub
-                    <!--deDE:GitHub-Projekt--><!--frFR:GitHub-Project-->
-                    <i class="icon-github"></i>
-                </a>
-                <% START_UP_ANIMATION_NUMBER += 1
-                <h1 class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-title">
-                    <a href="<% URL %>"><% NAME %></a>
-                </h1>
-                <% START_UP_ANIMATION_NUMBER += 1
-                <h2 class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-tagline">
-                    <% TAGLINE %>
-                    <br />
-                </h2>
-                <section class="header-links">
-                    <!--NOTE: This elements are shown in reverse order.-->
-                    <% if FileHandler('api').is_directory():
-                        <% START_UP_ANIMATION_NUMBER += 5 + length(LANGUAGES)
-                    <% else:
-                        <% START_UP_ANIMATION_NUMBER += 3 + length(LANGUAGES)
-                    <% if FileHandler(location=DISTRIBUTION_BUNDLE_FILE_PATH, must_exist=false):
-                        <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">src.zip</a>
+            <div class="header-wrap outer">
+                <header class="inner">
+                    <% START_UP_ANIMATION_NUMBER += 1
+                    <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> forkme-banner" href="<% SOURCE_URL %>">
+                        View on GitHub
+                        <!--deDE:GitHub-Projekt--><!--frFR:GitHub-Project-->
+                        <i class="icon-github"></i>
+                    </a>
+                    <% START_UP_ANIMATION_NUMBER += 1
+                    <h1 class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-title">
+                        <a href="<% URL %>"><% NAME %></a>
+                    </h1>
+                    <% START_UP_ANIMATION_NUMBER += 1
+                    <h2 class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-tagline">
+                        <% TAGLINE %>
+                        <br />
+                    </h2>
+                    <section class="header-links">
+                        <!--NOTE: This elements are shown in reverse order.-->
+                        <% if FileHandler('api').is_directory():
+                            <% START_UP_ANIMATION_NUMBER += 5 + length(LANGUAGES)
+                        <% else:
+                            <% START_UP_ANIMATION_NUMBER += 3 + length(LANGUAGES)
+                        <% if FileHandler(location=DISTRIBUTION_BUNDLE_FILE_PATH, must_exist=false):
+                            <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">src.zip</a>
+                            <% START_UP_ANIMATION_NUMBER -= 1
+                            <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-distribution-bundle-download" href="<% DISTRIBUTION_BUNDLE_FILE_PATH %>">app.zip</a>
+                        <% else:
+                            <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">.zip</a>
+                            <% START_UP_ANIMATION_NUMBER -= 1
+                            <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> tar-gz-source-download" href="https://github.com/thaibault/<% NAME %>/tarball/master">.tar.gz</a>
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-distribution-bundle-download" href="<% DISTRIBUTION_BUNDLE_FILE_PATH %>">app.zip</a>
-                    <% else:
-                        <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">.zip</a>
-                        <% START_UP_ANIMATION_NUMBER -= 1
-                        <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> tar-gz-source-download" href="https://github.com/thaibault/<% NAME %>/tarball/master">.tar.gz</a>
-                    <% START_UP_ANIMATION_NUMBER -= 1
-                    <i class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> icon-download-tarball"></i>
-                    <% for language in LANGUAGES:
-                        <% START_UP_ANIMATION_NUMBER -= 1
-                        <a href="#lang-<% language %>" class="visible-on-javascript-enabled start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"><% language[:2] %></a>
-                    <% if FileHandler('api').is_directory():
-                        <% START_UP_ANIMATION_NUMBER -= 1
-                        <span class="glyphicon glyphicon-arrow-left arrow-left-api start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"></span>
-                        <% START_UP_ANIMATION_NUMBER -= 1
-                        <a href="<% URL %>/api/" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">
-                            API Documentation
-                            <!--deDE:API-Dokumentation-->
-                            <!--frFR:Documentation de l'API-->
-                        </a>
-                        <% START_UP_ANIMATION_NUMBER += 4 + length(LANGUAGES)
-                    <% else:
-                        <% START_UP_ANIMATION_NUMBER += 2 + length(LANGUAGES)
-                </section>
-            </header>
-        </div>
+                        <i class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> icon-download-tarball"></i>
+                        <% for language in LANGUAGES:
+                            <% START_UP_ANIMATION_NUMBER -= 1
+                            <a href="#lang-<% language %>" class="website-visible-on-javascript-enabled start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"><% language[:2] %></a>
+                        <% if FileHandler('api').is_directory():
+                            <% START_UP_ANIMATION_NUMBER -= 1
+                            <span class="glyphicon glyphicon-arrow-left arrow-left-api start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"></span>
+                            <% START_UP_ANIMATION_NUMBER -= 1
+                            <a href="<% URL %>/api/" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">
+                                API Documentation
+                                <!--deDE:API-Dokumentation-->
+                                <!--frFR:Documentation de l'API-->
+                            </a>
+                            <% START_UP_ANIMATION_NUMBER += 4 + length(LANGUAGES)
+                        <% else:
+                            <% START_UP_ANIMATION_NUMBER += 2 + length(LANGUAGES)
+                    </section>
+                </header>
+            </div>
 
     <!-- endregion -->
 
     <!-- region sections -->
 
-        <div class="main-content-wrap outer">
+            <div class="main-content-wrap outer">
 
         <!-- region main content -->
 
-            <section class="main-content inner">
-                <% RENDERED_MARKDOWN %>
-            </section>
+                <section class="main-content inner">
+                    <% RENDERED_MARKDOWN %>
+                </section>
 
         <!-- endregion -->
 
         <!-- region about this website -->
 
-            <section class="about-this-website inner">
-                <h1 id="about-this-website">
-                    About this website
-                    <!--deDE:Impressum--><!--frFR:Mentions légales-->
-                </h1>
-                <p>
-                    Provider of
-                    <!--deDE:Anbieter von --><!--frFR:Fournisseur de -->
-                    <a href="http://thaibault.github.io/<% NAME %>">http://thaibault.github.io/<% NAME %></a>:
-                    <br />
-                    Torben Sickert
-                    <br />
-                    Christoph-Mang-Str. 14
-                    <br />
-                    79100 Freiburg
-                    <br />
-                    <a href="tel:004917610248185">Phone<!--deDE:Tel.--><!--frFR:Téléphone--> +49 (0) 176 <span>/</span> 10 248 185</a>
-                    <br />
-                    Email:
-                    <a href="mailto:t.sickert@gmail.com">t.sickert@gmail.com</a>
-                    <br />
-                    Website:<!--deDE:Webseite:--><!--frFR:Site:-->
-                    <a href="http://thaibault.github.io/website">http://thaibault.github.io/website</a>
-                    <br />
-                    <span class="glyphicon glyphicon-arrow-left arrow-left-home visible-on-javascript-enabled"></span>
-                    <a href="#home" class="visible-on-javascript-enabled">home<!--deDE:Startseite--><!--frFR:Maison--></a>
-                </p>
-                <% include('aboutThisWebsite')
-            </section>
-        </div>
+                <section class="about-this-website inner">
+                    <h1 id="about-this-website">
+                        About this website
+                        <!--deDE:Impressum--><!--frFR:Mentions légales-->
+                    </h1>
+                    <p>
+                        Provider of
+                        <!--deDE:Anbieter von --><!--frFR:Fournisseur de -->
+                        <a href="http://thaibault.github.io/<% NAME %>">http://thaibault.github.io/<% NAME %></a>:
+                        <br />
+                        Torben Sickert
+                        <br />
+                        Christoph-Mang-Str. 14
+                        <br />
+                        79100 Freiburg
+                        <br />
+                        <a href="tel:004917610248185">Phone<!--deDE:Tel.--><!--frFR:Téléphone--> +49 (0) 176 <span>/</span> 10 248 185</a>
+                        <br />
+                        Email:
+                        <a href="mailto:t.sickert@gmail.com">t.sickert@gmail.com</a>
+                        <br />
+                        Website:<!--deDE:Webseite:--><!--frFR:Site:-->
+                        <a href="http://thaibault.github.io/website">http://thaibault.github.io/website</a>
+                        <br />
+                        <span class="glyphicon glyphicon-arrow-left arrow-left-home website-visible-on-javascript-enabled"></span>
+                        <a href="#home" class="website-visible-on-javascript-enabled">home<!--deDE:Startseite--><!--frFR:Maison--></a>
+                    </p>
+                    <% include('aboutThisWebsite')
+                </section>
 
         <!-- endregion -->
+
+            </div>
 
     <!-- endregion -->
 
     <!-- region footer -->
 
-        <div class="footer-wrap outer">
-            <footer class="inner">
-                <% START_UP_ANIMATION_NUMBER += 1
-                <p class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> copyright">
-                    <% NAME %> maintained by
-                    <!--deDE:<% NAME %> betrieben von -->
-                    <!--frFR:<% NAME %> exploité par -->
-                    <a href="https://github.com/thaibault">thaibault</a>
-                    &middot; &copy; 2013 Torben Sickert &middot;
-                    <a href="#about-this-website">about this website<!--deDE:Impressum--><!--frFR:Mentions légales--></a>
-                </p>
-            </footer>
-        </div>
+            <div class="footer-wrap outer">
+                <footer class="inner">
+                    <% START_UP_ANIMATION_NUMBER += 1
+                    <p class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> copyright">
+                        <% NAME %> maintained by
+                        <!--deDE:<% NAME %> betrieben von -->
+                        <!--frFR:<% NAME %> exploité par -->
+                        <a href="https://github.com/thaibault">thaibault</a>
+                        &middot; &copy; 2013 Torben Sickert &middot;
+                        <a href="#about-this-website">about this website<!--deDE:Impressum--><!--frFR:Mentions légales--></a>
+                    </p>
+                </footer>
+            </div>
 
     <!-- endregion -->
 
-        <a href="#top">top</a>
+            <a href="#top">top</a>
+        </div>
     </body>
 
 <!-- endregion -->

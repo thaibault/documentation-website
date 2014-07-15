@@ -27,11 +27,10 @@
     ]
 ###
 
-
 # # standalone
 # # this.jQuery.noConflict() ($) ->
 # #     $.Documentation trackingCode: 'google_traking_code', language:
-# #         allowedLanguages: ['A']
+# #         allowedLanguages: []
 # #         sessionDescription: 'documentationWebsite{1}'
 this.less =
     env: 'development'
@@ -58,7 +57,7 @@ this.require(
     this.require.clearOldPathReminder()
     $.noConflict() ($) -> $.Documentation
         trackingCode: 'google_traking_code', logging: true, language:
-            allowedLanguages: ['A']
+            allowedLanguages: []
             sessionDescription: 'documentationWebsite{1}'
 )
 # #
