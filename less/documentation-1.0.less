@@ -41,69 +41,68 @@ This library written by Torben Sickert stand under a creative commons naming
 /* region style sheets */
 
 body.documentation {
-    div.website {
-        #website > .bootstrap;
-        .website;
+    #website > .bootstrap;
+    .website;
 
     /* region global */
 
-        color: @darkFontColor;
-        background: @darkBackgroundColor;
-        line-height: 1.5;
+    color: @darkFontColor;
+    background: @darkBackgroundColor;
+    line-height: 1.5;
 
         /* region grid */
 
-        .outer { width: 100%; }
-        .inner {
-            position: relative;
-            padding: 20px 10px;
-            margin: 0 auto;
-        }
+    .outer { width: 100%; }
+    .inner {
+        position: relative;
+        padding: 20px 10px;
+        margin: 0 auto;
+    }
 
         /* endregion */
 
         /* region symbol */
 
-        span.arrow-left-home, span.arrow-left-api {
-            margin-right: 10px;
-            margin-top: 10px;
-            float: left;
-        }
-        span.arrow-left-api { margin-top: 36px; }
+    span.arrow-left-home, span.arrow-left-api {
+        margin-right: 10px;
+        margin-top: 10px;
+        float: left;
+    }
+    span.arrow-left-api { margin-top: 36px; }
 
         /* endregion */
 
         /* region headlines */
 
-        h1, h2, h3, h4, h5, h6 {
-            margin: 10px 0;
-            color: #222222;
-            letter-spacing: -1px;
-        }
+    h1, h2, h3, h4, h5, h6 {
+        margin: 10px 0;
+        color: #222222;
+        letter-spacing: -1px;
+    }
 
         /* endregion */
 
         /* region links */
 
-        a {
-            text-decoration: none;
-            color: @linkColor;
-            text-shadow: none;
+    a {
+        text-decoration: none;
+        color: @linkColor;
+        text-shadow: none;
 
-            transition: color 0.5s ease;
-            transition: text-shadow 0.5s ease;
-        }
-        a:hover { color: @linkHoverColor; }
-        a[href$="/api/"] {
-            padding-top: 35px;
-            float: left;
-        }
-        a[href="#top"] {
-            position: fixed;
-            z-index: 4;
-            bottom: 30px;
-            right: 45px;
-        }
+        transition: color 0.5s ease;
+        transition: text-shadow 0.5s ease;
+    }
+    a:hover { color: @linkHoverColor; }
+    a[href$="/api/"] {
+        padding-top: 35px;
+        float: left;
+    }
+    a[href="#top"] {
+        position: fixed;
+        z-index: 4;
+        bottom: 30px;
+        right: 45px;
+    }
 
             /* region language links */
 
@@ -125,54 +124,54 @@ body.documentation {
 
             /* region generic */
 
-        [class^="icon-"], [class*=" icon-"] { #generic > .icon; }
-        /*
-            NOTE: We explicit inherit form ".icon" to prepare this class to be
-            super classes as well.
-        */
-        .icon-blacktocat {
-            #generic > .icon;
-            background-position: -92px 0px;
-            width: 30px;
-            height: 30px;
-        }
-        .icon-download {
-            #generic > .icon;
-            background-position: -99px -35px;
-            width: 16px;
-            height: 20px;
-        }
-        .icon-gray-archiv {
-            #generic > .icon;
-            background-position: 0px -68px;
-            width: 88px;
-            height: 72px;
-        }
-        .icon-blue-archiv {
-            .icon-gray-archiv;
-            background-position: 0px 2px;
-        }
+    [class^="icon-"], [class*=" icon-"] { #generic > .icon; }
+    /*
+        NOTE: We explicit inherit form ".icon" to prepare this class to be
+        super classes as well.
+    */
+    .icon-blacktocat {
+        #generic > .icon;
+        background-position: -92px 0px;
+        width: 30px;
+        height: 30px;
+    }
+    .icon-download {
+        #generic > .icon;
+        background-position: -99px -35px;
+        width: 16px;
+        height: 20px;
+    }
+    .icon-gray-archiv {
+        #generic > .icon;
+        background-position: 0px -68px;
+        width: 88px;
+        height: 72px;
+    }
+    .icon-blue-archiv {
+        .icon-gray-archiv;
+        background-position: 0px 2px;
+    }
 
             /* endregion */
 
-        i.icon-github {
-            .icon-blacktocat;
-            margin-bottom: -2px;
-            margin-top: -6px;
-            margin-left: 8px;
-        }
-        i.icon-download-tarball {
-            .icon-download;
-            float: right;
-            margin-top: 39px;
-            margin-left: 20px;
-        }
+    i.icon-github {
+        .icon-blacktocat;
+        margin-bottom: -2px;
+        margin-top: -6px;
+        margin-left: 8px;
+    }
+    i.icon-download-tarball {
+        .icon-download;
+        float: right;
+        margin-top: 39px;
+        margin-left: 20px;
+    }
 
         /* endregion */
 
         /* region paragraphs */
 
-        p { overflow: auto; }
+    p { overflow: auto; }
 
         /* endregion */
 
@@ -180,202 +179,202 @@ body.documentation {
 
     /* region header */
 
-        div.header-wrap.outer {
-            #generic > .linear-gradient(
-                top, @darkBackgroundColor, #373737, @darkBackgroundColor
-            );
+    div.header-wrap.outer {
+        #generic > .linear-gradient(
+            top, @darkBackgroundColor, #373737, @darkBackgroundColor
+        );
 
-            header.inner {
-                padding: 50px 10px 30px 10px;
+        header.inner {
+            padding: 50px 10px 30px 10px;
 
-                a.forkme-banner {
-                    #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .5));
-                    #generic > .rounded-border(0, 2px, 2px, 0);
-                    display: block;
-                    position: absolute;
-                    top: 0;
-                    right: 10px;
-                    z-index: 10;
-                    padding: 10px;
-                    color: @brightFontColor;
-                    background-color: @linkColor;
-                    font-weight: 700;
-                }
-                a.forkme-banner:hover { background-color: #585858; }
-                h1.project-title, h2.project-tagline {
-                    border: none;
+            a.forkme-banner {
+                #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .5));
+                #generic > .rounded-border(0, 2px, 2px, 0);
+                display: block;
+                position: absolute;
+                top: 0;
+                right: 10px;
+                z-index: 10;
+                padding: 10px;
+                color: @brightFontColor;
+                background-color: @linkColor;
+                font-weight: 700;
+            }
+            a.forkme-banner:hover { background-color: #585858; }
+            h1.project-title, h2.project-tagline {
+                border: none;
 
-                    a { color: @brightFontColor; }
-                }
-                h1.project-title, h2.project-tagline {
-                    color: @brightFontColor;
-                    text-shadow: #111 0px 0px 10px;
-                    a { text-shadow: #111 0px 0px 10px; }
-                }
-                h1.project-title {
-                    margin: 0;
-                    font-weight: 700;
-                }
-                h2.project-tagline {
-                    font-weight: 300;
-                    background: none;
-                    font-size: 24px;
-                }
-                section.header-links {
-                    padding: 0;
-                    right: 0;
-                    position: absolute;
-                    z-index: 10;
-                    bottom: -40px;
-                    height: 70px;
+                a { color: @brightFontColor; }
+            }
+            h1.project-title, h2.project-tagline {
+                color: @brightFontColor;
+                text-shadow: #111 0px 0px 10px;
+                a { text-shadow: #111 0px 0px 10px; }
+            }
+            h1.project-title {
+                margin: 0;
+                font-weight: 700;
+            }
+            h2.project-tagline {
+                font-weight: 300;
+                background: none;
+                font-size: 24px;
+            }
+            section.header-links {
+                padding: 0;
+                right: 0;
+                position: absolute;
+                z-index: 10;
+                bottom: -40px;
+                height: 70px;
 
         /* region download buttons */
 
-                    a.zip-source-download, a.zip-distribution-bundle-download,
-                    a.tar-gz-source-download, a.zip-source-download:hover,
-                    a.zip-distribution-bundle-download:hover,
-                    a.tar-gz-source-download:hover {
-                        color: @brightFontColor;
-                        width: 90px;
-                        height: 70px;
-                        padding-left: 3px;
-                    }
-                    a.zip-source-download, a.zip-distribution-bundle-download,
-                    a.tar-gz-source-download {
-                        .icon-gray-archiv;
-                        font-size: 16px;
-                        text-align: center;
-                        padding-top: 28px;
-                        padding-top: 29px;
-                        font-weight: bolder;
-                        display: block;
-                        float: right;
-                        overflow: hidden;
-                    }
-                    a.zip-source-download:hover,
-                    a.zip-distribution-bundle-download:hover,
-                    a.tar-gz-source-download:hover { .icon-blue-archiv; }
+                a.zip-source-download, a.zip-distribution-bundle-download,
+                a.tar-gz-source-download, a.zip-source-download:hover,
+                a.zip-distribution-bundle-download:hover,
+                a.tar-gz-source-download:hover {
+                    color: @brightFontColor;
+                    width: 90px;
+                    height: 70px;
+                    padding-left: 3px;
+                }
+                a.zip-source-download, a.zip-distribution-bundle-download,
+                a.tar-gz-source-download {
+                    .icon-gray-archiv;
+                    font-size: 16px;
+                    text-align: center;
+                    padding-top: 28px;
+                    padding-top: 29px;
+                    font-weight: bolder;
+                    display: block;
+                    float: right;
+                    overflow: hidden;
+                }
+                a.zip-source-download:hover,
+                a.zip-distribution-bundle-download:hover,
+                a.tar-gz-source-download:hover { .icon-blue-archiv; }
 
         /* endregion */
 
-                }
             }
         }
+    }
 
      /* endregion */
 
     /* region content */
 
-        div.main-content-wrap {
-            background-color: @brightBackgroundColor;
+    div.main-content-wrap {
+        background-color: @brightBackgroundColor;
 
         /*  region content */
 
-            section { padding-top: 40px; }
-            section.main-content {
-                padding-top: 40px;
+        section { padding-top: 40px; }
+        section.main-content {
+            padding-top: 40px;
 
             /* region code blocks */
 
-                div.codehilite pre {
-                    #generic > .border-radius(0);
-                    border-color: @codeBorderColor;
-                    background-color: @codeBackgroundColor;
-                    margin: 20px 0 0 0;
+            div.codehilite pre {
+                #generic > .border-radius(0);
+                border-color: @codeBorderColor;
+                background-color: @codeBackgroundColor;
+                margin: 20px 0 0 0;
 
-                    /* Don't highlight syntax errors. */
-                    .err { border: 0; }
-                }
-                table {
-                    border-collapse: collapse;
-                    margin-top: 20px;
-                    text-align: left;
+                /* Don't highlight syntax errors. */
+                .err { border: 0; }
+            }
+            table {
+                border-collapse: collapse;
+                margin-top: 20px;
+                text-align: left;
 
-                    tbody tr {
-                        td.linenos, td.code {
+                tbody tr {
+                    td.linenos, td.code {
+                        border-color: @codeBorderColor;
+                        padding: 0;
+
+                        div.linenodiv pre, div.codehilite pre {
                             border-color: @codeBorderColor;
-                            padding: 0;
+                            white-space: pre;
+                        }
+                        div.linenodiv pre, div.codehilite pre { margin: 0; }
+                        div.linenodiv pre {
+                            padding: 10px 8px 10px 0;
+                            text-align: right;
+                            color: @codeLineNumberColor;
+                            background-color: @codeLineNumberBackgroundColor;
+                            #generic > .border-radius(0);
+                        }
+                        div.codehilite pre {
+                            padding: 10px;
+                            overflow: auto;
+                            background-color: @codeBackgroundColor;
+                            border-left: 0;
 
-                            div.linenodiv pre, div.codehilite pre {
-                                border-color: @codeBorderColor;
-                                white-space: pre;
-                            }
-                            div.linenodiv pre, div.codehilite pre { margin: 0; }
-                            div.linenodiv pre {
-                                padding: 10px 8px 10px 0;
-                                text-align: right;
-                                color: @codeLineNumberColor;
-                                background-color: @codeLineNumberBackgroundColor;
-                                #generic > .border-radius(0);
-                            }
-                            div.codehilite pre {
-                                padding: 10px;
-                                overflow: auto;
-                                background-color: @codeBackgroundColor;
-                                border-left: 0;
-
-                                /* Don't highlight syntax errors. */
-                                .err { border: 0; }
-                            }
+                            /* Don't highlight syntax errors. */
+                            .err { border: 0; }
                         }
                     }
                 }
-                p { margin: 20px 0 0 0; }
+            }
+            p { margin: 20px 0 0 0; }
 
             /* endregion */
 
-                div.show-example-wrapper {
-                    @padding: 20px;
-                    border: 1px solid @codeBorderColor;
-                    border-top: 0;
-                    background-color: @codeBackgroundColor;
-                    padding: @padding;
-                    padding-top: @padding / 2;
+            div.show-example-wrapper {
+                @padding: 20px;
+                border: 1px solid @codeBorderColor;
+                border-top: 0;
+                background-color: @codeBackgroundColor;
+                padding: @padding;
+                padding-top: @padding / 2;
 
-                    h3 {
-                        font-size: 12px;
-                        font-weight: bold;
-                        color: #bbb;
-                        letter-spacing: 1px;
-                        margin-bottom: @padding / 2;
-                        margin-top: 0;
-                    }
-                    input.form-control { width: none; }
-                    p { margin: 0; }
+                h3 {
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: #bbb;
+                    letter-spacing: 1px;
+                    margin-bottom: @padding / 2;
+                    margin-top: 0;
                 }
+                input.form-control { width: none; }
+                p { margin: 0; }
             }
+        }
 
         /* endregion */
 
         /* region about this website */
 
-            section.about-this-website {
-                p { margin-bottom: 45px; }
-                a[href="#home"] {
-                    float: left;
-                    margin-top: 9px;
-                }
+        section.about-this-website {
+            p { margin-bottom: 45px; }
+            a[href="#home"] {
+                float: left;
+                margin-top: 9px;
             }
+        }
 
          /* endregion */
 
-        }
+    }
 
     /* endregion */
 
     /* region footer */
 
-        div.footer-wrap.outer {
-            footer.inner {
-                width: 100%;
-                text-align: center;
-                padding-left: 0;
-                padding-right: 0;
+    div.footer-wrap.outer {
+        footer.inner {
+            width: 100%;
+            text-align: center;
+            padding-left: 0;
+            padding-right: 0;
 
-                p { color: #f2f2f2; }
-                a:hover { color: #43adff; }
-            }
+            p { color: #f2f2f2; }
+            a:hover { color: #43adff; }
         }
+    }
 
     /* endregion */
 
@@ -383,78 +382,77 @@ body.documentation {
 
         /* region extra small */
 
-        @extraSmallWith: 460px;
-        width: @extraSmallWith;
+    @extraSmallWith: 460px;
+    width: @extraSmallWith;
 
-        .inner { width: @extraSmallWith; }
-        @media (min-width: @extraSmallWith) { width: 100%; }
-        div.main-content-wrap section.main-content {
-            pre { font-size: 9px; }
-            div.codehilite pre { width: 447px; }
-            table tbody tr {
-                td.linenos div.linenodiv pre { width: 30px; }
-                td.code div.codehilite pre { width: 417px; }
-            }
-            div.show-example-wrapper { width: 447px; }
+    .inner { width: @extraSmallWith; }
+    @media (min-width: @extraSmallWith) { width: 100%; }
+    div.main-content-wrap section.main-content {
+        pre { font-size: 9px; }
+        div.codehilite pre { width: 447px; }
+        table tbody tr {
+            td.linenos div.linenodiv pre { width: 30px; }
+            td.code div.codehilite pre { width: 417px; }
         }
-        a[href="#top"] { visibility: hidden; }
-        div.header-wrap.outer > header.inner > section.header-links {
-            width: 451px;
-        }
+        div.show-example-wrapper { width: 447px; }
+    }
+    a[href="#top"] { visibility: hidden; }
+    div.header-wrap.outer > header.inner > section.header-links {
+        width: 451px;
+    }
 
         /* endregion */
 
-        @media (min-width: @minimumSmallWidthInPixel) {
+    @media (min-width: @minimumSmallWidthInPixel) {
 
         /* region small */
 
-            width: 100%;
+        width: 100%;
 
             /* region headlines */
 
-            h2 {
-                padding-bottom: 10px;
-                border-bottom: 1px dashed #bdbdbd;
-            }
+        h2 {
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #bdbdbd;
+        }
 
             /* endregion */
 
-            div.header-wrap.outer > header.inner > section.header-links {
-                width: 706px;
+        div.header-wrap.outer > header.inner > section.header-links {
+            width: 706px;
+        }
+        .inner { width: 715px; }
+        div.main-content-wrap section.main-content {
+            pre { font-size: 13px; }
+            div.codehilite pre { width: 695px; }
+            table tbody tr {
+                td.linenos div.linenodiv pre { width: 42px; }
+                td.code div.codehilite pre { width: 653px; }
             }
-            .inner { width: 715px; }
-            div.main-content-wrap section.main-content {
-                pre { font-size: 13px; }
-                div.codehilite pre { width: 695px; }
-                table tbody tr {
-                    td.linenos div.linenodiv pre { width: 42px; }
-                    td.code div.codehilite pre { width: 653px; }
-                }
-                div.show-example-wrapper { width: 100%; }
-            }
-            a[href="#top"] {
-                visibility: visible;
-                position: fixed;
-                z-index: 4;
-                bottom: 30px;
-                right: 5px;
-            }
+            div.show-example-wrapper { width: 100%; }
+        }
+        a[href="#top"] {
+            visibility: visible;
+            position: fixed;
+            z-index: 4;
+            bottom: 30px;
+            right: 5px;
+        }
 
         /* endregion */
 
         /* region medium */
 
-            @media (min-width: @minimumMediumWidthInPixel) {
-                a[href="#top"] { right: 45px; }
-            }
+        @media (min-width: @minimumMediumWidthInPixel) {
+            a[href="#top"] { right: 45px; }
+        }
 
         /* endregion */
 
-        }
+    }
 
     /* endregion */
 
-    }
 }
 
 /* endregion */
