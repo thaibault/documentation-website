@@ -12,10 +12,8 @@ This library written by Torben Sickert stand under a creative commons naming
 3.0 unported license. see http://creativecommons.org/licenses/by/3.0/deed.de
 */
 
-@import 'bootstrap-3.2.0';
-
-@import url(../cascadingStyleSheet/open-sans.css);
-@import url(../cascadingStyleSheet/open-sans-condensed.css);
+@import '../cascadingStyleSheet/open-sans.css';
+@import '../cascadingStyleSheet/open-sans-condensed.css';
 
     /* region font */
 
@@ -60,16 +58,15 @@ This library written by Torben Sickert stand under a creative commons naming
 
 // endregion
 
-/* region global */
-
-body {
+#website() {
+    #bootstrap() {
+        @import (less) '../cascadingStyleSheet/bootstrap-3.2.0.css';
+    }
     margin: 0;
-}
-.website {
     font-family: @fontFamily;
-    font-weight: 100;
+    font-size: 14px;
 
-    /* region headline */
+    // region headline
 
     h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
         font-family: @fontFamily;
@@ -79,10 +76,13 @@ body {
         font-weight: normal;
         font-size: 3em;
     }
+    h2 {
+        font-size: 2em;
+    }
 
-    /* endregion */
+    // endregion
 
-    /* region link */
+    // region link
 
     a { outline: none; }
     a:hover {
@@ -90,28 +90,7 @@ body {
         text-decoration: none;
     }
 
-    /* endregion */
-
-    /* region window loading cover */
-
-    /* Overlay the whole page till everything is loaded completely. */
-    > div.window-loading-cover {
-        background-color: @backgroundColor;
-        /* always cover full viewport */
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        z-index: 100;
-
-        /* Positioning the loading spinner in center in the loading overlay. */
-        > div {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-        }
-    }
-
-    /* endregion */
+    // endregion
 
 }
 
@@ -121,17 +100,32 @@ body {
     NOTE: Classes should be usable for the body itself and their for have to be
     outside.
 */
-// Hide JavaScript dependent dom nodes.
+/* Hide JavaScript dependent dom nodes. */
 .website-hidden-on-javascript-enabled { display: initial; }
-// Show JavaScript dependent dom nodes.
+/* Show JavaScript dependent dom nodes. */
 .website-visible-on-javascript-enabled { display: none; }
-// Disables and hides a scrolling and scrollbar.
+/* Disables and hides a scrolling and scrollbar. */
 .website-disable-scrolling {
     height: 100% !important;
     overflow: hidden !important;
 }
+// Overlay the whole page till everything is loaded completely.
+div.website-window-loading-cover {
+    background-color: @backgroundColor;
+    /* always cover full viewport */
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
 
-    /* endregion */
+    // Positioning the loading spinner in center in the loading
+    // overlay.
+    > div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+}
 
 /* endregion */
 
