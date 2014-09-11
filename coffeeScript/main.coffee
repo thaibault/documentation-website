@@ -18,7 +18,7 @@
     needed.
 
     require [
-        'jQuery/jquery-2.1.0', 'jQuery/jquery-observeHashChange-1.0'
+        'jQuery/jquery-2.1.1', 'jQuery/jquery-observeHashChange-1.0'
         'jQuery/jquery-scrollTo-1.4.3.1', 'jQuery/jquery-spin-2.0.1'
         'bootstrap-3.2.0', 'jQuery/jquery-swipe-2.0'
 
