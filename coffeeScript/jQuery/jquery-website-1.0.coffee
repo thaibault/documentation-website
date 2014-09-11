@@ -1,4 +1,4 @@
-#!/usr/bin/env require
+#!/usr/bin/env coffee
 # -*- coding: utf-8 -*-
 
 # region header
@@ -32,18 +32,7 @@ Version
 1.0 stable
 ###
 
-# # standalone
-# # do ($=this.jQuery) ->
-this.require.scopeIndicator = 'jQuery.Website'
-this.require [
-    ['less.Parser', 'less-1.7.0']
-
-    'jquery-tools-1.0.coffee', ['jQuery.scrollTo', 'jquery-scrollTo-1.4.3.1']
-    ['jQuery.fn.spin', 'jquery-spin-2.0.1']
-    ['jQuery.fn.hashchange', 'jquery-observeHashChange-1.0']
-    'jquery-lang-1.0.coffee'
-], (less, lessParser, $) ->
-# #
+main = (less, lessParser, $) ->
 
 # endregion
 
@@ -337,8 +326,7 @@ ga('send', 'pageview');'''
             $.each this._options.mediaQueryCssIndicator, (key, value) =>
                 this.$domNodes.mediaQueryIndicator.prependTo(
                     this.$domNodes.parent
-                ).addClass(
-                    "hidden-#{value[1]}")
+                ).addClass "hidden-#{value[1]}"
                 if(this.$domNodes.mediaQueryIndicator.is(':hidden') and
                    value[0] isnt this._currentMediaQueryMode)
                     this.fireEvent.apply(
@@ -351,8 +339,7 @@ ga('send', 'pageview');'''
                         this, [
                             this.stringFormat(
                                 'changeTo{1}Mode',
-                                value[0].substr(0, 1).toUpperCase() +
-                                value[0].substr 1
+                                this.stringCapitalize(value[0])
                             ), false, this, this._currentMediaQueryMode,
                             value[0]
                         ].concat this.argumentsObjectToArray arguments
@@ -509,6 +496,24 @@ ga('send', 'pageview');'''
     $.Website.class = Website
 
     # endregion
+
+# endregion
+
+# region dependencies
+
+if this.require?
+    this.require.scopeIndicator = 'jQuery.Website'
+    this.require [
+        ['less.Parser', 'less-1.7.5']
+
+        'jquery-tools-1.0.coffee'
+        ['jQuery.scrollTo', 'jquery-scrollTo-1.4.3.1']
+        ['jQuery.fn.spin', 'jquery-spin-2.0.1']
+        ['jQuery.fn.hashchange', 'jquery-observeHashChange-1.0']
+        'jquery-lang-1.0.coffee'
+    ], main
+else
+    main null, null, this.jQuery
 
 # endregion
 

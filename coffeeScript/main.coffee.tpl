@@ -27,7 +27,7 @@
     ]
 ###
 
-# # standalone
+# # production
 # # this.jQuery.noConflict() ($) ->
 # #     $.Documentation trackingCode: '<%GOOGLE_TRACKING_CODE%>', language:
 # #         allowedLanguages: <% "['" + "', '".join(LANGUAGES) + "']" if length(LANGUAGES) else '[]' %>

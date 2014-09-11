@@ -1,4 +1,4 @@
-#!/usr/bin/env require
+#!/usr/bin/env coffee
 # -*- coding: utf-8 -*-
 
 # region header
@@ -32,11 +32,7 @@ Version
 1.0 stable
 ###
 
-# # standalone
-# # do ($=this.jQuery) ->
-this.require.scopeIndicator = 'jQuery.Documentation'
-this.require 'jquery-website-1.0.coffee', ($) ->
-# #
+main = ($) ->
 
 # endregion
 
@@ -306,6 +302,16 @@ this.require 'jquery-website-1.0.coffee', ($) ->
     $.Documentation.class = Documentation
 
     # endregion
+
+# endregion
+
+# region dependencies
+
+if this.require?
+    this.require.scopeIndicator = 'jQuery.Documentation'
+    this.require 'jquery-website-1.0.coffee', main
+else
+    main this.jQuery
 
 # endregion
 
