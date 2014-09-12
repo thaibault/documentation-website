@@ -21,10 +21,10 @@
 # Prints a dummy documentation content.
 function printDummyDocumentationContent() {
     cat << EOF
-<h1 id="content">Content<!--deDE:Inhalt--></h1>
+<h2 id="content">Content<!--deDE:Inhalt--></h2>
 <!--|frFR:franz-->
 <!--|deDE:deutsch-->
-<h2 id="a">english</h2>
+<h3 id="a">english</h3>
 <div class="toc">
     <ul>
         <li><a href="#">english</a></li>
@@ -49,22 +49,22 @@ function printDummyDocumentationContent() {
         </ul>
     </ul>
 </div>
-<h1 id="getting-in"><langReplace>Getting <code>inline code</code>in</langReplace><!--deDE:Einstieg<code>inline code</code>--></h1>
+<h2 id="getting-in"><langReplace>Getting <code>inline code</code>in</langReplace><!--deDE:Einstieg<code>inline code</code>--></h2>
 <p>Englisch<!--deDE:Deutsch--> ipsum dolor sit amet...</p>
-<h2 id="a">a</h2>
+<h3 id="a">a</h3>
 <p>
     Lorem ipsum dolor sit amet
     <code>mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</code>
 </p>
-<h2 id="b">b</h2>
+<h3 id="b">b</h3>
 <p>
     Lorem ipsum dolor sit amet...
 </p>
-<h1 id="c">c</h1>
+<h2 id="c">c</h2>
 <p>
     Lorem ipsum dolor sit amet...
 </p>
-<h2 id="d">d</h2>
+<h3 id="d">d</h3>
 <p>
     Lorem ipsum dolor sit amet...
 </p>
