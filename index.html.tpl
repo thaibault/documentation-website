@@ -82,7 +82,7 @@ endregion -->
 <!-- region body -->
 
     <body class="documentation">
-        <div class="window-loading-cover tools-visible-on-javascript-enabled">
+        <div class="website-window-loading-cover tools-visible-on-javascript-enabled">
             <div></div>
         </div>
 
@@ -91,17 +91,17 @@ endregion -->
         <div class="header-wrap outer">
             <header class="inner">
                 <% START_UP_ANIMATION_NUMBER += 1
-                <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> forkme-banner" href="<% SOURCE_URL %>">
+                <a class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> forkme-banner" href="<% SOURCE_URL %>">
                     View on GitHub
                     <!--deDE:GitHub-Projekt--><!--frFR:GitHub-Project-->
                     <i class="icon-github"></i>
                 </a>
                 <% START_UP_ANIMATION_NUMBER += 1
-                <h1 class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-title">
+                <h1 class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-title">
                     <a href="<% URL %>"><% NAME %></a>
                 </h1>
                 <% START_UP_ANIMATION_NUMBER += 1
-                <h2 class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-tagline">
+                <h2 class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-tagline">
                     <% TAGLINE %>
                     <br />
                 </h2>
@@ -112,23 +112,23 @@ endregion -->
                     <% else:
                         <% START_UP_ANIMATION_NUMBER += 3 + length(LANGUAGES)
                     <% if FileHandler(location=DISTRIBUTION_BUNDLE_FILE_PATH, must_exist=false):
-                        <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">src.zip</a>
+                        <a class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">src.zip</a>
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-distribution-bundle-download" href="<% DISTRIBUTION_BUNDLE_FILE_PATH %>">app.zip</a>
+                        <a class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-distribution-bundle-download" href="<% DISTRIBUTION_BUNDLE_FILE_PATH %>">app.zip</a>
                     <% else:
-                        <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">.zip</a>
+                        <a class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">.zip</a>
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> tar-gz-source-download" href="https://github.com/thaibault/<% NAME %>/tarball/master">.tar.gz</a>
+                        <a class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> tar-gz-source-download" href="https://github.com/thaibault/<% NAME %>/tarball/master">.tar.gz</a>
                     <% START_UP_ANIMATION_NUMBER -= 1
-                    <i class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> icon-download-tarball"></i>
+                    <i class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> icon-download-tarball"></i>
                     <% for language in LANGUAGES:
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a href="#lang-<% language %>" class="tools-visible-on-javascript-enabled start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"><% language[:2] %></a>
+                        <a href="#lang-<% language %>" class="tools-visible-on-javascript-enabled website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"><% language[:2] %></a>
                     <% if FileHandler('api').is_directory():
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <span class="glyphicon glyphicon-arrow-left arrow-left-api start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"></span>
+                        <span class="glyphicon glyphicon-arrow-left arrow-left-api website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"></span>
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a href="<% URL %>/api/" class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">
+                        <a href="<% URL %>/api/" class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">
                             API Documentation
                             <!--deDE:API-Dokumentation-->
                             <!--frFR:Documentation de l'API-->
@@ -197,7 +197,7 @@ endregion -->
         <div class="footer-wrap outer">
             <footer class="inner">
                 <% START_UP_ANIMATION_NUMBER += 1
-                <p class="start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> copyright">
+                <p class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> copyright">
                     <% NAME %> maintained by
                     <!--deDE:<% NAME %> betrieben von -->
                     <!--frFR:<% NAME %> exploité par -->

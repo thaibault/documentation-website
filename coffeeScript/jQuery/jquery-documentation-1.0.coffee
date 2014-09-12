@@ -66,7 +66,7 @@ main = ($) ->
             **returns {$.Documentation}** - Returns the current instance.
         ###
         initialize: (
-            options={}, @_startUpAnimationIsComplete=false,
+            options={}, @startUpAnimationIsComplete=false,
             @_activateLanguageSupport=false, @_languageHandler=null
         ) ->
             this._options =
@@ -145,8 +145,8 @@ main = ($) ->
             # further controller logic.
             this.$domNodes = this.grabDomNode this._options.domNode
             # New injected dom nodes may take affect on language handler.
-            if(this._startUpAnimationIsComplete and
-               this._activateLanguageSupport)
+            if(this.startUpAnimationIsComplete and
+               this._activateLanguageSupport and not this._languageHandler?)
                 this._languageHandler = $.Lang this._options.language
             this
         _onSwitchSection: (hash) ->
@@ -171,7 +171,7 @@ main = ($) ->
                 this._languageHandler = $.Lang this._options.language
             # All start up effects are ready. Handle direct
             # section links.
-            this._startUpAnimationIsComplete = true
+            this.startUpAnimationIsComplete = true
             this.$domNodes.tableOfContentLinks.add(
                 this.$domNodes.aboutThisWebsiteLink
             ).filter("a[href=\"#{window.location.href.substr(
@@ -246,9 +246,9 @@ main = ($) ->
                         excess -= this.textContent.length
                         contentSnippet = ''
                     else if this.textContent.length >= excess
-                        this.textContent = "#{this.textContent.substr(
+                        this.textContent = this.textContent.substr(
                             0, this.textContent.length - excess - 1
-                        )}..."
+                        ) + '...'
                         excess = 0
                         contentSnippet = $wrapper.html()
                         if not contentSnippet

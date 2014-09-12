@@ -20,19 +20,18 @@
     require [
         'jQuery/jquery-2.1.1', 'jQuery/jquery-observeHashChange-1.0'
         'jQuery/jquery-scrollTo-1.4.3.1', 'jQuery/jquery-spin-2.0.1'
-        'bootstrap-3.2.0', 'jQuery/jquery-swipe-2.0'
 
         'jQuery/jquery-tools-1.0.coffee', 'jQuery/jquery-lang-1.0.coffee'
         'jQuery/jquery-website-1.0.coffee'
-        'jQuery/jquery-homePage-1.0.coffee'
+        'jQuery/jquery-documentation-1.0.coffee'
     ]
 ###
 
 # # production
 # # this.jQuery.noConflict() ($) ->
-# #     $.HomePage googleTrackingCode: 'UA-40192634-1', language:
-# #         allowedLanguages: ['enUS', 'deDE']
-# #         sessionDescription: 'website{1}'
+# #     $.Documentation trackingCode: 'google_traking_code', language:
+# #         allowedLanguages: []
+# #         sessionDescription: 'documentationWebsite{1}'
 this.less =
     env: 'development'
     async: false
@@ -44,20 +43,24 @@ this.less =
     rootpath: ''
     logLevel: 0
     #sourceMap: true
-this.require.localStoragePathReminderPrefix = 'websiteResolvedDependency'
+this.require.localStoragePathReminderPrefix =
+    'documentationWebsiteResolvedDependency'
 this.require().basePath.coffee.push "#{this.require.basePath.coffee[0]}jQuery/"
 this.require.basePath.js.push "#{this.require.basePath.js[0]}jQuery/"
-this.require [['jQuery.HomePage', 'jquery-homePage-1.0.coffee']], ($) =>
+this.require(
+    [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']],
+($) =>
     ###
         Embed $ and require full compatible to all other JavaScripts. The
         global scope is clean after this sequence. The given function is called
         when the dom-tree was loaded.
     ###
     this.require.clearOldPathReminder()
-    $.noConflict() ($) -> $.HomePage
-        googleTrackingCode: 'UA-40192634-1', logging: true, language:
-            allowedLanguages: ['enUS', 'deDE']
-            sessionDescription: 'website{1}'
+    $.noConflict() ($) -> $.Documentation
+        trackingCode: 'google_traking_code', logging: true, language:
+            allowedLanguages: []
+            sessionDescription: 'documentationWebsite{1}'
+)
 # #
 
 # region vim modline

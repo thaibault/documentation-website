@@ -78,9 +78,11 @@ main = (less, lessParser, $) ->
                     mediaQueryIndicator: '<div class="media-query-indicator">'
                     top: '> div.navbar-wrapper'
                     scrollToTopButton: 'a[href="#top"]'
-                    startUpAnimationClassPrefix: '.website-start-up-animation-number-'
+                    startUpAnimationClassPrefix:
+                        '.website-start-up-animation-number-'
                     windowLoadingCover: 'div.website-window-loading-cover'
-                    windowLoadingSpinner: 'div.website-window-loading-cover > div'
+                    windowLoadingSpinner:
+                        'div.website-window-loading-cover > div'
                 startUpFadeIn:
                     easing: 'swing'
                     duration: 'slow'
@@ -106,11 +108,13 @@ main = (less, lessParser, $) ->
                     left: 'auto' # Left position relative to parent in px
                 activateLanguageSupport: true
                 language: {}
-                scrollInLinearTime: true
-                scrollToTop: duration: 'normal'
-                scrollToTopSlideDistanceInPixel: 30
-                scrollToTopShowAnimation: duration: 'normal'
-                scrollToTopHideAnimation: duration: 'normal'
+                scrollToTop:
+                    inLinearTime: true
+                    options: duration: 'normal'
+                    button:
+                        slideDistanceInPixel: 30
+                        showAnimation: duration: 'normal'
+                        hideAnimation: duration: 'normal'
                 domain: 'auto'
             }, @startUpAnimationIsComplete=false, @_viewportIsOnTop=false,
             @_currentMediaQueryMode='', @languageHandler=null,
@@ -196,14 +200,15 @@ ga('send', 'pageview');'''
             if this.$domNodes.scrollToTopButton.css('visibility') is 'hidden'
                 this.$domNodes.scrollToTopButton.css 'opacity', 0
             else
-                this._options.scrollToTopHideAnimation.always = =>
+                this._options.scrollToTop.button.hideAnimation.always = =>
                     this.$domNodes.scrollToTopButton.css
                         bottom: '-=' +
-                        this._options.scrollToTopSlideDistanceInPixel
+                        this._options.scrollToTop.button.slideDistanceInPixel
                 this.$domNodes.scrollToTopButton.finish().animate({
                     bottom: '+=' +
-                    this._options.scrollToTopSlideDistanceInPixel, opacity: 0
-                }, this._options.scrollToTopHideAnimation)
+                    this._options.scrollToTop.button.slideDistanceInPixel
+                    opacity: 0
+                }, this._options.scrollToTop.button.hideAnimation)
             this
         _onViewportMovesAwayFromTop: ->
             ###
@@ -216,13 +221,13 @@ ga('send', 'pageview');'''
             else
                 this.$domNodes.scrollToTopButton.finish().css(
                     bottom: '+=' +
-                    this._options.scrollToTopSlideDistanceInPixel
+                    this._options.scrollToTop.button.slideDistanceInPixel
                     display: 'block', opacity: 0
                 ).animate({
                     bottom: '-=' +
-                    this._options.scrollToTopSlideDistanceInPixel
+                    this._options.scrollToTop.button.slideDistanceInPixel
                     queue: false, opacity: 1
-                }, this._options.scrollToTopShowAnimation)
+                }, this._options.scrollToTop.button.showAnimation)
             this
         _onChangeMediaQueryMode: (oldMode, newMode) ->
             ###
@@ -386,13 +391,16 @@ ga('send', 'pageview');'''
             window.setTimeout(=>
                 # Hide startup animation dom nodes to show them step by step.
                 $(this.stringFormat(
-                    '[class^="{1}"], [class*=" {1}"]',
+                    '[class^="{1}"], [class*=" {1}"]'
                     this.sliceDomNodeSelectorPrefix(
                         this._options.domNode.startUpAnimationClassPrefix
                     ).substr 1)
                 ).hide()
-                this.enableScrolling().$domNodes.windowLoadingCover.fadeOut(
-                    this._options.windowLoadingCoverFadeOut)
+                if this.$domNodes.windowLoadingCover.length
+                    this.enableScrolling().$domNodes.windowLoadingCover.fadeOut(
+                        this._options.windowLoadingCoverFadeOut)
+                else
+                    this._options.windowLoadingCoverFadeOut.always()
             , this._options.additionalPageLoadingTimeInMilliseconds)
             this
         _handleStartUpEffects: (elementNumber) ->
@@ -406,21 +414,29 @@ ga('send', 'pageview');'''
             # Stop and delete spinner instance.
             this.$domNodes.windowLoadingSpinner.spin false
             elementNumber = 1 if not $.isNumeric elementNumber
-            window.setTimeout((=>
-                lastElementTriggered = false
-                this._options.startUpFadeIn.always = =>
-                    if lastElementTriggered
-                        this.fireEvent 'startUpAnimationComplete'
-                $(
-                    this._options.domNode.startUpAnimationClassPrefix +
-                    elementNumber
-                ).fadeIn this._options.startUpFadeIn
-                if $(this._options.domNode.startUpAnimationClassPrefix +
-                     (elementNumber + 1)).length
-                    this._handleStartUpEffects elementNumber + 1
-                else
-                    lastElementTriggered = true
-            ), this._options.startUpAnimationElementDelayInMiliseconds)
+            if $(this.stringFormat(
+                '[class^="{1}"], [class*=" {1}"]'
+                this.sliceDomNodeSelectorPrefix(
+                    this._options.domNode.startUpAnimationClassPrefix
+                ).substr 1)
+            ).length
+                window.setTimeout((=>
+                    lastElementTriggered = false
+                    this._options.startUpFadeIn.always = =>
+                        if lastElementTriggered
+                            this.fireEvent 'startUpAnimationComplete'
+                    $(
+                        this._options.domNode.startUpAnimationClassPrefix +
+                        elementNumber
+                    ).fadeIn this._options.startUpFadeIn
+                    if $(this._options.domNode.startUpAnimationClassPrefix +
+                         (elementNumber + 1)).length
+                        this._handleStartUpEffects elementNumber + 1
+                    else
+                        lastElementTriggered = true
+                ), this._options.startUpAnimationElementDelayInMiliseconds)
+            else
+                this.fireEvent 'startUpAnimationComplete'
             this
         _addNavigationEvents: ->
             ###
@@ -455,16 +471,16 @@ ga('send', 'pageview');'''
 
                 **returns {$.Website}** - Returns the current instance.
             ###
-            this._options.scrollToTop.onAfter = onAfter
-            if this._options.scrollInLinearTime
+            this._options.scrollToTop.options.onAfter = onAfter
+            if this._options.scrollToTop.inLinearTime
                 distanceToTopInPixel = this.$domNodes.window.scrollTop()
                 # Scroll four times faster as we have distance to top.
-                this._options.scrollToTop.duration = distanceToTopInPixel / 4
+                this._options.scrollToTop.options.duration = distanceToTopInPixel / 4
                 $.scrollTo(
                     {top: "-=#{distanceToTopInPixel}", left: '+=0'},
-                    this._options.scrollToTop)
+                    this._options.scrollToTop.options)
             else
-                $.scrollTo {top: 0, left: 0}, this._options.scrollToTop
+                $.scrollTo {top: 0, left: 0}, this._options.scrollToTop.options
             this
         _handleGoogleAnalytics: () ->
             ###

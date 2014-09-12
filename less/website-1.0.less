@@ -26,7 +26,6 @@ This library written by Torben Sickert stand under a creative commons naming
          url('@{fontPath}glyphicons-halflings/glyphicons-halflings-regular.ttf') format('truetype'),
          url('@{fontPath}glyphicons-halflings/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
-@import 'bootstrap-glyphicons-1.0.0';
 @font-face {
     font-family: 'Glyphicons Social Regular';
     src: url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.eot');
@@ -35,7 +34,7 @@ This library written by Torben Sickert stand under a creative commons naming
          url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.ttf') format('truetype'),
          url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.svg#glyphicons_socialregular') format('svg');
 }
-@import 'glyphicons-social-1.8';
+@import '../cascadingStyleSheet/glyphicons-social-1.8.css';
 
     /* endregion */
 
@@ -101,11 +100,11 @@ This library written by Torben Sickert stand under a creative commons naming
     outside.
 */
 /* Hide JavaScript dependent dom nodes. */
-.website-hidden-on-javascript-enabled { display: initial; }
+.tools-hidden-on-javascript-enabled { display: initial; }
 /* Show JavaScript dependent dom nodes. */
-.website-visible-on-javascript-enabled { display: none; }
+.tools-visible-on-javascript-enabled { display: none; }
 /* Disables and hides a scrolling and scrollbar. */
-.website-disable-scrolling {
+.tools-disable-scrolling {
     height: 100% !important;
     overflow: hidden !important;
 }
