@@ -389,7 +389,11 @@ body.documentation {
 
     a[href="#top"] { visibility: hidden; }
     div.header-wrap.outer > header.inner > section.header-links {
-        width: 451px;
+        width: 100%;
+    }
+    a.api-link span { display: none; }
+    @media (min-width: 500px) {
+        a.api-link span { display: initial; }
     }
 
         /* endregion */

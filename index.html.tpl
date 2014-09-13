@@ -128,10 +128,12 @@ endregion -->
                         <% START_UP_ANIMATION_NUMBER -= 1
                         <span class="glyphicon glyphicon-arrow-left arrow-left-api website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"></span>
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a href="<% URL %>/api/" class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">
-                            API Documentation
-                            <!--deDE:API-Dokumentation-->
-                            <!--frFR:Documentation de l'API-->
+                        <a href="<% URL %>/api/" class="api-link website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">
+                            <!--
+                                NOTE: Have to be in one line to preserve
+                                language specific whitespace.
+                            -->
+                            API<span> Documentation<!--deDE:-Dokumentation--><!--frFR: Documentation de l'API--></span>
                         </a>
                         <% START_UP_ANIMATION_NUMBER += 4 + length(LANGUAGES)
                     <% else:
