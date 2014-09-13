@@ -49,12 +49,21 @@ function printDummyDocumentationContent() {
         </ul>
     </ul>
 </div>
-<h2 id="getting-in"><langReplace>Getting <code>inline code</code>in</langReplace><!--deDE:Einstieg<code>inline code</code>--></h2>
+<h2 id="getting-in">
+    <langreplace>
+        Getting
+        <code>inline code</code>
+        in
+    </langreplace>
+    <!--deDE:Einstieg<code>inline code</code>-->
+</h2>
 <p>Englisch<!--deDE:Deutsch--> ipsum dolor sit amet...</p>
 <h3 id="a">a</h3>
 <p>
     Lorem ipsum dolor sit amet
-    <code>mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</code>
+    <code>
+        mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+    </code>
 </p>
 <h3 id="b">b</h3>
 <p>
@@ -74,7 +83,6 @@ function printDummyDocumentationContent() {
 <div class="codehilite">
     <pre>&gt;&gt;&gt; /path/to/boostNode/runnable/macro.py -p /path/to/boostNode -e py --looooooooong options -shorter</pre>
 </div>
-
 <!--showExample-->
 <table class=codehilitetable>
     <tr>
@@ -83,11 +91,11 @@ function printDummyDocumentationContent() {
                 <pre> 1
  2
  3</pre>
-            </div>
-        </td>
-        <td class=code>
-            <div class=codehilite>
-                <pre><span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>
+                </div>
+            </td>
+            <td class=code>
+                <div class=codehilite>
+                    <pre><span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;test&quot;</span> <span class="na">value=</span><span class="s">&quot;4&quot;</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/form&gt;</span>
 </pre>
@@ -133,11 +141,11 @@ function printDummyDocumentationContent() {
  100
  111
  999</pre>
-                </div>
-            </td>
-            <td class="code">
-                <div class="codehilite">
-                    <pre><span class="err">#</span><span class="o">!</span><span class="err">/usr/bin/env javaScript</span>
+                    </div>
+                </td>
+                <td class="code">
+                    <div class="codehilite">
+                        <pre><span class="err">#</span><span class="o">!</span><span class="err">/usr/bin/env javaScript</span>
 
 <span class="kd">var</span> <span class="nx">tools</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">Tools</span><span class="p">({</span><span class="s1">&#39;logging&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span><span class="kd">var</span> <span class="nx">tools</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">Tools</span><span class="p">({</span><span class="s1">&#39;logging&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
 <span class="c1">// An 79 chars comment: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</span>
@@ -150,8 +158,11 @@ function printDummyDocumentationContent() {
     </tbody>
 </table>
 <h3 id="e">e</h3>
-
-<table class=codehilitetable><tr><td class=linenos><div class=linenodiv><pre> 1
+<table class=codehilitetable>
+    <tr>
+        <td class=linenos>
+            <div class=linenodiv>
+                <pre> 1
  2
  3
  4
@@ -168,7 +179,12 @@ function printDummyDocumentationContent() {
 15
 16
 17
-18</pre></div></td><td class=code><div class=codehilite><pre>
+18</pre>
+                </div>
+            </td>
+            <td class=code>
+                <div class=codehilite>
+                    <pre>
 <span class="c">#!/usr/bin/env bash</span>
 
 cat <span class="s">&lt;&lt; EOF</span>
@@ -187,7 +203,11 @@ cat <span class="s">&lt;&lt; EOF</span>
 installArchLinux <span class="s2">&quot;\$@&quot;</span> --output-system <span class="nv">\$myTarget</span>
 
 <span class="c"># test...</span>
-</pre></div></td></tr></table>
+</pre>
+            </div>
+        </td>
+    </tr>
+</table>
 <p>
     Lorem ipsum dolor sit amet...
 </p>

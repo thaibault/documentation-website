@@ -72,6 +72,7 @@ main = ($) ->
             this._options =
                 onExamplesLoaded: $.noop()
                 domNodeSelectorPrefix: 'body.{1}'
+                codeTableWrapper: '<div class="table-responsive">'
                 showExample:
                     pattern: '^ *showExample(: *([^ ]+))? *$'
                     domNodeName: '#comment'
@@ -195,6 +196,9 @@ main = ($) ->
             self = this
             this.$domNodes.code.each ->
                 $this = $ this
+                tableParent = $this.closest 'table'
+                if tableParent.length
+                    tableParent.wrap self._options.codeTableWrapper
                 newContent = ''
                 codeLines = $this.html().split '\n'
                 $.each codeLines, (index, value) ->

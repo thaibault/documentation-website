@@ -286,6 +286,11 @@ body.documentation {
                 /* Don't highlight syntax errors. */
                 .err { border: 0; }
             }
+            div.table-responsive {
+                border: 0;
+
+                table.codehilitetable { width: 100%; }
+            }
             table {
                 border-collapse: collapse;
                 margin-top: 20px;
@@ -382,20 +387,6 @@ body.documentation {
 
         /* region extra small */
 
-    @extraSmallWith: 460px;
-    width: @extraSmallWith;
-
-    .inner { width: @extraSmallWith; }
-    @media (min-width: @extraSmallWith) { width: 100%; }
-    div.main-content-wrap section.main-content {
-        pre { font-size: 9px; }
-        div.codehilite pre { width: 447px; }
-        table tbody tr {
-            td.linenos div.linenodiv pre { width: 30px; }
-            td.code div.codehilite pre { width: 417px; }
-        }
-        div.show-example-wrapper { width: 447px; }
-    }
     a[href="#top"] { visibility: hidden; }
     div.header-wrap.outer > header.inner > section.header-links {
         width: 451px;
@@ -406,8 +397,6 @@ body.documentation {
     @media (min-width: @minimumSmallWidthInPixel) {
 
         /* region small */
-
-        width: 100%;
 
             /* region headlines */
 
