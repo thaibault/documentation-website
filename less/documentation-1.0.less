@@ -172,7 +172,10 @@ body.documentation {
 
         /* region paragraphs */
 
-    p { overflow: auto; }
+    p {
+        overflow: auto;
+        word-wrap: break-word;
+    }
 
         /* endregion */
 
@@ -277,6 +280,7 @@ body.documentation {
 
             /* region code blocks */
 
+            // code
             div.codehilite pre {
                 #generic > .border-radius(0);
                 border-color: @codeBorderColor;
