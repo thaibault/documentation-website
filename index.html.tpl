@@ -213,7 +213,7 @@ endregion -->
 
     <!-- endregion -->
 
-        <a href="#top">top</a>
+        <a href="#top">top<!--deDE:nach oben--></a>
     </body>
 
 <!-- endregion -->
