@@ -25,7 +25,9 @@
     zoom: 1;
 }
 .glyphicon-social:before {
+    /** Edited to enable hover effects.
     color: #1d1d1b;
+    **/
     display: inline;
     display: inline-block;
     font: 24px/1em 'Glyphicons Social Regular';
