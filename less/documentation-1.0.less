@@ -41,7 +41,6 @@ This library written by Torben Sickert stand under a creative commons naming
 /* region style sheets */
 
 body.documentation {
-    // TODO convert font-size px to em */
 
     /* region global */
 
@@ -80,6 +79,11 @@ body.documentation {
         margin: 10px 0;
         color: #222222;
         letter-spacing: -1px;
+        font-family: @fontFamilyCondensed;
+        font-size: 2em;
+    }
+    h2 {
+        font-size: 3em;
     }
 
         /* endregion */
@@ -222,7 +226,7 @@ body.documentation {
             h2.project-tagline {
                 font-weight: 300;
                 background: none;
-                font-size: 24px;
+                font-size: 2em;
             }
             section.header-links {
                 padding: 0;
@@ -246,7 +250,7 @@ body.documentation {
                 a.zip-source-download, a.zip-distribution-bundle-download,
                 a.tar-gz-source-download {
                     .icon-gray-archiv;
-                    font-size: 16px;
+                    font-size: 1.2em;
                     text-align: center;
                     padding-top: 28px;
                     padding-top: 29px;
@@ -342,7 +346,8 @@ body.documentation {
                 padding-top: @padding / 2;
 
                 h3 {
-                    font-size: 12px;
+                    font-family: @fontFamily;
+                    font-size: .9em;
                     font-weight: bold;
                     color: #bbb;
                     letter-spacing: 1px;
@@ -420,7 +425,7 @@ body.documentation {
         }
         .inner { width: 715px; }
         div.main-content-wrap section.main-content {
-            pre { font-size: 13px; }
+            pre { font-size: 0.9em; }
             div.codehilite pre { width: 695px; }
             table tbody tr {
                 td.linenos div.linenodiv pre { width: 42px; }
