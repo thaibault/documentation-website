@@ -13,7 +13,13 @@ This library written by Torben Sickert stand under a creative commons naming
 
 endregion -->
 
-<% # region locations
+<% # region language
+
+<% LANGUAGES = LANGUAGES if LANGUAGES else ('deDE', 'enUS', 'frFR')
+
+<% # endregion
+
+<% # region location
 
 <% IMAGE_PATH = 'image/'
 <% IMAGE_APPLE_TOUCH_ICON_PATH = IMAGE_PATH + 'appleTouchIcon/'
@@ -26,15 +32,13 @@ endregion -->
 
 <% DISTRIBUTION_BUNDLE_FILE_PATH = 'distributionBundle.zip'
 
-<% URL = URL if URL else 'http://thaibault.github.com/%s' % NAME
-<% if not SOURCE_URL:
-    <% SOURCE_URL = 'https://github.com/thaibault/%s' % NAME
-<% LANGUAGES = LANGUAGES if LANGUAGES else ('deDE', 'enUS')
-
 <% # endregion
 
 <% # region runtime
 
+<% URL = URL if URL else 'http://thaibault.github.com/%s' % NAME
+<% if not SOURCE_URL:
+    <% SOURCE_URL = 'https://github.com/thaibault/%s' % NAME
 <% START_UP_ANIMATION_NUMBER = 0
 
 <% # endregion
