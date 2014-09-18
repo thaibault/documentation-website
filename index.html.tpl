@@ -160,10 +160,10 @@ endregion -->
         <!-- region about this website -->
 
             <section class="about-this-website inner">
-                <h1 id="about-this-website">
+                <h2 id="about-this-website">
                     About this website
                     <!--deDE:Impressum--><!--frFR:Mentions légales-->
-                </h1>
+                </h2>
                 <p>
                     Provider of
                     <!--deDE:Anbieter von --><!--frFR:Fournisseur de -->
