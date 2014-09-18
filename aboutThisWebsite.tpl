@@ -126,8 +126,9 @@ endregion -->
     Sie können darüber hinaus die Erfassung der durch das Cookie erzeugten und
     auf Ihre Nutzung der Website bezogenen Daten (inkl. Ihrer IP-Adresse) an
     Google sowie die Verarbeitung dieser Daten durch Google verhindern, indem
-    Sie das unter dem folgenden Link verfügbare Browser-Plugin herunterladen
-    und installieren: http://tools.google.com/dlpage/gaoptout?hl=de.
+    Sie das unter dem folgenden
+    <a href="http://tools.google.com/dlpage/gaoptout?hl=de">Link</a>
+    verfügbare Browser-Plugin herunterladen und installieren: .
 </p>
 <h3>Copyright Statement</h3>
 <p>
