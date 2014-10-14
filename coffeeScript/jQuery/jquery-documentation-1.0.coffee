@@ -4,9 +4,7 @@
 # region header
 
 ###
-[Project page](https://thaibault.github.com/jQuery-lang)
-
-This plugin provided client side internationalisation support for websites.
+This plugin provides generic documentation page features.
 
 Copyright Torben Sickert 16.12.2012
 
@@ -24,7 +22,7 @@ For conventions see require on https://github.com/thaibault/require
 Author
 ------
 
-t.sickert@gmail.com (Torben Sickert)
+t.sickert["~at~"]gmail.com (Torben Sickert)
 
 Version
 -------
