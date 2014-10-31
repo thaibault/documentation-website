@@ -22,7 +22,6 @@ endregion -->
 <% # region location
 
 <% IMAGE_PATH = 'image/'
-<% IMAGE_APPLE_TOUCH_ICON_PATH = IMAGE_PATH + 'appleTouchIcon/'
 
 <% LESS_PATH = 'less/'
 <% CASCADING_STYLE_SHEET_PATH = 'cascadingStyleSheet/'
@@ -60,10 +59,6 @@ endregion -->
 
     <!-- region fav and touch icons -->
 
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<% IMAGE_APPLE_TOUCH_ICON_PATH %>144x144-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<% IMAGE_APPLE_TOUCH_ICON_PATH %>114x114-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<% IMAGE_APPLE_TOUCH_ICON_PATH %>72x72-precomposed.png" />
-        <link rel="apple-touch-icon-precomposed" href="<% IMAGE_APPLE_TOUCH_ICON_PATH %>57x57-precomposed.png" />
         <link rel="shortcut icon" type="image/x-icon" href="<% IMAGE_PATH %>favicon.ico" />
 
     <!-- endregion -->
