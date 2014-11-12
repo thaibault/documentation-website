@@ -69,3 +69,4 @@ this.require(
 # vim: foldmethod=marker foldmarker=region,endregion:
 
 # endregion
+[36m2014-11-12 10:40:12,421 - boostNode.extension.system[0m - [0m[34mDEBUG[0m - Closing "Parser" caused by program trigger or normal termination.
