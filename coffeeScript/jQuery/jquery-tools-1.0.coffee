@@ -508,7 +508,7 @@ main = ($) ->
                 if wrapperDomNode?
                     wrapperDomNode = $ wrapperDomNode
                     $.each domNodeSelectors, (key, value) ->
-                        domNode[key] = wrapperDomNode.find value
+                        domNodes[key] = wrapperDomNode.find value
                 else
                     $.each domNodeSelectors, (key, value) =>
                         match = value.match ', *'
