@@ -505,7 +505,7 @@ main = ($) ->
                     if match
                         $.each value.split(match[0]), (key, valuePart) =>
                             if key
-                                value += ", " + this._grabDomNodeHelper(
+                                value += ', ' + this._grabDomNodeHelper(
                                     key, valuePart, domNodeSelectors)
                             else
                                 value = valuePart
@@ -907,6 +907,7 @@ main = ($) ->
                 selector, domNodeSelectorPrefix
             ) or this.stringStartsWith $.trim(selector), '<')
                 domNodeSelectors[key] = domNodeSelectorPrefix + selector
+                console.log domNodeSelectors[key]
                 return $.trim domNodeSelectors[key]
             $.trim selector
 
