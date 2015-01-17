@@ -18,7 +18,48 @@ region special selectors
 InternetExplorer6-: * html
 InternetExplorer7+: *+ html
 
-TODO enter conventions
+Conventions
+-----------
+
+(gcX := generic convention number x)
+
+- __gc1__ Only use utf-8 file encoding and unix line feeds (\n)
+    - __bad__: ```text...\r\n``` or ```text...\r```
+    - __good__: ```text...\n```
+- __gc2__ Always indent your code with __4__ whitespaces, don't use and
+  tabulators or invisbile symbols at the end of your code line.
+- __gc3__ Browser specific code and tell which version is targeted on which
+  engine to maintain cross browser compatibility
+
+__bad__:
+```
+#!css
+background-color: white;
+background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(black));
+background: -webkit-linear-gradient(@direction, white, black);
+background: -moz-linear-gradient(@direction, white, black);
+background: -ms-linear-gradient(@direction, white, black);
+background: -o-linear-gradient(@direction, white, black);
+background: linear-gradient(white, black);
+```
+__good__:
+```
+#!css
+// fallback
+background-color: white;
+// safari 4-5, chrome 1-9
+background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(black));
+// safari 5.1, chrome 10+
+background: -webkit-linear-gradient(@direction, white, black);
+// firefox 3.6+
+background:    -moz-linear-gradient(@direction, white, black);
+// internetExplorer 10
+background:     -ms-linear-gradient(@direction, white, black);
+// opera 11.10+
+background:      -o-linear-gradient(@direction, white, black);
+// css3
+background:         linear-gradient(white, black);
+```
 
 endregion */
 
