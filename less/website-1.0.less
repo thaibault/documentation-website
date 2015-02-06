@@ -71,6 +71,30 @@ This library written by Torben Sickert stand under a creative commons naming
 #website() {
     #bootstrap() {
         @import (less) '../cascadingStyleSheet/bootstrap-3.2.0.css';
+
+        /* region bootstrap fixes */
+
+        /*
+            This fix allows label nested non checkbox input fields to avoid
+            referencing inputs via ids.
+        */
+        form label:not([for]) {
+            margin: 0;
+            width: 100%;
+
+            textarea, select, input:not([type="checkbox"]) {
+                margin-top: 5px;
+                font-weight: normal;
+            }
+        }
+        form label.website-sr-only:not([for]) {
+            textarea, select, input:not([type="checkbox"]) {
+                margin-top: 0;
+            }
+        }
+
+        /* endregion */
+
     }
     margin: 0;
     font-family: @fontFamily;
@@ -121,6 +145,9 @@ This library written by Torben Sickert stand under a creative commons naming
 .tools-disable-scrolling {
     height: 100% !important;
     overflow: hidden !important;
+}
+.website-action {
+    cursor: pointer;
 }
 // Overlay the whole page till everything is loaded completely.
 div.website-window-loading-cover {
