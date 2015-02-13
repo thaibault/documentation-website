@@ -1109,7 +1109,8 @@ p {
   font-weight: 300;
   line-height: 1.4;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .lead {
     font-size: 21px;
   }
@@ -1258,7 +1259,8 @@ dt {
 dd {
   margin-left: 0;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .dl-horizontal dt {
     float: left;
     width: 160px;
@@ -1397,17 +1399,20 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .container {
     width: 750px;
   }
 }
-@media (min-width: 992px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 992px) {
   .container {
     width: 970px;
   }
 }
-@media (min-width: 1200px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 1200px) {
   .container {
     width: 1170px;
   }
@@ -1584,7 +1589,8 @@ pre code {
 .col-xs-offset-0 {
   margin-left: 0;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
     float: left;
   }
@@ -1742,7 +1748,8 @@ pre code {
     margin-left: 0;
   }
 }
-@media (min-width: 992px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 992px) {
   .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
     float: left;
   }
@@ -1900,7 +1907,8 @@ pre code {
     margin-left: 0;
   }
 }
-@media (min-width: 1200px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 1200px) {
   .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
     float: left;
   }
@@ -2637,7 +2645,8 @@ select[multiple].input-lg {
   margin-bottom: 10px;
   color: #737373;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .form-inline .form-group {
     display: inline-block;
     margin-bottom: 0;
@@ -2700,7 +2709,8 @@ select[multiple].input-lg {
   margin-right: -15px;
   margin-left: -15px;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .form-horizontal .control-label {
     padding-top: 7px;
     margin-bottom: 0;
@@ -2711,12 +2721,14 @@ select[multiple].input-lg {
   top: 0;
   right: 15px;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .form-horizontal .form-group-lg .control-label {
     padding-top: 14.3px;
   }
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .form-horizontal .form-group-sm .control-label {
     padding-top: 6px;
   }
@@ -3240,7 +3252,8 @@ tbody.collapse.in {
   bottom: 100%;
   margin-bottom: 1px;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .navbar-right .dropdown-menu {
     right: 0;
     left: auto;
@@ -3659,7 +3672,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   top: auto;
   left: auto;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .nav-tabs.nav-justified > li {
     display: table-cell;
     width: 1%;
@@ -3677,7 +3691,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs.nav-justified > .active > a:focus {
   border: 1px solid #ddd;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .nav-tabs.nav-justified > li > a {
     border-bottom: 1px solid #ddd;
     border-radius: 4px 4px 0 0;
@@ -3724,7 +3739,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   top: auto;
   left: auto;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .nav-justified > li {
     display: table-cell;
     width: 1%;
@@ -3745,7 +3761,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs-justified > .active > a:focus {
   border: 1px solid #ddd;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .nav-tabs-justified > li > a {
     border-bottom: 1px solid #ddd;
     border-radius: 4px 4px 0 0;
@@ -3773,12 +3790,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .navbar {
     border-radius: 4px;
   }
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .navbar-header {
     float: left;
   }
@@ -3795,7 +3814,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-collapse.in {
   overflow-y: auto;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .navbar-collapse {
     width: auto;
     border-top: 0;
@@ -3822,7 +3842,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-fixed-bottom .navbar-collapse {
   max-height: 340px;
 }
-@media (max-width: 480px) and (orientation: landscape) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (max-width: 480px) and (orientation: landscape) {
   .navbar-fixed-top .navbar-collapse,
   .navbar-fixed-bottom .navbar-collapse {
     max-height: 200px;
@@ -3835,7 +3856,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-right: -15px;
   margin-left: -15px;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .container > .navbar-header,
   .container-fluid > .navbar-header,
   .container > .navbar-collapse,
@@ -3848,7 +3870,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   z-index: 1000;
   border-width: 0 0 1px;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .navbar-static-top {
     border-radius: 0;
   }
@@ -3863,7 +3886,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
        -o-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .navbar-fixed-top,
   .navbar-fixed-bottom {
     border-radius: 0;
@@ -3889,7 +3913,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-brand:focus {
   text-decoration: none;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand {
     margin-left: -15px;
@@ -3919,7 +3944,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .navbar-toggle {
     display: none;
   }
@@ -3932,7 +3958,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding-bottom: 10px;
   line-height: 20px;
 }
-@media (max-width: 767px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
     position: static;
     float: none;
@@ -3955,7 +3982,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     background-image: none;
   }
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .navbar-nav {
     float: left;
     margin: 0;
@@ -3971,7 +3999,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     margin-right: -15px;
   }
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .navbar-left {
     float: left !important;
   }
@@ -3990,7 +4019,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 1px 0 rgba(255, 255, 255, .1);
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 1px 0 rgba(255, 255, 255, .1);
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .navbar-form .form-group {
     display: inline-block;
     margin-bottom: 0;
@@ -4037,12 +4067,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     top: 0;
   }
 }
-@media (max-width: 767px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (max-width: 767px) {
   .navbar-form .form-group {
     margin-bottom: 5px;
   }
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .navbar-form {
     width: auto;
     padding-top: 0;
@@ -4082,7 +4114,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-top: 15px;
   margin-bottom: 15px;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .navbar-text {
     float: left;
     margin-right: 15px;
@@ -4147,7 +4180,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #555;
   background-color: #e7e7e7;
 }
-@media (max-width: 767px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #777;
   }
@@ -4243,7 +4277,8 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #fff;
   background-color: #080808;
 }
-@media (max-width: 767px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (max-width: 767px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
     border-color: #080808;
   }
@@ -5477,7 +5512,8 @@ button.close {
   height: 50px;
   overflow: scroll;
 }
-@media (min-width: 768px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) {
   .modal-dialog {
     width: 600px;
     margin: 30px auto;
@@ -5490,7 +5526,8 @@ button.close {
     width: 300px;
   }
 }
-@media (min-width: 992px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 992px) {
   .modal-lg {
     width: 900px;
   }
@@ -5877,6 +5914,7 @@ button.close {
 .carousel-caption .btn {
   text-shadow: none;
 }
+/** Edited to support css3-mediaqueries poly fills **/
 @media screen and (min-width: 768px) {
   .carousel-control .glyphicon-chevron-left,
   .carousel-control .glyphicon-chevron-right,
@@ -6014,7 +6052,8 @@ button.close {
 .visible-lg-inline-block {
   display: none !important;
 }
-@media (max-width: 767px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (max-width: 767px) {
   .visible-xs {
     display: block !important;
   }
@@ -6029,22 +6068,26 @@ button.close {
     display: table-cell !important;
   }
 }
-@media (max-width: 767px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (max-width: 767px) {
   .visible-xs-block {
     display: block !important;
   }
 }
-@media (max-width: 767px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (max-width: 767px) {
   .visible-xs-inline {
     display: inline !important;
   }
 }
-@media (max-width: 767px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (max-width: 767px) {
   .visible-xs-inline-block {
     display: inline-block !important;
   }
 }
-@media (min-width: 768px) and (max-width: 991px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) and (max-width: 991px) {
   .visible-sm {
     display: block !important;
   }
@@ -6059,22 +6102,26 @@ button.close {
     display: table-cell !important;
   }
 }
-@media (min-width: 768px) and (max-width: 991px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) and (max-width: 991px) {
   .visible-sm-block {
     display: block !important;
   }
 }
-@media (min-width: 768px) and (max-width: 991px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) and (max-width: 991px) {
   .visible-sm-inline {
     display: inline !important;
   }
 }
-@media (min-width: 768px) and (max-width: 991px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) and (max-width: 991px) {
   .visible-sm-inline-block {
     display: inline-block !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1199px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 992px) and (max-width: 1199px) {
   .visible-md {
     display: block !important;
   }
@@ -6089,22 +6136,26 @@ button.close {
     display: table-cell !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1199px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 992px) and (max-width: 1199px) {
   .visible-md-block {
     display: block !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1199px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 992px) and (max-width: 1199px) {
   .visible-md-inline {
     display: inline !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1199px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 992px) and (max-width: 1199px) {
   .visible-md-inline-block {
     display: inline-block !important;
   }
 }
-@media (min-width: 1200px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 1200px) {
   .visible-lg {
     display: block !important;
   }
@@ -6119,37 +6170,44 @@ button.close {
     display: table-cell !important;
   }
 }
-@media (min-width: 1200px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 1200px) {
   .visible-lg-block {
     display: block !important;
   }
 }
-@media (min-width: 1200px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 1200px) {
   .visible-lg-inline {
     display: inline !important;
   }
 }
-@media (min-width: 1200px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 1200px) {
   .visible-lg-inline-block {
     display: inline-block !important;
   }
 }
-@media (max-width: 767px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (max-width: 767px) {
   .hidden-xs {
     display: none !important;
   }
 }
-@media (min-width: 768px) and (max-width: 991px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 768px) and (max-width: 991px) {
   .hidden-sm {
     display: none !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1199px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 992px) and (max-width: 1199px) {
   .hidden-md {
     display: none !important;
   }
 }
-@media (min-width: 1200px) {
+/** Edited to support css3-mediaqueries poly fills **/
+@media all and (min-width: 1200px) {
   .hidden-lg {
     display: none !important;
   }
