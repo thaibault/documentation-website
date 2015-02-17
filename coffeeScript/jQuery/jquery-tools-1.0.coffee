@@ -668,7 +668,7 @@ main = ($) ->
                 Searches for internal event handler methods and runs them by
                 default. In addition this method searches for a given event
                 method by the options object. Additional arguments are
-                forwareded to respective event functions.
+                forwarded to respective event functions.
 
                 **eventName {String}                - An event name.
 
@@ -692,6 +692,7 @@ main = ($) ->
                 else if scope["_#{eventHandlerName}"]
                     scope["_#{eventHandlerName}"].apply(
                         scope, additionalArguments)
+            console.log scope._options
             if scope._options and scope._options[eventHandlerName]
                 scope._options[eventHandlerName].apply(
                     scope, additionalArguments)
