@@ -654,12 +654,23 @@ main = ($) ->
                                                        method
             ###
             lock = false
+            waitingCallArguments = null
+            self = this
             ->
-                if not lock
+                parameter = self.argumentsObjectToArray arguments
+                if lock
+                    waitingCallArguments = parameter.concat(
+                        additionalArguments or [])
+                else
                     lock = true
-                    timeoutID = window.setTimeout(
-                        (-> lock = false), thresholdInMilliseconds)
-                    eventFunction.apply this, additionalArguments
+                    timeoutID = window.setTimeout (=>
+                        lock = false
+                        if waitingCallArguments
+                            eventFunction.apply this, waitingCallArguments
+                            waitingCallArguments = null
+                    ), thresholdInMilliseconds
+                    eventFunction.apply this, parameter.concat(
+                        additionalArguments or [])
         fireEvent: (
             eventName, callOnlyOptionsMethod=false, scope=this,
             additionalArguments...
@@ -692,7 +703,6 @@ main = ($) ->
                 else if scope["_#{eventHandlerName}"]
                     scope["_#{eventHandlerName}"].apply(
                         scope, additionalArguments)
-            console.log scope._options
             if scope._options and scope._options[eventHandlerName]
                 scope._options[eventHandlerName].apply(
                     scope, additionalArguments)
