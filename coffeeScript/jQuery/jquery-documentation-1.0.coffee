@@ -266,8 +266,8 @@ main = ($) ->
             self = this
             this.$domNodes.parent.find(':not(iframe)').contents().each ->
                 if this.nodeName is self._options.showExample.domNodeName
-                    match = this.textContent.match(new RegExp(
-                        self._options.showExample.pattern))
+                    match = this.textContent.match new RegExp(
+                        self._options.showExample.pattern)
                     if match
                         $codeDomNode = $(this).next()
                         code = $codeDomNode.find(
@@ -278,17 +278,21 @@ main = ($) ->
                         if $.inArray(
                             match[2]?.toLowerCase(), ['javascript', 'js']
                         ) isnt -1
-                            $codeDomNode.after($('<script>').attr(
+                            $codeDomNode.after $('<script>').attr(
                                 'type', 'text/javascript'
-                            ).text code)
+                            ).text code
                         else if match[2]? and $.inArray(
                             match[2].toLowerCase(), [
                                 'css', 'cascadingstylesheets', 'stylesheets',
                                 'sheets', 'style']
                         ) isnt -1
-                            $codeDomNode.after($('<style>').attr(
+                            $codeDomNode.after $('<style>').attr(
                                 'type', 'text/css'
-                            ).text code)
+                            ).text code
+                        else if match[2]? and $.inArray(
+                            match[2].toLowerCase(), ['hidden']
+                        ) isnt -1
+                            $codeDomNode.after code
                         else
                             $codeDomNode.after $(
                                 self._options.showExample.htmlWrapper
