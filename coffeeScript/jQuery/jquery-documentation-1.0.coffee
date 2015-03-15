@@ -315,7 +315,7 @@ main = ($) ->
 
 if this.require?
     this.require.scopeIndicator = 'jQuery.Documentation'
-    this.require 'jquery-website-1.0.coffee', main
+    this.require [['jQuery.Website', 'jquery-website-1.0.coffee']], main
 else
     main this.jQuery
 
