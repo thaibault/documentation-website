@@ -44,7 +44,7 @@ endregion -->
 
 <html lang="<% LANGUAGE %>">
 
-<!-- region header -->
+    <!-- region header -->
 
     <head>
         <title><% NAME %></title>
@@ -52,55 +52,86 @@ endregion -->
     <!-- region meta informations -->
 
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="<% RegularExpression('^(.+?)<!--.+-->$').sub('\1', TAGLINE) %>" />
+        <meta
+            name="viewport" content="width=device-width, initial-scale=1.0"
+        />
+        <meta
+            name="description"
+            content="<% RegularExpression('^(.+?)<!--.+-->$').sub('\1', TAGLINE) %>"
+        />
 
     <!-- endregion -->
 
     <!-- region fav and touch icons -->
 
-        <link rel="shortcut icon" type="image/x-icon" href="<% IMAGE_PATH %>favicon.ico" />
+        <link
+            rel="shortcut icon" type="image/x-icon"
+            href="<% IMAGE_PATH %>favicon.ico"
+        />
 
     <!-- endregion -->
 
     <!-- region resources -->
 
-        <link type="text/css" rel="stylesheet/less" media="screen" href="<% LESS_PATH %>documentation-1.0.less">
+        <link
+            type="text/css" rel="stylesheet/less" media="screen"
+            href="<% LESS_PATH %>documentation-1.0.less"
+        >
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]><script src="<% JAVA_SCRIPT_PATH %>html5shiv-3.7.0.js"></script><![endif]-->
-        <script type="text/javascript" src="<% JAVA_SCRIPT_PATH %>coffeeScript-1.9.1.js"></script>
-        <script type="text/coffeescript" src="<% COFFEE_SCRIPT_PATH %>require-1.0.coffee"></script>
-        <script type="text/coffeescript" src="<% COFFEE_SCRIPT_PATH %>main.coffee"></script>
+        <!--[if lt IE 9]>
+            <script src="<% JAVA_SCRIPT_PATH %>html5shiv-3.7.0.js"></script>
+        <![endif]-->
+        <script
+            type="text/javascript"
+            src="<% JAVA_SCRIPT_PATH %>coffeeScript-1.9.1.js"
+        ></script>
+        <script
+            type="text/coffeescript"
+            src="<% COFFEE_SCRIPT_PATH %>require-1.0.coffee"
+        ></script>
+        <script
+            type="text/coffeescript"
+            src="<% COFFEE_SCRIPT_PATH %>main.coffee"
+        ></script>
 
     <!-- endregion -->
 
     </head>
 
-<!-- endregion -->
+    <!-- endregion -->
 
-<!-- region body -->
+    <!-- region body -->
 
     <body class="documentation">
-        <div class="website-window-loading-cover tools-visible-on-javascript-enabled">
+        <div
+            class="website-window-loading-cover tools-visible-on-javascript-enabled"
+        >
             <div></div>
         </div>
 
-    <!-- region header -->
+        <!-- region header -->
 
         <div class="header-wrap outer">
             <header class="inner">
                 <% START_UP_ANIMATION_NUMBER += 1
-                <a class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> forkme-banner" href="<% SOURCE_URL %>">
+                <a
+                    class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> forkme-banner"
+                    href="<% SOURCE_URL %>"
+                >
                     View on GitHub
                     <!--deDE:GitHub-Projekt--><!--frFR:GitHub-Project-->
                     <i class="icon-github"></i>
                 </a>
                 <% START_UP_ANIMATION_NUMBER += 1
-                <h1 class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-title">
+                <h1
+                    class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-title"
+                >
                     <a href="<% URL %>"><% NAME %></a>
                 </h1>
                 <% START_UP_ANIMATION_NUMBER += 1
-                <h2 class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-tagline">
+                <h2
+                    class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> project-tagline"
+                >
                     <% TAGLINE %>
                     <br />
                 </h2>
@@ -111,23 +142,45 @@ endregion -->
                     <% else:
                         <% START_UP_ANIMATION_NUMBER += 3 + length(LANGUAGES)
                     <% if FileHandler(location=DISTRIBUTION_BUNDLE_FILE_PATH, must_exist=false):
-                        <a class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">src.zip</a>
+                        <a
+                            class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download"
+                            href="https://github.com/thaibault/<% NAME %>/zipball/master"
+                        >src.zip</a>
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-distribution-bundle-download" href="<% DISTRIBUTION_BUNDLE_FILE_PATH %>">app.zip</a>
+                        <a
+                            class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-distribution-bundle-download"
+                            href="<% DISTRIBUTION_BUNDLE_FILE_PATH %>"
+                        >app.zip</a>
                     <% else:
-                        <a class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download" href="https://github.com/thaibault/<% NAME %>/zipball/master">.zip</a>
+                        <a
+                            class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> zip-source-download"
+                            href="https://github.com/thaibault/<% NAME %>/zipball/master"
+                        >.zip</a>
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> tar-gz-source-download" href="https://github.com/thaibault/<% NAME %>/tarball/master">.tar.gz</a>
+                        <a
+                            class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> tar-gz-source-download"
+                            href="https://github.com/thaibault/<% NAME %>/tarball/master"
+                        >.tar.gz</a>
                     <% START_UP_ANIMATION_NUMBER -= 1
-                    <i class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> icon-download-tarball"></i>
+                    <i
+                        class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> icon-download-tarball"
+                    ></i>
                     <% for language in LANGUAGES:
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a href="#lang-<% language %>" class="tools-visible-on-javascript-enabled website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"><% language[:2] %></a>
+                        <a
+                            href="#lang-<% language %>"
+                            class="tools-visible-on-javascript-enabled website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"
+                        ><% language[:2] %></a>
                     <% if FileHandler('api').is_directory():
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <span class="glyphicon glyphicon-arrow-left arrow-left-api website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"></span>
+                        <span
+                            class="glyphicon glyphicon-arrow-left arrow-left-api website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"
+                        ></span>
                         <% START_UP_ANIMATION_NUMBER -= 1
-                        <a href="<% URL %>/api/" class="api-link website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>">
+                        <a
+                            href="<% URL %>/api/"
+                            class="api-link website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>"
+                        >
                             <langreplace>
                                 API
                                 <span>Documentation</span>
@@ -142,21 +195,21 @@ endregion -->
             </header>
         </div>
 
-    <!-- endregion -->
+        <!-- endregion -->
 
-    <!-- region sections -->
+        <!-- region sections -->
 
         <div class="main-content-wrap outer">
 
-        <!-- region main content -->
+            <!-- region main content -->
 
             <section class="main-content inner">
                 <% RENDERED_MARKDOWN %>
             </section>
 
-        <!-- endregion -->
+            <!-- endregion -->
 
-        <!-- region about this website -->
+            <!-- region about this website -->
 
             <section class="about-this-website inner">
                 <h2 id="about-this-website">
@@ -166,7 +219,9 @@ endregion -->
                 <p>
                     Provider of
                     <!--deDE:Anbieter von --><!--frFR:Fournisseur de -->
-                    <a href="http://thaibault.github.io/<% NAME %>">http://thaibault.github.io/<% NAME %></a>:
+                    <a href="http://thaibault.github.io/<% NAME %>">
+                        http://thaibault.github.io/<% NAME %>
+                    </a>:
                     <br />
                     Torben Sickert
                     <br />
@@ -174,48 +229,65 @@ endregion -->
                     <br />
                     79100 Freiburg
                     <br />
-                    <a href="tel:004917610248185">Phone<!--deDE:Tel.--><!--frFR:Téléphone--> +49 (0) 176 <span>/</span> 10 248 185</a>
+                    <a href="tel:004917610248185">
+                        Phone<!--deDE:Tel.--><!--frFR:Téléphone--> +49 (0) 176
+                        <span>/</span> 10 248 185
+                    </a>
                     <br />
                     Email:
-                    <a href="mailto:t.sickert@gmail.com">t.sickert@gmail.com</a>
+                    <a href="mailto:t.sickert@gmail.com">
+                        t.sickert@gmail.com
+                    </a>
                     <br />
                     Website:<!--deDE:Webseite:--><!--frFR:Site:-->
-                    <a href="http://thaibault.github.io/website">http://thaibault.github.io/website</a>
+                    <a href="http://thaibault.github.io/website">
+                        http://thaibault.github.io/website
+                    </a>
                     <br />
-                    <span class="glyphicon glyphicon-arrow-left arrow-left-home tools-visible-on-javascript-enabled"></span>
-                    <a href="#home" class="tools-visible-on-javascript-enabled">home<!--deDE:Startseite--><!--frFR:Maison--></a>
+                    <span
+                        class="glyphicon glyphicon-arrow-left arrow-left-home tools-visible-on-javascript-enabled"
+                    ></span>
+                    <a
+                        href="#home"
+                        class="tools-visible-on-javascript-enabled"
+                    >home<!--deDE:Startseite--><!--frFR:Maison--></a>
                 </p>
                 <% include('aboutThisWebsite')
             </section>
 
-        <!-- endregion -->
+            <!-- endregion -->
 
         </div>
 
-    <!-- endregion -->
+        <!-- endregion -->
 
-    <!-- region footer -->
+        <!-- region footer -->
 
         <div class="footer-wrap outer">
             <footer class="inner">
                 <% START_UP_ANIMATION_NUMBER += 1
-                <p class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> copyright">
+                <p
+                    class="website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %> copyright"
+                >
                     <% NAME %> maintained by
                     <!--deDE:<% NAME %> betrieben von -->
                     <!--frFR:<% NAME %> exploité par -->
                     <a href="https://github.com/thaibault">thaibault</a>
                     &middot; &copy; 2013 Torben Sickert &middot;
-                    <a href="#about-this-website">about this website<!--deDE:Impressum--><!--frFR:Mentions légales--></a>
+                    <a href="#about-this-website">
+                        about this website
+                        <!--deDE:Impressum--><!--frFR:Mentions légales-->
+                    </a>
                 </p>
             </footer>
         </div>
 
-    <!-- endregion -->
+        <!-- endregion -->
 
         <a href="#top">top<!--deDE:nach oben--></a>
     </body>
 
-<!-- endregion -->
+    <!-- endregion -->
 
 </html>
 
