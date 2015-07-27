@@ -96,6 +96,16 @@ endregion */
         // NOTE: Won't parse sometimes.
         // filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)", @to, @from));
     }
+    // Defines background image or color size.
+    .background-size($value: 100%) {
+        // safari, chrome, iOS Safari 3.2, Android 2.1
+        -webkit-background-size: @arguments;
+        // firefox
+           -moz-background-size: @arguments;
+        // opera 11.10+
+             -o-background-size: @arguments;
+                background-size: @arguments;
+    }
     // Shows a border around given dom node.
     .bordered(
         @topColor: #EEE, @rightColor: #EEE, @bottomColor: #EEE,
@@ -109,15 +119,22 @@ endregion */
     // Mixin for CSS-property "tab-size", generates cross-browser-compatible
     // "tab-size" output.
     .tab-size(@value: 4) {
+        // firefox
         -moz-tab-size: @arguments;
+        // opera 11.10+
           -o-tab-size: @arguments;
+        // css3
              tab-size: @arguments;
     }
     // Disables or enables selection of content of a given element.
     .user-select(@value: none) {
+        // safari, chrome, iOS Safari 3.2, Android 2.1
         -webkit-user-select: @arguments;
+        // firefox
            -moz-user-select: @arguments;
+        // internet explorer
             -ms-user-select: @arguments;
+        // css3
                 user-select: @arguments;
     }
     // Shows rounded corners at the dom nodes.
@@ -133,22 +150,23 @@ endregion */
     }
     // Defines rounded border in a detailed way.
     .rounded-border(
-        @topRight: 0, @bottomRight: 0, @bottomLeft: 0, @topLeft: 0
+        @topLeft: 0, @topRight: 0, @bottomLeft: 0, @bottomRight: 0
     ) {
-        -webkit-border-top-right-radius: @topRight;
-        -webkit-border-bottom-right-radius: @bottomRight;
-        -webkit-border-bottom-left-radius: @bottomLeft;
+        // safari, chrome, iOS Safari 3.2, Android 2.1
         -webkit-border-top-left-radius: @topLeft;
-
-        -moz-border-radius-topright: @topRight;
-        -moz-border-radius-bottomright: @bottomRight;
-        -moz-border-radius-bottomleft: @bottomLeft;
+        -webkit-border-top-right-radius: @topRight;
+        -webkit-border-bottom-left-radius: @bottomLeft;
+        -webkit-border-bottom-right-radius: @bottomRight;
+        // firefox
         -moz-border-radius-topleft: @topLeft;
-
-        border-top-right-radius: @topRight;
-        border-bottom-right-radius: @bottomRight;
-        border-bottom-left-radius: @bottomLeft;
+        -moz-border-radius-topright: @topRight;
+        -moz-border-radius-bottomleft: @bottomLeft;
+        -moz-border-radius-bottomright: @bottomRight;
+        // css3
         border-top-left-radius: @topLeft;
+        border-top-right-radius: @topRight;
+        border-bottom-left-radius: @bottomLeft;
+        border-bottom-right-radius: @bottomRight;
 
         #generic > .background-clip(padding-box);
     }
@@ -157,7 +175,7 @@ endregion */
         @horizontalPosition: 2px, @verticalPosition: 2px, @size: 2px,
         @color: black
     ) {
-        // safari, chrome
+        // safari, chrome, iOS Safari 3.2, Android 2.1
         -webkit-box-shadow: @arguments;
         // firefox
            -moz-box-shadow: @arguments;
@@ -170,8 +188,11 @@ endregion */
     }
     // Performs an inner shadow on current dom node.
     .inner-shadow(@horizontal: 0, @vertical: 1px, @blur: 2px, @alpha: 0.4) {
+        // safari, chrome, iOS Safari 3.2, Android 2.1
         -webkit-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+        // firefox
            -moz-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+        // css3
                 box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
     }
     // Allows you to make columns in a text.
@@ -180,20 +201,21 @@ endregion */
         @columnRuleColor: #EEE, @columnRuleStyle: solid,
         @columnRuleWidth: 1px
     ) {
-        -moz-column-width: @columnWidth;
-        -moz-column-count: @columnCount;
-        -moz-column-gap: @columnGap;
-        -moz-column-rule-color: @columnRuleColor;
-        -moz-column-rule-style: @columnRuleStyle;
-        -moz-column-rule-width: @columnRuleWidth;
-
+        // safari, chrome, iOS Safari 3.2, Android 2.1
         -webkit-column-width: @columnWidth;
         -webkit-column-count: @columnCount;
         -webkit-column-gap: @columnGap;
         -webkit-column-rule-color: @columnRuleColor;
         -webkit-column-rule-style: @columnRuleStyle;
         -webkit-column-rule-width: @columnRuleWidth;
-
+        // firefox
+        -moz-column-width: @columnWidth;
+        -moz-column-count: @columnCount;
+        -moz-column-gap: @columnGap;
+        -moz-column-rule-color: @columnRuleColor;
+        -moz-column-rule-style: @columnRuleStyle;
+        -moz-column-rule-width: @columnRuleWidth;
+        // css3
         column-width: @columnWidth;
         column-count: @columnCount;
         column-gap: @columnGap;
@@ -204,12 +226,15 @@ endregion */
     // This property is used to determine whether the backgrounds extends
     // into the border or not.
     .background-clip(@value: padding-box) {
+        // chrome, safari, other webkit browsers
         -webkit-background-clip: @arguments;
+        // netscape
            -moz-background-clip: @arguments;
+        // css3
                 background-clip: @arguments;
     }
     // Make a dom node transparent.
-    .opacity(@opacity) {
+    .opacity(@value) {
         // chrome, safari, other webkit browsers
         -webkit-opacity: @arguments;
         // safari 1.x
@@ -218,23 +243,23 @@ endregion */
            -moz-opacity: @arguments;
         // css3
                 opacity: @arguments;
-        @opacityInPercent: @opacity * 100;
+        @valueInPercent: @value * 100;
         // internetExplorer 8
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=@{opacityInPercent})";
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=@{valueInPercent})";
         // internetExplorer 5 - 7
-            filter: alpha(opacity=@opacityInPercent);
+            filter: alpha(opacity=@valueInPercent);
     }
     // Apply a box layout model to a dom node.
     .box-sizing(@type: border-box) {
         // chrome, safari, other webkit browsers
-        -webkit-box-sizing: @type;
+        -webkit-box-sizing: @arguments;
         // netscape, firefox 2.0+
-           -moz-box-sizing: @type;
+           -moz-box-sizing: @arguments;
         // css3, internetExplorer 8+, opera 9.5+
-                box-sizing: @type;
+                box-sizing: @arguments;
     }
 
-        // region animation
+    // region animation
 
     // Generates cross browser compatible "transform" for a given element.
     .transform(@arguments) {
@@ -248,13 +273,9 @@ endregion */
                 transform: @arguments;
     }
     // Rotate current dom node.
-    .rotation(@degree:5deg) {
-        .transform(rotate(@arguments));
-    }
+    .rotate(@degree:5deg) { .transform(rotate(@arguments)); }
     // Scales current dom node.
-    .scale(@ratio:1.5) {
-        .transform(scale(@arguments));
-    }
+    .scale(@ratio:1.5) { .transform(scale(@arguments)); }
     // Generates cross-browser-compatible "transition" output for a given
     // element.
     .transition(@type: all, @duration: 0.2s, @ease: ease) {
@@ -291,23 +312,12 @@ endregion */
         -webkit-animation-timing-function: @timingFunction;
     }
 
-        // endregion
-
     // endregion
 
-    // region classes
+// endregion
 
-    // Sets pseudo icon tag properties.
-    .icon {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        vertical-align: text-top;
-        overflow: hidden;
-        background-image: url('@{imagePath}composition.png');
-        background-position: 14px 14px;
-        background-repeat: no-repeat;
-    }
+// region classes
+
     // Shows dots for word which are too long.
     .ellipsis-by-text-overflow {
         // opera

@@ -1,0 +1,508 @@
+doctype html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+html(lang='en')
+
+    // region  header
+
+    head
+        title productName
+
+        // region meta in formations
+
+        meta(charset='utf-8')
+        meta(
+            name='viewport' content='width=device-width, initial-scale=1.0')
+        meta(
+            name='description'
+            content='tagline')
+
+        // endregion
+
+        // region fav and touch icons
+
+        link(
+            rel='shortcut icon' type='image/x-icon'
+            href='image/favicon.ico')
+
+        // endregion
+
+        // region resources
+
+        link(
+            type='text/css' rel='stylesheet/less' media='screen'
+            href='less/documentation-1.0.less')
+
+        // HTML5 shim, for IE6-8 support of HTML5 elements
+        <!--[if lt IE 9]>
+        <script src="javaScript/html5shiv-3.7.0.js"></script>
+        <![endif]-->
+        script(
+            type='text/javascript'
+            src='javaScript/coffeeScript-1.9.1.js')
+        script(
+            type='text/coffeescript'
+            src='coffeeScript/require-1.0.coffee')
+        script(
+            type='text/coffeescript'
+            src='coffeeScript/main.coffee')
+
+        // endregion
+
+    // endregion
+
+    // region body
+
+    body(class='documentation')
+        div.website-window-loading-cover.tools-visible-on-javascript-enabled
+            div
+
+        // region header
+
+        div.header-wrap.outer: header.inner
+            a.website-start-up-animation-number-1.forkme-banner(
+                href='https://github.com/thaibault/documentationWebsite'
+            )
+                | View on GitHub
+                //deDE:GitHub-Projekt
+                //frFR:GitHub-Project
+                i.icon-github
+            h1.website-start-up-animation-number-2.project-title
+                a(href='https://github.com/thaibault/documentationWebsite') productName
+            h2.website-start-up-animation-number-3.project-tagline
+                | tagline
+                br
+            section.header-links
+                //NOTE: This elements are shown in reverse order.
+                a.website-start-up-animation-number-11.zip-source-download(
+                    href='https://github.com/thaibault/productName/zipball/master'
+                ) .zip
+                a.website-start-up-animation-number-10.tar-gz-source-download(
+                    href='https://github.com/thaibault/productName/tarball/master'
+                ) .tar.gz
+                i.website-start-up-animation-number-9.icon-download-tarball
+                a.tools-visible-on-javascript-enabled.website-start-up-animation-number-8(
+                    href='#lang-deDE'
+                ) de
+                a.tools-visible-on-javascript-enabled.website-start-up-animation-number-7(
+                    href='#lang-enUS'
+                ) en
+                a.tools-visible-on-javascript-enabled.website-start-up-animation-number-6(
+                    href='#lang-frFR'
+                ) fr
+                span.glyphicon.glyphicon-arrow-left.arrow-left-api.website-start-up-animation-number-5
+                a.api-link.website-start-up-animation-number-4(
+                    href='https://github.com/thaibault/documentationWebsite/api/'
+                )
+                    langreplace
+                        | API
+                        span Documentation
+                    //deDE:API<span>-Dokumentation</span>
+                    //frFR:<span>Documentation de l'</span>API
+
+        // endregion
+
+        // region sections
+
+        div.main-content-wrap.outer
+
+            // region main content
+
+            section.main-content.inner
+                h2(id="content")
+                    Content
+                    //deDE:Inhalt
+                //|frFR:franz
+                //|deDE:deutsch
+                h3(id="a") english
+                div.toc: ul
+                    li: a(href="#") english
+                    li: a(href="#") english
+                    li: a(href="#content") Content//deDE:Inhalt
+                    li
+                        //|deDE:JAU
+                        a(href="#content") Vor
+                    li: a(href="#getting-in") Getting in//deDE:Einstieg: ul
+                        li a(href="#a") a
+                        li a(href="#b") b
+                    li: a(href="#c") c
+                    ul: li
+                        a(href="#d") d
+                        ul: li: a(href="#e") e
+                h2(id="getting-in")
+                    langreplace
+                        | Getting
+                        code inline
+                        | in
+                    //deDE:Einstieg<code>inline code</code>
+                p Englisch//deDE:Deutsch ipsum dolor sit amet...
+                h3(id="a") a
+                p
+                    | Lorem ipsum dolor sit amet
+                    code mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+                h3(id="b") b
+                p Lorem ipsum dolor sit amet...
+                h2(id="c") c
+                p Lorem ipsum dolor sit amet...
+                h3(id="d") d
+                p Lorem ipsum dolor sit amet...
+                div.codehilite
+                    pre &gt;&gt;&gt; /path/to/boostNode/runnable/macro.py -p /path/to/boostNode -e py
+                div.codehilite
+                    pre &gt;&gt;&gt; /path/to/boostNode/runnable/macro.py -p /path/to/boostNode -e py --looooooooong options -shorter
+                //showExample
+                table.codehilitetable: tr
+                    td.linenos: div.linenodiv: pre
+                        | 1
+                        | 2
+                        | 3
+                    td.code: div.codehilite: pre
+                        span.nt &lt;form
+                        span.na method=
+                        span.s &quot;get&quot;
+                        span.na action=
+                        span.s &quot;#&quot;
+                        span.nt &gt;
+                        span.nt &lt;input
+                        span.na class=
+                        span.s &quot;form-control&quot;
+                        span.na type=
+                        span.s &quot;text&quot;
+                        span.na name=
+                        span.s &quot;test&quot;
+                        span.na value=
+                        span.s &quot;4&quot;
+                        span.nt /&gt;
+                        span.nt &lt;/form&gt;
+                p
+                    | Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.Lorem ipsum dolor
+                    | sit amet. Lorem ipsum dolor sit amet. sit amet. Lorem ipsum dolor sit
+                    | amet. sit amet. Lorem ipsum dolor sit amet. sit amet. Lorem ipsum dolor
+                    | sit amet. sit amet. Lorem ipsum dolor sit amet...
+                //showExample
+                div.codehilite: pre &lt;p&gt;test text&lt;/p&gt;
+                p Lorem ipsum dolor sit amet...
+                //showExample:js
+                div.codehilite: pre window.test = 5 * 2;
+                p Lorem ipsum dolor sit amet...
+                //showExample:css
+                div.codehilite: pre border: 0px solid black;
+                p Lorem ipsum dolor sit amet...
+                table.codehilitetable: tbody: tr
+                    td.linenos: div.linenodiv: pre
+                        | 10
+                        | 11
+                        | 12
+                        | 100
+                        | 111
+                        | 999
+                    td.code: div.codehilite: pre
+                        span.err #
+                        span.o !
+                        span.err /usr/bin/env javaScript
+                        span.kd var
+                        span.nx tools
+                        span.o =
+                        span.nx jQuery
+                        span.p .
+                        span.nx Tools
+                        span.p ({
+                        span.s1 &#39;logging&#39;
+                        span.o :
+                        span.kc true
+                        span.p });
+                        span.kd var
+                        span.nx tools
+                        span.o =
+                        span.nx jQuery
+                        span.p .
+                        span.nx Tools
+                        span.p ({
+                        span.s1 &#39;logging&#39;
+                        span.o :
+                        span.kc true
+                        span.p });
+                        span.c1 // An 79 chars comment: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+                        span.nx tools
+                        span.p .
+                        span.nx log
+                        span.p (
+                        span.s1 &#39;test&#39;
+                        span.p );
+                        span.nx tools
+                        span.p .
+                        span.nx log
+                        span.p (
+                        span.s1 &#39;test&#39;
+                        span.p );
+                h3(id="e") e
+                table.codehilitetable: tr
+                    td.linenos: div.linenodiv: pre
+                        | 1
+                        | 2
+                        | 3
+                        | 4
+                        | 5
+                        | 6
+                        | 7
+                        | 8
+                        | 9
+                        |10
+                        |11
+                        |12
+                        |13
+                        |14
+                        |15
+                        |16
+                        |17
+                        |18
+                    td.code: div.codehilite: pre
+                        span.c #!/usr/bin/env bash
+                
+                        cat
+                        | span.s &lt;&lt; EOF
+                        span.s Usage: ./generateDummyDocumentation.bash &lt;initramfsFilePath&gt; [options]
+                
+                        span.s  installs an arch linux into an initramfs file.
+                
+                        span.s Option descriptions:
+                
+                        span.s $(installArchLinuxPrintCommandLineOptionDescriptions &quot;$@&quot; |         span.s     sed &#39;/^ *-[a-z] --output-system .*$/,/^$/d&#39;)
+                        span.s EOF
+                
+                        span.nv myTarget
+                        span.o =
+                        span.k $(
+                        mktemp
+                        span.k )
+                
+                        | installArchLinux
+                        span.s2 &quot;$@&quot;
+                        | --output-system
+                        span.nv $myTarget
+                
+                        span.c # test...
+                p Lorem ipsum dolor sit amet...
+
+            // endregion
+
+            // region about this website
+
+            section.about-this-website.inner
+                h2(id='about-this-website')
+                    | About this website
+                    //deDE:Impressum--><!--frFR:Mentions légales
+                p
+                    | Provider of
+                    //deDE:Anbieter von
+                    //frFR:Fournisseur de
+                    a(href='http://thaibault.github.io/productName')
+                        | http://thaibault.github.io/productName
+                    | :
+                    br
+                    Torben Sickert
+                    br
+                    Christoph-Mang-Str. 14
+                    br
+                    79100 Freiburg
+                    br
+                    a(href='tel:004917610248185')
+                        | Phone
+                        //deDE:Tel.
+                        //frFR:Téléphone
+                        | +49 (0) 176
+                        span /
+                        | 10 248 185
+                    br
+                    | Email:
+                    a(href='mailto:t.sickert@gmail.com')
+                        | t.sickert@gmail.com
+                    br
+                    | Website:
+                    //deDE:Webseite:
+                    //frFR:Site:
+                    a(href='http://thaibault.github.io/website')
+                        | http://thaibault.github.io/website
+                    br
+                    span.glyphicon.glyphicon-arrow-left.arrow-left-home.tools-visible-on-javascript-enabled
+                    a.tools-visible-on-javascript-enabled(href='#home')
+                        | home
+                        //deDE:Startseite
+                        //frFR:Maison
+                
+                
+                
+                
+                
+                h2
+                    | Disclaimer
+                    //deDE:Haftungsausschluss
+                    //frFR:Désistement
+                h3
+                    | Liability for content
+                    //deDE:Haftung für Inhalte
+                    //frFR:Responsabilité quant au contenu
+                p
+                    | Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die
+                    | Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch
+                    | keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG
+                    | für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen
+                    | verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch
+                    | nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen
+                    | zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige
+                    | Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der
+                    | Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon
+                    | unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt
+                    | der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekannt werden
+                    | von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend
+                    | entfernen.
+                h3
+                    | Liability for links
+                    //deDE:Haftung für Links
+                    //frFR:Responsabilité pour les liens
+                p
+                    | Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren
+                    | Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden
+                    | Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten
+                    | Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten
+                    | verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung
+                    | auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum
+                    | Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche
+                    | Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte
+                    | einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von
+                    | Rechtsverletzungen werden wir derartige Links umgehend entfernen.
+                h3
+                    | Copyright
+                    //deDE:Urheberrecht
+                    //frFR:Droit d'auteur
+                p
+                    | Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen
+                    | Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung,
+                    | Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der
+                    | Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des
+                    | jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind
+                    | nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die
+                    | Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die
+                    | Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als
+                    | solche gekennzeichnet. Sollten Sie trotzdem auf eine
+                    | Urheberrechtsverletzung aufmerksam werden, bitten wir um einen
+                    | entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden
+                    | wir derartige Inhalte umgehend entfernen.
+                h3
+                    | Privacy Policy
+                    //deDE:Datenschutz
+                    //frFR:Politique de confidentialité
+                p
+                    | Die Nutzung unserer Webseite ist in der Regel ohne Angabe
+                    | personenbezogener Daten möglich. Soweit auf unseren Seiten
+                    | personenbezogene Daten (beispielsweise Name, Anschrift oder
+                    | E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf
+                    | freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche Zustimmung
+                    | nicht an Dritte weitergegeben. Wir darauf hin, dass die Datenübertragung
+                    | im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken
+                    | aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch
+                    | Dritte ist nicht möglich. Der Nutzung von im Rahmen der Impressumspflicht
+                    | veröffentlichten Kontaktdaten durch Dritte zur Übersendung von nicht
+                    | ausdrücklich angeforderter Werbung und Informationsmaterialien wird
+                    | hiermit ausdrücklich widersprochen. Die Betreiber der Seiten behalten
+                    | sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung
+                    | von Werbeinformationen, etwa durch Spam-Mails, vor.
+                h3
+                    | Privacy Statement for using Google Analytics
+                    //deDE:Datenschutzerklärung für die Nutzung von Google Analytics
+                    //frFR:Déclaration de confidentialité de l'utilisation de Google Analytics
+                p
+                    | Diese Website benutzt Google Analytics, einen Webanalysedienst der Google
+                    | Inc. ("Google"). Google Analytics verwendet sog. "Cookies", Textdateien,
+                    | die auf Ihrem Computer gespeichert werden und die eine Analyse der
+                    | Benutzung der Website durch Sie ermöglichen. Die durch den Cookie
+                    | erzeugten Informationen über Ihre Benutzung dieser Website werden in der
+                    | Regel an einen Server von Google in den USA übertragen und dort
+                    | gespeichert. Im Falle der Aktivierung der IP-Anonymisierung auf dieser
+                    | Webseite wird Ihre IP-Adresse von Google jedoch innerhalb von
+                    | Mitgliedstaaten der Europäischen Union oder in anderen Vertragsstaaten
+                    | des Abkommens über den Europäischen Wirtschaftsraum zuvor gekürzt. Nur in
+                    | Ausnahmefällen wird die volle IP-Adresse an einen Server von Google in
+                    | den USA übertragen und dort gekürzt. Im Auftrag des Betreibers dieser
+                    | Website wird Google diese Informationen benutzen, um Ihre Nutzung der
+                    | Website auszuwerten, um Reports über die Websiteaktivitäten
+                    | zusammenzustellen und um weitere mit der Websitenutzung und der
+                    | Internetnutzung verbundene Dienstleistungen gegenüber dem
+                    | Websitebetreiber zu erbringen. Die im Rahmen von Google Analytics von
+                    | Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen Daten von
+                    | Google zusammengeführt. Sie können die Speicherung der Cookies durch eine
+                    | entsprechende Einstellung Ihrer Browser-Software verhindern; wir weisen
+                    | Sie jedoch darauf hin, dass Sie in diesem Fall gegebenenfalls nicht
+                    | sämtliche Funktionen dieser Website vollumfänglich werden nutzen können.
+                    | Sie können darüber hinaus die Erfassung der durch das Cookie erzeugten
+                    | und auf Ihre Nutzung der Website bezogenen Daten (inkl. Ihrer IP-Adresse)
+                    | an Google sowie die Verarbeitung dieser Daten durch Google verhindern,
+                    | indem Sie das unter dem folgenden
+                    a(href='http://tools.google.com/dlpage/gaoptout?hl=de') Link
+                    | verfügbare Browser-Plugin herunterladen und installieren: .
+                h3 Copyright Statement
+                p
+                    | Unless noted otherwise, all artwork on this website is protected property
+                    | of the website author. Any use for commercial purpose, reproduction and
+                    | publication requires the author's written permission. Commercial work
+                    | created in cooperation or bound by contract with third parties are
+                    | specifically marked. Respective copyrights apply.
+                
+                //-
+                    region vim modline
+                
+                    vim: set tabstop=4 shiftwidth=4 expandtab:
+                    vim: foldmethod=marker foldmarker=region,endregion:
+                
+                    endregion
+
+            // endregion
+
+        // endregion
+
+        // region footer
+
+        div.footer-wrap.outer
+            footer.inner
+                p.website-start-up-animation-number-12.copyright
+                    | productName maintained by
+                    //deDE:productName betrieben von
+                    //frFR:productName exploité par
+                    a(href='https://github.com/thaibault') thaibault
+                    | &middot; &copy; 2013 Torben Sickert &middot;
+                    a(href='#about-this-website')
+                        | about this website
+                        //deDE:Impressum
+                        //frFR:Mentions légales
+
+        // endregion
+
+        a(href='#top')
+            | top
+            //deDE:nach oben
+
+    // endregion
+
+//-
+    region vim modline
+
+    vim: set tabstop=4 shiftwidth=4 expandtab:
+    vim: foldmethod=marker foldmarker=region,endregion:
+
+    endregion

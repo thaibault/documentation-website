@@ -16,11 +16,6 @@ This library written by Torben Sickert stand under a creative commons naming
 
 //// region locations
 
-// NOTE: We have to define all paths before other imports since this variables
-// aren't interpolated lazy. So this variables have to be set when this library
-// is used.
-// @lessImportPath: '';
-// @cascadingStyleSheetImportPath: '../cascadingStyleSheet/';
 @fontPath: '../font/';
 @imagePath: '../image/';
 
@@ -42,17 +37,20 @@ This library written by Torben Sickert stand under a creative commons naming
 /// endregion
 
 @backgroundColor: #ffffff;
+@disabledColor: #eeeeee;
+@fontColor: #555555;
+@borderColor: #ccc;
 
 @fontFamily: 'Open Sans', open-sans, sans-serif;
 @fontFamilyCondensed: 'Open Sans Condensed', open-sans-condensed, sans-serif;
 
 /// endregion
 
-/* region font */
+/** region font */
 
-/*/ region open sans */
+/*** region open sans */
 
-/*// region light */
+/**** region light */
 
 @font-face {
     font-family: open-sans;
@@ -61,13 +59,13 @@ This library written by Torben Sickert stand under a creative commons naming
          url('@{fontPath}open-sans/Light/OpenSans-Light.woff') format('woff'),
          url('@{fontPath}open-sans/Light/OpenSans-Light.ttf') format('truetype'),
          url('@{fontPath}open-sans/Light/OpenSans-Light.svg#OpenSansLight') format('svg');
-font-weight: 300;
+    font-weight: 300;
     font-style: normal;
 }
 
-/*// endregion */
+/**** endregion */
 
-/*// region light italic */
+/**** region light italic */
 
 @font-face {
     font-family: open-sans;
@@ -80,9 +78,9 @@ font-weight: 300;
     font-style: italic;
 }
 
-/*// endregion */
+/**** endregion */
 
-/*// region regular */
+/**** region regular */
 
 @font-face {
     font-family: open-sans;
@@ -95,9 +93,9 @@ font-weight: 300;
     font-style: normal;
 }
 
-/*// endregion */
+/**** endregion */
 
-/*// region italic */
+/**** region italic */
 
 @font-face {
     font-family: open-sans;
@@ -110,9 +108,9 @@ font-weight: 300;
     font-style: italic;
 }
 
-/*// endregion */
+/**** endregion */
 
-/*// region semibold */
+/**** region semibold */
 
 @font-face {
     font-family: open-sans;
@@ -125,9 +123,9 @@ font-weight: 300;
     font-style: normal;
 }
 
-/*// endregion */
+/**** endregion */
 
-/*// region semibold italic */
+/**** region semibold italic */
 
 @font-face {
     font-family: open-sans;
@@ -140,9 +138,9 @@ font-weight: 300;
     font-style: italic;
 }
 
-/*// endregion */
+/**** endregion */
 
-/*// region bold */
+/**** region bold */
 
 @font-face {
     font-family: open-sans;
@@ -155,9 +153,9 @@ font-weight: 300;
     font-style: normal;
 }
 
-/*// endregion */
+/**** endregion */
 
-/*// region bold italic */
+/**** region bold italic */
 
 @font-face {
     font-family: open-sans;
@@ -170,9 +168,9 @@ font-weight: 300;
     font-style: italic;
 }
 
-/*// endregion bold italic */
+/**** endregion bold italic */
 
-/*// region extrabold */
+/**** region extrabold */
 
 @font-face {
     font-family: open-sans;
@@ -185,9 +183,9 @@ font-weight: 300;
     font-style: normal;
 }
 
-/*// endregion */
+/**** endregion */
 
-/*// region extrabold italic */
+/**** region extrabold italic */
 
 @font-face {
     font-family: open-sans;
@@ -200,13 +198,13 @@ font-weight: 300;
     font-style: italic;
 }
 
-/*// endregion extrabold italic */
+/**** endregion extrabold italic */
 
-/*/ endregion */
+/*** endregion */
 
-/*/ region open sans condensed */
+/*** region open sans condensed */
 
-/*// region bold */
+/**** region bold */
 
 @font-face {
     font-family: open-sans-condensed;
@@ -219,9 +217,9 @@ font-weight: 300;
     font-style: normal;
 }
 
-/*// endregion */
+/**** endregion */
 
-/*// region open sans light */
+/**** region open sans light */
 
 @font-face {
     font-family: open-sans-condensed;
@@ -234,9 +232,9 @@ font-weight: 300;
     font-style: normal;
 }
 
-/*// endregion */
+/**** endregion */
 
-/*// region open sans italic */
+/**** region open sans italic */
 
 @font-face {
     font-family: open-sans-condensed;
@@ -249,11 +247,11 @@ font-weight: 300;
     font-style: italic;
 }
 
-/*// endregion */
+/**** endregion */
 
-/*/ endregion */
+/*** endregion */
 
-/*// region glyphicons halflings */
+/*** region glyphicons halflings */
 
 @font-face {
     font-family: 'Glyphicons Halflings';
@@ -264,9 +262,9 @@ font-weight: 300;
          url('@{fontPath}glyphicons-halflings/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
-/*// endregion */
+/*** endregion */
 
-/*// region glyphicons social regular */
+/*** region glyphicons social regular */
 
 @font-face {
     font-family: 'Glyphicons Social Regular';
@@ -277,19 +275,14 @@ font-weight: 300;
          url('@{fontPath}glyphicons-halflings/glyphicons-halflings-social-regular.svg#glyphicons_socialregular') format('svg');
 }
 
-/*// endregion */
+/*** endregion */
 
-@import '@{cascadingStyleSheetImportPath}glyphicons-social-1.8.css';
-
-/*/ endregion */
-
-@import '@{lessImportPath}generic-1.0';
+/** endregion */
 
 /* endregion */
 
 #website() {
-    #bootstrap() {
-        @import (less) '@{cascadingStyleSheetImportPath}bootstrap-3.3.4.css';
+    #bootstrap-nested-labels() {
 
         /* region bootstrap fixes */
 
@@ -300,16 +293,17 @@ font-weight: 300;
         form label {
             &:not([for]) {
                 margin: 0;
+                margin-bottom: -4px;
                 width: 100%;
 
-                textarea, select, input:not([type="checkbox"]) {
-                    margin-top: 5px;
-                    font-weight: normal;
+                &.vertical-nested-label:not(.website-sr-only) {
+                    textarea, select, input:not([type="checkbox"]) {
+                       margin-top: 5px;
+                    }
                 }
-            }
-            &.website-sr-only:not([for]) {
                 textarea, select, input:not([type="checkbox"]) {
-                    margin-top: 0;
+                    font-weight: normal;
+                    line-height: 1;
                 }
             }
         }
@@ -317,13 +311,12 @@ font-weight: 300;
         /* endregion */
 
     }
+
     margin: 0;
     font-family: @fontFamily;
     font-size: 14px;
 
-    langreplacement {
-        display: none;
-    }
+    langreplacement { display: none; }
 
     // region headline
 
@@ -335,9 +328,7 @@ font-weight: 300;
         font-weight: normal;
         font-size: 3em;
     }
-    h2 {
-        font-size: 2em;
-    }
+    h2 { font-size: 2em; }
 
     // endregion
 
@@ -349,6 +340,113 @@ font-weight: 300;
     }
 
     // endregion
+
+    /* region form */
+
+    /** region styled select */
+
+    /*
+        Enables bootstraps form element combinations with this provided
+        wrapper.
+    */
+    .input-group .select-styled-wrapper {
+        &:not(:first-child):not(:last-child) .form-control {
+            border-radius: 0;
+        }
+        &:last-child .form-control {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+    }
+    .form-horizontal .select-styled-wrapper, .select-styled-wrapper {
+        position: relative;
+
+        > .select-styled-arrow {
+            position: absolute;
+            right: 15px;
+            top: 3px;
+            pointer-events: none;
+
+            span {
+                vertical-align: bottom;
+                font-size: 10px;
+            }
+        }
+        > select {
+            position: initial !important;
+            padding-left: 7px !important;
+            padding-right: 25px !important;
+            /* hide default down arrow in webkit */
+            -webkit-appearance: none;
+            /* hide arrow in firefox */
+            @-moz-document url-prefix() { -moz-appearance: none; }
+            /* hide default down arrow in IE10 */
+            &::-ms-expand { display: none; }
+        }
+    }
+    form:not(.form-horizontal) .select-styled-wrapper > .select-styled-arrow {
+        top: 12px;
+    }
+
+    /** endregion */
+
+    /** region styled checkbox */
+
+    .form-horizontal .checkbox, .checkbox {
+        label {
+            .checkbox-styled-wrapper {
+                > input[type="checkbox"] {
+                    &:checked ~ span.checkbox-styled
+                    > span.checkbox-styled-checked { #generic > .opacity(1); }
+                    &:disabled ~ span.checkbox-styled {
+                        background-color: @disabledColor;
+                    }
+
+                    display: none;
+                }
+                > span.checkbox-styled {
+                    cursor: pointer;
+                    float: right;
+                    width: 25px;
+                    height: 25px;
+                    border-radius: 4px;
+                    border: 2px solid @borderColor;
+                    padding: 0;
+
+                    > span.checkbox-styled-checked {
+                        #generic > .transform(rotate(-45deg));
+                        #generic > .opacity(0);
+
+                        position: absolute;
+                        width: 13px;
+                        height: 8px;
+                        background: transparent;
+                        top: 7px;
+                        left: 6px;
+                        border: 3px solid @fontColor;
+                        border-top: none;
+                        border-right: none;
+                    }
+                }
+
+                position: absolute;
+                margin-top: -2px;
+                margin-left: -40px;
+            }
+
+            padding-left: 40px;
+        }
+
+        padding-top: 3px;
+        margin-top: 2px;
+    }
+    form:not(.form-horizontal) .checkbox {
+        margin-bottom: 20px;
+    }
+
+    /** endregion */
+
+    /* endregion */
 
 }
 
@@ -369,9 +467,7 @@ font-weight: 300;
         overflow: hidden !important;
     }
 }
-.website-action {
-    cursor: pointer;
-}
+.website-action { cursor: pointer; }
 // Overlay the whole page till everything is loaded completely.
 div.website-window-loading-cover {
     background-color: @backgroundColor;

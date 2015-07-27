@@ -24,7 +24,7 @@
 		function isWin(elem) {
 			return !elem.nodeName ||
 				$.inArray(elem.nodeName.toLowerCase(), ['iframe','#document','html','body']) !== -1;
-		}		
+		}
 
 		$.fn.scrollTo = function(target, duration, settings) {
 			if (typeof duration === 'object') {
@@ -57,7 +57,7 @@
 				var win = isWin(this),
 					elem = win ? this.contentWindow || window : this,
 					$elem = $(elem),
-					targ = target, 
+					targ = target,
 					attr = {},
 					toff;
 
@@ -173,7 +173,7 @@
 		}
 
 		// Add special hooks so that window scroll properties can be animated
-		$.Tween.propHooks.scrollLeft = 
+		$.Tween.propHooks.scrollLeft =
 		$.Tween.propHooks.scrollTop = {
 			get: function(t) {
 				return $(t.elem)[t.prop]();

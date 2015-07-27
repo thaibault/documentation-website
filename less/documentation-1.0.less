@@ -19,10 +19,20 @@ This library written by Torben Sickert stand under a creative commons naming
 
 /// endregion
 
+#bootstrap() {
+    @import (less) '@{cascadingStyleSheetImportPath}bootstrap-3.3.5.css';
+}
+@import '@{lessImportPath}generic-1.0';
 @import '@{lessImportPath}website-1.0';
 @import '@{lessImportPath}pygment-vim-like-highlighting';
 
 // endregion
+
+/* region font */
+
+@import '@{cascadingStyleSheetImportPath}glyphicons-social-1.8.css';
+
+/* endregion */
 
 // region constants
 
@@ -51,14 +61,15 @@ body.documentation {
 
     /* region global */
 
-    #website > #bootstrap;
+    #bootstrap;
+    #website > #bootstrap-nested-labels;
     #website;
     #codehilite;
     color: @darkFontColor;
     background: @darkBackgroundColor;
     line-height: 1.5;
 
-        /* region grid */
+    /** region grid */
 
     .outer {
         width: 100%;
@@ -69,9 +80,9 @@ body.documentation {
         margin: 0 auto;
     }
 
-        /* endregion */
+    /** endregion */
 
-        /* region symbol */
+    /** region symbol */
 
     span {
         &.arrow-left-home, &.arrow-left-api {
@@ -82,9 +93,9 @@ body.documentation {
         &.arrow-left-api { margin-top: 36px; }
     }
 
-        /* endregion */
+    /** endregion */
 
-        /* region headline */
+    /** region headline */
 
     h1, h2, h3, h4, h5, h6 {
         margin: 10px 0;
@@ -93,16 +104,12 @@ body.documentation {
         font-family: @fontFamilyCondensed;
         font-size: 2em;
     }
-    h1 {
-        font-size: 4em;
-    }
-    h2 {
-        font-size: 3em;
-    }
+    h1 { font-size: 4em; }
+    h2 { font-size: 3em; }
 
-        /* endregion */
+    /** endregion */
 
-        /* region link */
+    /** region link */
 
     a, a:visited, a:focus {
         color: @linkColor;
@@ -124,7 +131,7 @@ body.documentation {
         }
     }
 
-            /* region language links */
+    /*** region language links */
 
     a[href^="#lang-"] { color: @languageButtonColor; }
     > div.header-wrap > header > section.header-links
@@ -136,33 +143,44 @@ body.documentation {
     a[href^="#lang-"].current { color: @currentLanguageButtonColor; }
     a[href^="#lang-"]:hover { color: @hoverLanguageButtonColor; }
 
-            /* endregion */
+    /*** endregion */
 
-        /* endregion */
+    /** endregion */
 
-        /* region image */
+    /** region image */
 
-            /* region generic */
+    /*** region generic */
 
-    [class^="icon-"], [class*=" icon-"] { #generic > .icon; }
+    // Sets pseudo icon tag properties.
+    .icon {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        vertical-align: text-top;
+        overflow: hidden;
+        background-image: url('@{imagePath}composition.png');
+        background-position: 14px 14px;
+        background-repeat: no-repeat;
+    }
+    [class^="icon-"], [class*=" icon-"] { .icon; }
     /*
         NOTE: We explicit inherit form ".icon" to prepare this class to be
         super classes as well.
     */
     .icon-blacktocat {
-        #generic > .icon;
+        .icon;
         background-position: -92px 0px;
         width: 30px;
         height: 30px;
     }
     .icon-download {
-        #generic > .icon;
+        .icon;
         background-position: -99px -35px;
         width: 16px;
         height: 20px;
     }
     .icon-gray-archiv {
-        #generic > .icon;
+        .icon;
         background-position: 0px -68px;
         width: 88px;
         height: 72px;
@@ -172,7 +190,7 @@ body.documentation {
         background-position: 0px 2px;
     }
 
-            /* endregion */
+    /*** endregion */
 
     i.icon{
         &-github {
@@ -189,7 +207,7 @@ body.documentation {
         }
     }
 
-        /* endregion */
+    /** endregion */
 
     /* endregion
 
@@ -205,7 +223,7 @@ body.documentation {
 
             a.forkme-banner {
                 #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .5));
-                #generic > .rounded-border(0, 2px, 2px, 0);
+                #generic > .rounded-border(0, 0, 2px, 2px);
                 display: block;
                 position: absolute;
                 top: 0;
@@ -276,7 +294,7 @@ body.documentation {
         }
     }
 
-     /* endregion */
+    /* endregion */
 
     /* region content */
 
@@ -285,7 +303,7 @@ body.documentation {
         overflow: auto;
         word-wrap: break-word;
 
-        /*  region content */
+        /* region content */
 
         section {
             padding-top: 40px;
@@ -331,11 +349,11 @@ body.documentation {
                                     }
                                 }
                                 &.linenodiv pre {
+                                    #generic > .border-radius(0);
                                     padding: 10px 8px 10px 0;
                                     text-align: right;
                                     color: @codeLineNumberColor;
                                     background-color: @codeLineNumberBackgroundColor;
-                                    #generic > .border-radius(0);
                                 }
                                 &.codehilite pre {
                                     padding: 10px;
@@ -410,7 +428,7 @@ body.documentation {
 
     /* region responsive */
 
-        /* region extra extra extra small */
+    /** region extra extra extra small */
 
     a[href="#top"] {
         visibility: hidden;
@@ -427,9 +445,9 @@ body.documentation {
         }
     }
 
-        /* endregion */
+    /** endregion */
 
-        /* region extra extra small */
+    /** region extra extra small */
 
     @media (min-width: @minimumExtraExtraSmallWidthInPixel) {
         div.header-wrap > header > section.header-links span.arrow-left-api {

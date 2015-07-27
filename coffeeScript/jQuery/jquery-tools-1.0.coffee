@@ -97,9 +97,9 @@ main = ($) ->
             the console object.
         ###
         _consoleMethods: [
-            'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
-            'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
-            'markTimeline', 'profile', 'profileEnd', 'table', 'time',
+            'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error'
+            'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log'
+            'markTimeline', 'profile', 'profileEnd', 'table', 'time'
             'timeEnd', 'timeStamp', 'trace', 'warn']
         ###
             **_javaScriptDependentContentHandled {Boolean}**
@@ -125,7 +125,7 @@ main = ($) ->
 
         constructor: (
             @$domNode=null, @_options={}, @_defaultOptions={
-                logging: false, domNodeSelectorPrefix: 'body',
+                logging: false, domNodeSelectorPrefix: 'body'
                 domNode:
                     hideJavaScriptEnabled:
                         '.tools-hidden-on-javascript-enabled'
@@ -466,6 +466,30 @@ main = ($) ->
 
         # region dom node handling
 
+        getPositionRelativeToViewport: (delta={}) ->
+            ###
+                Determines where current dom node is relative to current view
+                port position.
+
+                **delta {Object}**   - Allows deltas for "top", "left",
+                                       "bottom" and "right" for determining
+                                       positions.
+
+                **returns {String}** - Returns one of "above", "left", "below",
+                                       "right" or "in".
+            ###
+            delta = $.extend {top: 0, left: 0, bottom: 0, right: 0}, delta
+            $window = $ window
+            rectangle = this.$domNode[0].getBoundingClientRect()
+            if (rectangle.top + delta.top) < 0
+                return 'above'
+            if (rectangle.left + delta.left) < 0
+                return 'left'
+            if $window.height() < (rectangle.bottom + delta.bottom)
+                return 'below'
+            if $window.width() < (rectangle.right + delta.right)
+                return 'right'
+            return 'in'
         generateDirectiveSelector: (directiveName) ->
             ###
                 Generates a directive name corresponding selector string.
@@ -476,8 +500,9 @@ main = ($) ->
             ###
             delimitedName = this.stringCamelCaseToDelimited directiveName
             "#{delimitedName}, .#{delimitedName}, [#{delimitedName}], " +
-            "[data-#{delimitedName}], [x-#{delimitedName}], " +
-            "[#{delimitedName.replace '-', '\\:'}]"
+            "[data-#{delimitedName}], [x-#{delimitedName}]" + (
+                if delimitedName.indexOf('-') is -1 then '' else \
+                ", [#{delimitedName.replace '-', '\\:'}]")
         removeDirective: (directiveName) ->
             ###
                 Removes a directive name corresponding class or attribute.
@@ -696,7 +721,8 @@ main = ($) ->
                 Prevents event functions from triggering to often by defining a
                 minimal span between each function call. Additional arguments
                 given to this function will be forwarded to given event
-                function call.
+                function call. The function wrapper returns null if current
+                function will be omitted due to debounceing.
 
                 **eventFunction** {Function}         - The function to call
                                                        debounced
@@ -716,6 +742,7 @@ main = ($) ->
                 if lock
                     waitingCallArguments = parameter.concat(
                         additionalArguments or [])
+                    null
                 else
                     lock = true
                     timeoutID = window.setTimeout (=>

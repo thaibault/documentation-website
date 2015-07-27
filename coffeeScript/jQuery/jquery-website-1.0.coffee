@@ -134,7 +134,7 @@ ga('send', 'pageview');'''
 
                 **returns {$.Website}** - Returns the current instance.
             ###
-            # Wrap event methods with debouncing handler.
+            # Wrap event methods with debounceing handler.
             this._onViewportMovesToTop = this.debounce(
                 this.getMethod this._onViewportMovesToTop)
             this._onViewportMovesAwayFromTop = this.debounce(
@@ -397,7 +397,8 @@ ga('send', 'pageview');'''
                     ).substr 1)
                 ).hide()
                 if this.$domNodes.windowLoadingCover.length
-                    this.enableScrolling().$domNodes.windowLoadingCover.fadeOut(
+                    this.enableScrolling(
+                    ).$domNodes.windowLoadingCover.fadeOut(
                         this._options.windowLoadingCoverFadeOut)
                 else
                     this._options.windowLoadingCoverFadeOut.always()
@@ -472,16 +473,20 @@ ga('send', 'pageview');'''
                 **returns {$.Website}** - Returns the current instance.
             ###
             this._options.scrollToTop.options.onAfter = onAfter
+            # NOTE: This is a workaround to avoid a bug in "jQuery.scrollTo()"
+            # expecting this property exists.
+            window.document.body = $('body')[0]
             if this._options.scrollToTop.inLinearTime
                 distanceToTopInPixel = this.$domNodes.window.scrollTop()
                 # Scroll four times faster as we have distance to top.
                 this._options.scrollToTop.options.duration =
                     distanceToTopInPixel / 4
-                $.scrollTo(
-                    {top: "-=#{distanceToTopInPixel}", left: '+=0'},
+                $(window).scrollTo(
+                    {top: "-=#{distanceToTopInPixel}", left: '+=0'}
                     this._options.scrollToTop.options)
             else
-                $.scrollTo {top: 0, left: 0}, this._options.scrollToTop.options
+                $(window).scrollTo(
+                    {top: 0, left: 0}, this._options.scrollToTop.options)
             this
         _handleAnalytics: () ->
             ###
@@ -491,7 +496,7 @@ ga('send', 'pageview');'''
             ###
             if this._options.trackingCode?
                 this.debug(
-                    "Run analytics code: \"#{this.__analyticsCode}\"",
+                    "Run analytics code: \"#{this.__analyticsCode}\""
                     this._options.trackingCode, this._options.domain)
                 try
                     (new Function(this.stringFormat(
@@ -500,7 +505,7 @@ ga('send', 'pageview');'''
                     )))()
                 catch exception
                     this.warn(
-                        'Problem in google analytics code snippet: {1}',
+                        'Problem in google analytics code snippet: {1}'
                         exception)
             this
 
