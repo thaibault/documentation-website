@@ -221,8 +221,35 @@ toHTML = (destination) ->
 gulp.task 'html', -> toHTML CONFIGURATION.distributionPath
 
 gulp.task 'default', ['html', 'javaScript', 'cascadingStyleSheet', 'data']
-gulp.task 'developmentServer', ->
-    developementServer resourcePipelines: []
+gulp.task 'developmentServer', -> developmentServer {
+    connectModrewrite: ['^/?favicon.ico$ /image/favicon.ico']
+    getResourcePipelines: (errorHandler) -> [
+        {
+            url: /.*\.jade$/
+            mimeType: 'text/html'
+            pipeline: (files) -> jade(
+                files.pipe gulpPlugins.plumber errorHandler)
+        }
+        {
+            url: /.*\.(scss|sass)$/
+            mimeType: 'text/css'
+            pipeline: (files) -> sass(
+                files.pipe gulpPlugins.plumber errorHandler)
+        }
+        {
+            url: /.*\.less$/
+            mimeType: 'text/css'
+            pipeline: (files) -> less(
+                files.pipe gulpPlugins.plumber errorHandler)
+        }
+        {
+            url: /.*\.coffee$/
+            mimeType: 'text/js'
+            pipeline: (files) -> coffeeScript(
+                files.pipe gulpPlugins.plumber errorHandler)
+        }
+    ]
+}
 
 # endregion
 

@@ -355,7 +355,7 @@ html(lang='en')
                         ) <% ALTERNATE_LANGUAGE[:-2] %>
                         button.navbar-toggle.tools-visible-on-javascript-enabled(
                             type='button' data-toggle='collapse'
-                            data-target='.navbar-collapse
+                            data-target='.navbar-collapse'
                         )
                             <% for section in range(3):
                                 span.icon-bar

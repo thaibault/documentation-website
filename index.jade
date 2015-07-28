@@ -1,0 +1,552 @@
+doctype html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+html(lang='en')
+
+    // region header
+
+    head
+
+        // region meta informations
+
+        meta(charset='utf-8')
+        meta(
+            name='description'
+            content='development responsive python javascript coffeescript bash design')
+        meta(name='author' content='Torben Sickert')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+
+        // endregion
+
+        title Torben Sickert development
+
+        // region fav and touch icons
+
+        link(
+            rel='shortcut icon' type='image/x-icon'
+            href='image/favicon.ico')
+
+        // endregion
+
+        // region resources
+
+        link(
+            type='text/css' rel='stylesheet/less' media='screen'
+            href='less/homePage-1.0.less')
+        // HTML5 shim, for IE6-8 support of HTML5 elements
+        <!--[if lt IE 9]><script src="javaScript/html5shiv-3.7.0.js"></script><![endif]-->
+        script(
+            type='text/javascript'
+            src='javaScript/coffeeScript-1.9.1.js')
+        script(
+            type='text/coffeescript'
+            src='coffeeScript/require-1.0.coffee')
+        script(
+            type='text/coffeescript
+            src='coffeeScript/main.coffee')
+
+        // endregion
+
+    // endregion
+
+    // region body
+
+    body.home-page.tools-hidden-on-javascript-enabled
+        div.website-window-loading-cover.tools-visible-on-javascript-enabled
+            div
+
+        // region menu
+
+        div.website-start-up-animation-number-1.navbar-wrapper
+            div.container: div.navbar.navbar-inverse.navbar-static-top
+                div.container
+                    div.navbar-header
+                        a.navbar-brand(href='#')
+                            | thaibault
+                            span.dimension-indicator
+                        a.tools-visible-on-javascript-enabled.website-start-up-animation-number-2(
+                            href='#lang-deDE'
+                        ) de
+                        button.navbar-toggle.tools-visible-on-javascript-enabled(
+                            type='button' data-toggle='collapse'
+                            data-target='.navbar-collapse
+                        )
+                            span.icon-bar
+                            span.icon-bar
+                            span.icon-bar
+                    div.navbar-collapse.collapse
+                        div.navbar-highlighter.tools-visible-on-javascript-enabled
+                        ul.nav.navbar-nav
+                            li.website-start-up-animation-number-3 active
+                                a(ref='#about')
+                                    | About me
+                                    //deDE:Über mich
+                            li.website-start-up-animation-number-4
+                                a(ref='#contact')
+                                    | Contact
+                                    //deDE:Kontakt
+                            li.website-start-up-animation-number-5
+                                a(ref='#work')
+                                    | Work
+                                    //deDE:Arbeiten
+
+        // endregion
+
+        // region carousel
+
+        div.carousel slide: div.carousel-inner:
+            div.item about: div.carousel-image-about: div.container
+                //Serves as anchor point if javaScript isn't supported.
+                h1(id='about')
+                p.lead
+                    | I'm ambitious and love the challenge
+                    //deDE:Ich bin ambitioniert und liebe die Herausforderung
+                    a.visible-xs(
+                        href='data/curriculumVitaeENus.pdf'
+                        target='_blank'
+                    )
+                        | Curriculum Vitae (German)
+                        //deDE:Lebenslauf (Deutsch)
+                    a.visible-xs(
+                        href='data/curriculumVitaeDEde.pdf'
+                        target='_blank'
+                    )
+                        | Curriculum Vitae (English)
+                        //deDE:Lebenslauf (Englisch)
+                    a.hidden-xs(
+                        href='data/curriculumVitaeENus.pdf'
+                        target='_blank'
+                    )
+                        | Curriculum Vitae
+                        //deDE:Lebenslauf
+                    a(
+                        href='data/vCard.vcf'
+                        target='_blank'
+                    ) vCard
+            div.item contact: div.carousel-image-contact: div.container
+                h1(id='contact')
+                    | Get in touch
+                    //deDE:Lernen wir uns kennen
+                p.lead
+                    | I'm a freelancer, ready to help you. Let's talk about your project and what I can do.
+                    //deDE:Ich arbeite selbständig und bin bereit für Ihr Projekt. Kontaktieren Sie mich und wir sprechen über Ihr Vorhaben.
+                a(href='tel:004917610248185')
+                    | Phone
+                    // deDE:Tel.
+                    | +49 (0) 176
+                    span /
+                    | 10 248 185
+                a.glyphicon-social.glyphicon-social-e-mail(
+                    href='mailto:t.sickert@gmail.com' target='_blank')
+                a.glyphicon-social.glyphicon-social-github(
+                    href='https://github.com/thaibault' target='_blank')
+                a.glyphicon-social.glyphicon-social-google_plus(
+                    href='https://plus.google.com/+TorbenSickert' target='_blank')
+                a.glyphicon-social.glyphicon-social-xing(
+                    href='http://www.xing.com/profile/Torben_Sickert' target='_blank')
+                a.glyphicon-social.glyphicon-social-linked_in(
+                    href='http://de.linkedin.com/pub/torben-sickert/28/aa9/919' target='_blank')
+                a.glyphicon-social.glyphicon-social-skype(
+                    href='skype:t.sickert?add' target='_blank')
+                a.glyphicon-social.glyphicon-social-twitter(
+                    href='https://twitter.com/tsickert' target='_blank')
+                a.glyphicon-social.glyphicon-social-facebook(
+                    href='https://de-de.facebook.com/tsickert' target='_blank')
+                a.glyphicon.glyphicon-globe(
+                    href='http://thaibault.github.com' target='_blank')
+            div.item work: div.carousel-image-work: div.container
+                h1(id='work')
+                    | I love what I'm doing
+                    //deDE:Ich liebe was ich mache
+                h2
+                    | I offer
+                    //deDE:ich biete
+                p
+                    langReplace
+                        | contacts, conception, Implementation and optimization of applications for the web; desktop and server, quality Assurance, High Reliability Applications, Test-driven Design, (Web)programming, Usability, Web and search engine optimization, administering servers on Linux, Mac or Windows, Intranet Solutions, Community Portal solution, Accessibility, Rich Internet Applications, Content Management Systems, Web 2.0
+                        strong security
+                        | Design by Contract, Integration, application, and unit tests, Proofs of program properties
+                        strong knowledge
+                        | economic theoretical knowledge, matic computerized knowledge, mathematical knowledge
+                        strong programing Techniques
+                        | Functionally oriented programming, Imperative Oriented Programming, Object-Oriented Programming, Aspect-Oriented Programming
+                        strong database
+                        | Object-Relational Modeling (ORM) with SQLAlchemy or Django ORM, SQL
+                        strong versioning
+                        | GIT, SVN, CVS, Mercurial
+                        strong programing Language
+                        | Python, CoffeeScript, JavaScript, C++, C, C# (mit XNA), Java, Scheme, PHP
+                        strong declarative Language
+                        | XHTML, CSS, less
+                        strong server
+                        | apache, nginx
+                        strong framework
+                        | AngularJS, django, jQuery, Mootools, Bootstrap
+                    //
+                        deDE:
+                        Kontakte, Konzeption, Umsetzung und Optimierung von Anwendungen fürs Web, Desktop und Server, Qualitätssicherung, Hochzuverlässigkeits-Anwendungen, Test-driven Design, (Web)Programmierung, Usabillity, Web- und Suchengine-Optimierung, Administrierung für Server auf Linux Mac oder Windows, Intranet Lösungen, Community Portallösung, Barrierefreiheit, Rich Internet Applications, Content Management Systeme, Web 2.0, ERP, CRM
+                        <strong>Sicherheit</strong>
+                        Design by Contract, Integrationstests, Ende-zu-Ende-Tests und Unit-Tests, Beweisen von Programmeigenschaften
+                        <strong>Wissen</strong>
+                        wirtschaftstheoretisches Wissen, informatisches Wissen, mathematisches Wissen
+                        <strong>Programmiertechniken</strong>
+                        Funktionalorientierte Programmierung, Imperativorientierte Programmierung, Objektorientierte Programmierung, Aspektorientierte Programmierung
+                        <strong>Datenbanken</strong>
+                        Relationale-Objekt-Modelierung (ORM) mit sqlAlchemy oder Django ORM, SQL
+                        <strong>Versionierung</strong>
+                        GIT, SVN, CVS, Mercurial
+                        <strong>Programmiersprachen</strong>
+                        Python, CoffeeScript, JavaScript, C++, C, C# (mit XNA), Java, Scheme, PHP
+                        <strong>Deklarative Sprachen</strong>
+                        XHTML, CSS, less
+                        <strong>Server</strong>
+                        apache, nginx
+                        <strong>Framework</strong>
+                        AngularJS, django, jQuery, Mootools, Bootstrap
+                h2
+                    | Projects
+                    //
+                        deDE:
+                        Projekte
+                dl.dl-horizontal
+                    dt: a(
+                        href='http://thaibault.github.com/boostNode'
+                        target='_blank
+                    ) boostNode
+                    dd
+                        | A universal python framework for platform independent application developement with web technoligies. The framework provides High reliability features:
+                        //
+                            deDE:
+                            Ein universelles Python-Framework zur Anwendung von plattformunabhängigen Desktopanwendungen mit Web-Technologien. Das Framework bietet Hochzuverlässigkeitsmerkmale:
+                        ul
+                            li
+                                | 100% branch coverage tested
+                                //
+                                    deDE:
+                                    100% branch coverage getestet
+                            li
+                                | Type checking in development mode
+                                //
+                                    deDE:
+                                    Type checking im Entwicklungsmodus
+                            li
+                                | Cyclomatic complexity smaller than eight
+                                //
+                                    deDE:
+                                    zyklomatische Komplexität kleiner acht
+                            li
+                                | Full API documentation http://thaibault.github.com/boostNode/api
+                                //
+                                    deDE:
+                                    vollständige API-Dokumentation http://thaibault.github.com/boostNode/api
+                            li
+                                | Always compatible with the latest versions of both Python through integrated macros
+                                //
+                                    deDE:
+                                    stets kompatibel zu den neusten beiden Pythonversionen durch integrierte Macros
+                            li
+                                | Platform independent web-view and flexible multi-process and multi-threaded Web server
+                                //
+                                    deDE:
+                                    plattformunabhängige Web-View und flexibler multiprozess- und multithread Web-Server
+                    dt: a(
+                        href='http://archinstall.github.com'
+                        target='_blank
+                    ) archInstall
+                    dd
+                        | Install a configured ArchLinux with pacman as a package management in any places such as hard drives, USB flash drive, partition, or in an existing system as a sandbox environment. Automatic configuration of existing posix compliant unix-like systems. Both online and Offline installations are possible. Even without root privileges, the system is able to be installed into its own environment below the home folder. All required dependencies could be served via a typical posix environment given by Busybox or ArchLinux itself.
+                        //
+                            deDE:
+                            Installiere ein konfiguriertes ArchLinux mit Pacman als Paketverwaltung an beliebige Orte wie Festplatten, USB-Stick, alternative Partition oder in das bestehende System als Sandboxumgebung. Automatische Konfiguration bestehender posix konformer unix-artiger Systeme. Sowohl Online- als auch Offline-Installationen sind möglich. Selbst ohne root Rechte kann das System in eine eigene Umgebung unterhalb des Home-Ordner installiert werden. Alle benötigten Abhängigkeiten zum Aufsetzen sind durch eine einfache posix-Umgebung gegeben wie Busybox oder ArchLinux selbst.
+                    dt: a(
+                        href='http://thaibault.github.com/genericServiceHandler'
+                        target='_blank
+                    ) genericServiceHandler
+                    dd
+                        | This bash module provides a generic service handlers to control any services which support standard process signals. The project is inspired by the systemd service handling and can live in any unix-like environment. It is particularly suitable for beeing integrated into the operating system's boot and shutdown process.
+                        //
+                            deDE:
+                            Dieses bash-Modul bietet einen generischen Service-Handler zur Steuerung jeglicher Dienste, welche standard Prozesssignale unterstützen. Das Projekt ist vom Systemd-Service-Handling inspiriert und kann in jeder unix-artigen Umgebung eingesetzt werden. Es eignet sich besonders um Dienste in den Hoch- und Herunterfahr-Prozess des Betriebssystems einzubetten.
+                    dt: a(
+                        href='http://thaibault.github.com/require'
+                        target='_blank
+                    ) require
+                    dd
+                        | This native JavaScript modules offers a full import mechanism for JavaScript as it is known from python, php, or ruby. This makes it possible that each JavaScript file defines its own dependencies, and no global list of required files in the html-header have to be maintained. A decisive advantage over "RequireJS" or "YepNope" is that nested dependencies could be determined automatically. The inclusion of less, coffee script or css is also possible. In addition, it can add corresponding "handler" allowing to generate the browser corresponding source maps or other actions.
+                        //
+                            deDE:
+                            Dieses native JavaScript Module bietet einen vollständigen Importmechanismus für JavaScript wie es aus python, php, oder ruby bekannt ist. Hierdurch wird es möglich, dass jede JavaScript Datei seine eigenen Abhängigkeiten definiert und keine globale iListe an benötigten Dateien im html-Header verwaltet werden muss. Entschiedener Vorteil gegenüber "RequireJS" oder "YepNope" besteht darin, dass auch die Abhängigkeiten der Abhängigkeiten beliebig tief in einer topologischen Sortierung aufgelöst werden können. Das Einbinden von less, coffeeScript oder css ist ebenfalls möglich. Zudem können sich entsprechende "Handler" hinzufügen lassen um im Browser entsprechende SourceMaps zu generieren oder sonstige Aktionen auszulösen.
+                    dt: a(
+                        href='http://thaibault.github.com/jQuery-tools'
+                        target='_blank
+                    ) jQuery-tools
+                    dd
+                        | jQuery-tools brings an object oriented jQuery Plugin concept. It provides a class pattern structure similar to MooTools or Prototype. In Addition many reusable helper and a cool controller logic is included. Furthermore some handler for dealing with mutual exclusion, scope-based event handling and some low-level extensions for native data types are available. Example implementations can be found in the projects:
+                        //
+                            deDE:
+                            jQuery-tools ist ein auf jQuery aufsetzendes Plugin, um objektorientierte jQery-Plugins ähnlich wie bei MooTools oder Prototype zu erstellen. Verschiedene generische Software-Pattern werden durch eine wiederverwendbare Controller-Logik möglich. Zudem werden einige nützliche Werkzeuge zum Bauen von grafischen Oberflächen angeboten wie Wechselseitiger Ausschluss, Scope-basiertes Event-Handling und einige Low-Level Erweiterungen für native Datentypen. Beispiel-Implementierungen findet sich in den Projekten:
+                        ul
+                            li
+                                langreplace: a(
+                                    href='http://thaibault.github.com/jQuery-storeLocator'
+                                ) jQuery-storeLocator
+                                langreplacement
+                                    | deDE:
+                                    a(
+                                        href='http://thaibault.github.com/jQuery-storeLocator'
+                                    ) jQuery-storeLocator
+                            li
+                                langreplace: a(
+                                    href='http://thaibault.github.com/jQuery-incrementer'
+                                ) jQuery-incrementer
+                                langreplacement
+                                    | deDE:
+                                    a(
+                                        href='http://thaibault.github.com/jQuery-incrementer'
+                                    ) jQuery-incrementer
+                            li
+                                langreplace: a(
+                                    href='http://thaibault.github.com/jQuery-lang'
+                                ) jQuery-lang
+                                langreplacement
+                                    | deDE:
+                                    a(
+                                        href='http://thaibault.github.com/jQuery-lang'
+                                    ) jQuery-lang
+                            li
+                                langreplace: a(
+                                    href='http://thaibault.github.com/jQuery-website'
+                                ) jQuery-website
+                                langreplacement
+                                    | deDE:
+                                    a(
+                                        href='http://thaibault.github.com/jQuery-website'
+                                    ) jQuery-website
+                            li
+                                langreplace: a(
+                                    href='http://thaibault.github.com'
+                                ) My personal website
+                                langreplacement
+                                    | deDE:
+                                    a(
+                                        href='http://thaibault.github.com'
+                                    ) Meine persönliche Website
+
+        // endregion
+
+        // region about this website
+
+        div.about-this-website: div.carousel-image-about-this-website: div.container
+            h1(id='about-this-website')
+                | About this website
+                //deDE:Impressum
+            h2
+                | Contact
+                //deDE:Kontakt
+            div
+                | Provider of
+                //deDE:Anbieter von
+                a(href='http://thaibault.github.com') http://thaibault.github.com
+                | :
+                br
+                | Torben Sickert
+                br
+                | Christoph-Mang-Str. 14
+                br
+                | 79100 Freiburg
+                br
+                a(href='tel:004917610248185')
+                    | Phone
+                    //deDE:Tel.
+                    | : +49 (0) 176
+                    span /
+                    | 10 248 185
+                    br
+                | Email:
+                a(href='mailto:#') t.sickert@gmail.com
+                br
+                | Website
+                //deDE:Webseite
+                | :
+                a(href='http://thaibault.github.com') http://thaibault.github.com
+                br
+                br
+                a(href='data/publicSSHKey.txt' target='_blank')
+                    | public ssh key
+                    //deDE:öffentlicher SSH-Schlüssel
+            
+            
+            
+            
+            
+            h2
+                | Disclaimer
+                //deDE:Haftungsausschluss
+                //frFR:Désistement
+            h3
+                | Liability for content
+                //deDE:Haftung für Inhalte
+                //frFR:Responsabilité quant au contenu
+            p
+                | Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die
+                | Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch
+                | keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG
+                | für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen
+                | verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch
+                | nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen
+                | zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige
+                | Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der
+                | Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon
+                | unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt
+                | der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekannt werden
+                | von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend
+                | entfernen.
+            h3
+                | Liability for links
+                //deDE:Haftung für Links
+                //frFR:Responsabilité pour les liens
+            p
+                | Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren
+                | Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden
+                | Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten
+                | Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten
+                | verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung
+                | auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum
+                | Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche
+                | Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte
+                | einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von
+                | Rechtsverletzungen werden wir derartige Links umgehend entfernen.
+            h3
+                | Copyright
+                //deDE:Urheberrecht
+                //frFR:Droit d'auteur
+            p
+                | Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen
+                | Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung,
+                | Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der
+                | Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des
+                | jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind
+                | nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die
+                | Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die
+                | Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als
+                | solche gekennzeichnet. Sollten Sie trotzdem auf eine
+                | Urheberrechtsverletzung aufmerksam werden, bitten wir um einen
+                | entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden
+                | wir derartige Inhalte umgehend entfernen.
+            h3
+                | Privacy Policy
+                //deDE:Datenschutz
+                //frFR:Politique de confidentialité
+            p
+                | Die Nutzung unserer Webseite ist in der Regel ohne Angabe
+                | personenbezogener Daten möglich. Soweit auf unseren Seiten
+                | personenbezogene Daten (beispielsweise Name, Anschrift oder
+                | E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf
+                | freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche Zustimmung
+                | nicht an Dritte weitergegeben. Wir darauf hin, dass die Datenübertragung
+                | im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken
+                | aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch
+                | Dritte ist nicht möglich. Der Nutzung von im Rahmen der Impressumspflicht
+                | veröffentlichten Kontaktdaten durch Dritte zur Übersendung von nicht
+                | ausdrücklich angeforderter Werbung und Informationsmaterialien wird
+                | hiermit ausdrücklich widersprochen. Die Betreiber der Seiten behalten
+                | sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung
+                | von Werbeinformationen, etwa durch Spam-Mails, vor.
+            h3
+                | Privacy Statement for using Google Analytics
+                //deDE:Datenschutzerklärung für die Nutzung von Google Analytics
+                //frFR:Déclaration de confidentialité de l'utilisation de Google Analytics
+            p
+                | Diese Website benutzt Google Analytics, einen Webanalysedienst der Google
+                | Inc. ("Google"). Google Analytics verwendet sog. "Cookies", Textdateien,
+                | die auf Ihrem Computer gespeichert werden und die eine Analyse der
+                | Benutzung der Website durch Sie ermöglichen. Die durch den Cookie
+                | erzeugten Informationen über Ihre Benutzung dieser Website werden in der
+                | Regel an einen Server von Google in den USA übertragen und dort
+                | gespeichert. Im Falle der Aktivierung der IP-Anonymisierung auf dieser
+                | Webseite wird Ihre IP-Adresse von Google jedoch innerhalb von
+                | Mitgliedstaaten der Europäischen Union oder in anderen Vertragsstaaten
+                | des Abkommens über den Europäischen Wirtschaftsraum zuvor gekürzt. Nur in
+                | Ausnahmefällen wird die volle IP-Adresse an einen Server von Google in
+                | den USA übertragen und dort gekürzt. Im Auftrag des Betreibers dieser
+                | Website wird Google diese Informationen benutzen, um Ihre Nutzung der
+                | Website auszuwerten, um Reports über die Websiteaktivitäten
+                | zusammenzustellen und um weitere mit der Websitenutzung und der
+                | Internetnutzung verbundene Dienstleistungen gegenüber dem
+                | Websitebetreiber zu erbringen. Die im Rahmen von Google Analytics von
+                | Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen Daten von
+                | Google zusammengeführt. Sie können die Speicherung der Cookies durch eine
+                | entsprechende Einstellung Ihrer Browser-Software verhindern; wir weisen
+                | Sie jedoch darauf hin, dass Sie in diesem Fall gegebenenfalls nicht
+                | sämtliche Funktionen dieser Website vollumfänglich werden nutzen können.
+                | Sie können darüber hinaus die Erfassung der durch das Cookie erzeugten
+                | und auf Ihre Nutzung der Website bezogenen Daten (inkl. Ihrer IP-Adresse)
+                | an Google sowie die Verarbeitung dieser Daten durch Google verhindern,
+                | indem Sie das unter dem folgenden
+                a(href='http://tools.google.com/dlpage/gaoptout?hl=de') Link
+                | verfügbare Browser-Plugin herunterladen und installieren: .
+            h3 Copyright Statement
+            p
+                | Unless noted otherwise, all artwork on this website is protected property
+                | of the website author. Any use for commercial purpose, reproduction and
+                | publication requires the author's written permission. Commercial work
+                | created in cooperation or bound by contract with third parties are
+                | specifically marked. Respective copyrights apply.
+            
+            //-
+                region vim modline
+            
+                vim: set tabstop=4 shiftwidth=4 expandtab:
+                vim: foldmethod=marker foldmarker=region,endregion:
+            
+                endregion
+
+        // endregion
+
+        // region footer
+
+        //
+            Wrap the footer of the page in another container to center the
+            content.
+        div.website-start-up-animation-number-6.footer
+            footer: p
+                | &copy; 2013 Torben Sickert &middot;
+                a(href='#about-this-website')
+                    | about this website
+                    //deDE:Impressum
+
+        // endregion
+
+        a(href='#top')
+            | top
+            //deDE:nach oben
+
+    // endregion
+
+//-
+    region vim modline
+
+    vim: set tabstop=4 shiftwidth=4 expandtab:
+    vim: foldmethod=marker foldmarker=region,endregion:
+
+    endregion
