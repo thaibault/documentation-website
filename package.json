@@ -44,5 +44,8 @@
     "indentation": {
       "value": 4
     }
+  },
+  "devDependencies": {
+    "website": "git://github.com/thaibault/developmentServer.git"
   }
 }
