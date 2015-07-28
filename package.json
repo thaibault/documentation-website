@@ -9,7 +9,6 @@
   "license": "CC-BY-3.0",
   "dependencies": {
     "coffee-script": "^1.9.2",
-    "event-stream": "^3.3.1",
     "gulp": "^3.8.11",
     "gulp-coffee": "^2.3.1",
     "gulp-coffeelint": "^0.5.0",
@@ -46,6 +45,6 @@
     }
   },
   "devDependencies": {
-    "website": "git://github.com/thaibault/developmentServer.git"
+    "developmentServer": "git://github.com/thaibault/developmentServer.git"
   }
 }

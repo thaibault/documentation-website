@@ -4,7 +4,7 @@
 
 camelize = require 'camelize'
 gulpPlugins = require('gulp-load-plugins')()
-for pluginName in ['gulp', 'event-stream', 'streamqueue', 'path']
+for pluginName in ['gulp', 'streamqueue', 'developmentServer']
     global[camelize pluginName] = require pluginName
 
 errorHandler = (error) ->
@@ -221,6 +221,8 @@ toHTML = (destination) ->
 gulp.task 'html', -> toHTML CONFIGURATION.distributionPath
 
 gulp.task 'default', ['html', 'javaScript', 'cascadingStyleSheet', 'data']
+gulp.task 'developmentServer', ->
+    developementServer resourcePipelines: []
 
 # endregion
 
