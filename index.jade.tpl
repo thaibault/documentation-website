@@ -237,7 +237,7 @@ html(lang='<% LANGUAGE %>')
 
         // region post load resources
 
-        script(type="text/javascript" src='<% JAVA_SCRIPT_PATH %>main.js')
+        script(type='text/javascript' src='<% JAVA_SCRIPT_PATH %>main.js')
 
         // endregion
 
