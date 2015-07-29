@@ -32,7 +32,7 @@ Version
 1.0 stable
 ###
 
-main = (less, lessParser, $) ->
+main = ($) ->
 
 # endregion
 
@@ -527,7 +527,6 @@ ga('send', 'pageview');'''
 if this.require?
     this.require.scopeIndicator = 'jQuery.Website'
     this.require [
-        ['less.Parser', 'less-2.4.0']
         ['jQuery.Tools', 'jquery-tools-1.0.coffee']
         ['jQuery.scrollTo', 'jquery-scrollTo-2.1.0']
         ['jQuery.fn.spin', 'jquery-spin-2.0.1']

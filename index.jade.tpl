@@ -318,16 +318,14 @@ html(lang='en')
         link(
             type='text/css' rel='stylesheet/less' media='screen'
             href='<% LESS_PATH %>homePage-1.0.less')
+
         // HTML5 shim, for IE6-8 support of HTML5 elements
         <!--[if lt IE 9]><script src="<% JAVA_SCRIPT_PATH %>html5shiv-3.7.0.js"></script><![endif]-->
+
         script(
-            type='text/javascript'
-            src='<% JAVA_SCRIPT_PATH %>coffeeScript-1.9.1.js')
-        script(
-            type='text/coffeescript'
             src='<% COFFEE_SCRIPT_PATH %>require-1.0.coffee')
         script(
-            type='text/coffeescript
+            type='text/coffeescript'
             src='<% COFFEE_SCRIPT_PATH %>main.coffee')
 
         // endregion
@@ -409,7 +407,7 @@ html(lang='en')
                             <% for project_name, project_page_link, project_description in PROJECTS:
                                 dt: a(
                                     href='<% project_page_link %>'
-                                    target='_blank
+                                    target='_blank'
                                 ) <% project_name %>
                                 dd
                                     | <% project_description[DEFAULT_LANGUAGE][0] %>

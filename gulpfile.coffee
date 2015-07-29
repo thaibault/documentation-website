@@ -225,6 +225,10 @@ gulp.task 'developmentServer', -> developmentServer {
     connectModrewrite: ['^/?favicon.ico$ /image/favicon.ico']
     getResourcePipelines: (errorHandler) -> [
         {
+            url: /.*\.tpl$/
+            mimeType: 'text/plain'
+        }
+        {
             url: /.*\.jade$/
             mimeType: 'text/html'
             pipeline: (files) -> jade(
@@ -245,7 +249,7 @@ gulp.task 'developmentServer', -> developmentServer {
         {
             url: /.*\.coffee$/
             mimeType: 'text/js'
-            pipeline: (files) -> console.log('A');coffeeScript(
+            pipeline: (files) -> coffeeScript(
                 files.pipe gulpPlugins.plumber errorHandler)
         }
     ]

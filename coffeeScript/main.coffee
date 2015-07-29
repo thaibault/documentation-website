@@ -32,17 +32,6 @@
 # #     $.Documentation trackingCode: 'google_traking_code', language:
 # #         allowedLanguages: []
 # #         sessionDescription: 'documentationWebsite{1}'
-this.less =
-    env: 'development'
-    async: false
-    fileAsync: false
-    poll: 1000
-    functions: {}
-    dumpLineNumbers: 'all'
-    relativeUrls: false
-    rootpath: ''
-    logLevel: 0
-    #sourceMap: true
 this.require.localStoragePathReminderPrefix =
     'documentationWebsiteResolvedDependency'
 this.require().basePath.coffee.push "#{this.require.basePath.coffee[0]}jQuery/"
