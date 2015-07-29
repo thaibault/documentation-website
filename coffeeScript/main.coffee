@@ -34,8 +34,8 @@
 # #         sessionDescription: 'documentationWebsite{1}'
 this.require.localStoragePathReminderPrefix =
     'documentationWebsiteResolvedDependency'
-this.require().basePath.coffee.push "#{this.require.basePath.coffee[0]}jQuery/"
-this.require.basePath.js.push "#{this.require.basePath.js[0]}jQuery/"
+this.require().basePath.coffee = ["#{this.require.basePath.coffee[0]}jQuery/"]
+this.require.basePath.js = ['/javaScript/jQuery/']
 this.require(
     [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']],
 ($) =>

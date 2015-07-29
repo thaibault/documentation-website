@@ -252,6 +252,17 @@ gulp.task 'developmentServer', -> developmentServer {
             pipeline: (files) -> coffeeScript(
                 files.pipe gulpPlugins.plumber errorHandler)
         }
+        {
+            url: /(?:^|.*\/)main\.js$/
+            pipeline: (files) -> coffeeScript(
+                files.pipe gulpPlugins.plumber errorHandler)
+        }
+        'jQuery/jquery-2.1.1', 'jQuery/jquery-observeHashChange-1.0'
+        'jQuery/jquery-scrollTo-2.1.0', 'jQuery/jquery-spin-2.0.1'
+
+        'jQuery/jquery-tools-1.0.coffee', 'jQuery/jquery-lang-1.0.coffee'
+        'jQuery/jquery-website-1.0.coffee'
+        'jQuery/jquery-documentation-1.0.coffee'
     ]
 }
 
