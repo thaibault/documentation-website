@@ -245,7 +245,7 @@ gulp.task 'developmentServer', -> developmentServer {
         {
             url: /.*\.coffee$/
             mimeType: 'text/js'
-            pipeline: (files) -> coffeeScript(
+            pipeline: (files) -> console.log('A');coffeeScript(
                 files.pipe gulpPlugins.plumber errorHandler)
         }
     ]
