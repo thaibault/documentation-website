@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 *.jade
+coffeeScript/.main.coffee
 
 ## Generic
 
