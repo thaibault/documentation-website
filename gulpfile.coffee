@@ -24,7 +24,7 @@ gulp.src = ->
 
 ROOT_PATH = './'
 CONFIGURATION =
-    rootPath: ROOT_PATH
+    rootPath: ROOT_PATH, debugBuild: true
     distributionPath: ROOT_PATH + 'build/'
     jade: compile_debug: false, debug: false, pretty: false
     coffee: {}
@@ -69,13 +69,23 @@ CONFIGURATION =
             '.doc', '.docx', '.js', '.pl', '.py', '.xml', '.csv', '.json'
             '.kml'
         ]
-    assetLocations:
+    assetLocation:
         cascadingStyleSheet: []
         sass: []
-        less: ['less/documentation-1.0.less']
-        # TODO define ordering!
-        javaScript: ['javaScript/**/*.js']
-        coffeeScript: ['coffeeScript/**/*.coffee']
+        less: ['less/main.less']
+        javaScript: [
+            'javaScript/jQuery/jquery-2.1.1.js'
+            'javaScript/jQuery/jquery-observeHashChange-1.0.js'
+            'javaScript/jQuery/jquery-scrollTo-2.1.0.js'
+            'javaScript/jQuery/jquery-spin-2.0.1.js'
+        ]
+        coffeeScript: [
+            'coffeeScript/jQuery/jquery-tools-1.0.coffee'
+            'coffeeScript/jQuery/jquery-lang-1.0.coffee'
+            'coffeeScript/jQuery/jquery-website-1.0.coffee'
+            'coffeeScript/jQuery/jquery-documentation-1.0.coffee'
+            'coffeeScript/main.coffee'
+        ]
         jade: ['*.jade']
         html: ['*.html']
         data: ['data/**/*.@(json|xml)']
@@ -166,10 +176,12 @@ coffeeScript = (source) ->
 # region tasks
 
 toData = (destination) ->
-    gulp.src(CONFIGURATION.assetLocations.data)
+    gulp.src(CONFIGURATION.assetLocation.data)
     .pipe(gulpPlugins.size showFiles: true)
-    .pipe(gulpPlugins.prettyData CONFIGURATION.prettyData)
-    .pipe(gulpPlugins.replace /^(\)]}',)/, '$1\n')
+    .pipe(gulpPlugins.if not CONFIGURATION.debugBuild, gulpPlugins.prettyData(
+        CONFIGURATION.prettyData))
+    .pipe(gulpPlugins.if not CONFIGURATION.debugBuild, gulpPlugins.replace(
+        /^(\)]}',)/, '$1\n'))
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(
         destination or CONFIGURATION.rootPath)
@@ -177,14 +189,19 @@ gulp.task 'data', -> toData CONFIGURATION.distributionPath
 toCascadingStyleSheet = (destination) ->
     streamqueue(
         {objectMode: true}
-        cascadingStyleSheet CONFIGURATION.assetLocations.cascadingStyleSheet
-        sass CONFIGURATION.assetLocations.sass
-        less CONFIGURATION.assetLocations.less
+        cascadingStyleSheet CONFIGURATION.assetLocation.cascadingStyleSheet
+        sass CONFIGURATION.assetLocation.sass
+        less CONFIGURATION.assetLocation.less
     )
     .on('error', ->)
+    .pipe(gulpPlugins.if CONFIGURATION.debugBuild, gulpPlugins.insert.wrap ((
+        file
+    ) -> "\n/* region file: #{file.path} */\n\n"), '\n\n/* endregion */\n')
+    .pipe(gulpPlugins.size showFiles: true)
     .pipe(gulpPlugins.concat 'main.css')
     .pipe(gulpPlugins.size showFiles: true)
-    .pipe(gulpPlugins.minifyCss CONFIGURATION.minifyCss)
+    .pipe(gulpPlugins.if not CONFIGURATION.debugBuild, gulpPlugins.minifyCss(
+        CONFIGURATION.minifyCss))
     .pipe(gulpPlugins.hashSrc CONFIGURATION.hash)
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(
@@ -194,13 +211,18 @@ gulp.task 'cascadingStyleSheet', -> toCascadingStyleSheet(
 toJavaScript = (destination) ->
     streamqueue(
         {objectMode: true}
-        javaScript CONFIGURATION.assetLocations.javaScript
-        coffeeScript CONFIGURATION.assetLocations.coffeeScript)
+        javaScript CONFIGURATION.assetLocation.javaScript
+        coffeeScript CONFIGURATION.assetLocation.coffeeScript)
     .on('error', ->)
+    .pipe(gulpPlugins.if CONFIGURATION.debugBuild, gulpPlugins.insert.wrap ((
+        file
+    ) -> "\n/* region file: #{file.path} */\n\n"), '\n\n/* endregion */\n')
     .pipe(gulpPlugins.ngAnnotate())
+    .pipe(gulpPlugins.size showFiles: true)
     .pipe(gulpPlugins.concat 'main.js')
     .pipe(gulpPlugins.size showFiles: true)
-    .pipe(gulpPlugins.uglify CONFIGURATION.uglify)
+    .pipe(gulpPlugins.if not CONFIGURATION.debugBuild, gulpPlugins.uglify(
+        CONFIGURATION.uglify))
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(
         destination or CONFIGURATION.rootPath)
@@ -209,11 +231,13 @@ gulp.task 'javaScript', -> toJavaScript(
 toHTML = (destination) ->
     streamqueue(
         {objectMode: true}
-        html CONFIGURATION.assetLocations.html
-        jade CONFIGURATION.assetLocations.jade)
+        html CONFIGURATION.assetLocation.html
+        jade CONFIGURATION.assetLocation.jade)
     .on('error', ->)
     .pipe(gulpPlugins.size showFiles: true)
-    .pipe(gulpPlugins.htmlMinifier(CONFIGURATION.htmlMinifier))
+    .pipe(gulpPlugins.if(
+        not CONFIGURATION.debugBuild, gulpPlugins.htmlMinifier(
+            CONFIGURATION.htmlMinifier)))
     .pipe(gulpPlugins.hashSrc CONFIGURATION.hashHTML)
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(
@@ -253,16 +277,15 @@ gulp.task 'developmentServer', -> developmentServer {
                 files.pipe gulpPlugins.plumber errorHandler)
         }
         {
-            url: /(?:^|.*\/)main\.js$/
-            pipeline: (files) -> coffeeScript(
-                files.pipe gulpPlugins.plumber errorHandler)
+            url: /^\/main\.js$/
+            pipeline: (files) -> toJavaScript()
+            #files.pipe gulpPlugins.plumber errorHandler)
         }
-        'jQuery/jquery-2.1.1', 'jQuery/jquery-observeHashChange-1.0'
-        'jQuery/jquery-scrollTo-2.1.0', 'jQuery/jquery-spin-2.0.1'
-
-        'jQuery/jquery-tools-1.0.coffee', 'jQuery/jquery-lang-1.0.coffee'
-        'jQuery/jquery-website-1.0.coffee'
-        'jQuery/jquery-documentation-1.0.coffee'
+        {
+            url: /^\/main\.css$/
+            pipeline: (files) -> toCascadingStyleSheet()
+            #files.pipe gulpPlugins.plumber errorHandler)
+        }
     ]
 }
 

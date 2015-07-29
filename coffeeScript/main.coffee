@@ -13,44 +13,10 @@
 
 # endregion
 
-###
-    Simple notation for the deployment script to know which dependencies are
-    needed.
-
-    require [
-        'jQuery/jquery-2.1.1', 'jQuery/jquery-observeHashChange-1.0'
-        'jQuery/jquery-scrollTo-2.1.0', 'jQuery/jquery-spin-2.0.1'
-
-        'jQuery/jquery-tools-1.0.coffee', 'jQuery/jquery-lang-1.0.coffee'
-        'jQuery/jquery-website-1.0.coffee'
-        'jQuery/jquery-documentation-1.0.coffee'
-    ]
-###
-
-# # production
-# # this.jQuery.noConflict() ($) ->
-# #     $.Documentation trackingCode: 'google_traking_code', language:
-# #         allowedLanguages: []
-# #         sessionDescription: 'documentationWebsite{1}'
-this.require.localStoragePathReminderPrefix =
-    'documentationWebsiteResolvedDependency'
-this.require().basePath.coffee = ["#{this.require.basePath.coffee[0]}jQuery/"]
-this.require.basePath.js = ['/javaScript/jQuery/']
-this.require(
-    [['jQuery.Documentation', 'jquery-documentation-1.0.coffee']],
-($) =>
-    ###
-        Embed $ and require full compatible to all other JavaScripts. The
-        global scope is clean after this sequence. The given function is called
-        when the dom-tree was loaded.
-    ###
-    this.require.clearOldPathReminder()
-    $.noConflict() ($) -> $.Documentation
-        trackingCode: 'google_traking_code', logging: true, language:
-            allowedLanguages: []
-            sessionDescription: 'documentationWebsite{1}'
-)
-# #
+this.jQuery.noConflict() ($) ->
+    $.Documentation trackingCode: 'google_traking_code', language:
+        allowedLanguages: []
+        sessionDescription: 'documentationWebsite{1}'
 
 # region vim modline
 

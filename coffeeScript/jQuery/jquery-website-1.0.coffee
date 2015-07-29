@@ -534,7 +534,7 @@ if this.require?
         ['jQuery.Lang', 'jquery-lang-1.0.coffee']
     ], main
 else
-    main null, null, this.jQuery
+    main this.jQuery
 
 # endregion
 
