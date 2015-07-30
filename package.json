@@ -44,5 +44,8 @@
     "indentation": {
       "value": 4
     }
+  },
+  "devDependencies": {
+    "imagemin": "^3.2.0"
   }
 }

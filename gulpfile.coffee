@@ -13,9 +13,8 @@ errorHandler = (error) ->
         'Error (' + error.plugin + '): ' + error.message)
     # Emit the end event, to properly end the task.
     this.emit 'end'
-nativeGulpSRC = gulp.src
-gulp.src = ->
-    nativeGulpSRC.apply(gulp, arguments)
+gulpSource = ->
+    gulp.src.apply(gulp, arguments)
     .pipe gulpPlugins.plumber errorHandler
 
 # endregion
@@ -24,9 +23,9 @@ gulp.src = ->
 
 ROOT_PATH = './'
 DEBUG_BUILD = true
+BUILD_PATH = ROOT_PATH + 'build/'
 CONFIGURATION =
-    rootPath: ROOT_PATH, debugBuild: DEBUG_BUILD
-    distributionPath: ROOT_PATH + 'build/'
+    rootPath: ROOT_PATH, debugBuild: DEBUG_BUILD, buildPath: BUILD_PATH
     jade: compile_debug: false, debug: false, pretty: DEBUG_BUILD
     coffee: {}
     htmlMinifier:
@@ -57,10 +56,11 @@ CONFIGURATION =
         process_import: true, relative_to: ROOT_PATH, restructuring: true
         root: ROOT_PATH, rounding_precision: -1, shorthand_compacting: true
         target: ROOT_PATH
+    imagemin: multipass: true, optimization_level: 7
     sass: paths: [ROOT_PATH]
     less: paths: [ROOT_PATH]
     hash:
-        build_dir: ROOT_PATH, src_path: ROOT_PATH, verbose: true
+        src_path: ROOT_PATH, build_dir: BUILD_PATH, verbose: true
         query_name: 'md5', hash: 'md5', exts: [
             '.jpg', '.jpeg', '.png', '.svg', '.ico', '.gif', '.tiff', '.bmp'
             '.webp', '.midi', '.mpeg', '.ogg', '.m4a', '.webm', '.3gpp'
@@ -142,34 +142,34 @@ CONFIGURATION.hashHTML.analyze = (match) ->
 html = (source) ->
     (if Object.prototype.toString.call(
         source
-    ) is '[object Object]' then source else gulp.src source)
+    ) is '[object Object]' then source else gulpSource source)
 jade = (source) ->
     (if Object.prototype.toString.call(
         source
-    ) is '[object Object]' then source else gulp.src source)
+    ) is '[object Object]' then source else gulpSource source)
     .pipe gulpPlugins.jade CONFIGURATION.jade
 cascadingStyleSheet = (source) ->
     (if Object.prototype.toString.call(
         source
-    ) is '[object Object]' then source else gulp.src source)
+    ) is '[object Object]' then source else gulpSource source)
 sass = (source) ->
     (if Object.prototype.toString.call(
         source
-    ) is '[object Object]' then source else gulp.src source)
+    ) is '[object Object]' then source else gulpSource source)
     .pipe(gulpPlugins.sass CONFIGURATION.sass)
 less = (source) ->
     (if Object.prototype.toString.call(
         source
-    ) is '[object Object]' then source else gulp.src source)
+    ) is '[object Object]' then source else gulpSource source)
     .pipe gulpPlugins.less CONFIGURATION.less
 javaScript = (source) ->
     (if Object.prototype.toString.call(
         source
-    ) is '[object Object]' then source else gulp.src source)
+    ) is '[object Object]' then source else gulpSource source)
 coffeeScript = (source) ->
     (if Object.prototype.toString.call(
         source
-    ) is '[object Object]' then source else gulp.src source)
+    ) is '[object Object]' then source else gulpSource source)
     .pipe gulpPlugins.coffee CONFIGURATION.coffee
 
 # endregion
@@ -177,7 +177,7 @@ coffeeScript = (source) ->
 # region tasks
 
 toData = (destination) ->
-    gulp.src(CONFIGURATION.assetLocation.data)
+    gulpSource(CONFIGURATION.assetLocation.data)
     .pipe(gulpPlugins.size showFiles: true)
     .pipe(gulpPlugins.if not CONFIGURATION.debugBuild, gulpPlugins.prettyData(
         CONFIGURATION.prettyData))
@@ -186,7 +186,7 @@ toData = (destination) ->
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(
         destination or CONFIGURATION.rootPath)
-gulp.task 'data', -> toData CONFIGURATION.distributionPath
+gulp.task 'data', -> toData CONFIGURATION.buildPath
 toCascadingStyleSheet = (destination) ->
     streamqueue(
         {objectMode: true}
@@ -208,7 +208,7 @@ toCascadingStyleSheet = (destination) ->
     .pipe gulpPlugins.if destination?, gulp.dest(
         destination or CONFIGURATION.rootPath)
 gulp.task 'cascadingStyleSheet', -> toCascadingStyleSheet(
-    CONFIGURATION.distributionPath + 'cascadingStyleSheet/')
+    CONFIGURATION.buildPath)
 toJavaScript = (destination) ->
     streamqueue(
         {objectMode: true}
@@ -227,8 +227,7 @@ toJavaScript = (destination) ->
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(
         destination or CONFIGURATION.rootPath)
-gulp.task 'javaScript', -> toJavaScript(
-    CONFIGURATION.distributionPath + 'javaScript/')
+gulp.task 'javaScript', -> toJavaScript CONFIGURATION.buildPath
 toHTML = (destination) ->
     streamqueue(
         {objectMode: true}
@@ -243,9 +242,16 @@ toHTML = (destination) ->
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(
         destination or CONFIGURATION.rootPath)
-gulp.task 'html', -> toHTML CONFIGURATION.distributionPath
+gulp.task 'html', ['cascadingStyleSheet', 'javaScript', 'data'], -> toHTML(
+    CONFIGURATION.buildPath)
 
 gulp.task 'default', ['html', 'javaScript', 'cascadingStyleSheet', 'data']
+
+gulp.task 'compressImage', ->
+    gulpSource(CONFIGURATION.assetLocation.image, base: './')
+    .pipe(gulpPlugins.imagemin CONFIGURATION.imagemin)
+    .pipe gulp.dest './'
+
 gulp.task 'developmentServer', -> developmentServer {
     connectModrewrite: ['^/?favicon.ico$ /image/favicon.ico']
     getResourcePipelines: (errorHandler) -> [

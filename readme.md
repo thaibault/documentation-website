@@ -1,7 +1,7 @@
 <!-- #!/usr/bin/env markdown
--*- coding: utf-8 -*-
+-*- coding: utf-8 -*- -->
 
-region header
+<!-- region header
 
 Copyright Torben Sickert 16.12.2012
 
@@ -16,8 +16,8 @@ endregion -->
 Use case
 --------
 
-This is my central development for all of my documentation or project
-presentation web pages.
+Here's my website development hosted (no security by obscurity :-)). See the
+gh-pages branch for the page load optimized version.
 
 <!-- region vim modline
 
