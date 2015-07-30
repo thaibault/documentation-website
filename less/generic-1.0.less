@@ -93,6 +93,7 @@ endregion */
         // css3
         background:         linear-gradient(@from, @to);
         .direction;
+        // internetExplorer 5 - 7
         // NOTE: Won't parse sometimes.
         // filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)", @to, @from));
     }
@@ -245,9 +246,11 @@ endregion */
                 opacity: @arguments;
         @valueInPercent: @value * 100;
         // internetExplorer 8
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=@{valueInPercent})";
+        // NOTE: Problems with animations.
+        // -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=@{valueInPercent})";
         // internetExplorer 5 - 7
-            filter: alpha(opacity=@valueInPercent);
+        // NOTE: Problems with animations.
+        //     filter: alpha(opacity=@valueInPercent);
     }
     // Apply a box layout model to a dom node.
     .box-sizing(@type: border-box) {

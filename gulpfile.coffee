@@ -23,10 +23,11 @@ gulp.src = ->
 # region configuration
 
 ROOT_PATH = './'
+DEBUG_BUILD = true
 CONFIGURATION =
-    rootPath: ROOT_PATH, debugBuild: true
+    rootPath: ROOT_PATH, debugBuild: DEBUG_BUILD
     distributionPath: ROOT_PATH + 'build/'
-    jade: compile_debug: false, debug: false, pretty: false
+    jade: compile_debug: false, debug: false, pretty: DEBUG_BUILD
     coffee: {}
     htmlMinifier:
         caseSensitive: false, collapseBooleanAttributes: true

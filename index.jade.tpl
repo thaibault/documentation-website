@@ -32,7 +32,7 @@ doctype html
 
 <% # endregion
 
-<% # region runtim e
+<% # region runtime
 
 <% URL = URL if URL else 'http://thaibault.github.com/%s' % NAME
 <% if not SOURCE_URL:
@@ -127,7 +127,7 @@ html(lang='<% LANGUAGE %>')
                         href='https://github.com/thaibault/<% NAME %>/tarball/master'
                     ) .tar.gz
                 <% START_UP_ANIMATION_NUMBER -= 1
-                i.website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>.icon-download-tarball
+                i.website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>.icon-download-arrow
                 <% for language in LANGUAGES:
                     <% START_UP_ANIMATION_NUMBER -= 1
                     a.tools-visible-on-javascript-enabled.website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>(
@@ -142,7 +142,9 @@ html(lang='<% LANGUAGE %>')
                     )
                         langreplace
                             | API
-                            span Documentation
+                            span
+                                = ' '
+                                | Documentation
                         //deDE:API<span>-Dokumentation</span>
                         //frFR:<span>Documentation de l'</span>API
                     <% START_UP_ANIMATION_NUMBER += 4 + length(LANGUAGES)
@@ -221,7 +223,9 @@ html(lang='<% LANGUAGE %>')
                     //deDE:<% NAME %> betrieben von
                     //frFR:<% NAME %> exploité par
                     a(href='https://github.com/thaibault') thaibault
+                    = ' '
                     | &middot; &copy; 2013 Torben Sickert &middot;
+                    = ' '
                     a(href='#about-this-website')
                         | about this website
                         //deDE:Impressum
@@ -232,6 +236,7 @@ html(lang='<% LANGUAGE %>')
         a(href='#top')
             | top
             //deDE:nach oben
+            //frFR:ascendant
 
         // region post load resources
 

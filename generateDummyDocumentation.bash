@@ -23,13 +23,18 @@ h3(id="a") english
 div.toc: ul
     li: a(href="#") english
     li: a(href="#") english
-    li: a(href="#content") Content//deDE:Inhalt
+    li: a(href="#content")
+        | Content
+        //deDE:Inhalt
     li
         //|deDE:JAU
         a(href="#content") Vor
-    li: a(href="#getting-in") Getting in//deDE:Einstieg: ul
-        li a(href="#a") a
-        li a(href="#b") b
+    li: a(href="#getting-in")
+        | Getting in
+        //deDE:Einstieg
+        ul
+            li: a(href="#a") a
+            li: a(href="#b") b
     li: a(href="#c") c
     ul: li
         a(href="#d") d
