@@ -178,25 +178,29 @@ html(lang='<% LANGUAGE %>')
                         | http://thaibault.github.io/<% NAME %>
                     | :
                     br
-                    Torben Sickert
+                    | Torben Sickert
                     br
-                    Christoph-Mang-Str. 14
+                    | Christoph-Mang-Str. 14
                     br
-                    79100 Freiburg
+                    | 79100 Freiburg
                     br
+                    | Phone:
+                    //deDE:Tel.:
+                    //frFR:Téléphone:
+                    = ' '
                     a(href='tel:004917610248185')
-                        | Phone
-                        //deDE:Tel.
-                        //frFR:Téléphone
                         | +49 (0) 176
                         span /
                         | 10 248 185
                     br
                     | Email:
+                    //deDE:E-Mail:
+                    = ' '
                     a(href='mailto:t.sickert@gmail.com')
                         | t.sickert@gmail.com
                     br
                     | Website:
+                    = ' '
                     //deDE:Webseite:
                     //frFR:Site:
                     a(href='http://thaibault.github.io/website')

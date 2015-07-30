@@ -67,23 +67,9 @@ table.codehilitetable: tr
         | 2
         | 3
     td.code: div.codehilite: pre
-        span.nt &lt;form
-        span.na method=
-        span.s &quot;get&quot;
-        span.na action=
-        span.s &quot;#&quot;
-        span.nt &gt;
-        span.nt &lt;input
-        span.na class=
-        span.s &quot;form-control&quot;
-        span.na type=
-        span.s &quot;text&quot;
-        span.na name=
-        span.s &quot;test&quot;
-        span.na value=
-        span.s &quot;4&quot;
-        span.nt /&gt;
-        span.nt &lt;/form&gt;
+        | <span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>
+        |     <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">&quot;form-control&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;test&quot;</span> <span class="na">value=</span><span class="s">&quot;4&quot;</span><span class="nt">/&gt;</span>
+        | <span class="nt">&lt;/form&gt;</span>
 p
     | Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.Lorem ipsum dolor
     | sit amet. Lorem ipsum dolor sit amet. sit amet. Lorem ipsum dolor sit
@@ -107,44 +93,12 @@ table.codehilitetable: tbody: tr
         | 111
         | 999
     td.code: div.codehilite: pre
-        span.err #
-        span.o !
-        span.err /usr/bin/env javaScript
-        span.kd var
-        span.nx tools
-        span.o =
-        span.nx jQuery
-        span.p .
-        span.nx Tools
-        span.p ({
-        span.s1 &#39;logging&#39;
-        span.o :
-        span.kc true
-        span.p });
-        span.kd var
-        span.nx tools
-        span.o =
-        span.nx jQuery
-        span.p .
-        span.nx Tools
-        span.p ({
-        span.s1 &#39;logging&#39;
-        span.o :
-        span.kc true
-        span.p });
-        span.c1 // An 79 chars comment: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-        span.nx tools
-        span.p .
-        span.nx log
-        span.p (
-        span.s1 &#39;test&#39;
-        span.p );
-        span.nx tools
-        span.p .
-        span.nx log
-        span.p (
-        span.s1 &#39;test&#39;
-        span.p );
+        | <span class="err">#</span><span class="o">!</span><span class="err">/usr/bin/env javaScript</span>
+        | <span class="kd">var</span> <span class="nx">tools</span> <span class="o">=</span><span class="nx">jQuery</span><span class="p">.</span><span class="nx">Tools</span><span class="p">({</span><span class="s1">&#39; logging&#39;</span><span class="o">:</span><span class="kc">true</span><span class="p">});</span>
+        | <span class="kd">var</span> <span class="nx">tools</span> <span class="o">=</span><span class="nx">jQuery</span><span class="p">.</span><span class="nx">Tools</span><span class="p">({</span><span class="s1">&#39;logging&#39;</span><span class="o">:</span><span class="kc">true</span><span class="p">});</span>
+        | <span class="c1">// An 79 chars comment: mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</span>
+        | <span class="nx">tools</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span>
+        | <span class="nx">tools</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span>
 h3(id="e") e
 table.codehilitetable: tr
     td.linenos: div.linenodiv: pre
@@ -167,32 +121,24 @@ table.codehilitetable: tr
         |17
         |18
     td.code: div.codehilite: pre
-        span.c #!/usr/bin/env bash
-
-        cat
-        | span.s &lt;&lt; EOF
-        span.s Usage: $0 &lt;initramfsFilePath&gt; [options]
-
-        span.s $__NAME__ installs an arch linux into an initramfs file.
-
-        span.s Option descriptions:
-
-        span.s \$(installArchLinuxPrintCommandLineOptionDescriptions &quot;\$@&quot; | \
-        span.s     sed &#39;/^ *-[a-z] --output-system .*$/,/^$/d&#39;)
-        span.s EOF
-
-        span.nv myTarget
-        span.o =
-        span.k \$(
-        mktemp
-        span.k )
-
-        | installArchLinux
-        span.s2 &quot;\$@&quot;
-        | --output-system
-        span.nv \$myTarget
-
-        span.c # test...
+        | <span class="c">#!/usr/bin/env bash</span>
+        | 
+        | cat span.s &lt;&lt; EOF
+        |     <span class="s">Usage: $0 &lt;initramfsFilePath&gt; [options]</span>
+        | 
+        |     <span class="s">\$__NAME__ installs an arch linux into an initramfs file.</span>
+        | 
+        |     <span class="s">Option descriptions:</span>
+        | 
+        |     <span class="s">\$(installArchLinuxPrintCommandLineOptionDescriptions &quot;\$@&quot; | \</span>
+        |     <span class="s">    sed &#39;/^ *-[a-z] --output-system .*$/,/^$/d&#39;)</span>
+        | <span class="s">EOF</span>
+        | 
+        | <span class="nv">myTarget</span><span class="o">=</span><span class="k">\$(</span>mktemp<span class="k">)</span>
+        | 
+        | installArchLinux <span class="s2">&quot;\$@&quot;</span> --output-system <span class="nv">\$myTarget</span>
+        | 
+        | <span class="c"># test...</span>
 p Lorem ipsum dolor sit amet...
 EOF
     }
