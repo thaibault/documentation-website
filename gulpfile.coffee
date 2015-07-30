@@ -51,10 +51,12 @@ CONFIGURATION =
             unsafe: false, unused: true, warnings: false
         mangle: true
     minifyCss:
-        advanced: true, aggressive_merging: true, compatibility: 'ie8'
-        keep_breaks: false, keep_special_comments: 0, media_merging: true
-        process_import: true, relative_to: ROOT_PATH, restructuring: true
-        root: ROOT_PATH, rounding_precision: -1, shorthand_compacting: true
+        advanced: not DEBUG_BUILD, aggressive_merging: not DEBUG_BUILD
+        compatibility: 'ie8', keep_breaks: DEBUG_BUILD
+        keep_special_comments: if DEBUG_BUILD then '*' else 0
+        media_merging: not DEBUG_BUILD, process_import: true
+        relative_to: ROOT_PATH, restructuring: not DEBUG_BUILD, root: ROOT_PATH
+        rounding_precision: -1, shorthand_compacting: not DEBUG_BUILD
         target: ROOT_PATH
     imagemin: multipass: true, optimization_level: 7
     sass: paths: [ROOT_PATH]
@@ -70,6 +72,7 @@ CONFIGURATION =
             '.doc', '.docx', '.js', '.pl', '.py', '.xml', '.csv', '.json'
             '.kml'
         ]
+    simpleAssetTypeNames: ['image', 'font']
     assetLocation:
         cascadingStyleSheet: []
         sass: []
@@ -91,6 +94,7 @@ CONFIGURATION =
         html: ['*.html']
         data: ['data/**/*.@(json|xml)']
         image: ['image/**']
+        font: ['font/**']
 CONFIGURATION.hashHTML = CONFIGURATION.hash
 CONFIGURATION.hashHTML.regex = ///
     (href|src)\s*=\s*(?:
@@ -176,6 +180,16 @@ coffeeScript = (source) ->
 
 # region tasks
 
+for simpleAssetTypeName in CONFIGURATION.simpleAssetTypeNames
+    functionName = "to#{simpleAssetTypeName.charAt(0).toUpperCase()}" +
+        simpleAssetTypeName.substring(1)
+    global[functionName] = do (simpleAssetTypeName) -> (destination) ->
+        gulpSource(CONFIGURATION.assetLocation[simpleAssetTypeName])
+        .pipe(gulpPlugins.size showFiles: true)
+        .pipe gulpPlugins.if destination?, gulp.dest(
+            destination or CONFIGURATION.rootPath)
+    gulp.task simpleAssetTypeName, do (functionName, simpleAssetTypeName) -> ->
+        global[functionName] CONFIGURATION.buildPath + simpleAssetTypeName
 toData = (destination) ->
     gulpSource(CONFIGURATION.assetLocation.data)
     .pipe(gulpPlugins.size showFiles: true)
@@ -201,14 +215,14 @@ toCascadingStyleSheet = (destination) ->
     .pipe(gulpPlugins.size showFiles: true)
     .pipe(gulpPlugins.concat 'main.css')
     .pipe(gulpPlugins.size showFiles: true)
-    .pipe(gulpPlugins.if not CONFIGURATION.debugBuild, gulpPlugins.minifyCss(
-        CONFIGURATION.minifyCss))
+    .pipe(gulpPlugins.minifyCss CONFIGURATION.minifyCss)
     .pipe(gulpPlugins.hashSrc CONFIGURATION.hash)
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(
         destination or CONFIGURATION.rootPath)
-gulp.task 'cascadingStyleSheet', -> toCascadingStyleSheet(
-    CONFIGURATION.buildPath)
+gulp.task 'cascadingStyleSheet', CONFIGURATION.simpleAssetTypeNames.concat(
+    ['data']
+), -> toCascadingStyleSheet CONFIGURATION.buildPath
 toJavaScript = (destination) ->
     streamqueue(
         {objectMode: true}
@@ -242,10 +256,11 @@ toHTML = (destination) ->
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(
         destination or CONFIGURATION.rootPath)
-gulp.task 'html', ['cascadingStyleSheet', 'javaScript', 'data'], -> toHTML(
-    CONFIGURATION.buildPath)
+gulp.task 'html', CONFIGURATION.simpleAssetTypeNames.concat([
+    'javaScript', 'cascadingStyleSheet', 'data'
+]), -> toHTML CONFIGURATION.buildPath
 
-gulp.task 'default', ['html', 'javaScript', 'cascadingStyleSheet', 'data']
+gulp.task 'default', ['html']
 
 gulp.task 'compressImage', ->
     gulpSource(CONFIGURATION.assetLocation.image, base: './')
