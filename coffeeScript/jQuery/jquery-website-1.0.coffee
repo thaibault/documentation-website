@@ -68,6 +68,12 @@ main = ($) ->
                 onChangeMediaQueryMode: $.noop()
                 onSwitchSection: $.noop()
                 onStartUpAnimationComplete: $.noop()
+                knownScrollEventNames:
+                    'scroll mousedown wheel DOMMouseScroll mousewheel keyup ' +
+                    'touchmove'
+                switchToManualScrollingIndicator: (event) -> (
+                    event.which > 0 or event.type is 'mousedown' or
+                    event.type is 'mousewheel' or event.type == 'touchmove')
                 additionalPageLoadingTimeInMilliseconds: 0
                 trackingCode: null
                 mediaQueryCssIndicator: [
@@ -359,6 +365,13 @@ ga('send', 'pageview');'''
 
                 **returns {$.Website}** - Returns the current instance.
             ###
+            # Stop automatic scrolling if the user wants to scroll manually.
+            $scrollTarget = $('body, html').add this.$domNodes.window
+            $scrollTarget.on(
+                this._options.knownScrollEventNames, (event) =>
+                    if this._options.switchToManualScrollingIndicator event
+                        $scrollTarget.stop true
+            )
             this.on this.$domNodes.window, 'scroll', =>
                 if this.$domNodes.window.scrollTop()
                     if this._viewportIsOnTop
