@@ -125,20 +125,22 @@ loadConfiguration = (debugBuild=true, rootPath='./', buildPath='./build') ->
                 {
                     url: /(?:^|.*\/)main\.js$/
                     pipeline: (files) ->
+                        ### TODO should support globs.
                         addWatcher(
                             CONFIGURATION.assetLocation.javaScript.concat(
-                                CONFIGURATION.assetLocation.coffeeScript))
+                                CONFIGURATION.assetLocation.coffeeScript))###
                         toJavaScript()
                 }
                 {
                     url: /(?:^|.*\/)main\.css$/
                     pipeline: (files) ->
-                        toCascadingStyleSheet()
+                        ### TODO should support globs.
                         addWatcher(
                             CONFIGURATION.assetLocation.cascadingStyleSheet
                             .concat(
                                 CONFIGURATION.assetLocation.sass
-                                CONFIGURATION.assetLocation.less))
+                                CONFIGURATION.assetLocation.less))###
+                        toCascadingStyleSheet()
                 }
             ]
     configuration.hashHTML = configuration.hash
