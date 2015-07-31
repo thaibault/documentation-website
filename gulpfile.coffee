@@ -93,7 +93,7 @@ loadConfiguration = (debugBuild=true, rootPath='./', buildPath='./build') ->
             font: ['font/**']
         developmentServer:
             connectModrewrite: ['^/?favicon.ico$ /image/favicon.ico']
-            getResourcePipelines: (errorHandler) -> [
+            getResourcePipelines: (errorHandler, addWatcher) -> [
                 {
                     url: /.*\.tpl$/
                     mimeType: 'text/plain'
@@ -124,17 +124,21 @@ loadConfiguration = (debugBuild=true, rootPath='./', buildPath='./build') ->
                 }
                 {
                     url: /(?:^|.*\/)main\.js$/
-                    pipeline: (files) -> toJavaScript()
-                    toWatch: CONFIGURATION.assetLocation.javaScript.concat(
-                        CONFIGURATION.assetLocation.coffeeScript)
+                    pipeline: (files) ->
+                        addWatcher(
+                            CONFIGURATION.assetLocation.javaScript.concat(
+                                CONFIGURATION.assetLocation.coffeeScript))
+                        toJavaScript()
                 }
                 {
                     url: /(?:^|.*\/)main\.css$/
-                    pipeline: (files) -> toCascadingStyleSheet()
-                    toWatch:
-                        CONFIGURATION.assetLocation.cascadingStyleSheet.concat(
-                            CONFIGURATION.assetLocation.sass
-                            CONFIGURATION.assetLocation.less)
+                    pipeline: (files) ->
+                        toCascadingStyleSheet()
+                        addWatcher(
+                            CONFIGURATION.assetLocation.cascadingStyleSheet
+                            .concat(
+                                CONFIGURATION.assetLocation.sass
+                                CONFIGURATION.assetLocation.less))
                 }
             ]
     configuration.hashHTML = configuration.hash
