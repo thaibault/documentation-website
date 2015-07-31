@@ -73,11 +73,6 @@ html(lang='<% LANGUAGE %>')
             type='text/css' rel='stylesheet'
             href='<% CASCADING_STYLE_SHEET_PATH %>main.css')
 
-        // HTML5 shim, for IE6-8 support of HTML5 elements
-        <!--[if lt IE 9]>
-        <script src="<% JAVA_SCRIPT_PATH %>html5shiv-3.7.0.js"></script>
-        <![endif]-->
-
         // endregion
 
     // endregion
