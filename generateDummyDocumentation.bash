@@ -146,7 +146,7 @@ EOF
 for render_file_path in index.jade.tpl coffeeScript/main.coffee.tpl; do
     template "$render_file_path" --pretty-indent --scope-variables \
         CONTENT_IN_JADE='true' TAGLINE='tagline' NAME='productName' \
-        LANGUAGE='en' LANGUAGES='' GOOGLE_TRACKING_CODE='google_traking_code' \
+        LANGUAGE='en' LANGUAGES='' GOOGLE_TRACKING_CODE='__none__' \
         URL='https://github.com/thaibault/documentationWebsite' \
         SOURCE_URL='https://github.com/thaibault/documentationWebsite' \
         CONTENT="$(printDummyDocumentationContent)" \

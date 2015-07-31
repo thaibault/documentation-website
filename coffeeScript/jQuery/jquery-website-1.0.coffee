@@ -501,13 +501,14 @@ ga('send', 'pageview');'''
                 $(window).scrollTo(
                     {top: 0, left: 0}, this._options.scrollToTop.options)
             this
-        _handleAnalytics: () ->
+        _handleAnalytics: ->
             ###
                 Executes the page tracking code.
 
-                **returns {$.Website}**   - Returns the current instance.
+                **returns {$.Website}** - Returns the current instance.
             ###
-            if this._options.trackingCode?
+            if this._options.trackingCode? and
+            this._options.trackingCode isnt '__none__'
                 this.debug(
                     "Run analytics code: \"#{this.__analyticsCode}\""
                     this._options.trackingCode, this._options.domain)

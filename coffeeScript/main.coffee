@@ -14,7 +14,7 @@
 # endregion
 
 this.jQuery.noConflict() ($) ->
-    $.Documentation trackingCode: 'google_traking_code', language:
+    $.Documentation trackingCode: '__none__', language:
         allowedLanguages: []
         sessionDescription: 'documentationWebsite{1}'
 
