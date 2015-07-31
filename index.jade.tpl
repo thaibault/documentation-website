@@ -80,12 +80,12 @@ html(lang='<% LANGUAGE %>')
     // region body
 
     body(class='documentation')
-        div.website-window-loading-cover.tools-visible-on-javascript-enabled
+        .website-window-loading-cover.tools-visible-on-javascript-enabled
             div
 
         // region header
 
-        div.header-wrap.outer: header.inner
+        .header-wrap.outer: header.inner
             <% START_UP_ANIMATION_NUMBER += 1
             a.website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>.forkme-banner(
                 href='<% SOURCE_URL %>'
@@ -152,7 +152,7 @@ html(lang='<% LANGUAGE %>')
 
         // region sections
 
-        div.main-content-wrap.outer
+        .main-content-wrap.outer
 
             // region main content
 
@@ -216,7 +216,7 @@ html(lang='<% LANGUAGE %>')
 
         // region footer
 
-        div.footer-wrap.outer
+        .footer-wrap.outer
             footer.inner
                 <% START_UP_ANIMATION_NUMBER += 1
                 p.website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>.copyright
