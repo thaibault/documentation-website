@@ -18,7 +18,7 @@ h3
     | Liability for content
     //deDE:Haftung für Inhalte
     //frFR:Responsabilité quant au contenu
-p.
+p
     | Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die
     | Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch
     | keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG
