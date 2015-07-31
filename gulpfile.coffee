@@ -200,7 +200,7 @@ toData = (destination) ->
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(
         destination or CONFIGURATION.rootPath)
-gulp.task 'data', -> toData CONFIGURATION.buildPath
+gulp.task 'data', -> toData CONFIGURATION.buildPath + 'data/'
 toCascadingStyleSheet = (destination) ->
     streamqueue(
         {objectMode: true}
@@ -222,7 +222,7 @@ toCascadingStyleSheet = (destination) ->
         destination or CONFIGURATION.rootPath)
 gulp.task 'cascadingStyleSheet', CONFIGURATION.simpleAssetTypeNames.concat(
     ['data']
-), -> toCascadingStyleSheet CONFIGURATION.buildPath
+), -> toCascadingStyleSheet CONFIGURATION.buildPath + 'cascadingStyleSheet/'
 toJavaScript = (destination) ->
     streamqueue(
         {objectMode: true}
@@ -241,7 +241,7 @@ toJavaScript = (destination) ->
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(
         destination or CONFIGURATION.rootPath)
-gulp.task 'javaScript', -> toJavaScript CONFIGURATION.buildPath
+gulp.task 'javaScript', -> toJavaScript CONFIGURATION.buildPath + 'javaScript/'
 toHTML = (destination) ->
     streamqueue(
         {objectMode: true}

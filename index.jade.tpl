@@ -69,7 +69,9 @@ html(lang='<% LANGUAGE %>')
 
         // region pre load resources
 
-        link(type='text/css' rel='stylesheet' href='main.css')
+        link(
+            type='text/css' rel='stylesheet'
+            href='<% CASCADING_STYLE_SHEET_PATH %>main.css')
 
         // HTML5 shim, for IE6-8 support of HTML5 elements
         <!--[if lt IE 9]>
@@ -244,7 +246,7 @@ html(lang='<% LANGUAGE %>')
 
         // region post load resources
 
-        script(type='text/javascript' src='main.js')
+        script(type='text/javascript' src='<% JAVA_SCRIPT_PATH %>main.js')
 
         // endregion
 
