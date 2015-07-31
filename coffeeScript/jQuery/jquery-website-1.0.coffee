@@ -508,7 +508,8 @@ ga('send', 'pageview');'''
                 **returns {$.Website}** - Returns the current instance.
             ###
             if this._options.trackingCode? and
-            this._options.trackingCode isnt '__none__'
+            this._options.trackingCode isnt '__none__' and
+            window.location.hostname isnt 'localhost'
                 this.debug(
                     "Run analytics code: \"#{this.__analyticsCode}\""
                     this._options.trackingCode, this._options.domain)
