@@ -161,8 +161,8 @@ html(lang='<% LANGUAGE %>')
 
             // region main content
 
-            section.main-content.inner.
-                <% RENDERED_MARKDOWN.replace('\n', '\n                ') %>
+            section.main-content.inner<% '' if 'CONTENT_IN_JADE' in locals() and CONTENT_IN_JADE else '.' %>
+                <% CONTENT.replace('\n', '\n                ') %>
 
             // endregion
 

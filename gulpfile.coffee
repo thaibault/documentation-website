@@ -299,12 +299,12 @@ gulp.task 'developmentServer', -> developmentServer {
                 files.pipe gulpPlugins.plumber errorHandler)
         }
         {
-            url: /^\/main\.js$/
+            url: /(?:^|.*\/)main\.js$/
             pipeline: (files) -> toJavaScript()
             #files.pipe gulpPlugins.plumber errorHandler)
         }
         {
-            url: /^\/main\.css$/
+            url: /(?:^|.*\/)main\.css$/
             pipeline: (files) -> toCascadingStyleSheet()
             #files.pipe gulpPlugins.plumber errorHandler)
         }

@@ -102,15 +102,15 @@ table.codehilitetable: tbody: tr
 h3(id="e") e
 table.codehilitetable: tr
     td.linenos: div.linenodiv: pre.
-         1
-         2
-         3
-         4
-         5
-         6
-         7
-         8
-         9
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
         10
         11
         12
@@ -145,11 +145,11 @@ EOF
 
 for render_file_path in index.jade.tpl coffeeScript/main.coffee.tpl; do
     template "$render_file_path" --pretty-indent --scope-variables \
-        TAGLINE='tagline' NAME='productName' LANGUAGE='en' LANGUAGES='' \
-        GOOGLE_TRACKING_CODE='google_traking_code' \
+        CONTENT_IN_JADE='true' TAGLINE='tagline' NAME='productName' \
+        LANGUAGE='en' LANGUAGES='' GOOGLE_TRACKING_CODE='google_traking_code' \
         URL='https://github.com/thaibault/documentationWebsite' \
         SOURCE_URL='https://github.com/thaibault/documentationWebsite' \
-        RENDERED_MARKDOWN="$(printDummyDocumentationContent)" \
+        CONTENT="$(printDummyDocumentationContent)" \
     1>"$(sed --regexp-extended 's/^(.+)\.[^\.]+$/\1/g' <<< "$render_file_path")"
 done
 
