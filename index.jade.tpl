@@ -159,7 +159,7 @@ html(lang='<% LANGUAGE %>')
 
             // region main content
 
-            section.main-content.inner
+            section.main-content.inner.
                 <% RENDERED_MARKDOWN.replace('\n', '\n                ') %>
 
             // endregion
