@@ -21,7 +21,7 @@ gulpSource = ->
 
 # region configuration
 
-loadConfiguration = (debugBuild=true, rootPath='./', buildPath='./build') ->
+loadConfiguration = (debugBuild=true, rootPath='./', buildPath='./build/') ->
     configuration =
         rootPath: rootPath, debugBuild: debugBuild, buildPath: buildPath
         jade: compile_debug: false, debug: false, pretty: debugBuild
@@ -49,10 +49,10 @@ loadConfiguration = (debugBuild=true, rootPath='./', buildPath='./build') ->
                 unsafe: false, unused: true, warnings: false
             mangle: true
         minifyCss:
-            advanced: true, aggressive_merging: true, compatibility: 'ie8'
-            keep_breaks: false, keep_special_comments: 0, media_merging: true
-            process_import: true, restructuring: true, rounding_precision: -1
-            shorthand_compacting: true, relative_to: buildPath
+            advanced: true, aggressiveMerging: true, compatibility: 'ie8'
+            keepBreaks: false, keepSpecialComments: 0, mediaMerging: true
+            processImport: true, restructuring: true, roundingPrecision: -1
+            shorthandCompacting: true, relativeTo: buildPath, rebase: true
             target: rootPath
         imagemin: multipass: true, optimization_level: 7
         sass: paths: [rootPath]
@@ -267,8 +267,25 @@ global.toCascadingStyleSheet = (destination) ->
     .pipe(gulpPlugins.size showFiles: true)
     .pipe(gulpPlugins.concat 'main.css')
     .pipe(gulpPlugins.size showFiles: true)
-    # NOTE: We only process imports first to rebase all images later.
-
+    # NOTE: We only process imports.
+    .pipe(gulpPlugins.minifyCss {
+        advanced: false, aggressiveMerging: false, compatibility: 'ie8'
+        keepBreaks: true, keepSpecialComments: '*', mediaMerging: false
+        processImport: true, restructuring: false, roundingPrecision: -1
+        shorthandCompacting: false, rebase: false, root: CONFIGURATION.rootPath
+        relativeTo: CONFIGURATION.rootPath, target: CONFIGURATION.rootPath
+    })
+    # NOTE: We only process resource references.
+    .pipe(gulpPlugins.if(
+        CONFIGURATION.rootPath isnt CONFIGURATION.buildPath
+        gulpPlugins.minifyCss {
+            advanced: false, aggressiveMerging: false, compatibility: 'ie8'
+            keepBreaks: true, keepSpecialComments: '*', mediaMerging: false
+            processImport: true, restructuring: false, roundingPrecision: -1
+            shorthandCompacting: false, rebase: true
+            relativeTo: './cascadingStyleSheet/'
+            target: CONFIGURATION.buildPath
+        }))
     .pipe(gulpPlugins.if not CONFIGURATION.debugBuild, gulpPlugins.minifyCss(
         CONFIGURATION.minifyCss))
     .pipe(gulpPlugins.hashSrc CONFIGURATION.hash)
