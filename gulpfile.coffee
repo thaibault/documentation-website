@@ -94,6 +94,33 @@ loadConfiguration = (debugBuild=true, rootPath='./', buildPath='./build/') ->
         developmentServer:
             connectModrewrite: ['^/?favicon.ico$ /image/favicon.ico']
             getResourcePipelines: (errorHandler, addWatcher) -> [
+                # TODO manage error handler!
+                {
+                    url: /(?:^|.*\/)index\.jade$/
+                    mimeType: 'text/html'
+                    pipeline: (files) -> toHTML()
+                }
+                {
+                    url: /(?:^|.*\/)main\.js$/
+                    pipeline: (files) ->
+                        ### TODO should support globs.
+                        addWatcher(
+                            CONFIGURATION.assetLocation.javaScript.concat(
+                                CONFIGURATION.assetLocation.coffeeScript))###
+                        toJavaScript()
+                }
+                {
+                    url: /(?:^|.*\/)main\.css$/
+                    pipeline: (files) ->
+                        ### TODO should support globs.
+                        addWatcher(
+                            CONFIGURATION.assetLocation.cascadingStyleSheet
+                            .concat(
+                                CONFIGURATION.assetLocation.sass
+                                CONFIGURATION.assetLocation.less))###
+                        toCascadingStyleSheet()
+                }
+                # Simple assets for debugging.
                 {
                     url: /.*\.tpl$/
                     mimeType: 'text/plain'
@@ -121,26 +148,6 @@ loadConfiguration = (debugBuild=true, rootPath='./', buildPath='./build/') ->
                     mimeType: 'text/js'
                     pipeline: (files) -> coffeeScript(
                         files.pipe gulpPlugins.plumber errorHandler)
-                }
-                {
-                    url: /(?:^|.*\/)main\.js$/
-                    pipeline: (files) ->
-                        ### TODO should support globs.
-                        addWatcher(
-                            CONFIGURATION.assetLocation.javaScript.concat(
-                                CONFIGURATION.assetLocation.coffeeScript))###
-                        toJavaScript()
-                }
-                {
-                    url: /(?:^|.*\/)main\.css$/
-                    pipeline: (files) ->
-                        ### TODO should support globs.
-                        addWatcher(
-                            CONFIGURATION.assetLocation.cascadingStyleSheet
-                            .concat(
-                                CONFIGURATION.assetLocation.sass
-                                CONFIGURATION.assetLocation.less))###
-                        toCascadingStyleSheet()
                 }
             ]
     configuration.hashHTML = configuration.hash
