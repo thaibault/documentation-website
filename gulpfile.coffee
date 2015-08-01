@@ -68,7 +68,6 @@ loadConfiguration = (debugBuild=true, rootPath='./', buildPath='./build/') ->
                 '.pdf', '.rtf', '.ps', '.doc', '.docx', '.js', '.pl', '.py'
                 '.xml', '.csv', '.json', '.kml'
             ]
-        simpleAssetTypeNames: ['image', 'font']
         assetLocation:
             cascadingStyleSheet: []
             sass: []
@@ -81,6 +80,7 @@ loadConfiguration = (debugBuild=true, rootPath='./', buildPath='./build/') ->
                 # TODO
                 'javaScript/jQuery/jquery-swipe-2.0.js'
                 'javaScript/jQuery/bootstrap-3.2.0.js'
+                '!**/node_modules/**', '!**/.*/**'
             ]
             coffeeScript: [
                 'coffeeScript/jQuery/jquery-tools-1.0.coffee'
@@ -90,12 +90,19 @@ loadConfiguration = (debugBuild=true, rootPath='./', buildPath='./build/') ->
                 #'coffeeScript/jQuery/jquery-documentation-1.0.coffee'
                 'coffeeScript/jQuery/jquery-homePage-1.0.coffee'
                 'coffeeScript/main.coffee'
+                '!**/node_modules/**', '!**/.*/**'
             ]
-            jade: ['*.jade']
-            html: ['*.html']
-            data: ['data/**/*.@(json|xml|pdf|txt|vcf)']
-            image: ['image/**']
-            font: ['font/**']
+            jade: ['*.jade', '!**/node_modules/**', '!**/.*/**']
+            html: ['*.html', '!**/node_modules/**', '!**/.*/**']
+            data: [
+                'data/**/*.@(json|xml|pdf|txt|vcf)', '!**/node_modules/**'
+                '!**/.*/**'
+            ]
+            # NOTE: All simple asset types (with no preprocessing) have this
+            # structure and will be determined therefor.
+            image: image: ['image/**', '!**/node_modules/**', '!**/.*/**']
+            font: font: ['font/**', '!**/node_modules/**', '!**/.*/**']
+            text: './': ['**/*.txt', '!**/node_modules/**', '!**/.*/**']
         developmentServer:
             connectModrewrite: ['^/?favicon.ico$ /image/favicon.ico']
             getResourcePipelines: (errorHandler, addWatcher) -> [
@@ -242,16 +249,20 @@ coffeeScript = (source) ->
 
 # region tasks
 
-for simpleAssetTypeName in CONFIGURATION.simpleAssetTypeNames
-    functionName = "to#{simpleAssetTypeName.charAt(0).toUpperCase()}" +
-        simpleAssetTypeName.substring(1)
-    global[functionName] = do (simpleAssetTypeName) -> (destination) ->
-        gulpSource(CONFIGURATION.assetLocation[simpleAssetTypeName])
-        .pipe(gulpPlugins.size showFiles: true)
-        .pipe gulpPlugins.if destination?, gulp.dest(
-            destination or CONFIGURATION.rootPath)
-    gulp.task simpleAssetTypeName, do (functionName, simpleAssetTypeName) -> ->
-        global[functionName] CONFIGURATION.buildPath + simpleAssetTypeName
+for simpleAssetTypeName, mapping of CONFIGURATION.assetLocation
+    if Object.prototype.toString.call(mapping) isnt '[object Array]'
+        functionName = "to#{simpleAssetTypeName.charAt(0).toUpperCase()}" +
+            simpleAssetTypeName.substring(1)
+        source = mapping[Object.keys(mapping)[0]]
+        target = Object.keys(mapping)[0]
+        global[functionName] = do (source) -> (destination) ->
+            gulpSource(source)
+            .pipe(gulpPlugins.size showFiles: true)
+            .pipe gulpPlugins.if destination?, gulp.dest(
+                destination or CONFIGURATION.rootPath)
+        gulp.task simpleAssetTypeName, do (
+            functionName, target
+        ) -> -> global[functionName] CONFIGURATION.buildPath + target
 
 global.toData = (destination) ->
     gulpSource(CONFIGURATION.assetLocation.data)
@@ -304,9 +315,13 @@ global.toCascadingStyleSheet = (destination) ->
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(
         destination or CONFIGURATION.rootPath)
-gulp.task 'cascadingStyleSheet', CONFIGURATION.simpleAssetTypeNames.concat(
-    ['data']
-), -> toCascadingStyleSheet CONFIGURATION.buildPath + 'cascadingStyleSheet/'
+
+gulp.task 'cascadingStyleSheet', Object.keys(
+    CONFIGURATION.assetLocation
+).filter((key) -> Object.prototype.toString.call(
+    CONFIGURATION.assetLocation[key]
+) isnt '[object Array]').concat(['data']), -> toCascadingStyleSheet(
+    CONFIGURATION.buildPath + 'cascadingStyleSheet/')
 
 global.toJavaScript = (destination) ->
     streamqueue(
@@ -342,9 +357,13 @@ global.toHTML = (destination) ->
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(
         destination or CONFIGURATION.rootPath)
-gulp.task 'html', CONFIGURATION.simpleAssetTypeNames.concat([
-    'javaScript', 'cascadingStyleSheet', 'data'
-]), -> toHTML CONFIGURATION.buildPath
+
+gulp.task 'html', Object.keys(CONFIGURATION.assetLocation).filter((key) ->
+    Object.prototype.toString.call(
+        CONFIGURATION.assetLocation[key]
+    ) isnt '[object Array]'
+).concat(['javaScript', 'cascadingStyleSheet', 'data']), -> toHTML(
+    CONFIGURATION.buildPath)
 
 gulp.task 'default', ['html']
 
