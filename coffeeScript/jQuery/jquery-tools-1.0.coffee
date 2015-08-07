@@ -64,7 +64,25 @@ main = ($) ->
             NUMPAD_DECIMAL: 110, NUMPAD_DIVIDE: 111, NUMPAD_ENTER: 108
             NUMPAD_MULTIPLY: 106, NUMPAD_SUBTRACT: 109, PAGE_DOWN: 34
             PAGE_UP: 33, PERIOD: 190, RIGHT: 39, SPACE: 32, TAB: 9, UP: 38
-        ###Saves currently minimal supported internet explorer version.###
+        ###
+            **transitionEndEventNames {String}**
+            Saves a string with all css3 browser specific transition end event
+            names.
+        ###
+        transitionEndEventNames:
+            'transitionend webkitTransitionEnd oTransitionEnd ' +
+            'MSTransitionEnd'
+        ###
+            **animationEndEventNames {String}**
+            Saves a string with all css3 browser specific animation end event
+            names.
+        ###
+        animationEndEventNames:
+            'animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd'
+        ###
+            **maximalsupportedinternetexplorerversion {String}**
+            Saves currently minimal supported internet explorer version.
+        ###
         maximalSupportedInternetExplorerVersion: do ->
             ###Returns zero if no internet explorer present.###
             div = document.createElement 'div'
@@ -502,7 +520,8 @@ main = ($) ->
             "#{delimitedName}, .#{delimitedName}, [#{delimitedName}], " +
             "[data-#{delimitedName}], [x-#{delimitedName}]" + (
                 if delimitedName.indexOf('-') is -1 then '' else \
-                ", [#{delimitedName.replace '-', '\\:'}]")
+                (", [#{delimitedName.replace '-', '\\:'}], " +
+                "[#{delimitedName.replace '-', '_'}]"))
         removeDirective: (directiveName) ->
             ###
                 Removes a directive name corresponding class or attribute.
@@ -516,7 +535,29 @@ main = ($) ->
                 delimitedName
             ).removeAttr("data-#{delimitedName}").removeAttr(
                 "x-#{delimitedName}"
-            ).removeAttr delimitedName.replace '-', ':'
+            ).removeAttr(delimitedName.replace '-', ':').removeAttr(
+                delimitedName.replace '-', '_')
+        getNormalizedDirectiveName: (directiveName) ->
+            ###
+                Determines a normalized camel case directive name
+                representation.
+
+                **directiveName {String}** - The directive name
+
+                **return {String}**        - Returns the corresponding name
+            ###
+            for delimiter in ['-', ':', '_']
+                prefixFound = false
+                for prefix in ['data' + delimiter, 'x' + delimiter]
+                    if this.stringStartsWith directiveName, prefix
+                        directiveName = directiveName.substring prefix.length
+                        prefixFound = true
+                        break
+                break if prefixFound
+            for delimiter in ['-', ':', '_']
+                directiveName = this.stringDelimitedToCamelCase(
+                    directiveName, delimiter)
+            directiveName
         getDirectiveValue: (directiveName) ->
             ###
                 Determines a directive attribute value.
