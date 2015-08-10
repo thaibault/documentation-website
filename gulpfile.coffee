@@ -74,7 +74,7 @@ loadConfiguration = (debugBuild=true, rootPath='./', buildPath='./build/') ->
             less: ['less/main.less']
             javaScript: []
             coffeeScript: []
-            jade: ['*.jade', '!**/node_modules/**', '!**/.*/**']
+            jade: ['*.jade', '!*aboutThisWebsite.jade', '!**/node_modules/**', '!**/.*/**']
             html: ['*.html', '!**/node_modules/**', '!**/.*/**']
             data: [
                 'data/**/*.@(json|xml|pdf|txt|vcf)', '!**/node_modules/**'
