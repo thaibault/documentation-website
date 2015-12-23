@@ -36,7 +36,7 @@ loadConfiguration = (metaOptions={}) ->
             keepClosingSlash: false, minifyCSS: true, minifyJS: true
             minifyURLs: true, preserveLineBreaks: true
             preventAttributesEscaping: false, removeAttributeQuotes: true
-            removeCDATASectionsFromCDATA: true, removeComments: true
+            removeCDATASectionsFromCDATA: true, removeComments: false
             removeCommentsFromCDATA: true, removeEmptyAttributes: true
             removeEmptyElements: false, removeIgnored: true
             removeOptionalTags: true, removeRedundantAttributes: true
