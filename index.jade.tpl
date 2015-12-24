@@ -28,7 +28,9 @@ doctype html
 <% COFFEE_SCRIPT_PATH = 'coffeeScript/'
 <% JAVA_SCRIPT_PATH = 'javaScript/'
 
-<% DISTRIBUTION_BUNDLE_FILE_PATH = 'distributionBundle.zip'
+<% DATA_PATH = 'data/'
+
+<% DISTRIBUTION_BUNDLE_FILE_PATH = DATA_PATH + 'distributionBundle.zip'
 
 <% # endregion
 
