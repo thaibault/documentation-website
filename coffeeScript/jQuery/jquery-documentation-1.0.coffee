@@ -283,7 +283,7 @@ main = ($) ->
                             ).text code
                         else if match[2]? and $.inArray(
                             match[2].toLowerCase(), [
-                                'css', 'cascadingstylesheets', 'stylesheets',
+                                'css', 'cascadingstylesheets', 'stylesheets'
                                 'sheets', 'style']
                         ) isnt -1
                             $codeDomNode.after $('<style>').attr(
