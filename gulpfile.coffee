@@ -23,7 +23,7 @@ gulpSource = ->
 
 loadConfiguration = (metaOptions={}) ->
     options = extend true, {
-        debugBuild: false, rootPath: './', buildPath: './build/'
+        debugBuild: true, rootPath: './', buildPath: './build/'
     }, metaOptions
     configuration =
         rootPath: options.rootPath, debugBuild: options.debugBuild
