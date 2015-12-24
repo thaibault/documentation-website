@@ -55,7 +55,7 @@ html(lang='<% LANGUAGE %>')
             name='viewport' content='width=device-width, initial-scale=1.0')
         meta(
             name='description'
-            content='<% RegularExpression('^(.+?)<!--.+-->$').sub('\1', TAGLINE) %>')
+            content='<% RegularExpression('^(.+?)<!--.+-->$').sub('\1', TAGLINE).replace("'", "\\'") %>')
 
         // endregion
 
