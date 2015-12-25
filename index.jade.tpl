@@ -226,7 +226,7 @@ html(lang='<% LANGUAGE %>')
                     //deDE:<% NAME %> betrieben von
                     //frFR:<% NAME %> exploité par
                     = ' '
-                    a(href='https://github.com/thaibault') thaibault
+                    a(href='http://torben.website') thaibault
                     = ' '
                     | &middot; &copy; 2013 Torben Sickert &middot;
                     = ' '
