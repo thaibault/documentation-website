@@ -157,7 +157,7 @@ main = ($) ->
             this.$domNodes.tableOfContentLinks.add(
                 this.$domNodes.aboutThisWebsiteLink
             ).add(this.$domNodes.homeLink).filter(
-                "a[href=\"#{hash}\"]"
+                "a[href=\"##{sectionName}\"]"
             ).trigger 'click'
             super
         _onStartUpAnimationComplete: ->
