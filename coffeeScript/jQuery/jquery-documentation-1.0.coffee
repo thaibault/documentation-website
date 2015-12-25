@@ -148,7 +148,7 @@ main = ($) ->
                this._activateLanguageSupport and not this._languageHandler?)
                 this._languageHandler = $.Lang this._options.language
             this
-        _onSwitchSection: (hash) ->
+        _onSwitchSection: (sectionName) ->
             ###
                 This method triggers if we change the current section.
 
@@ -159,7 +159,7 @@ main = ($) ->
             ).add(this.$domNodes.homeLink).filter(
                 "a[href=\"#{hash}\"]"
             ).trigger 'click'
-            super()
+            super
         _onStartUpAnimationComplete: ->
             ###
                 This method triggers if all startup animations are ready.
@@ -173,10 +173,10 @@ main = ($) ->
             this.startUpAnimationIsComplete = true
             this.$domNodes.tableOfContentLinks.add(
                 this.$domNodes.aboutThisWebsiteLink
-            ).filter("a[href=\"#{window.location.href.substr(
+            ).filter('a[href="' + window.location.href.substr(
                 window.location.href.indexOf '#'
-            )}\"]").trigger 'click'
-            super()
+            ) + '"]').trigger 'click'
+            super
 
         # endregion
 
@@ -226,7 +226,7 @@ main = ($) ->
             newContent = ''
             try
                 $content = $ content
-                throw 'error' if not $content.length
+                throw window.Error('error') if not $content.length
             catch error
                 # NOTE: Wrap an element around to grantee that $ will accept
                 # the input. We don't wrap an element in general to iterate
