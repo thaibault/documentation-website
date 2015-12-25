@@ -49,6 +49,6 @@
   },
   "devDependencies": {
     "developmentServer": "git+ssh://git@github.com/thaibault/developmentServer.git",
-    "gulp-imagemin": "^2.3.0"
+    "gulp-imagemin": "*"
   }
 }
