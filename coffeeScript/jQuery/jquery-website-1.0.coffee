@@ -122,9 +122,9 @@ main = ($) ->
                         showAnimation: duration: 'normal'
                         hideAnimation: duration: 'normal'
                 domain: 'auto'
-            }, @startUpAnimationIsComplete=false, @_viewportIsOnTop=false,
-            @_currentMediaQueryMode='', @languageHandler=null,
-            @__analyticsCode={
+            }, @startUpAnimationIsComplete=false, @currentSectionName=null
+            @_viewportIsOnTop=false, @_currentMediaQueryMode=''
+            @languageHandler=null, @__analyticsCode={
                 initial: '''
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new window.Date();
@@ -337,15 +337,21 @@ window.ga(
 
                 **returns {$.Website}**  - Returns the current instance.
             ###
-            if this._options.trackingCode? and
-            this._options.trackingCode isnt '__none__' and
-            window.location.hostname isnt 'localhost'
+            if(
+                this._options.trackingCode? and
+                this._options.trackingCode isnt '__none__' and
+                window.location.hostname isnt 'localhost' and
+                this.currentSectionName isnt sectionName
+            )
+                this.currentSectionName = sectionName
                 this.debug(
                     'Run analytics code: "' +
-                    "#{this.__analyticsCode.sectionSwitch}\"", sectionName)
+                    "#{this.__analyticsCode.sectionSwitch}\""
+                    this.currentSectionName)
                 try
                     (new window.Function(this.stringFormat(
-                        this.__analyticsCode.sectionSwitch, sectionName
+                        this.__analyticsCode.sectionSwitch
+                        this.currentSectionName
                     )))()
                 catch exception
                     this.warn(
