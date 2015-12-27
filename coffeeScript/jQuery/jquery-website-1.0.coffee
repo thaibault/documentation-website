@@ -149,6 +149,12 @@ window.ga(
 
                 **returns {$.Website}** - Returns the current instance.
             ###
+            if not this.currenSectionName?
+                if window.location.hash
+                    this.currentSectionName = window.location.hash.substring(
+                        '#'.length)
+                else
+                    this.currenSectionName = 'home'
             # Wrap event methods with debounceing handler.
             this._onViewportMovesToTop = this.debounce(
                 this.getMethod this._onViewportMovesToTop)
@@ -565,18 +571,15 @@ window.ga(
             if this._options.trackingCode? and
             this._options.trackingCode isnt '__none__' and
             window.location.hostname isnt 'localhost'
-                sectionName = 'home'
-                if window.location.hash
-                    sectionName = window.location.hash.substring '#'.length
                 this.debug(
                     "Run analytics code: \"#{this.__analyticsCode.initial}\""
                     this._options.trackingCode, this._options.domain
-                    sectionName)
+                    this.currentSectionName)
                 try
                     (new window.Function(this.stringFormat(
                         this.__analyticsCode.initial
                         this._options.trackingCode, this._options.domain
-                        sectionName
+                        this.currentSectionName
                     )))()
                 catch exception
                     this.warn(
@@ -587,8 +590,10 @@ window.ga(
                 ) =>
                     $domNode = $ event.target
                     this.triggerAnalyticsEvent(
-                        sectionName, 'click', $domNode.text(), event.data or {}
-                        $domNode.attr('website-analytics-value') or 1)
+                        this.currentSectionName, 'click', $domNode.text()
+                        event.data or {}, $domNode.attr(
+                            'website-analytics-value'
+                        ) or 1)
             this
 
         # endregion
