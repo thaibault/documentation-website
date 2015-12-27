@@ -132,8 +132,8 @@ a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;
 m.parentNode.insertBefore(a,m)})(
 window,document,'script','//www.google-analytics.com/analytics.js','ga');
 window.ga('create', '{1}', '{2}');
-window.ga('set','anonymizeIp',true);
-window.ga('send', 'pageview', '{3}');'''
+window.ga('set', 'anonymizeIp', true);
+window.ga('send', 'pageview', {page: '{3}'});'''
                 sectionSwitch: "window.ga('send', 'pageview', {page: '{1}'});"
                 event: '''
 window.ga(
