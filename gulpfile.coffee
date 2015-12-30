@@ -52,7 +52,7 @@ loadConfiguration = (metaOptions={}) ->
                 properties: true, sequences: true, side_effects: true
                 unsafe: false, unused: true, warnings: false
             mangle: true
-        cssnano:
+        minifyCss:
             advanced: true, aggressiveMerging: true, compatibility: 'ie8'
             keepBreaks: false, keepSpecialComments: 0, mediaMerging: true
             processImport: true, restructuring: true, roundingPrecision: -1
@@ -283,7 +283,7 @@ global.toCascadingStyleSheet = (destination) ->
     .pipe(gulpPlugins.concat 'main.css')
     .pipe(gulpPlugins.size showFiles: true)
     # NOTE: We only process imports.
-    .pipe(gulpPlugins.cssnano {
+    .pipe(gulpPlugins.minifyCss {
         advanced: false, aggressiveMerging: false, compatibility: 'ie8'
         keepBreaks: true, keepSpecialComments: '*', mediaMerging: false
         processImport: true, restructuring: false, roundingPrecision: -1
@@ -293,7 +293,7 @@ global.toCascadingStyleSheet = (destination) ->
     # NOTE: We only process resource references.
     .pipe(gulpPlugins.if(
         CONFIGURATION.rootPath isnt CONFIGURATION.buildPath
-        gulpPlugins.cssnano {
+        gulpPlugins.minifyCss {
             advanced: false, aggressiveMerging: false, compatibility: 'ie8'
             keepBreaks: true, keepSpecialComments: '*', mediaMerging: false
             processImport: true, restructuring: false, roundingPrecision: -1
@@ -301,8 +301,8 @@ global.toCascadingStyleSheet = (destination) ->
             relativeTo: './cascadingStyleSheet/'
             target: CONFIGURATION.buildPath
         }))
-    .pipe(gulpPlugins.if not CONFIGURATION.debugBuild, gulpPlugins.cssnano(
-        CONFIGURATION.cssnano))
+    .pipe(gulpPlugins.if not CONFIGURATION.debugBuild, gulpPlugins.minifyCss(
+        CONFIGURATION.minifyCss))
     .pipe(gulpPlugins.hashSrc CONFIGURATION.hash)
     .pipe(gulpPlugins.size showFiles: true)
     .pipe gulpPlugins.if destination?, gulp.dest(

@@ -25,7 +25,7 @@
     "gulp-jade": "*",
     "gulp-less": "*",
     "gulp-load-plugins": "*",
-    "gulp-cssnano": "*",
+    "gulp-minify-css": "*",
     "gulp-newer": "*",
     "gulp-ng-annotate": "*",
     "gulp-plumber": "^1.0.1",
