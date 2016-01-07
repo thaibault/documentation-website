@@ -266,7 +266,7 @@ main = ($) ->
             self = this
             this.$domNodes.parent.find(':not(iframe)').contents().each ->
                 if this.nodeName is self._options.showExample.domNodeName
-                    match = this.textContent.match new RegExp(
+                    match = this.textContent.match new window.RegExp(
                         self._options.showExample.pattern)
                     if match
                         $codeDomNode = $(this).next()
@@ -294,9 +294,11 @@ main = ($) ->
                         ) isnt -1
                             $codeDomNode.after code
                         else
+                            console.log 'A', code
                             $codeDomNode.after $(
                                 self._options.showExample.htmlWrapper
                             ).append code
+                            console.log 'B', code
             this.fireEvent 'examplesLoaded'
             this
 
