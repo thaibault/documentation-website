@@ -273,32 +273,34 @@ main = ($) ->
                         code = $codeDomNode.find(
                             self.$domNodes.codeWrapper
                         ).text()
-                        if not code
-                            code = $codeDomNode.text()
-                        if $.inArray(
-                            match[2]?.toLowerCase(), ['javascript', 'js']
-                        ) isnt -1
-                            $codeDomNode.after $('<script>').attr(
-                                'type', 'text/javascript'
-                            ).text code
-                        else if match[2]? and $.inArray(
-                            match[2].toLowerCase(), [
-                                'css', 'cascadingstylesheets', 'stylesheets'
-                                'sheets', 'style']
-                        ) isnt -1
-                            $codeDomNode.after $('<style>').attr(
-                                'type', 'text/css'
-                            ).text code
-                        else if match[2]? and $.inArray(
-                            match[2].toLowerCase(), ['hidden']
-                        ) isnt -1
-                            $codeDomNode.after code
-                        else
-                            console.log 'A', code
-                            $codeDomNode.after $(
-                                self._options.showExample.htmlWrapper
-                            ).append code
-                            console.log 'B', code
+                        code = $codeDomNode.text() if not code
+                        try
+                            if $.inArray(
+                                match[2]?.toLowerCase(), ['javascript', 'js']
+                            ) isnt -1
+                                $codeDomNode.after $('<script>').attr(
+                                    'type', 'text/javascript'
+                                ).text code
+                            else if match[2]? and $.inArray(
+                                match[2].toLowerCase(), [
+                                    'css', 'cascadingstylesheets'
+                                    'stylesheets', 'sheets', 'style']
+                            ) isnt -1
+                                $codeDomNode.after $('<style>').attr(
+                                    'type', 'text/css'
+                                ).text code
+                            else if match[2]? and $.inArray(
+                                match[2].toLowerCase(), ['hidden']
+                            ) isnt -1
+                                $codeDomNode.after code
+                            else
+                                $codeDomNode.after $(
+                                    self._options.showExample.htmlWrapper
+                                ).append code
+                        catch error
+                            this.critical(
+                                "Error while integrating code \"#{code}\": " +
+                                "#{error}")
             this.fireEvent 'examplesLoaded'
             this
 
