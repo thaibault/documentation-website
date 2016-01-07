@@ -191,25 +191,24 @@ main = ($) ->
             **returns {$.Documentation}** - Returns the current instance.
         ###
         _makeCodeEllipsis: ->
-            self = this
-            this.$domNodes.code.each ->
-                $this = $ this
-                tableParent = $this.closest 'table'
+            this.$domNodes.code.each =>
+                $domNode = $ domNode
+                tableParent = $domNode.closest 'table'
                 if tableParent.length
-                    tableParent.wrap self._options.codeTableWrapper
+                    tableParent.wrap this._options.codeTableWrapper
                 newContent = ''
-                codeLines = $this.html().split '\n'
-                $.each codeLines, (index, value) ->
+                codeLines = $domNode.html().split '\n'
+                $.each codeLines, (index, value) =>
                     # NOTE: Wrap a div object to grantee that $ will accept the
                     # input.
                     excess = $("<div>#{value}</div>").text().length - 79
                     if excess > 0
-                        newContent += self._replaceExcessWithDots value, excess
+                        newContent += this._replaceExcessWithDots value, excess
                     else
                         newContent += value
                     if index + 1 isnt codeLines.length
                         newContent += "\n"
-                $this.html newContent
+                $domNode.html newContent
             this
         _replaceExcessWithDots: (content, excess) ->
             ###
@@ -263,15 +262,16 @@ main = ($) ->
 
                 **returns {$.Documentation}** - Returns the current instance.
             ###
-            self = this
-            this.$domNodes.parent.find(':not(iframe)').contents().each ->
-                if this.nodeName is self._options.showExample.domNodeName
-                    match = this.textContent.match new window.RegExp(
-                        self._options.showExample.pattern)
+            this.$domNodes.parent.find(':not(iframe)').contents().each (
+                index, domNode
+            ) =>
+                if domNode.nodeName is this._options.showExample.domNodeName
+                    match = domNode.textContent.match new window.RegExp(
+                        this._options.showExample.pattern)
                     if match
-                        $codeDomNode = $(this).next()
+                        $codeDomNode = $(domNode).next()
                         code = $codeDomNode.find(
-                            self.$domNodes.codeWrapper
+                            this.$domNodes.codeWrapper
                         ).text()
                         code = $codeDomNode.text() if not code
                         try
@@ -295,10 +295,10 @@ main = ($) ->
                                 $codeDomNode.after code
                             else
                                 $codeDomNode.after $(
-                                    self._options.showExample.htmlWrapper
+                                    this._options.showExample.htmlWrapper
                                 ).append code
                         catch error
-                            self.critical(
+                            this.critical(
                                 "Error while integrating code \"#{code}\": " +
                                 "#{error}")
             this.fireEvent 'examplesLoaded'
