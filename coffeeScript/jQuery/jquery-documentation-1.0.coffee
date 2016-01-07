@@ -298,7 +298,7 @@ main = ($) ->
                                     self._options.showExample.htmlWrapper
                                 ).append code
                         catch error
-                            this.critical(
+                            self.critical(
                                 "Error while integrating code \"#{code}\": " +
                                 "#{error}")
             this.fireEvent 'examplesLoaded'
