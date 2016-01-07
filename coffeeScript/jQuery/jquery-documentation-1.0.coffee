@@ -191,7 +191,7 @@ main = ($) ->
             **returns {$.Documentation}** - Returns the current instance.
         ###
         _makeCodeEllipsis: ->
-            this.$domNodes.code.each =>
+            this.$domNodes.code.each (index, domNode) =>
                 $domNode = $ domNode
                 tableParent = $domNode.closest 'table'
                 if tableParent.length
