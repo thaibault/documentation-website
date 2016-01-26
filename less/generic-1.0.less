@@ -107,16 +107,6 @@ endregion */
              -o-background-size: @arguments;
                 background-size: @arguments;
     }
-    // Shows a border around given dom node.
-    .bordered(
-        @topColor: #EEE, @rightColor: #EEE, @bottomColor: #EEE,
-        @leftColor: #EEE, @thickness: 1px, @type: solid
-    ) {
-        border-top: @type @thickness @top-color;
-        border-left: @type @thickness @left-color;
-        border-right: @type @thickness @right-color;
-        border-bottom: @type @thickness @bottom-color;
-    }
     // Mixin for CSS-property "tab-size", generates cross-browser-compatible
     // "tab-size" output.
     .tab-size(@value: 4) {
@@ -173,8 +163,8 @@ endregion */
     }
     // Shows shadows on dom nodes.
     .box-shadow(
-        @horizontalPosition: 2px, @verticalPosition: 2px, @size: 2px,
-        @color: black
+        @horizontalPosition: 2px, @verticalPosition: 2px, @blurDistance: 2px,
+        @spreadDistance: ~'', @type: ~'', @color: black
     ) {
         // safari, chrome, iOS Safari 3.2, Android 2.1
         -webkit-box-shadow: @arguments;
@@ -186,15 +176,6 @@ endregion */
             -ms-box-shadow: @arguments;
         // css3
                 box-shadow: @arguments;
-    }
-    // Performs an inner shadow on current dom node.
-    .inner-shadow(@horizontal: 0, @vertical: 1px, @blur: 2px, @alpha: 0.4) {
-        // safari, chrome, iOS Safari 3.2, Android 2.1
-        -webkit-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
-        // firefox
-           -moz-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
-        // css3
-                box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
     }
     // Allows you to make columns in a text.
     .columns(

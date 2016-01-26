@@ -217,15 +217,20 @@ body.documentation {
 
     div.header-wrap {
         #generic > .linear-gradient(
-            top, @darkBackgroundColor, #373737, @darkBackgroundColor
+            @direction: top, @fallback: @darkBackgroundColor, @from: #373737,
+            @to: @darkBackgroundColor
         );
 
         header {
             padding: 50px 10px 30px 10px;
 
             a.forkme-banner {
-                #generic > .box-shadow(0, 0, 10px, rgba(0, 0, 0, .5));
-                #generic > .rounded-border(0, 0, 2px, 2px);
+                #generic > .box-shadow(
+                    @horizontalPosition: 0, @verticalPosition: 0,
+                    @blurDistance: 10px, @color: rgba(0, 0, 0, .5));
+                #generic > .rounded-border(
+                    @topLeft: 0, @topRight: 0, @bottomLeft: 2px,
+                    @bottomRight: 2px);
                 display: block;
                 position: absolute;
                 top: 0;
@@ -318,7 +323,7 @@ body.documentation {
                 // code
                 div {
                     &.codehilite pre {
-                        #generic > .border-radius(0);
+                        #generic > .border-radius(@size: 0);
                         border-color: @codeBorderColor;
                         background-color: @codeBackgroundColor;
                         margin: 20px 0 0 0;
@@ -351,7 +356,7 @@ body.documentation {
                                     }
                                 }
                                 &.linenodiv pre {
-                                    #generic > .border-radius(0);
+                                    #generic > .border-radius(@size: 0);
                                     padding: 10px 8px 10px 0;
                                     text-align: right;
                                     color: @codeLineNumberColor;
