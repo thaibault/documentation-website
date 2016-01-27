@@ -69,16 +69,22 @@ endregion */
 
     // Renders a gradient from given color to another given color.
     .linear-gradient(
-        @direction: top, @fallback: gray, @from: black, @to: white
+      @direction: top, @fallback: '', @from: black, @to: white
     ) {
-        .direction() when (@direction = top) {
+        .background-image() when (@direction = top) {
             background-image: linear-gradient(to bottom, @from, @to);
         }
-        .direction() when (@direction = left) {
+        .background-image() when (@direction = left) {
             background-image: linear-gradient(to right, @from, @to);
         }
+        .background-color() when (@fallback = '') {
+            background-color: @from;
+        }
+        .background-color() when not(@fallback = '') {
+            background-color: @fallback;
+        }
         // fallback
-        background-color: @fallback;
+        .background-color;
         // safari 4-5, chrome 1-9
         background: -webkit-gradient(
             linear, 0% 0%, 0% 100%, from(@from), to(@to));
@@ -92,7 +98,7 @@ endregion */
         background:      -o-linear-gradient(@direction, @from, @to);
         // css3
         background:         linear-gradient(@from, @to);
-        .direction;
+        .background-image;
         // internetExplorer 5 - 7
         // NOTE: Won't parse sometimes.
         // filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)", @to, @from));
@@ -164,7 +170,7 @@ endregion */
     // Shows shadows on dom nodes.
     .box-shadow(
         @horizontalPosition: 2px, @verticalPosition: 2px, @blurDistance: 2px,
-        @spreadDistance: ~'', @type: ~'', @color: black
+        @spreadDistance: ~'', @color: black, @type: ~''
     ) {
         // safari, chrome, iOS Safari 3.2, Android 2.1
         -webkit-box-shadow: @arguments;
