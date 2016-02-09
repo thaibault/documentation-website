@@ -476,16 +476,20 @@ This library written by Torben Sickert stand under a creative commons naming
     NOTE: Classes should be usable for the body itself and their for have to be
     outside.
 */
-.tools{
-    /* Hide JavaScript dependent dom nodes. */
+.tools {
+    /* Initially show javaScript dependent dom nodes. */
     &-hidden-on-javascript-enabled { display: initial; }
-    /* Show JavaScript dependent dom nodes. */
+    /* Initially hide javaScript dependent dom nodes. */
     &-visible-on-javascript-enabled { display: none; }
     /* Disables and hides a scrolling and scrollbar. */
     &-disable-scrolling {
         height: 100% !important;
         overflow: hidden !important;
     }
+}
+html.javascript .tools {
+    /* Initially hide javaScript dependent dom nodes. */
+    &-visible-on-javascript-enabled { display: initial; }
 }
 .website-action { cursor: pointer; }
 // Overlay the whole page till everything is loaded completely.

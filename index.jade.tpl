@@ -43,7 +43,7 @@ doctype html
 
 <% # endregion
 
-html(lang='<% LANGUAGE %>')
+html.no-javascript(lang='<% LANGUAGE %>')
 
     // region head
 
@@ -74,6 +74,10 @@ html(lang='<% LANGUAGE %>')
         link(
             type='text/css' rel='stylesheet'
             href='<% CASCADING_STYLE_SHEET_PATH %>main.css')
+        script(type="text/javascript").
+            window.document.documentElement.className =
+                window.document.documentElement.className.replace(
+                    /(^|\s)no-javascript(\s|$)/, '$1javascript$2');
 
         // endregion
 
@@ -82,8 +86,7 @@ html(lang='<% LANGUAGE %>')
     // region body
 
     body(class='documentation')
-        .website-window-loading-cover.tools-visible-on-javascript-enabled
-            div
+        .website-window-loading-cover.tools-visible-on-javascript-enabled: div
 
         // region header
 

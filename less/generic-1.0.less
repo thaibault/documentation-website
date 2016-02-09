@@ -251,6 +251,18 @@ endregion */
 
     // region animation
 
+    // Generates cross browser compatible "transform-origin" for a given
+    // element.
+    .transform-origin(@arguments) {
+        // chrome, safari, iOS Safari, Android Stock
+        -webkit-transform-origin: @arguments;
+        // opera 12
+             -o-transform-origin: @arguments;
+        // firefox
+           -moz-transform-origin: @arguments;
+        // css3, internetExplorer 9+
+                transform-origin: @arguments;
+    }
     // Generates cross browser compatible "transform" for a given element.
     .transform(@arguments) {
         // chrome, safari, iOS Safari, Android Stock
