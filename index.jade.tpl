@@ -58,7 +58,7 @@ html.no-javascript(lang='<% LANGUAGE %>')
         meta(
             name='description'
             content='<% RegularExpression('^(.+?)<!--.+-->$').sub('\1', TAGLINE).replace("'", "\\'") %>')
-        <% for meta in meta_tags:
+        <% for meta in META_TAGS:
             meta(
                 <% ' '.join(map(lambda item: '%s="%s"' % item, meta.items())) %>)
 
