@@ -143,14 +143,15 @@ p Lorem ipsum dolor sit amet...
 EOF
     }
 
-for render_file_path in index.jade.tpl coffeeScript/main.coffee.tpl; do
-    template "$render_file_path" --pretty-indent --scope-variables \
+for file_path in index.jade.tpl coffeeScript/main.coffee.tpl; do
+    template "source/${file_path}" --pretty-indent --scope-variables \
         CONTENT_IN_JADE='true' TAGLINE='tagline' NAME='productName' \
         LANGUAGE='en' LANGUAGES='' GOOGLE_TRACKING_CODE='__none__' \
         URL='https://github.com/thaibault/documentationWebsite' \
         SOURCE_URL='https://github.com/thaibault/documentationWebsite' \
         CONTENT="$(printDummyDocumentationContent)" \
-    1>"$(sed --regexp-extended 's/^(.+)\.[^\.]+$/\1/g' <<< "$render_file_path")"
+    1>"$(sed --regexp-extended 's/^(.+)\.[^\.]+$/\1/g' <<< \
+        "source/$file_path")"
 done
 
 # region vim modline
