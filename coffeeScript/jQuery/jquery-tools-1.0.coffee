@@ -1658,7 +1658,7 @@ main = ($) ->
 
                 **returns {String}** - Represented result.
             ###
-            if url
+            if url and url.replace?
                 return $.trim url.replace(/^(https?)?:?\/+/, '').replace(
                     /\/+$/, '')
             ''
@@ -2057,7 +2057,7 @@ main = ($) ->
 
                 **returns {String}**     - Formatted number.
             ###
-            if phoneNumber
+            if phoneNumber and phoneNumber.replace?
                 # Represent country code and leading area code zero.
                 phoneNumber = phoneNumber.replace(
                     /^(00|\+)([0-9]+)-([0-9-]+)$/, '+$2 (0) $3')
@@ -2069,16 +2069,17 @@ main = ($) ->
                     /^([^-]+)-([0-9-]+)$/, '$1 / $2')
                 # Partition base number in one triple and tuples or tuples
                 # only.
-                return phoneNumber.replace /^(.*?)([0-9]+)(-?[0-9]*)$/, (
-                    match, prefix, number, suffix
-                ) -> prefix + $.trim(
-                    if number.length % 2 is 0 then number.replace(
-                        /([0-9]{2})/g, '$1 '
-                    ) else number.replace(
-                        /^([0-9]{3})([0-9]+)$/, (match, triple, rest) ->
-                            triple + ' ' + $.trim rest.replace(
-                                /([0-9]{2})/g, '$1 ')
-                    ) + suffix)
+                return $.trim phoneNumber.replace(
+                    /^(.*?)([0-9]+)(-?[0-9]*)$/, (
+                        match, prefix, number, suffix
+                    ) -> prefix + $.trim(
+                        if number.length % 2 is 0 then number.replace(
+                            /([0-9]{2})/g, '$1 '
+                        ) else number.replace(
+                            /^([0-9]{3})([0-9]+)$/, (match, triple, rest) ->
+                                triple + ' ' + $.trim rest.replace(
+                                    /([0-9]{2})/g, '$1 ')
+                        ) + suffix))
             ''
         stringStartsWith: (string, searchString) ->
             ###
@@ -2304,8 +2305,12 @@ main = ($) ->
 
 # region dependencies
 
-jQuery = jQuery or $ or window.jQuery or window.$
-if module? then module.exports = main(jQuery) else main jQuery
+if this.require? and not module.exports?
+    this.require.scopeIndicator = 'jQuery.Tools'
+    this.require [['jQuery', 'jquery-2.1.1']], main
+else
+    jQuery = jQuery or $ or window.jQuery or window.$
+    if module? then module.exports = main(jQuery) else main jQuery
 
 # endregion
 
