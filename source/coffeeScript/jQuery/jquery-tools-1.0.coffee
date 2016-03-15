@@ -497,8 +497,7 @@ main = ($) ->
             this.$domNode.find('*').addBack().each ->
                 $this = $ this
                 if $this.attr 'class'
-                    sortedClassNames = $this.attr('class').split(' ').sort(
-                    ) or []
+                    sortedClassNames = $this.attr('class').split(' ').sort() or []
                     $this.attr 'class', ''
                     for className in sortedClassNames
                         $this.addClass className
@@ -744,8 +743,7 @@ main = ($) ->
                 **returns {String}** - The function name.
             ###
             while true
-                uniqueName = prefix + window.parseInt window.Math.random(
-                ) * window.Math.pow 10, 10
+                uniqueName = prefix + window.parseInt window.Math.random() * window.Math.pow 10, 10
                 break if not scope[uniqueName]?
             uniqueName
 
@@ -2199,8 +2197,7 @@ main = ($) ->
                                                 iframe.
             ###
             iFrame = $('<iframe>').attr(
-                name: this.__name__.charAt(0).toLowerCase(
-                ) + this.__name__.substring(1) + (new Date).getTime()
+                name: this.__name__.charAt(0).toLowerCase() + this.__name__.substring(1) + (new Date).getTime()
             ).hide()
             this.$domNode.after iFrame
             this.sendToIFrame iFrame, url, data, requestType, removeAfterLoad
@@ -2260,8 +2257,7 @@ main = ($) ->
             ###
             domNodeSelectorPrefix = ''
             if this._options.domNodeSelectorPrefix
-                domNodeSelectorPrefix = this._options.domNodeSelectorPrefix +
-                    ' '
+                domNodeSelectorPrefix = this._options.domNodeSelectorPrefix + ' '
             if not (this.stringStartsWith(
                 selector, domNodeSelectorPrefix
             ) or this.stringStartsWith $.trim(selector), '<')
