@@ -6,14 +6,15 @@
     },
     "devDependencies": {
         "webOptimizer": "git+ssh://git@github.com/thaibault/webOptimizer.git",
-        "jQuery-website": "git+ssh://git@github.com/thaibault/jQuery-website.git"
+        "jQuery-website": "git+ssh://git@github.com/thaibault/jQuery-website.git",
+        "genericStyle": "git+ssh://git@github.com/thaibault/genericStyle.git"
     },
     "license": "CC-BY-3.0",
     "name": "website",
     "version": "1.0.0",
     "keywords": ["documentation", "website", "project", "homepage", "page"],
-    "files": ["source"],
-    "main": "source/javaScript/main.js",
+    "files": ["source", "generateDummyDocumentation.sh"],
+    "main": "source/coffeeScript/main.coffee",
     "repository": {
         "type": "git",
         "url": "git@github.io:thaibault/documentationWebsite.git"
