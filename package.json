@@ -20,7 +20,7 @@
         "url": "git@github.io:thaibault/documentationWebsite.git"
     },
     "webOptimizer": {
-        "debug": true,
+        "debug": true, "library": false,
         "moduleAliases": {"bootstrap": "bootstrap/dist/css/bootstrap"},
         "internalInjects": ["less/index", "javaScript/index"],
         "externalInjects": ["babel-polyfill"],
