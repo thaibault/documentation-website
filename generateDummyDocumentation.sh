@@ -143,7 +143,7 @@ p Lorem ipsum dolor sit amet...
 EOF
     }
 
-for file_path in index.jade.tpl coffeeScript/main.coffee.tpl; do
+for file_path in index.jade.tpl coffeeScript/index.coffee.tpl; do
     template "source/${file_path}" --pretty-indent --scope-variables \
         CONTENT_IN_JADE='true' TAGLINE='tagline' NAME='productName' \
         LANGUAGE='en' LANGUAGES='' GOOGLE_TRACKING_CODE='__none__' \
