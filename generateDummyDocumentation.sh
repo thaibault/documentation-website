@@ -149,9 +149,9 @@ for file_path in index.jade.tpl coffeeScript/main.coffee.tpl; do
         LANGUAGE='en' LANGUAGES='' GOOGLE_TRACKING_CODE='__none__' \
         URL='https://github.com/thaibault/documentationWebsite' \
         SOURCE_URL='https://github.com/thaibault/documentationWebsite' \
-        CONTENT="$(printDummyDocumentationContent)" \
+        CONTENT="$(printDummyDocumentationContent)" META_TAGS='' \
     1>"$(sed --regexp-extended 's/^(.+)\.[^\.]+$/\1/g' <<< \
-        "source/$file_path")"
+        "source/${file_path}")"
 done
 
 # region vim modline
