@@ -1,7 +1,5 @@
 doctype html
-
 <% # region header
-
 <% # Copyright Torben Sickert 16.12.2012
 
 <% # License
@@ -9,17 +7,11 @@ doctype html
 
 <% # This library written by Torben Sickert stand under a creative commons naming
 <% # 3.0 unported license. see http://creativecommons.org/licenses/by/3.0/deed.de
-
 <% # endregion
-
 <% # region language
-
 <% LANGUAGES = LANGUAGES if LANGUAGES else ('deDE', 'enUS', 'frFR')
-
 <% # endregion
-
 <%  # region location
-
 <% IMAGE_PATH = 'image/'
 
 <% LESS_PATH = 'less/'
@@ -31,27 +23,18 @@ doctype html
 <% DATA_PATH = 'data/'
 
 <% DISTRIBUTION_BUNDLE_FILE_PATH = DATA_PATH + 'distributionBundle.zip'
-
 <% # endregion
-
 <% # region runtime
-
 <% URL = URL if URL else 'http://torben.website/%s' % NAME
 <% if not SOURCE_URL:
     <% SOURCE_URL = 'https://github.com/thaibault/%s' % NAME
 <% START_UP_ANIMATION_NUMBER = 0
-
 <% # endregion
-
 html.no-javascript(lang='<% LANGUAGE %>')
-
     // region head
-
     head
         title <% NAME %>
-
         // region meta in formations
-
         meta(charset='utf-8')
         meta(
             name='viewport' content='width=device-width, initial-scale=1.0')
@@ -61,38 +44,23 @@ html.no-javascript(lang='<% LANGUAGE %>')
         <% for meta in META_TAGS:
             meta(
                 <% ' '.join(map(lambda item: '%s="%s"' % item, meta.items())) %>)
-
         // endregion
-
         // region fav and touch icons
-
         link(
             rel='shortcut icon' type='image/x-icon'
             href='<% IMAGE_PATH %>favicon.ico')
-
         // endregion
-
         // region pre load resources
-
-        link(
-            type='text/css' rel='stylesheet'
-            href='<% CASCADING_STYLE_SHEET_PATH %>main.css')
         script(type="text/javascript").
             window.document.documentElement.className =
                 window.document.documentElement.className.replace(
                     /(^|\s)no-javascript(\s|$)/, '$1javascript$2');
-
         // endregion
-
     // endregion
-
     // region body
-
     body(class='documentation')
         .website-window-loading-cover.tools-visible-on-javascript-enabled: div
-
         // region header
-
         .header-wrap.outer: header.inner
             <% START_UP_ANIMATION_NUMBER += 1
             a.website-start-up-animation-number-<% START_UP_ANIMATION_NUMBER %>.forkme-banner(
@@ -155,22 +123,14 @@ html.no-javascript(lang='<% LANGUAGE %>')
                     <% START_UP_ANIMATION_NUMBER += 4 + length(LANGUAGES)
                 <% else:
                     <% START_UP_ANIMATION_NUMBER += 2 + length(LANGUAGES)
-
         // endregion
-
         // region sections
-
         .main-content-wrap.outer
-
             // region main content
-
             section.main-content.inner<% '' if 'CONTENT_IN_JADE' in locals() and CONTENT_IN_JADE else '.' %>
                 <% CONTENT.replace('\n', '\n                ').replace('#{', '\\#{') %>
-
             // endregion
-
             // region about this website
-
             section.about-this-website.inner
                 h2(id='about-this-website')
                     | About this website
@@ -217,13 +177,9 @@ html.no-javascript(lang='<% LANGUAGE %>')
                         //deDE:Startseite
                         //frFR:Maison
                 <% include('aboutThisWebsite.jade')
-
             // endregion
-
         // endregion
-
         // region footer
-
         .footer-wrap.outer
             footer.inner
                 <% START_UP_ANIMATION_NUMBER += 1
@@ -240,26 +196,14 @@ html.no-javascript(lang='<% LANGUAGE %>')
                         | about this website
                         //deDE:Impressum
                         //frFR:Mentions légales
-
         // endregion
-
         a(href='#top')
             | top
             //deDE:nach oben
             //frFR:ascendant
-
-        // region post load resources
-
-        script(type='text/javascript' src='<% JAVA_SCRIPT_PATH %>main.js')
-
-        // endregion
-
     // endregion
-
 //-
     region vim modline
-
     vim: set tabstop=4 shiftwidth=4 expandtab:
     vim: foldmethod=marker foldmarker=region,endregion:
-
     endregion
