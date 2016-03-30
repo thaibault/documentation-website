@@ -1,19 +1,23 @@
 {
-    "description": "website",
+    "description": "documentationWebsite",
     "dependencies": {
         "bootstrap": "^3.3.6",
-        "jquery": "2.2.0"
+        "jquery": "2.2.2"
     },
     "devDependencies": {
-        "webOptimizer": "git+ssh://git@github.com/thaibault/webOptimizer.git"
+        "webOptimizer": "git+ssh://git@github.com/thaibault/webOptimizer.git",
+        "jQuery-website": "git+ssh://git@github.com/thaibault/jQuery-website.git"
     },
     "license": "CC-BY-3.0",
     "name": "website",
     "version": "1.0.0",
-    "keywords": ["website"],
+    "keywords": ["documentation", "website", "project", "homepage", "page"],
     "files": ["source"],
     "main": "source/javaScript/main.js",
-    "repository": {"type": "git", "url": "git@github.io:thaibault/.git"},
+    "repository": {
+        "type": "git",
+        "url": "git@github.io:thaibault/documentationWebsite.git"
+    },
     "webOptimizer": {
         "debug": true,
         "moduleAliases": {
@@ -25,15 +29,11 @@
             "javaScript/main"
         ],
         "externalInjects": ["babel-polyfill"],
-        "preprocessor": {
-            "modernJavaScript": {
-                "plugins": [
-                    "transform-decorators-legacy",
-                    "transform-class-properties",
-                    "transform-flow-strip-types"
-                ]
-            }
-        }
+        "preprocessor": {"modernJavaScript": {"plugins": [
+            "transform-decorators-legacy",
+            "transform-class-properties",
+            "transform-flow-strip-types"
+        ]}}
     },
     "scripts": {
         "lint": "webOptimizer lint",
