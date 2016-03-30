@@ -22,7 +22,6 @@
     "webOptimizer": {
         "debug": true,
         "moduleAliases": {
-            "jquery": "jquery/src/jquery",
             "bootstrap": "bootstrap/dist/css/bootstrap"
         },
         "internalInjects": [
