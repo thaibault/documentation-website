@@ -13,15 +13,16 @@ This library written by Torben Sickert stand under a creative commons naming
 @lessImportPath: '';
 @cascadingStyleSheetImportPath: '../cascadingStyleSheet/';
 /// endregion
-#bootstrap() {
-    @import (less) 'bootstrap';
+.bootstrap() {
+    @import '~bootstrap/less/bootstrap';
 }
-@import 'genericStyle';
-@import 'website';
-@import '@{lessImportPath}pygment-vim-like-highlighting';
+@import '~genericStyle/index';
+@import '~jQuery-website/index';
+//@import '@{lessImportPath}pygment-vim-like-highlighting';
+.codehilite() {}
 // endregion
 /* region font */
-@import '@{cascadingStyleSheetImportPath}glyphicons-social-1.8.css';
+//@import '@{cascadingStyleSheetImportPath}glyphicons-social-1.8.css';
 /* endregion */
 // region constants
 @darkFontColor: #373737;
@@ -44,10 +45,10 @@ This library written by Torben Sickert stand under a creative commons naming
 /* region style sheets */
 body.documentation {
     /* region global */
-    #bootstrap;
-    #website > #bootstrap-nested-labels;
-    #website;
-    #codehilite;
+    .bootstrap;
+    .website .bootstrap-nested-labels;
+    .website;
+    .codehilite;
     color: @darkFontColor;
     background: @darkBackgroundColor;
     line-height: 1.5;

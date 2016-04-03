@@ -21,10 +21,6 @@
     },
     "webOptimizer": {
         "debug": true, "library": false,
-        "moduleAliases": {
-            "bootstrap": "bootstrap/dist/css/bootstrap",
-            "jQuery-website-style": "jQuery-website/index.compiled.css"
-        },
         "internalInjects": ["less/index", "coffeeScript/index"],
         "externalInjects": ["babel-polyfill"],
         "preprocessor": {"modernJavaScript": {"plugins": [
