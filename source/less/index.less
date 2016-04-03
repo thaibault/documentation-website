@@ -16,7 +16,6 @@ This library written by Torben Sickert stand under a creative commons naming
 .bootstrap() {
     @import '~bootstrap/less/bootstrap';
 }
-@import '~genericStyle/index';
 @import '~jQuery-website/index';
 // TODO @import '@{lessImportPath}pygment-vim-like-highlighting';
 .codehilite() {}
@@ -176,7 +175,7 @@ body.documentation {
     /* endregion
     /* region header */
     div.header-wrap {
-        #generic > .linear-gradient(
+        .genericStyle .linear-gradient(
             @direction: top, @fallback: @darkBackgroundColor, @from: #373737,
             @to: @darkBackgroundColor
         );
@@ -184,10 +183,10 @@ body.documentation {
             padding: 50px 10px 30px 10px;
 
             a.forkme-banner {
-                #generic > .box-shadow(
+                .genericStyle .box-shadow(
                     @horizontalPosition: 0, @verticalPosition: 0,
                     @blurDistance: 10px, @color: rgba(0, 0, 0, .5));
-                #generic > .rounded-border(
+                .genericStyle .rounded-border(
                     @topLeft: 0, @topRight: 0, @bottomLeft: 2px,
                     @bottomRight: 2px);
                 display: block;
@@ -271,7 +270,7 @@ body.documentation {
                 // code
                 div {
                     &.codehilite pre {
-                        #generic > .border-radius(@size: 0);
+                        .genericStyle .border-radius(@size: 0);
                         border-color: @codeBorderColor;
                         background-color: @codeBackgroundColor;
                         margin: 20px 0 0 0;
@@ -304,7 +303,7 @@ body.documentation {
                                     }
                                 }
                                 &.linenodiv pre {
-                                    #generic > .border-radius(@size: 0);
+                                    .genericStyle .border-radius(@size: 0);
                                     padding: 10px 8px 10px 0;
                                     text-align: right;
                                     color: @codeLineNumberColor;
