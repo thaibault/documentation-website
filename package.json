@@ -3,7 +3,8 @@
     "devDependencies": {
         "webOptimizer": "git+ssh://git@github.com/thaibault/webOptimizer.git",
         "jQuery-website": "git+ssh://git@github.com/thaibault/jQuery-website.git",
-        "bootstrap": "^3.3.6"
+        "bootstrap": "^3.3.6",
+        "qunitjs": "*"
     },
     "license": "CC-BY-3.0",
     "name": "website",
@@ -29,7 +30,7 @@
         "lint": "webOptimizer lint",
         "clear": "webOptimizer clear",
         "build": "webOptimizer build",
-        "server": "webOptimizer server",
-        "start": "webOptimizer server"
+        "serve": "webOptimizer serve",
+        "start": "webOptimizer serve"
     }
 }
