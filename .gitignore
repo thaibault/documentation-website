@@ -5,6 +5,9 @@
 
 ## Generic
 
+# Ignore profiling data.
+*.profile
+
 # Packages
 *.egg
 *.egg-info
@@ -20,6 +23,9 @@ develop-eggs
 lib
 lib64
 .sass-cache
+
+# Ignore npm generated debug informations.
+npm-debug.log
 
 # Ignore docker nested bash generated files.
 /.bash_history
@@ -52,6 +58,9 @@ nosetests.xml
 # Gedit autosave backups.
 *~
 
+# Temporary windows files
+*Thumbs.db
+
 # Node Modules
 node_modules/
 .npm/
@@ -59,10 +68,9 @@ node_modules/
 /.cache
 /.config
 .npm-debug.log
+*.compiled.*
 
 # region vim modline
-
 # vim: set tabstop=4 shiftwidth=4 expandtab:
 # vim: foldmethod=marker foldmarker=region,endregion:
-
 # endregion
