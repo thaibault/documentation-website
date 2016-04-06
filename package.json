@@ -1,12 +1,9 @@
 {
     "description": "documentationWebsite",
-    "dependencies": {
-        "bootstrap": "^3.3.6",
-        "jquery": "2.2.2"
-    },
     "devDependencies": {
         "webOptimizer": "git+ssh://git@github.com/thaibault/webOptimizer.git",
-        "jQuery-website": "git+ssh://git@github.com/thaibault/jQuery-website.git"
+        "jQuery-website": "git+ssh://git@github.com/thaibault/jQuery-website.git",
+        "bootstrap": "^3.3.6"
     },
     "license": "CC-BY-3.0",
     "name": "website",
