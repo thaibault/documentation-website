@@ -3,7 +3,6 @@
     "devDependencies": {
         "webOptimizer": "git+ssh://git@github.com/thaibault/webOptimizer.git",
         "jQuery-website": "git+ssh://git@github.com/thaibault/jQuery-website.git",
-        "bootstrap": "^3.3.6",
         "qunitjs": "*"
     },
     "license": "CC-BY-3.0",
@@ -19,17 +18,12 @@
     "webOptimizer": {
         "debug": true, "library": false,
         "internalInjects": ["less/index", "coffeeScript/index"],
-        "externalInjects": ["babel-polyfill"],
-        "preprocessor": {"modernJavaScript": {"plugins": [
-            "transform-decorators-legacy",
-            "transform-class-properties",
-            "transform-flow-strip-types"
-        ]}}
+        "externalInjects": ["babel-polyfill"]
     },
     "scripts": {
         "lint": "webOptimizer lint",
         "clear": "webOptimizer clear",
-        "build": "webOptimizer build",
+        "build": "./generateDummyDocumentation.sh && webOptimizer build",
         "serve": "webOptimizer serve",
         "start": "webOptimizer serve"
     }
