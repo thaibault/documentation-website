@@ -9,8 +9,6 @@ License
 This library written by Torben Sickert stand under a creative commons naming
 3.0 unported license. see http://creativecommons.org/licenses/by/3.0/deed.de
 */
-@import '~jQuery-website';
-@import 'pygment-vim-like-highlighting';
 // endregion
 // region constants
 @darkFontColor: #373737;
@@ -33,11 +31,13 @@ This library written by Torben Sickert stand under a creative commons naming
 /* region style sheets */
 body.documentation {
     /* region global */
+    @import '~jQuery-website';
+    @import 'pygment-vim-like-highlighting';
+
+    .website;
     .website.bootstrap;
     .website.bootstrap.fixes;
     .website.bootstrap.fixes.nested-labels;
-    .website;
-    .codehilite;
 
     color: @darkFontColor;
     background: @darkBackgroundColor;
@@ -161,10 +161,10 @@ body.documentation {
         }
     }
     /** endregion */
-    /* endregion
+    /* endregion */
     /* region header */
     div.header-wrap {
-        .genericStyle .linear-gradient(
+        .genericStyle.linear-gradient(
             @direction: top, @fallback: @darkBackgroundColor, @from: #373737,
             @to: @darkBackgroundColor
         );
@@ -172,10 +172,10 @@ body.documentation {
             padding: 50px 10px 30px 10px;
 
             a.forkme-banner {
-                .genericStyle .box-shadow(
+                .genericStyle.box-shadow(
                     @horizontalPosition: 0, @verticalPosition: 0,
                     @blurDistance: 10px, @color: rgba(0, 0, 0, .5));
-                .genericStyle .rounded-border(
+                .genericStyle.rounded-border(
                     @topLeft: 0, @topRight: 0, @bottomLeft: 2px,
                     @bottomRight: 2px);
                 display: block;
@@ -259,7 +259,8 @@ body.documentation {
                 // code
                 div {
                     &.codehilite pre {
-                        .genericStyle .border-radius(@size: 0);
+                        .genericStyle.border-radius(@size: 0);
+
                         border-color: @codeBorderColor;
                         background-color: @codeBackgroundColor;
                         margin: 20px 0 0 0;
@@ -292,7 +293,8 @@ body.documentation {
                                     }
                                 }
                                 &.linenodiv pre {
-                                    .genericStyle .border-radius(@size: 0);
+                                    .genericStyle.border-radius(@size: 0);
+
                                     padding: 10px 8px 10px 0;
                                     text-align: right;
                                     color: @codeLineNumberColor;

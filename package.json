@@ -22,9 +22,9 @@
             "external": ["babel-polyfill"]
         },
         "moduleAliases": {
-            "genericStyle.less": "genericStyle/index",
+            "genericStyle.less": "genericStyle/index.less",
             "bootstrap.less": "bootstrap/less/bootstrap",
-            "jQuery-website.less": "jQuery-website/index"
+            "jQuery-website.less": "jQuery-website/index.less"
         }
     },
     "scripts": {
