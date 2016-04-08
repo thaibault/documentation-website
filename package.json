@@ -27,7 +27,7 @@
     },
     "scripts": {
         "lint": "webOptimizer lint",
-        "clear": "rm source/index.jade; rm source/coffeeScript/index.coffee; webOptimizer clear",
+        "clear": "[ -f source/index.jade ] && rm source/index.jade; [ -f source/coffeeScript/index.coffee ] && rm source/coffeeScript/index.coffee; webOptimizer clear",
         "preinstall": "mkdir --parents build && touch build/index.html",
         "postinstall": "./generateDummyDocumentation.sh && webOptimizer build",
         "build": "./generateDummyDocumentation.sh && webOptimizer build",
