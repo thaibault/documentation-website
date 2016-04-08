@@ -18,7 +18,12 @@
     "webOptimizer": {
         "library": false,
         "internalInjects": ["less/index", "coffeeScript/index"],
-        "externalInjects": ["babel-polyfill"]
+        "externalInjects": ["babel-polyfill"],
+        "moduleAliases": {
+            "genericStyle.less": "genericStyle/index",
+            "bootstrap.less": "bootstrap/less/bootstrap",
+            "jQuery-website.less": "jQuery-website/index"
+        }
     },
     "scripts": {
         "lint": "webOptimizer lint",
