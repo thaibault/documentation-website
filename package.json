@@ -22,7 +22,7 @@
     },
     "scripts": {
         "lint": "webOptimizer lint",
-        "clear": "webOptimizer clear",
+        "clear": "rm source/index.jade; rm source/coffeeScript/index.coffee; webOptimizer clear",
         "build": "./generateDummyDocumentation.sh && webOptimizer build",
         "serve": "webOptimizer serve",
         "start": "webOptimizer serve"
