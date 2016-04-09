@@ -1,20 +1,20 @@
 {
-    "description": "documentationWebsite",
-    "devDependencies": {
-        "webOptimizer": "git+ssh://git@github.com/thaibault/webOptimizer.git",
-        "jQuery-website": "git+ssh://git@github.com/thaibault/jQuery-website.git",
-        "qunitjs": "*"
-    },
-    "license": "CC-BY-3.0",
     "name": "website",
     "version": "1.0.0",
     "keywords": ["documentation", "website", "project", "homepage", "page"],
+    "description": "documentationWebsite",
+    "license": "CC-BY-3.0",
     "files": ["source", "generateDummyDocumentation.sh"],
     "main": "build/index.html",
     "repository": {
         "type": "git",
         "url": "git@github.io:thaibault/documentationWebsite.git"
     },
+    "dependencies": {
+        "webOptimizer": "git+ssh://git@github.com/thaibault/webOptimizer.git",
+        "jQuery-website": "git+ssh://git@github.com/thaibault/jQuery-website.git",
+    },
+    "devDependencies": {"qunitjs": "*"},
     "webOptimizer": {
         "library": false,
         "injects": {
@@ -31,9 +31,9 @@
         "lint": "webOptimizer lint",
         "clear": "[ -f source/index.jade ] && rm source/index.jade; [ -f source/coffeeScript/index.coffee ] && rm source/coffeeScript/index.coffee; webOptimizer clear",
         "preinstall": "mkdir --parents build && touch build/index.html",
-        "postinstall": "./generateDummyDocumentation.sh && webOptimizer build",
+        "postinstall": "npm run build",
         "build": "./generateDummyDocumentation.sh && webOptimizer build",
         "serve": "webOptimizer serve",
-        "start": "webOptimizer serve"
+        "start": "npm run serve"
     }
 }
