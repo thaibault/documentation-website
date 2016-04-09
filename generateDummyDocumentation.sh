@@ -1,16 +1,12 @@
 #!/bin/bash --login
-
 # region header
-
 # Copyright Torben Sickert 16.12.2012
 
 # License
 #    This library written by Torben Sickert stand under a creative commons
 #    naming 3.0 unported license.
 #    see http://creativecommons.org/licenses/by/3.0/deed.de
-
 # endregion
-
 # Prints a dummy documentation content.
 function printDummyDocumentationContent() {
     cat << EOF
@@ -142,7 +138,6 @@ table.codehilitetable: tr
 p Lorem ipsum dolor sit amet...
 EOF
     }
-
 for file_path in index.jade.tpl coffeeScript/index.coffee.tpl; do
     template "source/${file_path}" --pretty-indent --scope-variables \
         CONTENT_IN_JADE='true' TAGLINE='tagline' NAME='productName' \
@@ -153,10 +148,7 @@ for file_path in index.jade.tpl coffeeScript/index.coffee.tpl; do
     1>"$(sed --regexp-extended 's/^(.+)\.[^\.]+$/\1/g' <<< \
         "source/${file_path}")"
 done
-
 # region vim modline
-
 # vim: set tabstop=4 shiftwidth=4 expandtab:
 # vim: foldmethod=marker foldmarker=region,endregion:
-
 # endregion
