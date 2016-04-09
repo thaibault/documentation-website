@@ -13,6 +13,7 @@
     "dependencies": {
         "webOptimizer": "git+ssh://git@github.com/thaibault/webOptimizer.git",
         "jQuery-website": "git+ssh://git@github.com/thaibault/jQuery-website.git",
+        "legalNotes": "git+ssh://git@github.com/thaibault/legalNotes.git"
     },
     "devDependencies": {"qunitjs": "*"},
     "webOptimizer": {
