@@ -26,13 +26,13 @@ doctype html
 
     DATA_PATH = 'data/'
 
-    DISTRIBUTION_BUNDLE_FILE_PATH = DATA_PATH + 'distributionBundle.zip'
+    DISTRIBUTION_BUNDLE_FILE_PATH = `${DATA_PATH}distributionBundle.zip}
     // endregion
     // region runtime
     if (!URL)
-        URL = 'http://torben.website/' + NAME
+        URL = `http://torben.website/${NAME}`
     if (!SOURCE_URL)
-        SOURCE_URL = 'https://github.com/thaibault/' + NAME
+        SOURCE_URL = `https://github.com/thaibault/${NAME}`
     START_UP_ANIMATION_NUMBER = 0
     // endregion
 html.no-javascript(lang=LANGUAGE)
@@ -47,12 +47,12 @@ html.no-javascript(lang=LANGUAGE)
             name='description'
             content=TAGLINE.replace(/^(.+?)<!--.+-->$/, '$1').replace("'", "\\'"))
         - for (metaTag in META_TAGS)
-            meta(metaTag.map(function(item) {return metaTag[0] + '="' + metaTag[1] + '"'}).join(' '))
+            meta(metaTag.map((item) => {return `${metaTag[0]}="${metaTag[1]}"`}).join(' '))
         // endregion
         // region fav and touch icons
         link(
             rel='shortcut icon' type='image/x-icon'
-            href=IMAGE_PATH + 'favicon.ico')
+            href=`${IMAGE_PATH}favicon.ico`)
         // endregion
         // region pre load resources
         script(type="text/javascript").
@@ -69,7 +69,7 @@ html.no-javascript(lang=LANGUAGE)
             - START_UP_ANIMATION_NUMBER += 1
             a.forkme-banner(
                 href=SOURCE_URL
-                class='website-start-up-animation-number-' + START_UP_ANIMATION_NUMBER
+                class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
             )
                 | View on GitHub
                 //deDE:GitHub-Projekt
@@ -77,12 +77,12 @@ html.no-javascript(lang=LANGUAGE)
                 i.icon-github
             - START_UP_ANIMATION_NUMBER += 1
             h1.project-title(
-                class='website-start-up-animation-number-' + START_UP_ANIMATION_NUMBER
+                class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
             )
                 a(href=URL) #{NAME}
             - START_UP_ANIMATION_NUMBER += 1
             h2.project-tagline(
-                class='website-start-up-animation-number-' + START_UP_ANIMATION_NUMBER
+                class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
             )
                 | #{TAGLINE}
                 br
@@ -96,42 +96,42 @@ html.no-javascript(lang=LANGUAGE)
                 // TODO
                 if (FileHandler(location=DISTRIBUTION_BUNDLE_FILE_PATH, must_exist=false))
                     a.zip-source-download(
-                        href='https://github.com/thaibault/<% NAME %>/zipball/master'
-                        class='website-start-up-animation-number-' + START_UP_ANIMATION_NUMBER
+                        href=`https://github.com/thaibault/${NAME}/zipball/master`
+                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     ) src.zip
                     - START_UP_ANIMATION_NUMBER -= 1
                     a.zip-distribution-bundle-download(
-                        href='<% DISTRIBUTION_BUNDLE_FILE_PATH %>'
-                        class='website-start-up-animation-number-' + START_UP_ANIMATION_NUMBER
+                        href=DISTRIBUTION_BUNDLE_FILE_PATH
+                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     ) app.zip
                 else
                     a.zip-source-download(
-                        href='https://github.com/thaibault/<% NAME %>/zipball/master'
-                        class='website-start-up-animation-number-' + START_UP_ANIMATION_NUMBER
+                        href=`https://github.com/thaibault/${NAME}/zipball/master`
+                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     ) .zip
                     - START_UP_ANIMATION_NUMBER -= 1
                     a.tar-gz-source-download(
-                        href='https://github.com/thaibault/<% NAME %>/tarball/master'
-                        class='website-start-up-animation-number-' + START_UP_ANIMATION_NUMBER
+                        href=`https://github.com/thaibault/${NAME}/tarball/master`
+                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     ) .tar.gz
                 - START_UP_ANIMATION_NUMBER -= 1
                 i.icon-download-arrow(
-                    class='website-start-up-animation-number-' + START_UP_ANIMATION_NUMBER)
+                    class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`)
                 - for (language of LANGUAGES)
                     - START_UP_ANIMATION_NUMBER -= 1
                     a.tools-visible-on-javascript-enabled(
-                        href='#lang-<% language %>'
-                        class='website-start-up-animation-number-' + START_UP_ANIMATION_NUMBER
+                        href=`#lang-${language}`
+                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     ) #{language.slice(0, 2)}
                 // TODO
                 - if FileHandler('api').is_directory():
                     - START_UP_ANIMATION_NUMBER -= 1
                     span.glyphicon.glyphicon-arrow-left.arrow-left-api(
-                        class='website-start-up-animation-number-' + START_UP_ANIMATION_NUMBER)
+                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`)
                     - START_UP_ANIMATION_NUMBER -= 1
                     a.api-link(
-                        href='<% URL %>/api/'
-                        class='website-start-up-animation-number-' + START_UP_ANIMATION_NUMBER
+                        href=`${URL}/api/`
+                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}
                     )
                         langreplace
                             | API
@@ -162,7 +162,7 @@ html.no-javascript(lang=LANGUAGE)
                     | Provider of
                     //deDE:Anbieter von
                     //frFR:Fournisseur de
-                    a(href='http://thaibault.github.io/' + NAME)
+                    a(href=`http://thaibault.github.io/${NAME}`)
                         | http://thaibault.github.io/#{NAME}
                     | :
                     br
@@ -207,7 +207,7 @@ html.no-javascript(lang=LANGUAGE)
             footer.inner
                 - START_UP_ANIMATION_NUMBER += 1
                 p.copyright(
-                    class='website-start-up-animation-number-' + START_UP_ANIMATION_NUMBER
+                    class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                 )
                     | #{NAME} maintained by
                     //deDE:#{NAME} betrieben von
