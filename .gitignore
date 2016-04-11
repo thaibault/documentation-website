@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 
-/source/index.jade
-/source/coffeeScript/index.coffee
-
 ## Generic
 
 # Ignore profiling data.
