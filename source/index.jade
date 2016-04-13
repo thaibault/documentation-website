@@ -48,7 +48,7 @@ html.no-javascript(lang=LANGUAGE)&attributes({
         meta(
             name='description'
             content=TAGLINE.replace(/^(.+?)<!--.+-->$/, '$1').replace("'", "\\'"))
-        - for (metaTag in META_TAGS)
+        each metaTag in META_TAGS
             meta(metaTag.map((item) => {return `${metaTag[0]}="${metaTag[1]}"`}).join(' '))
         // endregion
         // region fav and touch icons
@@ -119,7 +119,7 @@ html.no-javascript(lang=LANGUAGE)&attributes({
                 - START_UP_ANIMATION_NUMBER -= 1
                 i.icon-download-arrow(
                     class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`)
-                - for (language of LANGUAGES)
+                for language in LANGUAGES
                     - START_UP_ANIMATION_NUMBER -= 1
                     a.tools-visible-on-javascript-enabled(
                         href=`#lang-${language}`
