@@ -201,7 +201,7 @@ html.no-javascript(lang=LANGUAGE)&attributes({
                         | home
                         //deDE:Startseite
                         //frFR:Maison
-                include 'legalNotes'
+                != require('legalNotes').replace(/\n/g, '\n                ')
             // endregion
         // endregion
         // region footer
