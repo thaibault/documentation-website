@@ -5,7 +5,7 @@
     "description": "documentationWebsite",
     "license": "CC-BY-3.0",
     "files": ["source", "generateDummyDocumentation.sh"],
-    "main": "source/index.jade",
+    "main": "build/index.html",
     "repository": {
         "type": "git",
         "url": "git@github.io:thaibault/documentationWebsite.git"
@@ -19,11 +19,15 @@
     "webOptimizer": {
         "library": false,
         "injects": {
-            "internal": ["less/index", "coffeeScript/index"],
-            "external": ["babel-polyfill"]
+            "internal": ["babel-polyfill", "less/index", "coffeeScript/index"]
         },
-        "moduleAliases": {
+        "module": {"aliases": {
             "bootstrap.less": "bootstrap/less/bootstrap",
+             "spin": "spin.js/spin",
+            "jQuery-scrollTo": "jquery.scrollto/jquery.scrollTo",
+            "jQuery-spin": "spin.js/jquery.spin",           "spin": "spin.js/spin",
+            "jQuery-scrollTo": "jquery.scrollto/jquery.scrollTo",
+            "jQuery-spin": "spin.js/jquery.spin",
             "genericStyle.less": "genericStyle/index.less",
             "jQuery-website.less": "jQuery-website/index.less"
         }
