@@ -30,7 +30,7 @@
             "jQuery-spin": "spin.js/jquery.spin",
             "genericStyle.less": "genericStyle/index.less",
             "jQuery-website.less": "jQuery-website/index.less"
-        }
+        }}
     },
     "scripts": {
         "lint": "webOptimizer lint",
