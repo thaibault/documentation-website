@@ -148,11 +148,8 @@ html.no-javascript(lang=LANGUAGE)&attributes({
         // region sections
         .main-content-wrap.outer
             // region main content
-            if (CONTENT_IN_JADE)
-                section.main-content.inner.
-                    #{CONTENT.replace('\n', '\n                ').replace('#{', '\\#{')}
-            else
-                section.main-content.inner
+            section.main-content.inner
+                include CONTENT_FILE_PATH
             // endregion
             // region about this website
             section.about-this-website.inner

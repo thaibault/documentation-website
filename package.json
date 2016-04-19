@@ -4,7 +4,7 @@
     "keywords": ["documentation", "website", "project", "homepage", "page"],
     "description": "documentationWebsite",
     "license": "CC-BY-3.0",
-    "files": ["source", "generateDummyDocumentation.sh"],
+    "files": ["source", "dummyDocumentation.jade"],
     "main": "build/index.html",
     "repository": {
         "type": "git",
@@ -24,10 +24,8 @@
         "module": {"aliases": {
             "bootstrap.less": "bootstrap/less/bootstrap",
              "spin": "spin.js/spin",
-            "jQuery-scrollTo": "jquery.scrollto/jquery.scrollTo",
-            "jQuery-spin": "spin.js/jquery.spin",           "spin": "spin.js/spin",
-            "jQuery-scrollTo": "jquery.scrollto/jquery.scrollTo",
             "jQuery-spin": "spin.js/jquery.spin",
+            "jQuery-scrollTo": "jquery.scrollto/jquery.scrollTo",
             "genericStyle.less": "genericStyle/index.less",
             "jQuery-website.less": "jQuery-website/index.less"
         }}
@@ -37,7 +35,7 @@
         "clear": "webOptimizer clear",
         "preinstall": "mkdir --parents build && touch build/index.html",
         "postinstall": "npm run build",
-        "mockupBuild": "./generateDummyDocumentation.sh && npm run build",
+        "mockupBuild": "npm run build '{\"module\": {\"preprocessor\": {\"jade\": {\"locals\": {\"CONTENT_FILE_PATH\": \"../dummyDocumentation.jade\", \"TAGLINE\": \"tagline\", \"NAME\": \"productName\", \"LANGUAGE\": \"en\", \"LANGUAGES\": \"\", \"GOOGLE_TRACKING_CODE\": \"__none__\", \"URL\": \"https://github.com/thaibault/documentationWebsite\", \"SOURCE_URL\": \"https://github.com/thaibault/documentationWebsite\", \"META_TAGS\": \"\"}}}}}'",
         "build": "webOptimizer build",
         "serve": "webOptimizer serve",
         "start": "npm run serve"
