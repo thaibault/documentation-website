@@ -35,7 +35,7 @@
         "clear": "webOptimizer clear",
         "preinstall": "mkdir --parents build && touch build/index.html",
         "postinstall": "npm run build",
-        "mockupBuild": "npm run build '{\"module\": {\"preprocessor\": {\"jade\": {\"locals\": {\"CONTENT_FILE_PATH\": \"../dummyDocumentation.jade\", \"TAGLINE\": \"tagline\", \"NAME\": \"productName\", \"LANGUAGE\": \"en\", \"LANGUAGES\": \"\", \"GOOGLE_TRACKING_CODE\": \"__none__\", \"URL\": \"https://github.com/thaibault/documentationWebsite\", \"SOURCE_URL\": \"https://github.com/thaibault/documentationWebsite\", \"META_TAGS\": \"\"}}}}}'",
+        "dummyBuild": "npm run build '{\"module\": {\"preprocessor\": {\"jade\": {\"locals\": {\"CONTENT_FILE_PATH\": \"../dummyDocumentation.jade\", \"TAGLINE\": \"tagline\", \"NAME\": \"productName\", \"LANGUAGE\": \"en\", \"LANGUAGES\": \"\", \"GOOGLE_TRACKING_CODE\": \"__none__\", \"URL\": \"https://github.com/thaibault/documentationWebsite\", \"SOURCE_URL\": \"https://github.com/thaibault/documentationWebsite\", \"META_TAGS\": \"\"}}}}}'",
         "build": "webOptimizer build",
         "serve": "webOptimizer serve",
         "start": "npm run serve"
