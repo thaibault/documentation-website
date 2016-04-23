@@ -90,9 +90,9 @@ html.no-javascript(lang=LANGUAGE)&attributes({
             section.header-links
                 //NOTE: This elements are shown in reverse order.
                 if (HAS_API_DIRECTORY)
-                    - START_UP_ANIMATION_NUMBER += 5 + LANGUAGES.length()
+                    - START_UP_ANIMATION_NUMBER += 5 + LANGUAGES.length
                 else
-                    - START_UP_ANIMATION_NUMBER += 3 + LANGUAGES.length()
+                    - START_UP_ANIMATION_NUMBER += 3 + LANGUAGES.length
                 if (HAS_DISTRIBUTION_BUNDLE_FILE_PATH)
                     a.zip-source-download(
                         href=`https://github.com/thaibault/${NAME}/zipball/master`
@@ -138,26 +138,30 @@ html.no-javascript(lang=LANGUAGE)&attributes({
                                 | Documentation
                         //deDE:API<span>-Dokumentation</span>
                         //frFR:<span>Documentation de l'</span>API
-                    - START_UP_ANIMATION_NUMBER += 4 + LANGUAGES.length()
+                    - START_UP_ANIMATION_NUMBER += 4 + LANGUAGES.length
                 else
-                    - START_UP_ANIMATION_NUMBER += 2 + LANGUAGES.length()
+                    - START_UP_ANIMATION_NUMBER += 2 + LANGUAGES.length
         // endregion
         // region sections
         .main-content-wrap.outer
             // region main content
             section.main-content.inner
-                include CONTENT_FILE_PATH
+                // TODO dynamic includes arent possible yet. Use content as
+                // variable.
+                // include CONTENT_FILE_PATH
             // endregion
             // region about this website
             section.about-this-website.inner
                 h2(id='about-this-website')
                     | About this website
-                    //deDE:Impressum--><!--frFR:Mentions légales
+                    //deDE:Impressum
+                    //frFR:Mentions légales
                 p
                     | Provider of
                     //deDE:Anbieter von
                     //frFR:Fournisseur de
-                    a(href=`http://thaibault.github.io/${NAME}`)
+                    //- NOTE: JavaScript Templatestrings doesn't work here.
+                    a(href='http://thaibault.github.io/' + NAME)
                         | http://thaibault.github.io/#{NAME}
                     | :
                     br
