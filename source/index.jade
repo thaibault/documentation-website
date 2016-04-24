@@ -146,9 +146,11 @@ html.no-javascript(lang=LANGUAGE)&attributes({
         .main-content-wrap.outer
             // region main content
             section.main-content.inner
-                // TODO dynamic includes arent possible yet. Use content as
-                // variable.
-                // include CONTENT_FILE_PATH
+                if (CONTENT_FILE_PATH)
+                    // NOTE; Dynamic jade file includes aren't possible yet.
+                    != require(CONTENT_FILE_PATH).replace(/\n/g, '\n                ')
+                else if (CONTENT)
+                    != require(CONTENT).replace(/\n/g, '\n                ')
             // endregion
             // region about this website
             section.about-this-website.inner
