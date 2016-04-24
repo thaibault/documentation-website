@@ -148,9 +148,13 @@ html.no-javascript(lang=LANGUAGE)&attributes({
             section.main-content.inner
                 if (CONTENT_FILE_PATH)
                     // NOTE; Dynamic jade file includes aren't possible yet.
-                    != require(CONTENT_FILE_PATH).replace(/\n/g, '\n                ')
+                    - content = require(CONTENT_FILE_PATH)
                 else if (CONTENT)
-                    != require(CONTENT).replace(/\n/g, '\n                ')
+                    - content = CONTENT
+                if (RENDER_CONTENT)
+                    - content = compile(content)(locals)
+                if (content)
+                    != content.replace(/\n/g, '\n                ')
             // endregion
             // region about this website
             section.about-this-website.inner
