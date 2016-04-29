@@ -147,14 +147,14 @@ html.no-javascript(lang=LANGUAGE)&attributes({
             // region main content
             section.main-content.inner
                 if (CONTENT_FILE_PATH)
-                    // NOTE; Dynamic jade file includes aren't possible yet.
-                    - content = require(CONTENT_FILE_PATH)
+                    // NOTE: Dynamic jade file includes aren't possible yet.
+                    != require(`${CONTENT_FILE_PATH}?${JSON.stringify(locals)}`).replace(/\n/g, '\n                ')
                 else if (CONTENT)
                     - content = CONTENT
-                if (RENDER_CONTENT)
-                    - content = compile(content)(locals)
-                if (content)
-                    != content.replace(/\n/g, '\n                ')
+                    if (RENDER_CONTENT)
+                        - content = compile(CONTENT)(locals)
+                    if (content)
+                        != content.replace(/\n/g, '\n                ')
             // endregion
             // region about this website
             section.about-this-website.inner
