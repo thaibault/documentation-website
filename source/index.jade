@@ -87,11 +87,11 @@ html.no-javascript(lang=LANGUAGE || 'en')&attributes({
                 br
             section.header-links
                 //NOTE: This elements are shown in reverse order.
-                if (HAS_API_DIRECTORY)
+                if (API_DIRECTORY_PATH)
                     - START_UP_ANIMATION_NUMBER += 5 + LANGUAGES.length
                 else
                     - START_UP_ANIMATION_NUMBER += 3 + LANGUAGES.length
-                if (HAS_DISTRIBUTION_BUNDLE_FILE_PATH)
+                if (DISTRIBUTION_BUNDLE_FILE_PATH)
                     a.zip-source-download(
                         href=`https://github.com/thaibault/${NAME}/zipball/master`
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
@@ -120,13 +120,13 @@ html.no-javascript(lang=LANGUAGE || 'en')&attributes({
                         href=`#lang-${language}`
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     ) #{language.slice(0, 2)}
-                if (HAS_API_DIRECTORY)
+                if (API_DIRECTORY_PATH)
                     - START_UP_ANIMATION_NUMBER -= 1
                     span.glyphicon.glyphicon-arrow-left.arrow-left-api(
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`)
                     - START_UP_ANIMATION_NUMBER -= 1
                     a.api-link(
-                        href=`${URL}/api/`
+                        href=`${URL}${API_DIRECTORY_PATH}`
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     )
                         langreplace
