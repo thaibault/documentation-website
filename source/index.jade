@@ -12,7 +12,7 @@ doctype html
 -
     // region language
     if (!LANGUAGES)
-        LANGUAGES = ['deDE', 'enUS', 'frFR']
+        LANGUAGES = ['enUS']
     // endregion
     // region location
     IMAGE_PATH = 'image/'
@@ -34,7 +34,7 @@ doctype html
         SOURCE_URL = `https://github.com/thaibault/${NAME}`
     START_UP_ANIMATION_NUMBER = 0
     // endregion
-html.no-javascript(lang=LANGUAGE)&attributes({
+html.no-javascript(lang=LANGUAGE || 'en')&attributes({
     manifest: includeManifest && 'manifest.appcache'
 })
     // region head
@@ -46,9 +46,7 @@ html.no-javascript(lang=LANGUAGE)&attributes({
         meta(
             name='description'
             content=TAGLINE.replace(/^(.+?)<!--.+-->$/, '$1').replace("'", "\\'"))
-        // TODO
-        // each metaTag in META_TAGS
-        //     meta(metaTag.map(function(item) {return `${metaTag[0]}="${metaTag[1]}"`}).join(' '))
+        meta.attributes(META_TAGS || {})
         // endregion
         // region fav and touch icons
         link(
