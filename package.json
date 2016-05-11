@@ -4,7 +4,7 @@
     "keywords": ["documentation", "website", "project", "homepage", "page"],
     "description": "documentationWebsite",
     "license": "CC-BY-3.0",
-    "files": ["source", "dummyDocumentation.jade"],
+    "files": ["source", "dummyDocumentation.pug"],
     "main": "build/index.html",
     "repository": {
         "type": "git",
@@ -35,7 +35,7 @@
         "clear": "webOptimizer clear",
         "preinstall": "mkdir --parents build && touch build/index.html",
         "postinstall": "npm run build",
-        "dummyBuild": "npm run build --debug \"{module: {preprocessor: {jade: {locals: {RENDER_CONTENT: true, CONTENT_FILE_PATH: 'dummyDocumentation.jade', TAGLINE: 'tagline', NAME: 'productName', LANGUAGES: ['deDE', 'enUS', 'frFR'], URL: 'https://github.com/thaibault/documentationWebsite', SOURCE_URL: 'https://github.com/thaibault/documentationWebsite'}}}}}\"",
+        "dummyBuild": "npm run build --debug \"{module: {preprocessor: {pug: {locals: {RENDER_CONTENT: true, CONTENT_FILE_PATH: 'dummyDocumentation.pug', TAGLINE: 'tagline', NAME: 'productName', LANGUAGES: ['deDE', 'enUS', 'frFR'], URL: 'https://github.com/thaibault/documentationWebsite', SOURCE_URL: 'https://github.com/thaibault/documentationWebsite'}}}}}\"",
         "build": "webOptimizer build",
         "serve": "webOptimizer serve",
         "start": "npm run serve"

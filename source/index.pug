@@ -145,7 +145,7 @@ html.no-javascript(lang=LANGUAGE || 'en')&attributes({
             // region main content
             section.main-content.inner
                 if (CONTENT_FILE_PATH)
-                    // NOTE: Dynamic jade file includes aren't possible yet.
+                    // NOTE: Dynamic pug file includes aren't possible yet.
                     != require(`${CONTENT_FILE_PATH}?${JSON.stringify(locals)}`).replace(/\n/g, '\n                ')
                 else if (CONTENT)
                     - content = CONTENT
