@@ -67,6 +67,7 @@ node_modules/
 .npm-debug.log
 *.compiled.*
 *.compiled
+apiDocumentation/
 
 # region vim modline
 # vim: set tabstop=4 shiftwidth=4 expandtab:
