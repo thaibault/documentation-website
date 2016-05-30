@@ -21,12 +21,12 @@
             "internal": ["babel-polyfill", "less/index", "coffeeScript/index"]
         },
         "module": {"aliases": {
-            "bootstrap.less": "bootstrap/less/bootstrap",
-             "spin": "spin.js/spin",
-            "jQuery-spin": "spin.js/jquery.spin",
-            "jQuery-scrollTo": "jquery.scrollto/jquery.scrollTo",
-            "genericStyle.less": "genericStyle/index.less",
-            "jQuery-website.less": "jQuery-website/index.less"
+            "bootstrap.less$": "bootstrap/less/bootstrap",
+            "spin$": "spin.js/spin",
+            "jQuery-spin$": "spin.js/jquery.spin",
+            "jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo",
+            "genericStyle.less$": "genericStyle/index.less",
+            "jQuery-website.less$": "jQuery-website/index.less"
         }}
     },
     "scripts": {
