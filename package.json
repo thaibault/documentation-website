@@ -20,13 +20,18 @@
         "injection": {"internal": {
             "__execute__": "['index.less', 'less/index', 'javaScript/index'].concat(self.debug ? [] : 'babel-polyfill')"
         }},
-        "module": {"aliases": {
-            "bootstrap.less$": "bootstrap/less/bootstrap",
-            "jQuery-spin$": "spin.js/jquery.spin",
-            "jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo",
-            "genericStyle.less$": "genericStyle/index.less",
-            "jQuery-website.less$": "jQuery-website/index.less"
-        }}
+        "module": {
+            "aliases": {
+                "bootstrap.less$": "bootstrap/less/bootstrap",
+                "jQuery-spin$": "spin.js/jquery.spin",
+                "jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo",
+                "genericStyle.less$": "genericStyle/index.less",
+                "jQuery-website.less$": "jQuery-website/index.less"
+            },
+            "skipParseRegularExpression": {
+                "__execute__": "/\\/(?:(?:jquery)|(?:module)|(?:spin))\\.js(?:\\?.+|$)/"
+            }
+        }
     },
     "scripts": {
         "build": "webOptimizer build",
