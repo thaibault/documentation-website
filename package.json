@@ -30,6 +30,7 @@
     },
     "scripts": {
         "build": "webOptimizer build",
+        "buildWithStats": "webOptimizer build --profile --json",
         "clear": "webOptimizer clear",
         "document": "webOptimizer document",
         "dummyBuild": "npm run build --debug \"{module: {preprocessor: {pug: {locals: {RENDER_CONTENT: true, CONTENT_FILE_PATH: 'dummyDocumentation.pug', TAGLINE: 'tagline', NAME: 'productName', LANGUAGES: ['deDE', 'enUS', 'frFR'], URL: 'https://github.com/thaibault/documentationWebsite', SOURCE_URL: 'https://github.com/thaibault/documentationWebsite'}}}}}\"",
