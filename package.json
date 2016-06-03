@@ -40,9 +40,12 @@
         "document": "webOptimizer document",
         "dummyBuild": "npm run build --debug \"{module: {preprocessor: {pug: {locals: {RENDER_CONTENT: true, CONTENT_FILE_PATH: 'dummyDocumentation.pug', TAGLINE: 'tagline', NAME: 'productName', LANGUAGES: ['deDE', 'enUS', 'frFR'], URL: 'https://github.com/thaibault/documentationWebsite', SOURCE_URL: 'https://github.com/thaibault/documentationWebsite'}}}}}\"",
         "lint": "webOptimizer typeCheck && webOptimizer lint",
-        "preinstall": "mkdir --parents build && touch build/index.html",
         "postinstall": "npm run build",
+        "preinstall": "mkdir --parents build && touch build/index.html",
         "serve": "webOptimizer serve",
-        "start": "npm run serve"
+        "start": "npm run serve",
+        "test": "webOptimizer test",
+        "testInBrowser": "webOptimizer testInBrowser",
+        "watch": "webOptimizer build --watch"
     }
 }
