@@ -16,22 +16,23 @@
         "legalNotes": "git+ssh://git@github.com/thaibault/legalNotes.git"
     },
     "webOptimizer": {
-        "library": false,
         "injection": {"internal": {
-            "__execute__": "['index.less', 'less/index', 'javaScript/index'].concat(self.debug ? [] : 'babel-polyfill')"
+            "__execute__": "['less/index', 'index'].concat(self.debug ? [] : 'babel-polyfill')"
         }},
+        "library": false,
         "module": {
             "aliases": {
                 "bootstrap.less$": "bootstrap/less/bootstrap",
-                "jQuery-spin$": "spin.js/jquery.spin",
                 "jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo",
+                "jQuery-spin$": "spin.js/jquery.spin",
                 "genericStyle.less$": "genericStyle/index.less",
                 "jQuery-website.less$": "jQuery-website/index.less"
             },
             "skipParseRegularExpression": {
                 "__execute__": "/\\/(?:(?:jquery)|(?:module)|(?:spin))\\.js(?:\\?.+|$)/"
             }
-        }
+        },
+        "path": {"asset": {"javaScript": "./"}}
     },
     "scripts": {
         "build": "webOptimizer build",
