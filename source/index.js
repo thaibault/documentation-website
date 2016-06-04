@@ -41,7 +41,32 @@ if (!('document' in context) && 'context' in $)
  * after name mangling.
  * @property _options - Options extended by the options given to the
  * initializer method.
- * TODO
+ * @property _options.onExamplesLoaded {Function} - Callback to trigger when
+ * all example loaded.
+ * @property _options.domNodeSelectorPrefix {string} - 'body.{1}'
+ * @property _options.codeTableWrapper {string} - Markup to use as wrapper for
+ * all code highlighted examples.
+ * @property _options.showExample {Object} - Options object to configure code
+ * example representation.
+ * @property _options.showExample.pattern {string} - Regular expression to
+ * introduce a code example section.
+ * @property _options.showExample.domNodeName {string} - Dom node name to
+ * indicate a declarative example section.
+ * @property _options.showExample.htmlWrapper {string} - HTML example wrapper.
+ * @property _options.domNode {Object} - Object with a mapping of needed dom
+ * node descriptions to their corresponding selectors.
+ * @property _options.section {Object} - Configuration object for section
+ * switches between the main page and legal notes descriptions.
+ * @property _options.section.aboutThisWebsite {Object} - Configuration object
+ * for transitions concerning the legal notes section.
+ * @property _options.section.aboutThisWebsite.fadeOut {Object} - Fade out
+ * configurations.
+ * @property _options.section.aboutThisWebsite.fadeIn {Object} - Fade in
+ * configurations.
+ * @property _options.section.main {Object} - Configuration object for
+ * transitions concerning the main section.
+ * @property _options.section.main.fadeOut {Object} - Fade out configurations.
+ * @property _options.section.main.fadeIn {Object} - Fade in configurations.
  */
 class Documentation extends $.Website.class {
     // region static properties
@@ -58,23 +83,29 @@ class Documentation extends $.Website.class {
     /**
      * Initializes the interactive web application.
      * @param options - An options object.
+     * @param startUpAnimationIsComplete - Indicates weather start up
+     * animations has been completed.
+     * @param activateLanguageSupport - Indicates weather a language handler
+     * should be used or not.
+     * @param languageHandler - A language handler to use. If "null" is given
+     * a new handler will be created.
      * @returns Returns the current instance.
      */
     initialize(
         options:Object = {}, startUpAnimationIsComplete:boolean = false,
         activateLanguageSupport:boolean = false, languageHandler:?Lang = null
-    ) {
+    ):Documentation {
         this.startUpAnimationIsComplete = startUpAnimationIsComplete
         this._activateLanguageSupport = activateLanguageSupport
         this.languageHandler = languageHandler
         this._options = {
-            onExamplesLoaded: $.noop()
-            domNodeSelectorPrefix: 'body.{1}'
-            codeTableWrapper: '<div class="table-responsive">'
-            showExample:
-                pattern: '^ *showExample(: *([^ ]+))? *$'
-                domNodeName: '#comment'
-                htmlWrapper: '''
+            onExamplesLoaded: $.noop(),
+            domNodeSelectorPrefix: 'body.{1}',
+            codeTableWrapper: '<div class="table-responsive">',
+            showExample: {
+                pattern: '^ *showExample(: *([^ ]+))? *$',
+                domNodeName: '#comment',
+                htmlWrapper: `
                     <div class="show-example-wrapper">
                         <h3>
                             Example:
@@ -82,22 +113,27 @@ class Documentation extends $.Website.class {
                             <!--frFR:Exemple:-->
                         </h3>
                     </div>
-                '''
-            domNode:
-                tableOfContentLinks: 'div.toc > ul > li a[href^="#"]'
-                aboutThisWebsiteLink: 'a[href="#about-this-website"]'
-                homeLink: 'a[href="#home"]'
-                aboutThisWebsiteSection: 'section.about-this-website'
-                mainSection: 'section.main-content'
-                codeWrapper: 'div.codehilite'
+                `
+            },
+            domNode: {
+                tableOfContentLinks: 'div.toc > ul > li a[href^="#"]',
+                aboutThisWebsiteLink: 'a[href="#about-this-website"]',
+                homeLink: 'a[href="#home"]',
+                aboutThisWebsiteSection: 'section.about-this-website',
+                mainSection: 'section.main-content',
+                codeWrapper: 'div.codehilite',
                 code: 'div.codehilite > pre, code'
-            section:
-                aboutThisWebsite:
-                    fadeOut: duration: 'fast'
-                    fadeIn: duration: 'fast'
-                main:
-                    fadeOut: duration: 'fast'
-                    fadeIn: duration: 'fast'
+            },
+            section: {
+                aboutThisWebsite: {
+                    fadeOut: {duration: 'fast'},
+                    fadeIn: {duration: 'fast'}
+                },
+                main: {
+                    fadeOut: {duration: 'fast'},
+                    fadeIn: {duration: 'fast'}
+                }
+            }
         }
         /*
             NOTE: We will initialize language support after examples are
@@ -106,87 +142,94 @@ class Documentation extends $.Website.class {
         this._activateLanguageSupport = options.activateLanguageSupport
         options.activateLanguageSupport = false
         super.initialize(options)
-        if not this._activateLanguageSupport?
+        if (!this._activateLanguageSupport)
             this._activateLanguageSupport =
                 this._parentOptions.activateLanguageSupport
-        if not window.location.hash
-            window.location.hash = this.$domNodes.homeLink.attr 'href'
+        if (!('location' in context && context.location.hash))
+            context.location.hash = this.$domNodes.homeLink.attr('href')
         this.$domNodes.aboutThisWebsiteSection.hide()
-        # NOTE: We have to render examples first to avoid having dots in
-        # example code.
+        /*
+            NOTE: We have to render examples first to avoid having dots in
+            example code.
+        */
         this._showExamples()._makeCodeEllipsis()
-        this.on this.$domNodes.tableOfContentLinks, 'click', ->
-            $.scrollTo $(this).attr('href'), 'slow'
-        # Handle section switch between documentation and
-        # "about this website".
+        this.on(this.$domNodes.tableOfContentLinks, 'click', ():$DomNode =>
+            $.scrollTo($(this).attr('href'), 'slow'))
+        // Handle section switch between documentation and legal notes section.
         this._options.section.aboutThisWebsite.fadeOut.always = =>
             this.$domNodes.mainSection.fadeIn(
                 this._options.section.main.fadeIn)
-        this._options.section.main.fadeOut.always = =>
+        this._options.sectin.main.fadeOut.always = ():$DomNode =>
             this.$domNodes.aboutThisWebsiteSection.fadeIn(
                 this._options.section.aboutThisWebsite.fadeIn)
-        this.on this.$domNodes.aboutThisWebsiteLink, 'click', =>
+        this.on(this.$domNodes.aboutThisWebsiteLink, 'click', ():$DomNode =>
             this._scrollToTop().$domNodes.mainSection.fadeOut(
-                this._options.section.main.fadeOut)
-        this.on this.$domNodes.homeLink, 'click', (event) =>
+                this._options.section.main.fadeOut))
+        this.on(this.$domNodes.homeLink, 'click', (event:Object):$DomNode =>
             this._scrollToTop().$domNodes.aboutThisWebsiteSection.fadeOut(
-                this._options.section.aboutThisWebsite.fadeOut)
-        this
-    ## endregion
-    ## region event handler
-    _onExamplesLoaded: ->
-        ###
-            This method triggers if all examples loaded.
-
-            **returns {$.Documentation}** - Returns the current instance.
-        ###
-        # NOTE: After injecting new dom nodes we have to grab them for
-        # further controller logic.
-        this.$domNodes = this.grabDomNode this._options.domNode
-        # New injected dom nodes may take affect on language handler.
-        if(this.startUpAnimationIsComplete and
-           this._activateLanguageSupport and not this._languageHandler?)
-            this._languageHandler = $.Lang this._options.language
-        this
-    _onSwitchSection: (sectionName) ->
-        ###
-            This method triggers if we change the current section.
-
-            **returns {$.Documentation}** - Returns the current instance.
-        ###
+                this._options.section.aboutThisWebsite.fadeOut))
+        return this
+    }
+    // / endregion
+    // / region event handler
+    /**
+     * This method triggers if all examples loaded.
+     * @returns Returns the current instance.
+     */
+    _onExamplesLoaded():Documentation {
+        /*
+            NOTE: After injecting new dom nodes we have to grab them for
+            further controller logic.
+        */
+        this.$domNodes = this.grabDomNode(this._options.domNode)
+        // New injected dom nodes may take affect on language handler.
+        if (
+            this.startUpAnimationIsComplete &&
+            this._activateLanguageSupport && !this._languageHandler
+        )
+            this._languageHandler = $.Lang(this._options.language)
+        return this
+    }
+    /**
+     * This method triggers if we change the current section.
+     * @param sectionName - New section which should be switched to.
+     * @returns Returns the current instance.
+     */
+    _onSwitchSection(sectionName:string):Documentation {
         this.$domNodes.tableOfContentLinks.add(
             this.$domNodes.aboutThisWebsiteLink
         ).add(this.$domNodes.homeLink).filter(
-            "a[href=\"##{sectionName}\"]"
-        ).trigger 'click'
-        super
-    _onStartUpAnimationComplete: ->
-        ###
-            This method triggers if all startup animations are ready.
-
-            **returns {$.Documentation}** - Returns the current instance.
-        ###
-        if this._activateLanguageSupport and not this._languageHandler?
-            this._languageHandler = $.Lang this._options.language
-        # All start up effects are ready. Handle direct
-        # section links.
+            `a[href="#${sectionName}"]`
+        ).trigger('click')
+        return super._onSwitchSection.apply(this, arguments)
+    }
+    /**
+     * This method triggers if all startup animations are ready.
+     * @returns Returns the current instance.
+     */
+    _onStartUpAnimationComplete():Documentation {
+        if (this._activateLanguageSupport && !this._languageHandler)
+            this._languageHandler = $.Lang(this._options.language)
+        // All start up effects are ready. Handle direct section links.
         this.startUpAnimationIsComplete = true
-        this.$domNodes.tableOfContentLinks.add(
-            this.$domNodes.aboutThisWebsiteLink
-        ).filter('a[href="' + window.location.href.substr(
-            window.location.href.indexOf '#'
-        ) + '"]').trigger 'click'
-        super
-    ## endregion
+        if ('location' in context)
+            this.$domNodes.tableOfContentLinks.add(
+                this.$domNodes.aboutThisWebsiteLink
+            ).filter('a[href="' + window.location.href.substr(
+                context.location.href.indexOf('#')
+            ) + '"]').trigger('click')
+        return super._onStartUpAnimationComplete.apply(this, arguments)
+    }
+    // / endregion
     // endregion
-    # region protected methods
-    ###
-        This method makes dotes after code lines which are too long. This
-        prevents line wrapping.
-
-        **returns {$.Documentation}** - Returns the current instance.
-    ###
-    _makeCodeEllipsis: ->
+    // region protected methods
+    /**
+     * This method makes dotes after code lines which are too long. This
+     * prevents line wrapping.
+     * @returns Returns the current instance.
+     */
+    _makeCodeEllipsis():Documentation {
+        // TODO STAND
         this.$domNodes.code.each (index, domNode) =>
             $domNode = $ domNode
             tableParent = $domNode.closest 'table'
@@ -205,7 +248,8 @@ class Documentation extends $.Website.class {
                 if index + 1 isnt codeLines.length
                     newContent += "\n"
             $domNode.html newContent
-        this
+        return this
+    }
     _replaceExcessWithDots: (content, excess) ->
         ###
             Replaces given html content with a shorter version trimmed by
@@ -299,7 +343,7 @@ class Documentation extends $.Website.class {
                             "#{error}")
         this.fireEvent 'examplesLoaded'
         this
-    # endregion
+    // endregion
 }
 // endregion
 $.Documentation = function():any {
