@@ -67,7 +67,7 @@ class Documentation extends $.Website.class {
         this.startUpAnimationIsComplete = startUpAnimationIsComplete
         this._activateLanguageSupport = activateLanguageSupport
         this.languageHandler = languageHandler
-        this._options =
+        this._options = {
             onExamplesLoaded: $.noop()
             domNodeSelectorPrefix: 'body.{1}'
             codeTableWrapper: '<div class="table-responsive">'
@@ -98,11 +98,14 @@ class Documentation extends $.Website.class {
                 main:
                     fadeOut: duration: 'fast'
                     fadeIn: duration: 'fast'
-        # NOTE: We will initialize language support after examples are
-        # injected if activated via options.
+        }
+        /*
+            NOTE: We will initialize language support after examples are
+            injected if activated via options.
+        */
         this._activateLanguageSupport = options.activateLanguageSupport
         options.activateLanguageSupport = false
-        super options
+        super.initialize(options)
         if not this._activateLanguageSupport?
             this._activateLanguageSupport =
                 this._parentOptions.activateLanguageSupport
