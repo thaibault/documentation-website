@@ -1,62 +1,72 @@
-#!/usr/bin/env coffee
-# -*- coding: utf-8 -*-
+// @flow
+// #!/usr/bin/env node
+// -*- coding: utf-8 -*-
+/** @module jQuery-homePage */
 'use strict'
-# region header
-###
-This plugin provides generic documentation page features.
+/* !
+    region header
+    [Project page](http://torben.website)
 
-Copyright Torben Sickert 16.12.2012
+    Copyright Torben Sickert (info["~at~"]torben.website) 16.12.2012
 
-License
--------
+    License
+    -------
 
-This library written by Torben Sickert stand under a creative commons naming
-3.0 unported license. see http://creativecommons.org/licenses/by/3.0/deed.de
-
-Extending this module
----------------------
-
-For conventions see require on https://github.com/thaibault/require
-
-Author
-------
-
-t.sickert["~at~"]gmail.com (Torben Sickert)
-
-Version
--------
-
-1.0 stable
-###
-# endregion
-$ = require 'jquery'
-require 'jQuery-website'
-# region plugins/classes
-class Documentation extends $.Website.class
-    ###
-        This plugin holds all needed methods to extend a whole
-        documentation site.
-    ###
-    # region properties
-    ###
-        **__name__ {String}**
-        Holds the class name to provide inspection features.
-    ###
-    __name__: 'Documentation'
-    # endregion
-    # region public methods
-    ## region special
-    ###
-        Initializes the interactive web application.
-
-        **options {Object}**          - An options object.
-
-        **returns {$.Documentation}** - Returns the current instance.
-    ###
-    initialize: (
-        options={}, @startUpAnimationIsComplete=false,
-        @_activateLanguageSupport=false, @_languageHandler=null
-    ) ->
+    This library written by Torben Sickert stand under a creative commons
+    naming 3.0 unported license.
+    See http://creativecommons.org/licenses/by/3.0/deed.de
+    endregion
+*/
+// region imports
+import $ from 'jquery'
+import 'jQuery-website'
+import type {DomNode} from 'webOptimizer/type'
+import type {$DomNode} from 'jQuery-tools'
+// endregion
+const context:Object = (():Object => {
+    if ($.type(window) === 'undefined') {
+        if ($.type(global) === 'undefined')
+            return ($.type(module) === 'undefined') ? {} : module
+        return global
+    }
+    return window
+})()
+if (!('document' in context) && 'context' in $)
+    context.document = $.context
+// region plugins/classes
+/**
+ * This plugin holds all needed methods to extend a whole documentation site.
+ * @extends jQuery-website:Website
+ * @property static:_name - Defines this class name to allow retrieving them
+ * after name mangling.
+ * @property _options - Options extended by the options given to the
+ * initializer method.
+ * TODO
+ */
+class Documentation extends $.Website.class {
+    // region static properties
+    static _name:string = 'Documentation'
+    // endregion
+    // region dynamic properties
+    $domNodes:{[key:string]:$DomNode}
+    startUpAnimationIsComplete:boolean
+    _activateLanguageSupport:boolean
+    languageHandler:Object;
+    // endregion
+    // region public methods
+    // / region special
+    /**
+     * Initializes the interactive web application.
+     * @param options - An options object.
+     * @returns Returns the current instance.
+     */
+    initialize(
+        options:Object = {}, startUpAnimationIsComplete:boolean = false,
+        activateLanguageSupport:boolean = false, languageHandler:?Lang = null
+    ) {
+        this.startUpAnimationIsComplete = startUpAnimationIsComplete
+        this._activateLanguageSupport = activateLanguageSupport
+        this.languageHandler = languageHandler
         this._options =
             onExamplesLoaded: $.noop()
             domNodeSelectorPrefix: 'body.{1}'
@@ -165,7 +175,7 @@ class Documentation extends $.Website.class
         ) + '"]').trigger 'click'
         super
     ## endregion
-    # endregion
+    // endregion
     # region protected methods
     ###
         This method makes dotes after code lines which are too long. This
@@ -287,15 +297,21 @@ class Documentation extends $.Website.class
         this.fireEvent 'examplesLoaded'
         this
     # endregion
-# endregion
-module.exports = $.Documentation = -> $.Tools().controller(
-    Documentation, arguments)
+}
+// endregion
+$.Documentation = function():any {
+    return $.Tools().controller(Documentation, arguments)
+}
 $.Documentation.class = Documentation
-$.noConflict() ($) ->
-    $.Documentation trackingCode: '<%GOOGLE_TRACKING_CODE%>', language:
-        allowedLanguages: <% "['" + "', '".join(LANGUAGES) + "']" if length(LANGUAGES) else '[]' %>
+/** The jQuery-documentation plugin class. */
+export default Documentation
+$.noConflict()(($:Object):Documentation => $.Documentation({
+    trackingCode: '<%GOOGLE_TRACKING_CODE%>', language: {
+        allowedLanguages: <% "['" + "', '".join(LANGUAGES) + "']" if length(LANGUAGES) else '[]' %>,
         sessionDescription: 'documentationWebsite{1}'
-# region modline
-# vim: set tabstop=4 shiftwidth=4 expandtab:
-# vim: foldmethod=marker foldmarker=region,endregion:
-# endregion
+    }
+}))
+// region vim modline
+// vim: set tabstop=4 shiftwidth=4 expandtab:
+// vim: foldmethod=marker foldmarker=region,endregion:
+// endregion
