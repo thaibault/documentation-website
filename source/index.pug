@@ -48,11 +48,6 @@ html.no-javascript(lang=LANGUAGE || 'en')&attributes({
             content=TAGLINE.replace(/^(.+?)<!--.+-->$/, '$1').replace("'", "\\'"))
         meta.attributes(META_TAGS || {})
         // endregion
-        // region fav and touch icons
-        link(
-            rel='shortcut icon' type='image/x-icon'
-            href=`${IMAGE_PATH}favicon.ico`)
-        // endregion
         // region pre load resources
         script(type="text/javascript").
             window.document.documentElement.className =
