@@ -159,13 +159,15 @@ class Documentation extends $.Website.class {
             example code.
         */
         this._showExamples()._makeCodeEllipsis()
-        this.on(this.$domNodes.tableOfContentLinks, 'click', ():$DomNode =>
-            $.scrollTo($(this).attr('href'), 'slow'))
+        this.on(this.$domNodes.tableOfContentLinks, 'click', function(
+        ):void {
+            $.scrollTo($(this).attr('href'), 'slow')
+        })
         // Handle section switch between documentation and legal notes section.
         this._options.section.aboutThisWebsite.fadeOut.always = ():$DomNode =>
             this.$domNodes.mainSection.fadeIn(
                 this._options.section.main.fadeIn)
-        this._options.sectin.main.fadeOut.always = ():$DomNode =>
+        this._options.section.main.fadeOut.always = ():$DomNode =>
             this.$domNodes.aboutThisWebsiteSection.fadeIn(
                 this._options.section.aboutThisWebsite.fadeIn)
         this.on(this.$domNodes.aboutThisWebsiteLink, 'click', ():$DomNode =>
@@ -221,7 +223,7 @@ class Documentation extends $.Website.class {
         if ('location' in context)
             this.$domNodes.tableOfContentLinks.add(
                 this.$domNodes.aboutThisWebsiteLink
-            ).filter('a[href="' + window.location.href.substr(
+            ).filter('a[href="' + context.location.href.substr(
                 context.location.href.indexOf('#')
             ) + '"]').trigger('click')
         return super._onStartUpAnimationComplete.apply(this, arguments)
@@ -335,7 +337,7 @@ class Documentation extends $.Website.class {
                     if (!code)
                         code = $codeDomNode.text()
                     try {
-                        if (match.length > 2)
+                        if (match.length > 2 && match[2])
                             if (['javascript', 'js'].includes(
                                 match[2].toLowerCase()
                             ))

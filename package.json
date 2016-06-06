@@ -17,9 +17,9 @@
     },
     "webOptimizer": {
         "buildDefinition": {
-            "GOOGLE_TRACKING_CODE": "",
+            "GOOGLE_TRACKING_CODE": "''",
             "LANGUAGES": {
-                "__execute__": "self.module.preprocessor.pug.locals.LANGUAGES"
+                "__execute__": "`['${self.module.preprocessor.pug.locals.LANGUAGES.join(\"', '\")}']`"
             }
         },
         "injection": {"internal": {
