@@ -229,120 +229,140 @@ class Documentation extends $.Website.class {
      * @returns Returns the current instance.
      */
     _makeCodeEllipsis():Documentation {
-        // TODO STAND
-        this.$domNodes.code.each (index, domNode) =>
-            $domNode = $ domNode
-            tableParent = $domNode.closest 'table'
-            if tableParent.length
-                tableParent.wrap this._options.codeTableWrapper
-            newContent = ''
-            codeLines = $domNode.html().split '\n'
-            $.each codeLines, (index, value) =>
-                # NOTE: Wrap a div object to grantee that $ will accept the
-                # input.
-                excess = $("<div>#{value}</div>").text().length - 79
-                if excess > 0
-                    newContent += this._replaceExcessWithDots value, excess
+        this.$domNodes.code.each((index:number, domNode:DomNode):void => {
+            const $domNode:$DomNode = $(domNode)
+            const tableParent:$DomNode = $domNode.closest('table')
+            if (tableParent.length)
+                tableParent.wrap(this._options.codeTableWrapper)
+            let newContent:string = ''
+            const codeLines:Array<string> = $domNode.html().split('\n')
+            $.each(codeLines, (index:number, value:string):void => {
+                /*
+                    NOTE: Wrap a div object to grantee that $ will accept the
+                    input.
+                */
+                const excess:number = $(`<div>${value}</div>`).text(
+                ).length - 79
+                if (excess > 0)
+                    newContent += this._replaceExcessWithDots(value, excess)
                 else
                     newContent += value
-                if index + 1 isnt codeLines.length
+                if (index + 1 !== codeLines.length)
                     newContent += "\n"
-            $domNode.html newContent
+            })
+            $domNode.html(newContent)
+        })
         return this
     }
-    _replaceExcessWithDots: (content, excess) ->
-        ###
-            Replaces given html content with a shorter version trimmed by
-            given amount of excess.
-
-            **content {String}** - String to trim.
-            **excess {Number}**  - Amount of excess.
-
-            **returns {String}** - Returns the trimmed content.
-        ###
-        # Add space for ending dots.
+    /**
+     * Replaces given html content with a shorter version trimmed by given
+     * amount of excess.
+     * @param content - String to trim.
+     * @param excess - Amount of excess.
+     * @returns Returns the trimmed content.
+     */
+    _replaceExcessWithDots(content:string, excess:number):string {
+        // Add space for ending dots.
         excess += 3
-        newContent = ''
-        try
-            $content = $ content
-            throw window.Error('error') if not $content.length
-        catch error
-            # NOTE: Wrap an element around to grantee that $ will accept
-            # the input. We don't wrap an element in general to iterate
-            # through separate dom nodes in next step if possible.
-            $content = $ "<wrapper>#{content}</wrapper>"
+        const newContent:string = ''
+        let $content:$DomNode
+        let wrapped:boolean = false
+        try {
+            $content = $(content)
+            if (!$content.length)
+                throw Error('error')
+        } catch (error) {
+            /*
+                NOTE: Wrap an element around to grantee that $ will accept the
+                input. We don't wrap an element in general to iterate through
+                separate dom nodes in next step if possible.
+            */
+            $content = $(`<wrapper>${content}</wrapper>`)
             wrapped = true
-        $($content.get().reverse()).each ->
-            # Wrap element to get not only the inner html. Wrap only if not
-            # wrapped already.
-            if wrapped
-                $wrapper = $ this
+        }
+        $($content.get().reverse()).each(function():void {
+            /*
+                Wrap element to get not only the inner html. Wrap only if not
+                wrapped already.
+            */
+            let $wrapper:$DomNode
+            if (wrapped)
+                $wrapper = $(this)
             else
                 $wrapper = $(this).wrap('<wrapper>').parent()
-            contentSnippet = $wrapper.html()
-            if not contentSnippet
+            let contentSnippet:string = $wrapper.html()
+            if (!contentSnippet)
                 contentSnippet = this.textContent
-            if excess
-                if this.textContent.length < excess
+            if (excess)
+                if (this.textContent.length < excess) {
                     excess -= this.textContent.length
                     contentSnippet = ''
-                else if this.textContent.length >= excess
+                } else if (this.textContent.length >= excess) {
                     this.textContent = this.textContent.substr(
                         0, this.textContent.length - excess - 1
                     ) + '...'
                     excess = 0
                     contentSnippet = $wrapper.html()
-                    if not contentSnippet
+                    if (!contentSnippet)
                         contentSnippet = this.textContent
+                }
             newContent = contentSnippet + newContent
-        newContent
-    _showExamples: ->
-        ###
-            Shows marked example codes directly in browser.
-
-            **returns {$.Documentation}** - Returns the current instance.
-        ###
-        this.$domNodes.parent.find(':not(iframe)').contents().each (
-            index, domNode
-        ) =>
-            if domNode.nodeName is this._options.showExample.domNodeName
-                match = domNode.textContent.match new window.RegExp(
-                    this._options.showExample.pattern)
-                if match
-                    $codeDomNode = $(domNode).next()
-                    code = $codeDomNode.find(
+        })
+        return newContent
+    }
+    /**
+     * Shows marked example codes directly in browser.
+     * @returns Returns the current instance.
+     */
+    _showExamples():Documentation {
+        this.$domNodes.parent.find(':not(iframe)').contents().each((
+            index:number, domNode:DomNode
+        ):void => {
+            if (domNode.nodeName === this._options.showExample.domNodeName) {
+                const match:Array<string> = domNode.textContent.match(
+                    new RegExp(this._options.showExample.pattern))
+                if (match) {
+                    const $codeDomNode:$DomNode = $(domNode).next()
+                    let code:string = $codeDomNode.find(
                         this.$domNodes.codeWrapper
                     ).text()
-                    code = $codeDomNode.text() if not code
-                    try
-                        if $.inArray(
-                            match[2]?.toLowerCase(), ['javascript', 'js']
-                        ) isnt -1
-                            $codeDomNode.after $('<script>').attr(
-                                'type', 'text/javascript'
-                            ).text code
-                        else if match[2]? and $.inArray(
-                            match[2].toLowerCase(), [
-                                'css', 'cascadingstylesheets'
-                                'stylesheets', 'sheets', 'style']
-                        ) isnt -1
-                            $codeDomNode.after $('<style>').attr(
-                                'type', 'text/css'
-                            ).text code
-                        else if match[2]? and $.inArray(
-                            match[2].toLowerCase(), ['hidden']
-                        ) isnt -1
-                            $codeDomNode.after code
+                    if (!code)
+                        code = $codeDomNode.text()
+                    try {
+                        if (match.length > 2)
+                            if (['javascript', 'js'].includes(
+                                match[2].toLowerCase()
+                            ))
+                                $codeDomNode.after($('<script>').attr(
+                                    'type', 'text/javascript'
+                                ).text(code))
+                            else if ([
+                                'css', 'cascadingstylesheets', 'stylesheets',
+                                'sheets', 'style'
+                            ].includes(match[2].toLowerCase()))
+                                $codeDomNode.after($('<style>').attr(
+                                    'type', 'text/css'
+                                ).text(code))
+                            else if (match[2].toLowerCase() === 'hidden')
+                                $codeDomNode.after(code)
+                            else
+                                $codeDomNode.after($(
+                                    this._options.showExample.htmlWrapper
+                                ).append(code))
                         else
-                            $codeDomNode.after $(
+                            $codeDomNode.after($(
                                 this._options.showExample.htmlWrapper
-                            ).append code
-                    catch error
+                            ).append(code))
+                    } catch (error) {
                         this.critical(
-                            "Error while integrating code \"#{code}\": " +
-                            "#{error}")
-        this.fireEvent 'examplesLoaded'
-        this
+                            `Error while integrating code "${code}": ${error}`)
+                    }
+                }
+            }
+        })
+        this.fireEvent('examplesLoaded')
+        return this
+    }
     // endregion
 }
 // endregion
@@ -353,8 +373,8 @@ $.Documentation.class = Documentation
 /** The jQuery-documentation plugin class. */
 export default Documentation
 $.noConflict()(($:Object):Documentation => $.Documentation({
-    trackingCode: '<%GOOGLE_TRACKING_CODE%>', language: {
-        allowedLanguages: <% "['" + "', '".join(LANGUAGES) + "']" if length(LANGUAGES) else '[]' %>,
+    trackingCode: GOOGLE_TRACKING_CODE, language: {
+        allowedLanguages: LANGUAGES || [],
         sessionDescription: 'documentationWebsite{1}'
     }
 }))

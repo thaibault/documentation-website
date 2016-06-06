@@ -16,6 +16,10 @@
         "legalNotes": "git+ssh://git@github.com/thaibault/legalNotes.git"
     },
     "webOptimizer": {
+        "buildDefinition": {
+            "GOOGLE_TRACKING_CODE": "",
+            "LANGUAGES": ["enUS", "frFR", "deDE"]
+        },
         "injection": {"internal": {
             "__execute__": "['less/index', 'index'].concat(self.debug ? [] : 'babel-polyfill')"
         }},
