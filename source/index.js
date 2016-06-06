@@ -156,7 +156,7 @@ class Documentation extends $.Website.class {
         this.on(this.$domNodes.tableOfContentLinks, 'click', ():$DomNode =>
             $.scrollTo($(this).attr('href'), 'slow'))
         // Handle section switch between documentation and legal notes section.
-        this._options.section.aboutThisWebsite.fadeOut.always = =>
+        this._options.section.aboutThisWebsite.fadeOut.always = ():$DomNode =>
             this.$domNodes.mainSection.fadeIn(
                 this._options.section.main.fadeIn)
         this._options.sectin.main.fadeOut.always = ():$DomNode =>
