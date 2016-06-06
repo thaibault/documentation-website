@@ -42,11 +42,12 @@ html.no-javascript(lang=LANGUAGE || 'en')&attributes({
         title #{NAME}
         // region meta in formations
         meta(charset='utf-8')
-        meta(name='viewport' content='width=device-width, initial-scale=1.0')
         meta(
             name='description'
             content=TAGLINE.replace(/^(.+?)<!--.+-->$/, '$1').replace("'", "\\'"))
-        meta.attributes(META_TAGS || {})
+        meta(name='author' content='Torben Sickert')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        meta&attributes(META_TAGS || {})
         // endregion
         // region pre load resources
         script(type="text/javascript").
