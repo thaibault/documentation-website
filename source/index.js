@@ -19,9 +19,14 @@
 */
 // region imports
 import $ from 'jquery'
+import Lang from 'jQuery-lang'
 import 'jQuery-website'
 import type {DomNode} from 'webOptimizer/type'
 import type {$DomNode} from 'jQuery-tools'
+// endregion
+// region declaration
+declare var LANGUAGES:Array<string>
+declare var GOOGLE_TRACKING_CODE:string
 // endregion
 const context:Object = (():Object => {
     if ($.type(window) === 'undefined') {
@@ -97,7 +102,8 @@ class Documentation extends $.Website.class {
     ):Documentation {
         this.startUpAnimationIsComplete = startUpAnimationIsComplete
         this._activateLanguageSupport = activateLanguageSupport
-        this.languageHandler = languageHandler
+        if (languageHandler)
+            this.languageHandler = languageHandler
         this._options = {
             onExamplesLoaded: $.noop(),
             domNodeSelectorPrefix: 'body.{1}',
@@ -165,7 +171,7 @@ class Documentation extends $.Website.class {
         this.on(this.$domNodes.aboutThisWebsiteLink, 'click', ():$DomNode =>
             this._scrollToTop().$domNodes.mainSection.fadeOut(
                 this._options.section.main.fadeOut))
-        this.on(this.$domNodes.homeLink, 'click', (event:Object):$DomNode =>
+        this.on(this.$domNodes.homeLink, 'click', ():$DomNode =>
             this._scrollToTop().$domNodes.aboutThisWebsiteSection.fadeOut(
                 this._options.section.aboutThisWebsite.fadeOut))
         return this
@@ -264,7 +270,7 @@ class Documentation extends $.Website.class {
     _replaceExcessWithDots(content:string, excess:number):string {
         // Add space for ending dots.
         excess += 3
-        const newContent:string = ''
+        let newContent:string = ''
         let $content:$DomNode
         let wrapped:boolean = false
         try {
