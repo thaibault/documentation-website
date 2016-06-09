@@ -38,6 +38,8 @@ const context:Object = (():Object => {
 })()
 if (!('document' in context) && 'context' in $)
     context.document = $.context
+// TODO
+// require('offline-plugin/runtime').install()
 // region plugins/classes
 /**
  * This plugin holds all needed methods to extend a whole documentation site.
