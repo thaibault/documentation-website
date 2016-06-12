@@ -388,6 +388,11 @@ $.noConflict()(($:Object):Documentation => $.Documentation({
 }))
 // TODO check how it prevents app cache to use
 require('offline-plugin/runtime').install()
+/*
+&attributes({
+    manifest: includeManifest && 'manifest.appcache'
+})
+*/
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
 // vim: foldmethod=marker foldmarker=region,endregion:

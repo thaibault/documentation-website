@@ -34,9 +34,7 @@ doctype html
         SOURCE_URL = `https://github.com/thaibault/${NAME}`
     START_UP_ANIMATION_NUMBER = 0
     // endregion
-html.no-javascript(lang=LANGUAGE || 'en')&attributes({
-    manifest: includeManifest && 'manifest.appcache'
-})
+html.no-javascript(lang=LANGUAGE || 'en')
     // region head
     head
         title #{NAME}
