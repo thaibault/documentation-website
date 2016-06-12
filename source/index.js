@@ -38,8 +38,6 @@ const context:Object = (():Object => {
 })()
 if (!('document' in context) && 'context' in $)
     context.document = $.context
-// TODO check how it prevents app cache to use
-require('offline-plugin/runtime').install()
 // region plugins/classes
 /**
  * This plugin holds all needed methods to extend a whole documentation site.
@@ -388,6 +386,8 @@ $.noConflict()(($:Object):Documentation => $.Documentation({
         sessionDescription: 'documentationWebsite{1}'
     }
 }))
+// TODO check how it prevents app cache to use
+require('offline-plugin/runtime').install()
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
 // vim: foldmethod=marker foldmarker=region,endregion:
