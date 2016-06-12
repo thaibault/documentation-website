@@ -23,7 +23,7 @@
             }
         },
         "injection": {"internal": {
-            "__execute__": "{vendor: self.debug ? ['jQuery-website'] : [], index: ['less/index', 'index'].concat(self.debug ? [] : 'babel-polyfill')}"
+            "__execute__": "{vendor: self.debug ? ['jQuery-website'] : [], index: (self.debug ? [] : ['babel-polyfill']).concat(['less/index', 'index'])}"
         }},
         "library": false,
         "module": {
