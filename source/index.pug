@@ -56,7 +56,7 @@ html.no-javascript(lang=LANGUAGE || 'en')
     // endregion
     // region body
     body(class='documentation')
-        .website-window-loading-cover.tools-visible-on-javascript-enabled: div
+        .website-window-loading-cover.tools-hidden-on-javascript-disabled: div
         // region header
         .header-wrap.outer: header.inner
             - START_UP_ANIMATION_NUMBER += 1
@@ -224,6 +224,7 @@ html.no-javascript(lang=LANGUAGE || 'en')
             | top
             //deDE:nach oben
             //frFR:ascendant
+<noscript>Your browser does not support JavaScript!</noscript>
     // endregion
 //-
     region vim modline
