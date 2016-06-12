@@ -224,7 +224,8 @@ html.no-javascript(lang=LANGUAGE || 'en')
             | top
             //deDE:nach oben
             //frFR:ascendant
-    // TODO <noscript>Your browser does not support JavaScript!</noscript>
+    if includeManifest
+        noscript: iframe(src='/manifest.html' style='display: none')
     // endregion
 //-
     region vim modline
