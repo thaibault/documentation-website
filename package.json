@@ -27,6 +27,8 @@
         }},
         "library": false,
         "module": {
+            "optimizer": {"uglifyJS": null},
+
             "aliases": {
                 "babel-polyfill$": "babel-polyfill/dist/polyfill.min",
                 "bootstrap.less$": "bootstrap/less/bootstrap",
