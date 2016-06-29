@@ -16,6 +16,9 @@
         "legalNotes": "git+ssh://git@github.com/thaibault/legalNotes.git"
     },
     "webOptimizer": {
+
+        "inPlace": {"externalLibrary": false},
+
         "buildDefinition": {
             "GOOGLE_TRACKING_CODE": "''",
             "LANGUAGES": {
