@@ -16,9 +16,6 @@
         "legalNotes": "git+ssh://git@github.com/thaibault/legalNotes.git"
     },
     "webOptimizer": {
-
-        "inPlace": {"externalLibrary": false},
-
         "buildDefinition": {
             "GOOGLE_TRACKING_CODE": "''",
             "LANGUAGES": {
@@ -66,6 +63,7 @@
         "start": "npm run serve",
         "test": "webOptimizer test",
         "testInBrowser": "webOptimizer testInBrowser",
-        "watch": "webOptimizer build --watch"
+        "watch": "webOptimizer build --watch",
+        "watchDLL": "webOptimizer buildDLL --watch"
     }
 }
