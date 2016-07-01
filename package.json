@@ -19,11 +19,11 @@
         "buildDefinition": {
             "GOOGLE_TRACKING_CODE": "''",
             "LANGUAGES": {
-                "__execute__": "`['${self.module.preprocessor.pug.locals.LANGUAGES.join(\"', '\")}']`"
+                "__evaluate__": "`['${self.module.preprocessor.pug.locals.LANGUAGES.join(\"', '\")}']`"
             }
         },
         "injection": {"internal": {
-            "__execute__": "{developmentHelper: self.debug && 2 < self.givenCommandLineArguments.length && ['buildDLL', 'serve'].includes(self.givenCommandLineArguments[2]) ? ['webpack-dev-server/client?http://0.0.0.0:8080'] : [], vendor: self.debug || 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'buildDLL' ? ['jQuery-website'] : [], index: ['less/index'].concat(self.debug ? [] : 'babel-polyfill').concat(['index']).concat(self.debug && 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'serve' ? ['webpack-dev-server/client?http://0.0.0.0:8080'] : [])}"
+            "__execute__": "developmentModules = [`webpack-dev-server/client?${self.development.server.protocol}://0.0.0.0:${self.development.server.port}`]; return {developmentHelper: self.debug && 2 < self.givenCommandLineArguments.length && ['buildDLL', 'serve'].includes(self.givenCommandLineArguments[2]) ? developmentModules : [], vendor: self.debug || 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'buildDLL' ? ['jQuery-website'] : [], index: ['less/index'].concat(self.debug ? [] : 'babel-polyfill').concat(['index']).concat(self.debug && 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'serve' ? developmentModules : [])}"
         }},
         "library": false,
         "module": {
@@ -45,7 +45,7 @@
                 "URL": "https://github.com/thaibault/documentationWebsite"
             }}},
             "skipParseRegularExpression": {
-                "__execute__": "/\\/(?:(?:jquery)|(?:module)|(?:spin)|([^/]+\\.min))\\.js(?:\\?.+|$)/"
+                "__evaluate__": "/\\/(?:(?:jquery)|(?:module)|(?:spin)|([^/]+\\.min))\\.js(?:\\?.+|$)/"
             }
         },
         "path": {"asset": {"javaScript": "./"}}
