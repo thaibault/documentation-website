@@ -23,7 +23,7 @@
             }
         },
         "injection": {"internal": {
-            "__execute__": "{vendor: self.debug || 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'buildDLL' ? ['jQuery-website'] : [], developmentHelper: self.debug && 2 < self.givenCommandLineArguments.length && ['buildDLL', 'serve'].includes(self.givenCommandLineArguments[2]) ? ['webpack-dev-server/client'] : [], index: ['less/index'].concat(self.debug ? [] : 'babel-polyfill').concat(['index'])}"
+            "__execute__": "{developmentHelper: self.debug && 2 < self.givenCommandLineArguments.length && ['buildDLL', 'serve'].includes(self.givenCommandLineArguments[2]) ? ['webpack-dev-server/client?http://0.0.0.0:8080/'] : [], vendor: self.debug || 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'buildDLL' ? ['jQuery-website'] : [], index: ['less/index'].concat(self.debug ? [] : 'babel-polyfill').concat(['index'])}"
         }},
         "library": false,
         "module": {
