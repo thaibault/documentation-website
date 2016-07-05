@@ -29,7 +29,15 @@
             }
         },
         "injection": {"internal": {
-            "__execute__": "developmentModules = [`webpack-dev-server/client?${self.development.server.protocol}://0.0.0.0:${self.development.server.port}`]; return {developmentHelper: self.debug && 2 < self.givenCommandLineArguments.length && ['buildDLL', 'serve'].includes(self.givenCommandLineArguments[2]) ? developmentModules : [], vendor: self.debug || 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'buildDLL' ? ['jQuery-website'] : [], index: ['less/index'].concat(self.debug ? [] : 'babel-polyfill').concat(['index']).concat(self.debug && 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'serve' ? developmentModules : [])}"
+            "developmentHelper": {
+                "__evaluate__": "self.debug && 2 < self.givenCommandLineArguments.length && ['buildDLL', 'serve'].includes(self.givenCommandLineArguments[2]) ? [`webpack-dev-server/client?${self.development.server.protocol}://0.0.0.0:${self.development.server.port}`] : []"
+            },
+            "vendor": {
+                "__evaluate__": "self.debug || 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'buildDLL' ? ['jQuery-website'] : []"
+            },
+            "index": {
+                "__evaluate__": "['less/index'].concat(self.debug ? [] : 'babel-polyfill').concat('index')"
+            }
         }},
         "library": false,
         "module": {
