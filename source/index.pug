@@ -37,8 +37,7 @@ doctype html
 html.no-javascript(lang=LANGUAGE || 'en')
     // region head
     head
-        title #{NAME}
-        // region meta in formations
+        // region meta informations
         meta(charset='utf-8')
         meta(
             name='description'
@@ -47,6 +46,7 @@ html.no-javascript(lang=LANGUAGE || 'en')
         meta(name='viewport' content='width=device-width, initial-scale=1.0')
         meta&attributes(META_TAGS || {})
         // endregion
+        title #{NAME}
         // region pre load resources
         script(type="text/javascript").
             window.document.documentElement.className =
