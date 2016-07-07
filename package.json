@@ -33,7 +33,7 @@
                 "__evaluate__": "self.debug || 2 < self.givenCommandLineArguments.length && ['buildDLL', 'watchDLL'].includes(self.givenCommandLineArguments[2]) ? ['jQuery-website', 'offline-plugin/runtime'] : []"
             },
             "index": {
-                "__evaluate__": "['less/index'].concat(self.debug ? [] : ['babel-polyfill', `webpack-dev-server/client?${self.development.server.protocol}://0.0.0.0:${self.development.server.port}`]).concat('index')"
+                "__evaluate__": "['less/index'].concat(self.debug ? [] : 'babel-polyfill').concat('index').concat(self.debug && 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'serve' ? `webpack-dev-server/client?${self.development.server.protocol}://0.0.0.0:${self.development.server.port}`: [])"
             }
         }},
         "library": false,
