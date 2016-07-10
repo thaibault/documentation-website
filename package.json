@@ -22,9 +22,9 @@
         "source-map-support": ">=0.4.0"
     },
     "webOptimizer": {
-        "assetPattern": {"javaScript": {
-            "excludeFilePathRegularExpression": "^(?:.*/)?(?:developmentHelper|vendor|index)(?:\\.compiled)?\\.js$"
-        }},
+        "assetPattern": {"javaScript": {"excludeFilePathRegularExpression": {
+            "__evaluate__": "`^(?:.*/)?(?:developmentHelper|vendor${self.debug ? '|index': ''})(?:\\.compiled)?\\.js$`"
+        }}},
         "buildDefinition": {
             "GOOGLE_TRACKING_CODE": "''",
             "LANGUAGES": {
