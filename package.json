@@ -22,6 +22,9 @@
         "source-map-support": ">=0.4.0"
     },
     "webOptimizer": {
+        "assetPattern": {"javaScript": {
+            "excludeFilePathRegularExpression": "^(?:.*/)?(?:developmentHelper|vendor|index)(?:\\.compiled)?\\.js$"
+        }},
         "buildDefinition": {
             "GOOGLE_TRACKING_CODE": "''",
             "LANGUAGES": {
@@ -33,7 +36,7 @@
                 "__evaluate__": "self.debug || 2 < self.givenCommandLineArguments.length && ['buildDLL', 'watchDLL'].includes(self.givenCommandLineArguments[2]) ? ['jQuery-website', 'offline-plugin/runtime'] : []"
             },
             "index": {
-                "__evaluate__": "['less/index'].concat(self.debug ? [] : 'babel-polyfill').concat('index').concat(self.debug && self.dllManifestFilePaths.length && 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'serve' ? ['webpack/hot/dev-server', `webpack-dev-server/client?${self.development.server.protocol}://0.0.0.0:${self.development.server.port}`] : [])"
+                "__evaluate__": "['less/index'].concat(self.debug ? [] : 'babel-polyfill').concat('index').concat(self.debug && self.dllManifestFilePaths.length && 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'serve' ? [`webpack-dev-server/client?${self.development.server.protocol}://0.0.0.0:${self.development.server.port}`, 'webpack/hot/dev-server'] : [])"
             }
         }},
         "library": false,
