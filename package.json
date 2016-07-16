@@ -23,7 +23,9 @@
     },
     "webOptimizer": {
         "buildDefinition": {
-            "GOOGLE_TRACKING_CODE": "''",
+            "GOOGLE_TRACKING_CODE": {
+                "__evaluate__": "`'${self.module.preprocessor.pug.locals.GOOGLE_TRACKING_CODE}'`"
+            },
             "LANGUAGES": {
                 "__evaluate__": "`['${self.module.preprocessor.pug.locals.LANGUAGES.join(\"', '\")}']`"
             }
@@ -49,11 +51,9 @@
             "preprocessor": {"pug": {"locals": {
                 "CONTENT_FILE_PATH": "dummyDocumentation.pug",
                 "LANGUAGES": ["deDE", "enUS", "frFR"],
-                "NAME": "productName",
+                "NAME": "documentationWebsite",
                 "RENDER_CONTENT": true,
-                "TAGLINE": "tagline",
-                "SOURCE_URL": "https://github.com/thaibault/documentationWebsite",
-                "URL": "https://github.com/thaibault/documentationWebsite"
+                "TAGLINE": "generic documentation website pattern"
             }}},
             "skipParseRegularExpression": {
                 "__evaluate__": "/\\/(?:(?:jquery)|(?:module)|(?:spin)|([^/]+\\.min))\\.js(?:\\?.+|$)/"
