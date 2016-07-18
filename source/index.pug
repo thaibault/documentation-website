@@ -77,7 +77,7 @@ html.no-javascript(lang=LANGUAGE || 'en')
             h2.project-tagline(
                 class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
             )
-                | #{TAGLINE}
+                != TAGLINE
                 br
             section.header-links
                 //NOTE: This elements are shown in reverse order.
