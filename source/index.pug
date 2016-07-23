@@ -85,8 +85,7 @@ html.no-javascript(lang=LANGUAGE || 'en')
                     - START_UP_ANIMATION_NUMBER += 5 + LANGUAGES.length
                 else
                     - START_UP_ANIMATION_NUMBER += 3 + LANGUAGES.length
-                // TODO
-                if (DISTRIBUTION_BUNDLE_FILE_PATH && false)
+                if (DISTRIBUTION_BUNDLE_FILE_PATH)
                     a.zip-source-download(
                         href=`https://github.com/thaibault/${NAME}/zipball/master`
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
