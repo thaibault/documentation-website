@@ -150,7 +150,10 @@ html.no-javascript(lang=LANGUAGE || 'en')
                     if (RENDER_CONTENT)
                         - content = compile(CONTENT)(locals)
                     if (content)
-                        != content.replace(/\n/g, '\n                ')
+                        != content
+                        //- Right indenting with
+                            ".replace(/\n/g, '\n                ')"
+                            would break nested pre blocks.
             // endregion
             // region about this website
             section.about-this-website.inner
