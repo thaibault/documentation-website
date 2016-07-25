@@ -50,13 +50,14 @@
             },
             "preprocessor": {"pug": {"locals": {
                 "CONTENT_FILE_PATH": "dummyDocumentation.pug",
+                "DISTRIBUTION_BUNDLE_FILE_PATH": "dummyDistributionBundle.zip",
                 "LANGUAGES": ["deDE", "enUS", "frFR"],
                 "NAME": "documentationWebsite",
                 "RENDER_CONTENT": true,
                 "TAGLINE": "generic documentation website pattern"
             }}},
             "skipParseRegularExpression": {
-                "__evaluate__": "/\\/(?:(?:jquery)|(?:module)|(?:spin)|([^/]+\\.min))\\.js(?:\\?.+|$)/"
+                "__evaluate__": "/\\/(?:(?:jQUEry)|(?:module)|(?:spin)|([^/]+\\.min))\\.js(?:\\?.+|$)/"
             }
         },
         "path": {"asset": {"javaScript": "./"}}
