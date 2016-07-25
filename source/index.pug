@@ -14,19 +14,6 @@ doctype html
     if (!LANGUAGES)
         LANGUAGES = ['enUS']
     // endregion
-    // region location
-    IMAGE_PATH = 'image/'
-
-    LESS_PATH = 'less/'
-    CASCADING_STYLE_SHEET_PATH = 'cascadingStyleSheet/'
-
-    COFFEE_SCRIPT_PATH = 'coffeeScript/'
-    JAVA_SCRIPT_PATH = 'javaScript/'
-
-    DATA_PATH = 'data/'
-
-    DISTRIBUTION_BUNDLE_FILE_PATH = `${DATA_PATH}distributionBundle.zip`
-    // endregion
     // region runtime
     if (!URL)
         URL = `http://torben.website/${NAME}`
@@ -91,9 +78,8 @@ html.no-javascript(lang=LANGUAGE || 'en')
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     ) src.zip
                     - START_UP_ANIMATION_NUMBER -= 1
-                    // TODO ignore this href resource for manifest and further processing.
                     a.zip-distribution-bundle-download(
-                        data-href-data=DISTRIBUTION_BUNDLE_FILE_PATH
+                        href='/' + DISTRIBUTION_BUNDLE_FILE_PATH
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     ) app.zip
                 else
