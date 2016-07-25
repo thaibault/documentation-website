@@ -179,6 +179,8 @@ class Documentation extends $.Website.class {
         return this
     }
     // / endregion
+    // endregion
+    // region protected methods
     // / region event handler
     /**
      * This method triggers if all examples loaded.
@@ -229,8 +231,6 @@ class Documentation extends $.Website.class {
         return super._onStartUpAnimationComplete.apply(this, arguments)
     }
     // / endregion
-    // endregion
-    // region protected methods
     /**
      * This method makes dotes after code lines which are too long. This
      * prevents line wrapping.
