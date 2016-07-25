@@ -386,7 +386,12 @@ $.noConflict()(($:Object):Documentation => $.Documentation({
         sessionDescription: 'documentationWebsite{1}'
     }
 }))
-require('offline-plugin/runtime').install()
+require('offline-plugin/runtime').install({
+    // NOTE: Tell to new SW to take control immediately.
+    onUpdateReady: ():void => runtime.applyUpdate(),
+    // NOTE: Reload the webpage to load into the new version.
+    onUpdated: ():void => context.location.reload()
+})
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
 // vim: foldmethod=marker foldmarker=region,endregion:
