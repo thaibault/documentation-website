@@ -23,6 +23,7 @@ import Lang from 'jQuery-lang'
 import 'jQuery-website'
 import type {DomNode} from 'webOptimizer/type'
 import type {$DomNode} from 'jQuery-tools'
+import offlineHandler from 'offline-plugin/runtime'
 // endregion
 // region declaration
 declare var LANGUAGES:Array<string>
@@ -386,9 +387,9 @@ $.noConflict()(($:Object):Documentation => $.Documentation({
         sessionDescription: 'documentationWebsite{1}'
     }
 }))
-require('offline-plugin/runtime').install({
+offlineHandler.install({
     // NOTE: Tell to new SW to take control immediately.
-    onUpdateReady: ():void => runtime.applyUpdate(),
+    onUpdateReady: ():void => offlineHander.applyUpdate(),
     // NOTE: Reload the webpage to load into the new version.
     onUpdated: ():void => context.location.reload()
 })
