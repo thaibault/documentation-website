@@ -81,7 +81,7 @@ html.no-javascript(lang=LANGUAGE || 'en')
                 br
             section.header-links
                 //NOTE: This elements are shown in reverse order.
-                if (API_DIRECTORY_PATH)
+                if (API_DOCUMENTATION_PATH)
                     - START_UP_ANIMATION_NUMBER += 5 + LANGUAGES.length
                 else
                     - START_UP_ANIMATION_NUMBER += 3 + LANGUAGES.length
@@ -115,13 +115,13 @@ html.no-javascript(lang=LANGUAGE || 'en')
                         href=`#lang-${language}`
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     ) #{language.slice(0, 2)}
-                if (API_DIRECTORY_PATH)
+                if (API_DOCUMENTATION_PATH)
                     - START_UP_ANIMATION_NUMBER -= 1
                     span.glyphicon.glyphicon-arrow-left.arrow-left-api(
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`)
                     - START_UP_ANIMATION_NUMBER -= 1
                     a.api-link(
-                        href=`${URL}${API_DIRECTORY_PATH}`
+                        href=`${URL}${API_DOCUMENTATION_PATH}`
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     )
                         langreplace
