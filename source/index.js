@@ -389,7 +389,7 @@ $.noConflict()(($:Object):Documentation => $.Documentation({
 }))
 offlineHandler.install({
     // NOTE: Tell to new SW to take control immediately.
-    onUpdateReady: ():void => offlineHander.applyUpdate(),
+    onUpdateReady: ():void => offlineHandler.applyUpdate(),
     // NOTE: Reload the webpage to load into the new version.
     onUpdated: ():void => context.location.reload()
 })
