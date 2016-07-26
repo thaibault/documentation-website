@@ -49,6 +49,7 @@
                 "jQuery-website.less$": "jQuery-website/index.less"
             },
             "preprocessor": {"pug": {"locals": {
+                "API_DOCUMENTATION_PATH": "/apiDocumentation/",
                 "CONTENT_FILE_PATH": "dummyDocumentation.pug",
                 "DISTRIBUTION_BUNDLE_FILE_PATH": "dummyDistributionBundle.zip",
                 "LANGUAGES": ["deDE", "enUS", "frFR"],

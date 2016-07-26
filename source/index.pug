@@ -58,8 +58,7 @@ html.no-javascript(lang=LANGUAGE || 'en')
             - START_UP_ANIMATION_NUMBER += 1
             h1.project-title(
                 class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-            )
-                a(href=URL) #{NAME}
+            ): a(href=URL) #{NAME}
             - START_UP_ANIMATION_NUMBER += 1
             h2.project-tagline(
                 class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
