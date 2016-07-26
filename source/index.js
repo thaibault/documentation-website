@@ -389,9 +389,7 @@ $.noConflict()(($:Object):Documentation => $.Documentation({
 }))
 offlineHandler.install({
     // NOTE: Tell to new SW to take control immediately.
-    onUpdateReady: ():void => offlineHandler.applyUpdate(),
-    // NOTE: Reload the webpage to load into the new version.
-    onUpdated: ():void => context.location.reload()
+    onUpdateReady: ():void => offlineHandler.applyUpdate()
 })
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
