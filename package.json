@@ -59,7 +59,8 @@
             }}},
             "skipParseRegularExpression": {
                 "__evaluate__": "/\\/(?:(?:jquery)|(?:module)|(?:spin)|([^/]+\\.min))\\.js(?:\\?.+|$)/"
-            }
+            },
+            "optimizer": {"uglifyJS": null}
         },
         "path": {"asset": {"javaScript": "./"}}
     },
