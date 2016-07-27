@@ -23,7 +23,6 @@ import Lang from 'jQuery-lang'
 import 'jQuery-website'
 import type {DomNode} from 'webOptimizer/type'
 import type {$DomNode} from 'jQuery-tools'
-import offlineHandler from 'offline-plugin/runtime'
 // endregion
 // region declaration
 declare var LANGUAGES:Array<string>
@@ -387,11 +386,13 @@ $.noConflict()(($:Object):Documentation => $.Documentation({
         sessionDescription: 'documentationWebsite{1}'
     }
 }))
-if (OFFLINE)
+if (OFFLINE) {
+    const offlineHandler:Object = require('offline-plugin/runtime')
     offlineHandler.install({
         // NOTE: Tell to new SW to take control immediately.
         onUpdateReady: ():void => offlineHandler.applyUpdate()
     })
+}
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
 // vim: foldmethod=marker foldmarker=region,endregion:
