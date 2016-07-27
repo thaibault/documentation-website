@@ -140,16 +140,12 @@ div.codehilite: pre.
         }
     &lt;/style&gt;
 
-    &lt;!--
-        Load jQuery if not already present:
-        &lt;script
-            src="https://code.jquery.com/jquery-3.1.0.js"
-            integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="
-            crossorigin="anonymous" onload="initialize()"
-        &gt;&lt;/script&gt;
-    --&gt;
     &lt;script&gt;
-        $.getScript(
-            'http://torben.website/jQuery-tools/data/distributionBundle/index.compiled.js'
-        ).then(() =&gt $.fn.version);
+        documentationWebsiteJQuery.getScript(
+            'https://code.jquery.com/jquery-3.1.0.js'
+        ).then(() =&gt {
+            window.jquery = $
+            return $.getScript(
+                'http://torben.website/jQuery-tools/data/distributionBundle/index.compiled.js')
+        }).then(() =&gt console.log($.Tools.class._name))
     &lt;/script&gt;

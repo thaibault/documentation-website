@@ -395,7 +395,7 @@ if (OFFLINE) {
 }
 // NOTE: We make jQuery available to make bootstrapping examples with deferred
 // script loading simpler.
-context.$ = $
+context.documentationWebsiteJQuery = $.noConflict(true)
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
 // vim: foldmethod=marker foldmarker=region,endregion:
