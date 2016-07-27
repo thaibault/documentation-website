@@ -216,8 +216,8 @@ html.no-javascript(lang=LANGUAGE || 'en')
             | top
             //deDE:nach oben
             //frFR:ascendant
-    if includeManifest
-        noscript: iframe(src='/manifest.html' style='display: none')
+    if offline
+        noscript: iframe(src='manifest.html' style='display: none')
     // endregion
 //-
     region vim modline

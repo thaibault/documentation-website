@@ -387,10 +387,11 @@ $.noConflict()(($:Object):Documentation => $.Documentation({
         sessionDescription: 'documentationWebsite{1}'
     }
 }))
-offlineHandler.install({
-    // NOTE: Tell to new SW to take control immediately.
-    onUpdateReady: ():void => offlineHandler.applyUpdate()
-})
+if (OFFLINE)
+    offlineHandler.install({
+        // NOTE: Tell to new SW to take control immediately.
+        onUpdateReady: ():void => offlineHandler.applyUpdate()
+    })
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
 // vim: foldmethod=marker foldmarker=region,endregion:
