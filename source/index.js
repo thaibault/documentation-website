@@ -338,15 +338,17 @@ class Documentation extends $.Website.class {
                         code = $codeDomNode.text()
                     try {
                         if (match.length > 2 && match[2])
-                            if (['javascript', 'js'].includes(
+                            if (['javascript', 'javascripts', 'js'].includes(
                                 match[2].toLowerCase()
                             ))
                                 $codeDomNode.after($('<script>').attr(
                                     'type', 'text/javascript'
                                 ).text(code))
                             else if ([
-                                'css', 'cascadingstylesheets', 'stylesheets',
-                                'sheets', 'style'
+                                'css', 'cascadingstylesheet',
+                                'cascadingstylesheets', 'stylesheet',
+                                'stylesheets', 'sheet', 'sheets', 'style',
+                                'styles'
                             ].includes(match[2].toLowerCase()))
                                 $codeDomNode.after($('<style>').attr(
                                     'type', 'text/css'
