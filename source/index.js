@@ -25,8 +25,9 @@ import type {DomNode} from 'webOptimizer/type'
 import type {$DomNode} from 'jQuery-tools'
 // endregion
 // region declaration
-declare var LANGUAGES:Array<string>
 declare var GOOGLE_TRACKING_CODE:string
+declare var LANGUAGES:Array<string>
+declare var OFFLINE:boolean
 // endregion
 const context:Object = (():Object => {
     if ($.type(window) === 'undefined') {
