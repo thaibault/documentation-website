@@ -48,6 +48,11 @@
                 "genericStyle.less$": "genericStyle/index.less",
                 "jQuery-website.less$": "jQuery-website/index.less"
             },
+            "optimizer": {"htmlMinifier": {"ignoreCustomComments": [
+                {"__evaluate__": "/^\\|?[a-z]{2}[A-Z]{2}:/"},
+                {"__evaluate__": "/^[a-z]{2}[A-Z]{2}$/"},
+                {"__evaluate__": "/^showExample(?::[a-zA-Z]+)?$/"}
+            ]}},
             "preprocessor": {"pug": {"locals": {
                 "API_DOCUMENTATION_PATH": "/apiDocumentation/",
                 "CONTENT_FILE_PATH": "dummyDocumentation.pug",
