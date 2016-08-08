@@ -381,8 +381,8 @@ $.Documentation = function():any {
     return $.Tools().controller(Documentation, arguments)
 }
 $.Documentation.class = Documentation
-/** The jQuery-documentation plugin class. */
-export default Documentation
+/** jQuery extended with jQuery-documentation plugin. */
+export default $
 $.noConflict()(($:Object):Documentation => $.Documentation({
     trackingCode: GOOGLE_TRACKING_CODE, language: {
         allowedLanguages: LANGUAGES || [],
