@@ -126,7 +126,7 @@ html.no-javascript(lang=LANGUAGE || 'en')
             section.main-content.inner
                 if (CONTENT_FILE_PATH)
                     // NOTE: Dynamic pug file includes aren't possible yet.
-                    != require(`${CONTENT_FILE_PATH}?${JSON.stringify(locals)}`)
+                    != require(CONTENT_FILE_PATH)
                     //- Right indenting with
                         ".replace(/\n/g, '\n                ')"
                         would break nested pre blocks.

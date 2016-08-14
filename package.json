@@ -30,7 +30,7 @@
         },
         "injection": {"internal": {
             "vendor": {
-                "__evaluate__": "self.debug || 2 < self.givenCommandLineArguments.length && ['buildDLL', 'serve', 'watchDLL'].includes(self.givenCommandLineArguments[2]) ? ['offline-plugin/runtime', 'jQuery-website'] : []"
+                "__evaluate__": "(self.offline ? ['offline-plugin/runtime'] : []).concat(self.debug && 2 < self.givenCommandLineArguments.length && ['buildDLL', 'serve', 'watchDLL'].includes(self.givenCommandLineArguments[2]) ? 'jQuery-website' : [])"
             },
             "index": {
                 "__evaluate__": "['less/index'].concat(self.debug ? [] : 'babel-polyfill').concat(self.debug && self.dllManifestFilePaths.length && 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'serve' ? [`webpack-dev-server/client?${self.development.server.protocol}://0.0.0.0:${self.development.server.port}`, 'webpack/hot/dev-server'] : []).concat('index')"
