@@ -383,12 +383,6 @@ $.Documentation = function():any {
 $.Documentation.class = Documentation
 /** jQuery extended with jQuery-documentation plugin. */
 export default $
-$.noConflict()(($:Object):Documentation => $.Documentation({
-    trackingCode: GOOGLE_TRACKING_CODE, language: {
-        allowedLanguages: LANGUAGES || [],
-        sessionDescription: 'documentationWebsite{1}'
-    }
-}))
 if (typeof OFFLINE !== 'undefined' && OFFLINE) {
     const offlineHandler:Object = require('offline-plugin/runtime')
     offlineHandler.install({
@@ -399,6 +393,13 @@ if (typeof OFFLINE !== 'undefined' && OFFLINE) {
 // NOTE: We make jQuery available to make bootstrapping examples with deferred
 // script loading simpler.
 context.documentationWebsiteJQuery = $.noConflict(true)
+$(window).load(() => console.log('LAAAAAAD'))
+$.noConflict()(($:Object):Documentation => $.Documentation({
+    trackingCode: GOOGLE_TRACKING_CODE, language: {
+        allowedLanguages: LANGUAGES || [],
+        sessionDescription: 'documentationWebsite{1}'
+    }
+}))
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
 // vim: foldmethod=marker foldmarker=region,endregion:
