@@ -94,12 +94,13 @@ html.no-javascript(lang=LANGUAGE || 'en')
                 - START_UP_ANIMATION_NUMBER -= 1
                 i.icon-download-arrow(
                     class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`)
-                for language in LANGUAGES
-                    - START_UP_ANIMATION_NUMBER -= 1
-                    a.tools-visible-on-javascript-enabled(
-                        href=`#lang-${language}`
-                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-                    ) #{language.slice(0, 2)}
+                if 1 < LANGUAGES.length
+                    for language in LANGUAGES
+                        - START_UP_ANIMATION_NUMBER -= 1
+                        a.tools-visible-on-javascript-enabled(
+                            href=`#lang-${language}`
+                            class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
+                        ) #{language.slice(0, 2)}
                 if (API_DOCUMENTATION_PATH)
                     - START_UP_ANIMATION_NUMBER -= 1
                     span.glyphicon.glyphicon-arrow-left.arrow-left-api(
