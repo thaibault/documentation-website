@@ -393,7 +393,6 @@ if (typeof OFFLINE !== 'undefined' && OFFLINE) {
 // NOTE: We make jQuery available to make bootstrapping examples with deferred
 // script loading simpler.
 context.documentationWebsiteJQuery = $.noConflict(true)
-$(window).load(() => console.log('LAAAAAAD'))
 $.noConflict()(($:Object):Documentation => $.Documentation({
     trackingCode: GOOGLE_TRACKING_CODE, language: {
         allowedLanguages: LANGUAGES || [],
