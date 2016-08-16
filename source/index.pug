@@ -75,20 +75,21 @@ html.no-javascript(lang=LANGUAGE || 'en')
                     - START_UP_ANIMATION_NUMBER += 4
                 else
                     - START_UP_ANIMATION_NUMBER += 2
-                if !BUNDLE || BUNDLE === true
+                if typeof BUNDLE === 'undefined' || BUNDLE === true
                     - START_UP_ANIMATION_NUMBER += 1
                 if DISTRIBUTION_BUNDLE_FILE_PATH
                     a.zip-source-download(
                         href=`https://github.com/thaibault/${NAME}/zipball/master`
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     ) src.zip
-                    if !BUNDLE || BUNDLE === true
+                    if typeof BUNDLE === 'undefined' || BUNDLE === true
                         - START_UP_ANIMATION_NUMBER -= 1
                         a.zip-distribution-bundle-download(
                             href=URL + '/' + DISTRIBUTION_BUNDLE_FILE_PATH
                             class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                         ) app.zip
                 else
+                    - START_UP_ANIMATION_NUMBER += 1
                     a.zip-source-download(
                         href=`https://github.com/thaibault/${NAME}/zipball/master`
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
