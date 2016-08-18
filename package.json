@@ -43,7 +43,6 @@
                 "bootstrap.less$": "bootstrap/less/bootstrap",
                 "jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo",
                 "jQuery-spin$": "spin.js/jquery.spin",
-                "genericStyle.less$": "genericStyle/index.less",
                 "jQuery-website.less$": "jQuery-website/index.less"
             },
             "optimizer": {"htmlMinifier": {"ignoreCustomComments": [
