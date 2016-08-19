@@ -9,7 +9,7 @@ License
 This library written by Torben Sickert stand under a creative commons naming
 3.0 unported license. see http://creativecommons.org/licenses/by/3.0/deed.de
 endregion */
---codehilite: {
+:root { --codehilite: { .codehilite {
     /* Background */
     & .hll { background-color: #222222 }
     /* Comment */
@@ -172,7 +172,7 @@ endregion */
     & .vi { color: #00cdcd }
     /* Literal.Number.Integer.Long */
     & .il { color: #cd00cd }
-};
+}};}
 /*region vim modline
 vim: set tabstop=4 shiftwidth=4 expandtab:
 vim: foldmethod=marker foldmarker=region,endregion:

@@ -33,17 +33,15 @@
                 "__evaluate__": "(self.offline ? ['offline-plugin/runtime'] : []).concat(self.debug && 2 < self.givenCommandLineArguments.length && ['buildDLL', 'serve', 'watchDLL'].includes(self.givenCommandLineArguments[2]) ? 'jQuery-website' : [])"
             },
             "index": {
-                "__evaluate__": "['less/index'].concat(self.debug ? [] : 'babel-polyfill').concat(self.debug && self.dllManifestFilePaths.length && 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'serve' ? [`webpack-dev-server/client?${self.development.server.protocol}://0.0.0.0:${self.development.server.port}`, 'webpack/hot/dev-server'] : []).concat('index')"
+                "__evaluate__": "[self.path.asset.cascadingStyleSheet + 'index'].concat(self.debug ? [] : 'babel-polyfill').concat(self.debug && self.dllManifestFilePaths.length && 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'serve' ? [`webpack-dev-server/client?${self.development.server.protocol}://0.0.0.0:${self.development.server.port}`, 'webpack/hot/dev-server'] : []).concat('index')"
             }
         }},
         "library": false,
         "module": {
             "aliases": {
                 "babel-polyfill$": "babel-polyfill/dist/polyfill.min",
-                "bootstrap.less$": "bootstrap/less/bootstrap",
                 "jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo",
-                "jQuery-spin$": "spin.js/jquery.spin",
-                "jQuery-website.less$": "jQuery-website/index.less"
+                "jQuery-spin$": "spin.js/jquery.spin"
             },
             "optimizer": {"htmlMinifier": {"ignoreCustomComments": [
                 {"__evaluate__": "/^\\|?[a-z]{2}[A-Z]{2}:/"},
