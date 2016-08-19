@@ -13,6 +13,7 @@ endregion */
 @import 'pygment-vim-like-highlighting';
 :root {
     /* region constants */
+    /** region color */
     --darkFontColor: #373737;
     --brightFontColor: #fff;
     --linkColor: #0090ff;
@@ -29,6 +30,10 @@ endregion */
     --codeBackgroundColor: #fbfbfc;
     --codeLineNumberBackgroundColor: #f7f7f9;
     --codeBorderColor: #ddd;
+    /** endregion */
+    /** region space */
+    --defaultSpace: 20px;
+    /** endregion */
     /* endregion */
     /* region custom properties */
     --icon: {
@@ -37,7 +42,7 @@ endregion */
         height: 30px;
         vertical-align: text-top;
         overflow: hidden;
-        background-image: url('image/composition.png');
+        background-image: url('/image/composition.png');
         background-position: 14px 14px;
         background-repeat: no-repeat;
     };
@@ -57,6 +62,16 @@ endregion */
         width: 88px;
         height: 72px;
     };
+    --icon-blue-archiv: {
+        @apply --icon-gray-archiv;
+        background-position: 0px 2px;
+    };
+    --icon-download: {
+        @apply --icon;
+        background-position: -99px -35px;
+        width: 16px;
+        height: var(--defaultSpace);
+    };
     /* endregion */
 }
 /* region style sheets */
@@ -72,7 +87,7 @@ endregion */
     .outer { width: 100%; }
     .inner {
         position: relative;
-        padding: 20px 10px;
+        padding: var(--defaultSpace) calc(var(--defaultSpace) / 2);
         margin: 0 auto;
     }
     /** endregion */
@@ -135,17 +150,9 @@ endregion */
     .icon { @apply --icon; }
     [class^="icon-"], [class*=" icon-"] { @apply --icon; }
     .icon-blacktocat { @apply: --icon-blacktocat; }
-    .icon-download {
-        @apply --icon;
-        background-position: -99px -35px;
-        width: 16px;
-        height: 20px;
-    }
+    .icon-download { @apply --icon-download; }
     .icon-gray-archiv { @apply --icon-gray-archiv; }
-    .icon-blue-archiv {
-        @apply --icon-gray-archiv;
-        background-position: 0px 2px;
-    }
+    .icon-blue-archiv { @apply --icon-blue-archiv; }
     /*** endregion */
     i.icon- {
         &github {
@@ -160,7 +167,7 @@ endregion */
 
             float: right;
             margin-top: 39px;
-            margin-left: 20px;
+            margin-left: var(--defaultSpace);
         }
     }
     /** endregion */
@@ -264,7 +271,7 @@ endregion */
 
                         border-color: var(--codeBorderColor);
                         background-color: var(--codeBackgroundColor);
-                        margin: 20px 0 0 0;
+                        margin: var(--defaultSpace) 0 0 0;
 
                         /* Don't highlight syntax errors. */
                         .err { border: 0; }
@@ -277,7 +284,7 @@ endregion */
                 }
                 table {
                     border-collapse: collapse;
-                    margin-top: 20px;
+                    margin-top: var(--defaultSpace);
                     text-align: left;
 
                     tbody tr {
@@ -314,15 +321,14 @@ endregion */
                         }
                     }
                 }
-                p { margin: 20px 0 0 0; }
+                p { margin: var(--defaultSpace) 0 0 0; }
                 /* endregion */
                 div.show-example-wrapper {
-                    --padding: 20px;
                     border: 1px solid var(--codeBorderColor);
                     border-top: 0;
                     background-color: var(--codeBackgroundColor);
-                    padding: var(--padding);
-                    padding-top: calc(var(--padding) / 2);
+                    padding: var(--defaultSpace);
+                    padding-top: calc(var(--defaultSpace) / 2);
 
                     h3 {
                         font-family: var(--fontFamily);
@@ -330,7 +336,7 @@ endregion */
                         font-weight: bold;
                         color: #bbb;
                         letter-spacing: 1px;
-                        margin-bottom: calc(var(--padding) / 2);
+                        margin-bottom: calc(var(--defaultSpace) / 2);
                         margin-top: 0;
                     }
                     p { margin: 0; }
