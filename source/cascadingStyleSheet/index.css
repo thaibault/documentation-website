@@ -1,5 +1,5 @@
-//!/usr/bin/env lessc
-// -*- coding: utf-8 -*-
+/*!/usr/bin/env css
+-*- coding: utf-8 -*-*/
 /* region header
 Copyright Torben Sickert 16.12.2012
 
@@ -8,43 +8,37 @@ License
 
 This library written by Torben Sickert stand under a creative commons naming
 3.0 unported license. see http://creativecommons.org/licenses/by/3.0/deed.de
-*/
-// endregion
-// region imports
-@import '~jQuery-website';
-// endregion
+endregion */
+@import 'jQuery-website';
+@import 'pygment-vim-like-highlighting';
+:root {
+    /* region constants */
+    --darkFontColor: #373737;
+    --brightFontColor: #fff;
+    --linkColor: #0090ff;
+    --linkHoverColor: #0069ba;
+
+    --languageButtonColor: #ababab;
+    --currentLanguageButtonColor: #5a5a5a;
+    --hoverLanguageButtonColor: #898989;
+
+    --darkBackgroundColor: #212121;
+    --brightBackgroundColor: var(--brightFontColor);
+
+    --codeLineNumberColor: #cbcbcd;
+    --codeBackgroundColor: #fbfbfc;
+    --codeLineNumberBackgroundColor: #f7f7f9;
+    --codeBorderColor: #ddd;
+    /* endregion */
+}
 /* region style sheets */
-body.documentation {
-    // region constants
-    @imagePath: '../image/';
-
-    @darkFontColor: #373737;
-    @brightFontColor: #fff;
-    @linkColor: #0090ff;
-    @linkHoverColor: #0069ba;
-
-    @languageButtonColor: #ababab;
-    @currentLanguageButtonColor: #5a5a5a;
-    @hoverLanguageButtonColor: #898989;
-
-    @darkBackgroundColor: #212121;
-    @brightBackgroundColor: @brightFontColor;
-
-    @codeLineNumberColor: #cbcbcd;
-    @codeBackgroundColor: #fbfbfc;
-    @codeLineNumberBackgroundColor: #f7f7f9;
-    @codeBorderColor: #ddd;
-    // endregion
+.documentation {
     /* region global */
-    @import 'pygment-vim-like-highlighting';
+    @apply --codehilite;
+    @apply --website;
 
-    .website;
-    .website.bootstrap;
-    .website.bootstrap.fixes;
-    .website.bootstrap.fixes.nested-labels;
-
-    color: @darkFontColor;
-    background: @darkBackgroundColor;
+    color: var(--darkFontColor);
+    background: var(--darkBackgroundColor);
     line-height: 1.5;
     /** region grid */
     .outer { width: 100%; }
@@ -69,7 +63,7 @@ body.documentation {
         margin: 10px 0;
         color: #222222;
         letter-spacing: -1px;
-        font-family: @fontFamilyCondensed;
+        font-family: var(--fontFamilyCondensed);
         font-size: 2em;
     }
     h1 { font-size: 4em; }
@@ -77,14 +71,14 @@ body.documentation {
     /** endregion */
     /** region link */
     a, a:visited, a:focus {
-        color: @linkColor;
+        color: var(--linkColor);
         text-shadow: none;
         outline: none !important;
 
         transition: color 0.5s ease;
         transition: text-shadow 0.5s ease;
 
-        &:hover { color: @linkHoverColor; }
+        &:hover { color: var(--linkHoverColor); }
         &.api-link {
             padding-top: 36px;
             float: left;
@@ -97,68 +91,70 @@ body.documentation {
         }
     }
     /*** region language links */
-    a[href^="#lang-"] { color: @languageButtonColor; }
+    a[href^="#lang-"] { color: var(--languageButtonColor); }
     > div.header-wrap > header > section.header-links
     > a[href^="#lang-"] {
         padding-right: 10px;
         padding-top: 35px;
         float: right;
     }
-    a[href^="#lang-"].current { color: @currentLanguageButtonColor; }
-    a[href^="#lang-"]:hover { color: @hoverLanguageButtonColor; }
+    a[href^="#lang-"].current { color: var(--currentLanguageButtonColor); }
+    a[href^="#lang-"]:hover { color: var(--hoverLanguageButtonColor); }
     /*** endregion */
     /** endregion */
     /** region image */
     /*** region generic */
-    // Sets pseudo icon tag properties.
-    .icon {
+    --icon: {
         display: inline-block;
         width: 30px;
         height: 30px;
         vertical-align: text-top;
         overflow: hidden;
-        background-image: url('@{imagePath}composition.png');
+        background-image: url('image/composition.png');
         background-position: 14px 14px;
         background-repeat: no-repeat;
-    }
-    [class^="icon-"], [class*=" icon-"] { .icon; }
+    };
+    .icon { @apply --icon; }
+    [class^="icon-"], [class*=" icon-"] { @apply --icon; }
     /*
         NOTE: We explicit inherit form ".icon" to prepare this class to be
         super classes as well.
     */
-    .icon-blacktocat {
-        .icon;
+    --icon-blacktocat: {
+        @apply --icon;
         background-position: -92px 0px;
         width: 30px;
         height: 30px;
-    }
+    };
+    .icon-blacktocat { @apply: --icon-blacktocat; }
     .icon-download {
-        .icon;
+        @apply --icon;
         background-position: -99px -35px;
         width: 16px;
         height: 20px;
     }
-    .icon-gray-archiv {
-        .icon;
+    --icon-gray-archiv: {
+        @apply --icon;
         background-position: 0px -68px;
         width: 88px;
         height: 72px;
-    }
-     .icon-blue-archiv {
-        .icon-gray-archiv;
+    };
+    .icon-gray-archiv { @apply --icon-gray-archiv; }
+    .icon-blue-archiv {
+        @apply --icon-gray-archiv;
         background-position: 0px 2px;
     }
     /*** endregion */
     i.icon- {
         &github {
-            .icon-blacktocat;
+            @apply --icon-blacktocat;
 
             margin-bottom: -2px;
             margin-top: -6px;
             margin-left: 8px;
         }
         &download-arrow {
-            .icon-download;
+            @apply --icon-download;
 
             float: right;
             margin-top: 39px;
@@ -169,39 +165,35 @@ body.documentation {
     /* endregion */
     /* region header */
     div.header-wrap {
-        .genericStyle.linear-gradient(
-            @direction: top, @fallback: @darkBackgroundColor, @from: #373737,
-            @to: @darkBackgroundColor
-        );
+        background-image: linear-gradient(
+            to bottom, var(--darkFontColor), var(--darkBackgroundColor));
+        background-color: var(--darkBackgroundColor);
+
         header {
             padding: 50px 10px 30px 10px;
 
             a.forkme-banner {
-                .genericStyle.box-shadow(
-                    @horizontalPosition: 0, @verticalPosition: 0,
-                    @blurDistance: 10px, @color: rgba(0, 0, 0, .5));
-                .genericStyle.rounded-border(
-                    @topLeft: 0, @topRight: 0, @bottomLeft: 2px,
-                    @bottomRight: 2px);
+                box-shadow: 0, 0, 10px, rgba(0, 0, 0, .5);
+                border-radius: 0, 0, 2px, 2px;
                 display: block;
                 position: absolute;
                 top: 0;
                 right: 10px;
                 z-index: 10;
                 padding: 10px;
-                color: @brightFontColor;
-                background-color: @linkColor;
+                color: var(--brightFontColor);
+                background-color: var(--linkColor);
                 font-weight: 700;
 
                 &:hover { background-color: #585858; }
             }
             h1.project-title, h2.project-tagline {
                 border: none;
-                color: @brightFontColor;
+                color: var(--brightFontColor);
                 text-shadow: #111 0px 0px 10px;
 
                 a {
-                    color: @brightFontColor;
+                    color: var(--brightFontColor);
                     text-shadow: #111 0px 0px 10px;
                 }
             }
@@ -223,14 +215,14 @@ body.documentation {
                     &.tar-gz-source-download, &.zip-source-download:hover,
                     &.zip-distribution-bundle-download:hover,
                     &.tar-gz-source-download:hover {
-                        color: @brightFontColor;
+                        color: var(--brightFontColor);
                         width: 90px;
                         height: 70px;
                         padding-left: 3px;
                     }
                     &.zip-source-download, &.zip-distribution-bundle-download,
                     &.tar-gz-source-download {
-                        .icon-gray-archiv;
+                        @apply --icon-gray-archiv;
                         font-size: 1.2em;
                         text-align: center;
                         padding-top: 28px;
@@ -242,7 +234,9 @@ body.documentation {
                     }
                     &.zip-source-download:hover,
                     &.zip-distribution-bundle-download:hover,
-                    &.tar-gz-source-download:hover { .icon-blue-archiv; }
+                    &.tar-gz-source-download:hover {
+                        @apply --icon-blue-archiv;
+                    }
                 }
                 /* endregion */
             }
@@ -251,7 +245,7 @@ body.documentation {
     /* endregion */
     /* region content */
     div.main-content-wrap {
-        background-color: @brightBackgroundColor;
+        background-color: var(--brightBackgroundColor);
         overflow: auto;
         word-wrap: break-word;
         /* region content */
@@ -264,10 +258,10 @@ body.documentation {
                 // code
                 div {
                     &.codehilite pre {
-                        .genericStyle.border-radius(@size: 0);
+                        border-radius: 0;
 
-                        border-color: @codeBorderColor;
-                        background-color: @codeBackgroundColor;
+                        border-color: var(--codeBorderColor);
+                        background-color: var(--codeBackgroundColor);
                         margin: 20px 0 0 0;
 
                         /* Don't highlight syntax errors. */
@@ -286,29 +280,29 @@ body.documentation {
 
                     tbody tr {
                         td.linenos, td.code {
-                            border-color: @codeBorderColor;
+                            border-color: var(--codeBorderColor);
                             padding: 0;
 
                             div {
                                 &.linenodiv, &.codehilite {
                                     pre {
-                                        border-color: @codeBorderColor;
+                                        border-color: var(--codeBorderColor);
                                         white-space: pre;
                                         margin: 0;
                                     }
                                 }
                                 &.linenodiv pre {
-                                    .genericStyle.border-radius(@size: 0);
+                                    border-radius: 0;
 
                                     padding: 10px 8px 10px 0;
                                     text-align: right;
-                                    color: @codeLineNumberColor;
-                                    background-color: @codeLineNumberBackgroundColor;
+                                    color: var(--codeLineNumberColor);
+                                    background-color: var(--codeLineNumberBackgroundColor);
                                 }
                                 &.codehilite pre {
                                     padding: 10px;
                                     overflow: auto;
-                                    background-color: @codeBackgroundColor;
+                                    background-color: var(--codeBackgroundColor);
                                     border-left: 0;
 
                                     /* Don't highlight syntax errors. */
@@ -321,20 +315,20 @@ body.documentation {
                 p { margin: 20px 0 0 0; }
                 /* endregion */
                 div.show-example-wrapper {
-                    @padding: 20px;
-                    border: 1px solid @codeBorderColor;
+                    --padding: 20px;
+                    border: 1px solid var(--codeBorderColor);
                     border-top: 0;
-                    background-color: @codeBackgroundColor;
-                    padding: @padding;
-                    padding-top: @padding / 2;
+                    background-color: var(--codeBackgroundColor);
+                    padding: var(--padding);
+                    padding-top: calc(var(--padding) / 2);
 
                     h3 {
-                        font-family: @fontFamily;
+                        font-family: var(--fontFamily);
                         font-size: .9em;
                         font-weight: bold;
                         color: #bbb;
                         letter-spacing: 1px;
-                        margin-bottom: @padding / 2;
+                        margin-bottom: calc(var(--padding) / 2);
                         margin-top: 0;
                     }
                     p { margin: 0; }
@@ -366,9 +360,7 @@ body.documentation {
     /* endregion */
     /* region responsive */
     /** region extra extra extra small */
-    a[href="#top"] {
-        visibility: hidden;
-    }
+    a[href="#top"] { visibility: hidden; }
     div.header-wrap > header > section.header-links {
         width: 100%;
 
@@ -380,14 +372,14 @@ body.documentation {
     }
     /** endregion */
     /** region extra extra small */
-    @media (min-width: @minimumExtraExtraSmallWidthInPixel) {
+    @media (--extra-extra-small) {
         div.header-wrap > header > section.header-links span.arrow-left-api {
             visibility: visible;
             width: initial;
         }
         /* endregion */
         /* region extra small */
-        @media (min-width: @minimumExtraSmallWidthInPixel) {
+        @media (--extra-small) {
             div.header-wrap > header > section.header-links a.api-link
             span {
                 display: initial !important;
@@ -425,9 +417,7 @@ body.documentation {
                 }
                 /* endregion */
                 /* region medium */
-                @media (min-width: @minimumMediumWidthInPixel) {
-                    a[href="#top"] { right: 45px; }
-                }
+                @media (--medium) { a[href="#top"] { right: 45px; } }
                 /* endregion */
             }
         }
@@ -435,7 +425,7 @@ body.documentation {
     /* endregion */
 }
 /* endregion */
-// region vim modline
-// vim: set tabstop=4 shiftwidth=4 expandtab:
-// vim: foldmethod=marker foldmarker=region,endregion:
-// endregion
+/*region vim modline
+vim: set tabstop=4 shiftwidth=4 expandtab:
+vim: foldmethod=marker foldmarker=region,endregion:
+endregion*/
