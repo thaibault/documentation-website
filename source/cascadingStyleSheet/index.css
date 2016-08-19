@@ -30,6 +30,34 @@ endregion */
     --codeLineNumberBackgroundColor: #f7f7f9;
     --codeBorderColor: #ddd;
     /* endregion */
+    /* region custom properties */
+    --icon: {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        vertical-align: text-top;
+        overflow: hidden;
+        background-image: url('image/composition.png');
+        background-position: 14px 14px;
+        background-repeat: no-repeat;
+    };
+    /*
+        NOTE: We explicit inherit form ".icon" to prepare this class to be
+        super classes as well.
+    */
+    --icon-blacktocat: {
+        @apply --icon;
+        background-position: -92px 0px;
+        width: 30px;
+        height: 30px;
+    };
+    --icon-gray-archiv: {
+        @apply --icon;
+        background-position: 0px -68px;
+        width: 88px;
+        height: 72px;
+    };
+    /* endregion */
 }
 /* region style sheets */
 .documentation {
@@ -104,28 +132,8 @@ endregion */
     /** endregion */
     /** region image */
     /*** region generic */
-    --icon: {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        vertical-align: text-top;
-        overflow: hidden;
-        background-image: url('image/composition.png');
-        background-position: 14px 14px;
-        background-repeat: no-repeat;
-    };
     .icon { @apply --icon; }
     [class^="icon-"], [class*=" icon-"] { @apply --icon; }
-    /*
-        NOTE: We explicit inherit form ".icon" to prepare this class to be
-        super classes as well.
-    */
-    --icon-blacktocat: {
-        @apply --icon;
-        background-position: -92px 0px;
-        width: 30px;
-        height: 30px;
-    };
     .icon-blacktocat { @apply: --icon-blacktocat; }
     .icon-download {
         @apply --icon;
@@ -133,12 +141,6 @@ endregion */
         width: 16px;
         height: 20px;
     }
-    --icon-gray-archiv: {
-        @apply --icon;
-        background-position: 0px -68px;
-        width: 88px;
-        height: 72px;
-    };
     .icon-gray-archiv { @apply --icon-gray-archiv; }
     .icon-blue-archiv {
         @apply --icon-gray-archiv;
