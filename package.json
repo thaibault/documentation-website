@@ -11,6 +11,7 @@
         "url": "git@github.io:thaibault/documentationWebsite.git"
     },
     "dependencies": {
+        "bootstrap": "3.3.6",
         "webOptimizer": "git+ssh://git@github.com/thaibault/webOptimizer.git",
         "jQuery-website": "git+ssh://git@github.com/thaibault/jQuery-website.git",
         "legalNotes": "git+ssh://git@github.com/thaibault/legalNotes.git"
@@ -39,6 +40,7 @@
         "library": false,
         "module": {
             "aliases": {
+                "bootstrap$": "bootstrap/dist/css/bootstrap.css",
                 "babel-polyfill$": "babel-polyfill/dist/polyfill.min",
                 "jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo",
                 "jQuery-spin$": "spin.js/jquery.spin"
