@@ -9,6 +9,7 @@ License
 This library written by Torben Sickert stand under a creative commons naming
 3.0 unported license. see http://creativecommons.org/licenses/by/3.0/deed.de
 endregion */
+@import 'bootstrap/dist/css/bootstrap.css';
 @import 'jQuery-website';
 @import 'pygment-vim-like-highlighting';
 :root {
@@ -84,15 +85,15 @@ endregion */
     background: var(--darkBackgroundColor);
     line-height: 1.5;
     /** region grid */
-    .outer { width: 100%; }
-    .inner {
+    & .outer { width: 100%; }
+    & .inner {
         position: relative;
         padding: var(--defaultSpace) calc(var(--defaultSpace) / 2);
         margin: 0 auto;
     }
     /** endregion */
     /** region symbol */
-    span {
+    & span {
         &.arrow-left-home, &.arrow-left-api {
             margin-right: 10px;
             margin-top: 10px;
@@ -102,18 +103,18 @@ endregion */
     }
     /** endregion */
     /** region headline */
-    h1, h2, h3, h4, h5, h6 {
+    & h1, & h2, & h3, & h4, & h5, & h6 {
         margin: 10px 0;
         color: #222222;
         letter-spacing: -1px;
         font-family: var(--fontFamilyCondensed);
         font-size: 2em;
     }
-    h1 { font-size: 4em; }
-    h2 { font-size: 3em; }
+    & h1 { font-size: 4em; }
+    & h2 { font-size: 3em; }
     /** endregion */
     /** region link */
-    a, a:visited, a:focus {
+    & a, & a:visited, & a:focus {
         color: var(--linkColor);
         text-shadow: none;
         outline: none !important;
@@ -134,27 +135,27 @@ endregion */
         }
     }
     /*** region language links */
-    a[href^="#lang-"] { color: var(--languageButtonColor); }
-    > div.header-wrap > header > section.header-links
-    > a[href^="#lang-"] {
+    & a[href^="#lang-"] { color: var(--languageButtonColor); }
+    & > div.header-wrap > header > section.header-links > a[href^="#lang-"] {
         padding-right: 10px;
         padding-top: 35px;
         float: right;
     }
-    a[href^="#lang-"].current { color: var(--currentLanguageButtonColor); }
-    a[href^="#lang-"]:hover { color: var(--hoverLanguageButtonColor); }
+    & a[href^="#lang-"].current { color: var(--currentLanguageButtonColor); }
+    & a[href^="#lang-"]:hover { color: var(--hoverLanguageButtonColor); }
     /*** endregion */
     /** endregion */
     /** region image */
     /*** region generic */
-    .icon { @apply --icon; }
-    [class^="icon-"], [class*=" icon-"] { @apply --icon; }
-    .icon-blacktocat { @apply: --icon-blacktocat; }
-    .icon-download { @apply --icon-download; }
-    .icon-gray-archiv { @apply --icon-gray-archiv; }
-    .icon-blue-archiv { @apply --icon-blue-archiv; }
+    & [class^="icon-"], & [class*=" icon-"], & .icon  { @apply --icon; }
+    & .icon- {
+        &blacktocat { @apply: --icon-blacktocat; }
+        &download { @apply --icon-download; }
+        &gray-archiv { @apply --icon-gray-archiv; }
+        &blue-archiv { @apply --icon-blue-archiv; }
+    }
     /*** endregion */
-    i.icon- {
+    & i.icon- {
         &github {
             @apply --icon-blacktocat;
 
@@ -173,15 +174,15 @@ endregion */
     /** endregion */
     /* endregion */
     /* region header */
-    div.header-wrap {
+    & div.header-wrap {
         background-image: linear-gradient(
             to bottom, var(--darkFontColor), var(--darkBackgroundColor));
         background-color: var(--darkBackgroundColor);
 
-        header {
+        & header {
             padding: 50px 10px 30px 10px;
 
-            a.forkme-banner {
+            & a.forkme-banner {
                 box-shadow: 0, 0, 10px, rgba(0, 0, 0, .5);
                 border-radius: 0, 0, 2px, 2px;
                 display: block;
@@ -196,22 +197,22 @@ endregion */
 
                 &:hover { background-color: #585858; }
             }
-            h1.project-title, h2.project-tagline {
+            & h1.project-title, & h2.project-tagline {
                 border: none;
                 color: var(--brightFontColor);
                 text-shadow: #111 0px 0px 10px;
 
-                a {
+                & a {
                     color: var(--brightFontColor);
                     text-shadow: #111 0px 0px 10px;
                 }
             }
-            h2.project-tagline {
+            & h2.project-tagline {
                 font-weight: 300;
                 background: none;
                 font-size: 2em;
             }
-            section.header-links {
+            & section.header-links {
                 padding: 0;
                 right: 0;
                 position: absolute;
@@ -219,7 +220,7 @@ endregion */
                 bottom: -40px;
                 height: 70px;
                 /* region download buttons */
-                a {
+                & a {
                     &.zip-source-download, &.zip-distribution-bundle-download,
                     &.tar-gz-source-download, &.zip-source-download:hover,
                     &.zip-distribution-bundle-download:hover,
@@ -253,19 +254,18 @@ endregion */
     }
     /* endregion */
     /* region content */
-    div.main-content-wrap {
+    & div.main-content-wrap {
         background-color: var(--brightBackgroundColor);
         overflow: auto;
         word-wrap: break-word;
         /* region content */
-        section {
+        & section {
             padding-top: 40px;
 
             &.main-content {
                 padding-top: 40px;
                 /* region code blocks */
-                // code
-                div {
+                & div {
                     &.codehilite pre {
                         border-radius: 0;
 
@@ -274,27 +274,27 @@ endregion */
                         margin: var(--defaultSpace) 0 0 0;
 
                         /* Don't highlight syntax errors. */
-                        .err { border: 0; }
+                        & .err { border: 0; }
                     }
                     &.table-responsive {
                         border: 0;
 
-                        table.codehilitetable { width: 100%; }
+                        & table.codehilitetable { width: 100%; }
                     }
                 }
-                table {
+                & table {
                     border-collapse: collapse;
                     margin-top: var(--defaultSpace);
                     text-align: left;
 
-                    tbody tr {
-                        td.linenos, td.code {
+                    & tbody tr {
+                        & td.linenos, & td.code {
                             border-color: var(--codeBorderColor);
                             padding: 0;
 
-                            div {
+                            & div {
                                 &.linenodiv, &.codehilite {
-                                    pre {
+                                    & pre {
                                         border-color: var(--codeBorderColor);
                                         white-space: pre;
                                         margin: 0;
@@ -302,7 +302,6 @@ endregion */
                                 }
                                 &.linenodiv pre {
                                     border-radius: 0;
-
                                     padding: 10px 8px 10px 0;
                                     text-align: right;
                                     color: var(--codeLineNumberColor);
@@ -315,22 +314,22 @@ endregion */
                                     border-left: 0;
 
                                     /* Don't highlight syntax errors. */
-                                    .err { border: 0; }
+                                    & .err { border: 0; }
                                 }
                             }
                         }
                     }
                 }
-                p { margin: var(--defaultSpace) 0 0 0; }
+                & p { margin: var(--defaultSpace) 0 0 0; }
                 /* endregion */
-                div.show-example-wrapper {
+                & div.show-example-wrapper {
                     border: 1px solid var(--codeBorderColor);
                     border-top: 0;
                     background-color: var(--codeBackgroundColor);
                     padding: var(--defaultSpace);
                     padding-top: calc(var(--defaultSpace) / 2);
 
-                    h3 {
+                    & h3 {
                         font-family: var(--fontFamily);
                         font-size: .9em;
                         font-weight: bold;
@@ -339,15 +338,15 @@ endregion */
                         margin-bottom: calc(var(--defaultSpace) / 2);
                         margin-top: 0;
                     }
-                    p { margin: 0; }
+                    & p { margin: 0; }
                 }
             }
         }
         /* endregion */
         /* region about this website */
-        section.about-this-website {
-            p { margin-bottom: 45px; }
-            a[href="#home"] {
+        & section.about-this-website {
+            & p { margin-bottom: 45px; }
+            & a[href="#home"] {
                 float: left;
                 margin-top: 8px;
             }
@@ -356,67 +355,65 @@ endregion */
     }
     /* endregion */
     /* region footer */
-    div.footer-wrap > footer {
+    & div.footer-wrap > footer {
         width: 100%;
         text-align: center;
         padding-left: 0;
         padding-right: 0;
 
-        p { color: #f2f2f2; }
-        a:hover { color: #43adff; }
+        & p { color: #f2f2f2; }
+        & a:hover { color: #43adff; }
     }
     /* endregion */
     /* region responsive */
     /** region extra extra extra small */
-    a[href="#top"] { visibility: hidden; }
-    div.header-wrap > header > section.header-links {
+    & a[href="#top"] { visibility: hidden; }
+    & div.header-wrap > header > section.header-links {
         width: 100%;
 
-        span.arrow-left-api {
+        & span.arrow-left-api {
             visibility: hidden;
             width: 0px;
         }
-        a.api-link span { display: none !important; }
+        & a.api-link span { display: none !important; }
     }
     /** endregion */
     /** region extra extra small */
     @media (--extra-extra-small) {
-        div.header-wrap > header > section.header-links span.arrow-left-api {
+        & div.header-wrap > header > section.header-links span.arrow-left-api {
             visibility: visible;
             width: initial;
         }
         /* endregion */
         /* region extra small */
         @media (--extra-small) {
-            div.header-wrap > header > section.header-links a.api-link
-            span {
-                display: initial !important;
-            }
+            & div.header-wrap > header > section.header-links a.api-link
+            & span { display: initial !important; }
         /* endregion */
-            @media (min-width: @minimumSmallWidthInPixel) {
+            @media (--small) {
                 /* region small */
                 /** region headline */
-                h2 {
+                & h2 {
                     padding-bottom: 10px;
                     border-bottom: 1px dashed #bdbdbd;
                 }
                 /** endregion */
-                .inner { width: 715px; }
-                div {
+                & .inner { width: 715px; }
+                & div {
                     &.header-wrap > header > section.header-links {
                         width: 706px;
                     }
                     &.main-content-wrap section.main-content {
-                        pre { font-size: 0.9em; }
-                        div.codehilite pre { width: 695px; }
-                        table tbody tr {
-                            td.linenos div.linenodiv pre { width: 42px; }
-                            td.code div.codehilite pre { width: 653px; }
+                        & pre { font-size: 0.9em; }
+                        & div.codehilite pre { width: 695px; }
+                        & table tbody tr {
+                            & td.linenos div.linenodiv pre { width: 42px; }
+                            & td.code div.codehilite pre { width: 653px; }
                         }
-                        div.show-example-wrapper { width: 100%; }
+                        & div.show-example-wrapper { width: 100%; }
                     }
                 }
-                a[href="#top"] {
+                & a[href="#top"] {
                     visibility: visible;
                     position: fixed;
                     z-index: 4;
@@ -425,7 +422,7 @@ endregion */
                 }
                 /* endregion */
                 /* region medium */
-                @media (--medium) { a[href="#top"] { right: 45px; } }
+                @media (--medium) { & a[href="#top"] { right: 45px; } }
                 /* endregion */
             }
         }

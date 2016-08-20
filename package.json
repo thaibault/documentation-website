@@ -20,6 +20,10 @@
         "source-map-support": ">=0.4.2"
     },
     "webOptimizer": {
+        "files": {"compose": {"cascadingStyleSheet": {
+            "__evaluate__": "self.debug && false ? null : `${self.path.asset.cascadingStyleSheet}index.css?${self.hashAlgorithm}=[contenthash]`"
+        }}},
+
         "buildDefinition": {
             "GOOGLE_TRACKING_CODE": {
                 "__evaluate__": "`'${self.module.preprocessor.pug.locals.GOOGLE_TRACKING_CODE}'`"
