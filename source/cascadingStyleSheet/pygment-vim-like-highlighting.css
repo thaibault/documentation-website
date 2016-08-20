@@ -11,7 +11,7 @@ This library written by Torben Sickert stand under a creative commons naming
 endregion */
 :root {
     --codehilite: {
-        .codehilite {
+        & .codehilite {
             /* Background */
             & .hll { background-color: #222222 }
             /* Comment */
