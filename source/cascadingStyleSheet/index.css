@@ -42,7 +42,7 @@ endregion */
         height: 30px;
         vertical-align: text-top;
         overflow: hidden;
-        background-image: url('image/composition.png');
+        background-image: url('../image/composition.png');
         background-position: 14px 14px;
         background-repeat: no-repeat;
     };
