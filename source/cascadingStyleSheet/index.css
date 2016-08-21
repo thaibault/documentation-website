@@ -43,8 +43,7 @@ endregion */
         height: 30px;
         vertical-align: text-top;
         overflow: hidden;
-        background-image: url('../image/composition.png');
-        background-position: 14px 14px;
+        background-position: 0 0;
         background-repeat: no-repeat;
     };
     /*
@@ -53,24 +52,30 @@ endregion */
     */
     --icon-blacktocat: {
         @apply --icon;
-        background-position: -92px 0px;
+        background-image: url('../image/blacktocat.png');
+        background-position: 0 0;
         width: 30px;
         height: 30px;
     };
-    --icon-gray-archiv: {
+    --icon-archiv: {
         @apply --icon;
-        background-position: 0px -68px;
-        width: 88px;
-        height: 72px;
+        background-position: 0 0;
+        width: 82px;
+        height: 64px;
     };
-    --icon-blue-archiv: {
-        @apply --icon-gray-archiv;
-        background-position: 0px 2px;
+    --icon-archiv-gray: {
+        @apply --icon-archiv;
+        background-image: url('../image/folderGray.png');
+    };
+    --icon-archiv-blue: {
+        @apply --icon-archiv;
+        background-image: url('../image/folderBlue.png');
     };
     --icon-download: {
         @apply --icon;
-        background-position: -99px -35px;
-        width: 16px;
+        background-image: url('../image/arrowDown.png');
+        background-position: 0 0;
+        width: 20px;
         height: var(--defaultSpace);
     };
     /* endregion */
@@ -151,8 +156,8 @@ endregion */
     & .icon- {
         &blacktocat { @apply: --icon-blacktocat; }
         &download { @apply --icon-download; }
-        &gray-archiv { @apply --icon-gray-archiv; }
-        &blue-archiv { @apply --icon-blue-archiv; }
+        &gray-archiv { @apply --icon-archiv-gray; }
+        &blue-archiv { @apply --icon-archiv-blue; }
     }
     /*** endregion */
     & i.icon- {
@@ -228,11 +233,10 @@ endregion */
                         color: var(--brightFontColor);
                         width: 90px;
                         height: 70px;
-                        padding-left: 3px;
                     }
                     &.zip-source-download, &.zip-distribution-bundle-download,
                     &.tar-gz-source-download {
-                        @apply --icon-gray-archiv;
+                        @apply --icon-archiv-gray;
                         font-size: 1.2em;
                         text-align: center;
                         padding-top: 28px;
@@ -245,7 +249,7 @@ endregion */
                     &.zip-source-download:hover,
                     &.zip-distribution-bundle-download:hover,
                     &.tar-gz-source-download:hover {
-                        @apply --icon-blue-archiv;
+                        @apply --icon-archiv-blue;
                     }
                 }
                 /* endregion */
