@@ -63,7 +63,7 @@
                 "__evaluate__": "/\\/(?:(?:jquery)|(?:module)|(?:spin)|([^/]+\\.min))\\.js(?:\\?.+|$)/"
             }
         },
-        "path": {"asset": {"javaScript": "./"}}
+        "path": {"source": {"asset": {"javaScript": "./"}}}
     },
     "scripts": {
         "build": "webOptimizer build",
