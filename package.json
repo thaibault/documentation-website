@@ -13,7 +13,7 @@
     "dependencies": {
         "bootstrap": "3.3.6",
         "webOptimizer": "git+ssh://git@github.com/thaibault/webOptimizer.git",
-        "jQuery-website": "git+ssh://git@github.com/thaibault/jQuery-website.git",
+        "websiteUtilities": "git+ssh://git@github.com/thaibault/websiteUtilities.git",
         "legalNotes": "git+ssh://git@github.com/thaibault/legalNotes.git"
     },
     "devDependencies": {
@@ -31,7 +31,7 @@
         },
         "injection": {"internal": {
             "vendor": {
-                "__evaluate__": "self.debug && 2 < self.givenCommandLineArguments.length && ['buildDLL', 'serve', 'watchDLL'].includes(self.givenCommandLineArguments[2]) ? 'jQuery-website' : []"
+                "__evaluate__": "self.debug && 2 < self.givenCommandLineArguments.length && ['buildDLL', 'serve', 'watchDLL'].includes(self.givenCommandLineArguments[2]) ? 'websiteUtilities' : []"
             },
             "index": {
                 "__evaluate__": "[self.path.asset.cascadingStyleSheet + 'index'].concat(self.debug ? [] : 'babel-polyfill').concat(self.debug && self.dllManifestFilePaths.length && 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'serve' ? [`webpack-dev-server/client?${self.development.server.protocol}://0.0.0.0:${self.development.server.port}`, 'webpack/hot/dev-server'] : []).concat(self.offline ? 'offline-plugin/runtime' : []).concat('index')"
@@ -42,7 +42,7 @@
             "aliases": {
                 "bootstrap$": "bootstrap/dist/css/bootstrap.css",
                 "babel-polyfill$": "babel-polyfill/dist/polyfill.min",
-                "jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo",
+                "scrollTo$": "jquery.scrollto/jquery.scrollTo",
                 "jQuery-spin$": "spin.js/jquery.spin"
             },
             "optimizer": {"htmlMinifier": {"ignoreCustomComments": [
