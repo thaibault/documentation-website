@@ -89,9 +89,9 @@ class Documentation extends $.Website.class {
     /**
      * Initializes the interactive web application.
      * @param options - An options object.
-     * @param startUpAnimationIsComplete - Indicates weather start up
+     * @param startUpAnimationIsComplete - Indicates whether start up
      * animations has been completed.
-     * @param activateLanguageSupport - Indicates weather a language handler
+     * @param activateLanguageSupport - Indicates whether a language handler
      * should be used or not.
      * @param languageHandler - A language handler to use. If "null" is given
      * a new handler will be created.
