@@ -19,10 +19,10 @@
 */
 // region imports
 import $ from 'jquery'
-import Lang from 'jQuery-lang'
-import 'jQuery-website'
+import Language from 'language'
+import 'websiteUtilities'
 import type {DomNode} from 'webOptimizer/type'
-import type {$DomNode} from 'jQuery-tools'
+import type {$DomNode} from 'clientNode'
 // endregion
 // region declaration
 declare var GOOGLE_TRACKING_CODE:string
@@ -198,7 +198,7 @@ class Documentation extends $.Website.class {
             this.startUpAnimationIsComplete &&
             this._activateLanguageSupport && !this._languageHandler
         )
-            this._languageHandler = $.Lang(this._options.language)
+            this._languageHandler = $.Language(this._options.language)
         return this
     }
     /**
@@ -220,7 +220,7 @@ class Documentation extends $.Website.class {
      */
     _onStartUpAnimationComplete():Documentation {
         if (this._activateLanguageSupport && !this._languageHandler)
-            this._languageHandler = $.Lang(this._options.language)
+            this._languageHandler = $.Language(this._options.language)
         // All start up effects are ready. Handle direct section links.
         this.startUpAnimationIsComplete = true
         if ('location' in context)
