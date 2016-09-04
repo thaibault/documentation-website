@@ -60,7 +60,7 @@
                 "TAGLINE": "generic documentation website pattern"
             }}},
             "skipParseRegularExpression": {
-                "__evaluate__": "/\\/(?:(?:clientNode(?:\.compiled)?)|(?:jquery)|(?:module)|(?:spin)|([^/]+\\.min))\\.js(?:\\?.+|$)/"
+                "__evaluate__": "/\\/(?:(?:clientNode(?:\\.compiled)?)|(?:jquery)|(?:module)|(?:spin)|([^/]+\\.min))\\.js(?:\\?.+|$)/"
             }
         },
         "path": {"source": {"asset": {"javaScript": "./"}}}
