@@ -75,8 +75,6 @@
         "prepublish": "npm run build",
         "serve": "webOptimizer serve",
         "start": "npm run serve",
-        "test": "webOptimizer test",
-        "testInBrowser": "webOptimizer testInBrowser",
         "update": "npm version patch && npm publish",
         "watch": "webOptimizer build --watch",
         "watchDLL": "webOptimizer buildDLL --watch"
