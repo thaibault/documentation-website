@@ -16,7 +16,7 @@
     },
     "devDependencies": {
         "jsdom": "latest",
-        "legalNotes": "latest",
+        "legalNotes": "git+ssh://git@github.com/thaibault/legalNotes.git",
         "source-map-support": "latest",
         "webOptimizer": "latest"
     },
