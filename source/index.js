@@ -20,9 +20,9 @@
 // region imports
 import $ from 'jquery'
 import Language from 'language'
-import 'websiteUtilities'
-import type {DomNode} from 'webOptimizer/type'
-import type {$DomNode} from 'clientNode'
+import 'website-utilities'
+import type {DomNode} from 'weboptimizer/type'
+import type {$DomNode} from 'clientnode'
 // endregion
 // region declaration
 declare var GOOGLE_TRACKING_CODE:string

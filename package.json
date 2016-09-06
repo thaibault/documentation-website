@@ -12,7 +12,7 @@
     },
     "dependencies": {
         "bootstrap": "3.3.6",
-        "websiteUtilities": "latest"
+        "website-utilities": "latest"
     },
     "devDependencies": {
         "jsdom": "latest",
@@ -31,7 +31,7 @@
         },
         "injection": {"internal": {
             "vendor": {
-                "__evaluate__": "self.debug && 2 < self.givenCommandLineArguments.length && ['buildDLL', 'serve', 'watchDLL'].includes(self.givenCommandLineArguments[2]) ? 'websiteUtilities' : []"
+                "__evaluate__": "self.debug && 2 < self.givenCommandLineArguments.length && ['buildDLL', 'serve', 'watchDLL'].includes(self.givenCommandLineArguments[2]) ? 'website-utilities' : []"
             },
             "index": {
                 "__evaluate__": "[`${path.relative(self.path.source.base, self.path.source.asset.cascadingStyleSheet)}/index`].concat(self.debug ? [] : 'babel-polyfill').concat(self.debug && self.dllManifestFilePaths.length && 2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2] === 'serve' ? [`webpack-dev-server/client?${self.development.server.protocol}://0.0.0.0:${self.development.server.port}`, 'webpack/hot/dev-server'] : []).concat(self.offline ? 'offline-plugin/runtime' : []).concat('index')"
@@ -60,7 +60,7 @@
                 "TAGLINE": "generic documentation website pattern"
             }}},
             "skipParseRegularExpression": {
-                "__evaluate__": "/\\/(?:(?:clientNode(?:\\.compiled)?)|(?:jquery)|(?:module)|(?:spin)|([^/]+\\.min))\\.js(?:\\?.+|$)/"
+                "__evaluate__": "/\\/(?:(?:clientnode(?:\\.compiled)?)|(?:jquery)|(?:module)|(?:spin)|([^/]+\\.min))\\.js(?:\\?.+|$)/"
             }
         },
         "path": {"source": {"asset": {"javaScript": "./"}}}
