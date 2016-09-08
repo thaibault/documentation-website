@@ -19,6 +19,7 @@
 */
 // region imports
 import {$} from 'website-utilities'
+import Language from 'internationalisation'
 import type {DomNode} from 'weboptimizer/type'
 import type {$DomNode} from 'clientnode'
 // endregion
@@ -88,7 +89,7 @@ export default class Documentation extends $.Website.class {
     initialize(
         options:Object = {}, startUpAnimationIsComplete:boolean = false,
         activateLanguageSupport:boolean = false,
-        languageHandler:?$.Language.class = null
+        languageHandler:?Language = null
     ):Documentation {
         this.startUpAnimationIsComplete = startUpAnimationIsComplete
         this._activateLanguageSupport = activateLanguageSupport
