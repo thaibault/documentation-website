@@ -18,7 +18,7 @@
         "jsdom": "latest",
         "legalNotes": "git+ssh://git@github.com/thaibault/legalNotes.git",
         "source-map-support": "latest",
-        "webOptimizer": "latest"
+        "weboptimizer": "latest"
     },
     "webOptimizer": {
         "buildDefinition": {

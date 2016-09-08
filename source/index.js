@@ -19,7 +19,7 @@
 */
 // region imports
 import $ from 'jquery'
-import Language from 'language'
+import Language from 'internationalisation'
 import 'website-utilities'
 import type {DomNode} from 'weboptimizer/type'
 import type {$DomNode} from 'clientnode'
@@ -99,7 +99,8 @@ class Documentation extends $.Website.class {
      */
     initialize(
         options:Object = {}, startUpAnimationIsComplete:boolean = false,
-        activateLanguageSupport:boolean = false, languageHandler:?Lang = null
+        activateLanguageSupport:boolean = false,
+        languageHandler:?Language = null
     ):Documentation {
         this.startUpAnimationIsComplete = startUpAnimationIsComplete
         this._activateLanguageSupport = activateLanguageSupport
