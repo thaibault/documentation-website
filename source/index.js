@@ -1,7 +1,7 @@
 // @flow
 // #!/usr/bin/env node
 // -*- coding: utf-8 -*-
-/** @module jQuery-homePage */
+/** @module Documentation */
 'use strict'
 /* !
     region header
@@ -18,9 +18,7 @@
     endregion
 */
 // region imports
-import $ from 'jquery'
-import Language from 'internationalisation'
-import 'website-utilities'
+import {$} from 'website-utilities'
 import type {DomNode} from 'weboptimizer/type'
 import type {$DomNode} from 'clientnode'
 // endregion
@@ -29,20 +27,10 @@ declare var GOOGLE_TRACKING_CODE:string
 declare var LANGUAGES:Array<string>
 declare var OFFLINE:boolean
 // endregion
-const context:Object = (():Object => {
-    if ($.type(window) === 'undefined') {
-        if ($.type(global) === 'undefined')
-            return ($.type(module) === 'undefined') ? {} : module
-        return global
-    }
-    return window
-})()
-if (!('document' in context) && 'context' in $)
-    context.document = $.context
 // region plugins/classes
 /**
  * This plugin holds all needed methods to extend a whole documentation site.
- * @extends jQuery-website:Website
+ * @extends website-utilities:Website
  * @property static:_name - Defines this class name to allow retrieving them
  * after name mangling.
  * @property _options - Options extended by the options given to the
@@ -74,7 +62,7 @@ if (!('document' in context) && 'context' in $)
  * @property _options.section.main.fadeOut {Object} - Fade out configurations.
  * @property _options.section.main.fadeIn {Object} - Fade in configurations.
  */
-class Documentation extends $.Website.class {
+export default class Documentation extends $.Website.class {
     // region static properties
     static _name:string = 'Documentation'
     // endregion
@@ -100,14 +88,14 @@ class Documentation extends $.Website.class {
     initialize(
         options:Object = {}, startUpAnimationIsComplete:boolean = false,
         activateLanguageSupport:boolean = false,
-        languageHandler:?Language = null
+        languageHandler:?$.Language.class = null
     ):Documentation {
         this.startUpAnimationIsComplete = startUpAnimationIsComplete
         this._activateLanguageSupport = activateLanguageSupport
         if (languageHandler)
             this.languageHandler = languageHandler
         this._options = {
-            onExamplesLoaded: $.noop(),
+            onExamplesLoaded: this.constructor.noop,
             domNodeSelectorPrefix: 'body.{1}',
             codeTableWrapper: '<div class="table-responsive">',
             showExample: {
@@ -153,8 +141,8 @@ class Documentation extends $.Website.class {
         if (!this._activateLanguageSupport)
             this._activateLanguageSupport =
                 this._parentOptions.activateLanguageSupport
-        if (!('location' in context && context.location.hash))
-            context.location.hash = this.$domNodes.homeLink.attr('href')
+        if (!('location' in $.global && $.global.location.hash))
+            $.global.location.hash = this.$domNodes.homeLink.attr('href')
         this.$domNodes.aboutThisWebsiteSection.hide()
         /*
             NOTE: We have to render examples first to avoid having dots in
@@ -224,11 +212,11 @@ class Documentation extends $.Website.class {
             this._languageHandler = $.Language(this._options.language)
         // All start up effects are ready. Handle direct section links.
         this.startUpAnimationIsComplete = true
-        if ('location' in context)
+        if ('location' in $.global)
             this.$domNodes.tableOfContentLinks.add(
                 this.$domNodes.aboutThisWebsiteLink
-            ).filter('a[href="' + context.location.href.substr(
-                context.location.href.indexOf('#')
+            ).filter('a[href="' + $.global.location.href.substr(
+                $.global.location.href.indexOf('#')
             ) + '"]').trigger('click')
         return super._onStartUpAnimationComplete.apply(this, arguments)
     }
@@ -246,7 +234,8 @@ class Documentation extends $.Website.class {
                 tableParent.wrap(this._options.codeTableWrapper)
             let newContent:string = ''
             const codeLines:Array<string> = $domNode.html().split('\n')
-            $.each(codeLines, (index:number, value:string):void => {
+            let subIndex:number = 0
+            for (const value:string of codeLines) {
                 /*
                     NOTE: Wrap a div object to grantee that $ will accept the
                     input.
@@ -257,9 +246,10 @@ class Documentation extends $.Website.class {
                     newContent += this._replaceExcessWithDots(value, excess)
                 else
                     newContent += value
-                if (index + 1 !== codeLines.length)
+                if (subIndex + 1 !== codeLines.length)
                     newContent += "\n"
-            })
+                subIndex += 1
+            }
             $domNode.html(newContent)
         })
         return this
@@ -382,8 +372,6 @@ $.Documentation = function():any {
     return $.Tools().controller(Documentation, arguments)
 }
 $.Documentation.class = Documentation
-/** jQuery extended with jQuery-documentation plugin. */
-export default $
 if (typeof OFFLINE !== 'undefined' && OFFLINE) {
     const offlineHandler:Object = require('offline-plugin/runtime')
     offlineHandler.install({
@@ -393,7 +381,7 @@ if (typeof OFFLINE !== 'undefined' && OFFLINE) {
 }
 // NOTE: We make jQuery available to make bootstrapping examples with deferred
 // script loading simpler.
-context.documentationWebsiteJQuery = $.noConflict(true)
+$.global.documentationWebsiteJQuery = $.noConflict(true)
 $.noConflict()(($:Object):Documentation => $.Documentation({
     trackingCode: GOOGLE_TRACKING_CODE, language: {
         allowedLanguages: LANGUAGES || [],
