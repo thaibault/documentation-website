@@ -65,7 +65,9 @@
         },
         "path": {
             "source": {"asset": {"javaScript": "./"}},
-            "target": {"asset": {"javaScript": "./"}}
+            "target": {"asset": {
+                "javaScript": "./", "cascadingStyleSheet": "./"
+            }}
         }
     },
     "scripts": {
