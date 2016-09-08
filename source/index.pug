@@ -67,7 +67,7 @@ html.no-javascript(lang=LANGUAGE || 'en')
                 br
             section.header-links
                 //NOTE: This elements are shown in reverse order.
-                numberOfLanguageLinks = 0
+                - numberOfLanguageLinks = 0
                 if 1 < LANGUAGES.length
                     - numberOfLanguageLinks = LANGUAGES.length
                     - START_UP_ANIMATION_NUMBER += numberOfLanguageLinks

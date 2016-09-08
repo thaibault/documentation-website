@@ -188,8 +188,8 @@ endregion */
             padding: 50px 10px 30px 10px;
 
             & a.forkme-banner {
-                box-shadow: 0, 0, 10px, rgba(0, 0, 0, .5);
-                border-radius: 0, 0, 2px, 2px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+                border-radius: 0 0 2px 2px;
                 display: block;
                 position: absolute;
                 top: 0;
