@@ -26,7 +26,7 @@
                 "__evaluate__": "`'${self.module.preprocessor.pug.locals.ANALYTICS_CODE}'`"
             },
             "LANGUAGES": {
-                "__evaluate__": "`['${self.module.preprocessor.pug.locals.LANGUAGE.selection.join(\"', '\")}']`"
+                "__evaluate__": "`['${self.module.preprocessor.pug.locals.LANGUAGES.join(\"', '\")}']`"
             }
         },
         "injection": {"internal": {
@@ -54,7 +54,7 @@
                 "API_DOCUMENTATION_PATH": "/apiDocumentation/",
                 "CONTENT_FILE_PATH": "dummyDocumentation.pug",
                 "DISTRIBUTION_BUNDLE_FILE_PATH": "dummyDistributionBundle.zip",
-                "LANGUAGE": {"selection": ["deDE", "enUS", "frFR"]},
+                "LANGUAGE": ["deDE", "enUS", "frFR"],
                 "NAME": "documentationWebsite",
                 "RENDER_CONTENT": true,
                 "TAGLINE": "generic documentation website pattern"
