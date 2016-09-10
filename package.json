@@ -1,8 +1,8 @@
 {
-    "name": "documentationWebsite",
+    "name": "documentation-website",
     "version": "1.0.0",
     "keywords": ["documentation", "website", "project", "homepage", "page"],
-    "description": "documentationWebsite",
+    "description": "Declarative multilanguage documentation website generator",
     "license": "CC-BY-3.0",
     "files": ["source"],
     "main": "updateGitPagesDocumentationBranch.py",
