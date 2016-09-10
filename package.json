@@ -4,8 +4,8 @@
     "keywords": ["documentation", "website", "project", "homepage", "page"],
     "description": "documentationWebsite",
     "license": "CC-BY-3.0",
-    "files": ["build"],
-    "main": "build/index.html",
+    "files": ["source"],
+    "main": "updateGitPagesDocumentationBranch.py",
     "repository": {
         "type": "git",
         "url": "git@github.io:thaibault/documentationWebsite.git"
@@ -77,7 +77,6 @@
         "clear": "webOptimizer clear",
         "document": "webOptimizer document",
         "lint": "webOptimizer typeCheck && webOptimizer lint",
-        "prepublish": "npm run build",
         "serve": "webOptimizer serve",
         "start": "npm run serve",
         "update": "npm version patch && npm publish",
