@@ -4,8 +4,11 @@
     "keywords": ["documentation", "website", "project", "homepage", "page"],
     "description": "Declarative multilanguage documentation website generator",
     "license": "CC-BY-3.0",
+  "bin": {
+    "documentationWebsite": "index.py"
+  },
     "files": ["source"],
-    "main": "updateGitPagesDocumentationBranch.py",
+    "main": "source/index.pug",
     "repository": {
         "type": "git",
         "url": "git@github.io:thaibault/documentationWebsite.git"
