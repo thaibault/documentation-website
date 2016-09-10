@@ -384,8 +384,8 @@ if (typeof OFFLINE !== 'undefined' && OFFLINE) {
 // script loading simpler.
 $.global.documentationWebsiteJQuery = $.noConflict(true)
 $.noConflict()(($:Object):Documentation => $.Documentation({
-    trackingCode: GOOGLE_TRACKING_CODE, language: {
-        allowedLanguages: LANGUAGES || [],
+    trackingCode: ANALYTICS_CODE, language: {
+        selection: LANGUAGE.selection || [],
         sessionDescription: 'documentationWebsite{1}'
     }
 }))

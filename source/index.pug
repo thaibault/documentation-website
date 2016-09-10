@@ -11,8 +11,8 @@ doctype html
     endregion
 -
     // region language
-    if (!LANGUAGES)
-        LANGUAGES = ['enUS']
+    if (!LANGUAGE)
+        LANGUAGE = {selection: ['enUS']}
     // endregion
     // region runtime
     if (!URL)
@@ -21,7 +21,7 @@ doctype html
         SOURCE_URL = `https://github.com/thaibault/${NAME}`
     START_UP_ANIMATION_NUMBER = 0
     // endregion
-html.no-javascript(lang=LANGUAGE || 'en')
+html.no-javascript(lang=LANGUAGE.initial || 'en')
     // region head
     head
         // region meta informations
