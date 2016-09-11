@@ -382,14 +382,13 @@ if (typeof OFFLINE !== 'undefined' && OFFLINE) {
 }
 // NOTE: We make jQuery available to make bootstrapping examples with deferred
 // script loading simpler.
-$.global.$documentationWebsite = $.noConflict(true)(($:Object):Documentation =>
-    $.Documentation({
-        trackingCode: ANALYTICS_CODE, language: {
-            selection: LANGUAGES || [],
-            sessionDescription: 'documentationWebsite{1}'
-        }
-    }))
-console.log($.global.$documentationWebsite)
+$.global.$documentationWebsite = $
+$.noConflict(true)(($:Object):Documentation => $.Documentation({
+    trackingCode: ANALYTICS_CODE, language: {
+        selection: LANGUAGES || [],
+        sessionDescription: 'documentationWebsite{1}'
+    }
+}))
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
 // vim: foldmethod=marker foldmarker=region,endregion:
