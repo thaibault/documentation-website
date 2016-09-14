@@ -16,22 +16,16 @@ endregion */
 :root {
     /* region constants */
     /** region color */
-    --darkFontColor: #373737;
-    --brightFontColor: #fff;
-    --linkColor: #0090ff;
-    --linkHoverColor: #0069ba;
-
-    --languageButtonColor: #ababab;
-    --currentLanguageButtonColor: #5a5a5a;
-    --hoverLanguageButtonColor: #898989;
-
-    --darkBackgroundColor: #212121;
-    --brightBackgroundColor: var(--brightFontColor);
-
-    --codeLineNumberColor: #cbcbcd;
-    --codeBackgroundColor: #fbfbfc;
-    --codeLineNumberBackgroundColor: #f7f7f9;
-    --codeBorderColor: #ddd;
+    --color1: #797979;
+    --color2: #494949;
+    --color3: #212121;
+    --color4: #cbcbcd;
+    --color5: #ddd;
+    --color6: #f7f7f9;
+    --color7: #fbfbfc;
+    --color8: #fff;
+    --color9: #0090ff;
+    --color10: #0069ba;
     /** endregion */
     /** region space */
     --defaultSpace: 20px;
@@ -46,39 +40,48 @@ endregion */
         overflow: hidden;
         background-position: 0 0;
         background-repeat: no-repeat;
-    };
+    }
     /*
         NOTE: We explicit inherit form ".icon" to prepare this class to be
         super classes as well.
     */
     --icon-blacktocat: {
         @apply --icon;
+
         background-image: url('../image/blacktocat.png');
         background-position: 0 0;
         width: 30px;
         height: 30px;
-    };
+    }
+
     --icon-archiv: {
         @apply --icon;
+
         background-position: 0 0;
         width: 82px;
         height: 64px;
-    };
+    }
+
     --icon-archiv-gray: {
         @apply --icon-archiv;
+
         background-image: url('../image/folderGray.png');
-    };
+    }
+
     --icon-archiv-blue: {
         @apply --icon-archiv;
+
         background-image: url('../image/folderBlue.png');
-    };
+    }
+
     --icon-download: {
         @apply --icon;
+
         background-image: url('../image/arrowDown.png');
         background-position: 0 0;
         width: 20px;
         height: var(--defaultSpace);
-    };
+    }
     /* endregion */
 }
 /* region style sheets */
@@ -87,11 +90,12 @@ endregion */
     @apply --codehilite;
     @apply --website;
 
-    color: var(--darkFontColor);
-    background: var(--darkBackgroundColor);
+    color: var(--color1);
+    background: var(--color3);
     line-height: 1.5;
     /** region grid */
     & .outer { width: 100%; }
+
     & .inner {
         position: relative;
         padding: var(--defaultSpace) calc(var(--defaultSpace) / 2);
@@ -120,7 +124,7 @@ endregion */
     & h5,
     & h6 {
         margin: 10px 0;
-        color: #222222;
+        color: #222;
         letter-spacing: -1px;
         font-family: var(--fontFamilyCondensed);
         font-size: 2em;
@@ -132,18 +136,18 @@ endregion */
     & a,
     & a:visited,
     & a:focus {
-        color: var(--linkColor);
+        color: var(--color9);
         text-shadow: none;
         outline: none !important;
-
         transition: color 0.5s ease;
-        transition: text-shadow 0.5s ease;
 
-        &:hover { color: var(--linkHoverColor); }
+        &:hover { color: var(--color10); }
+
         &.api-link {
             padding-top: 36px;
             float: left;
         }
+
         &[href="#top"] {
             position: fixed;
             z-index: 4;
@@ -153,10 +157,10 @@ endregion */
     }
     /*** region language links */
     & a[href^="#language-"] {
-        color: var(--languageButtonColor);
+        color: var(--color1);
 
-        &.current { color: var(--currentLanguageButtonColor); }
-        &:hover { color: var(--hoverLanguageButtonColor); }
+        &.current { color: var(--color3); }
+        &:hover { color: var(--color2); }
     }
     /*** endregion */
     /** endregion */
@@ -164,7 +168,7 @@ endregion */
     /*** region generic */
     & [class^="icon-"],
     & [class*=" icon-"],
-    & .icon  { @apply --icon; }
+    & .icon { @apply --icon; }
 
     & .icon- {
         &blacktocat { @apply: --icon-blacktocat; }
@@ -197,10 +201,10 @@ endregion */
         background-image:
             linear-gradient(
                 to bottom,
-                var(--darkFontColor),
-                var(--darkBackgroundColor)
+                var(--color2),
+                var(--color3)
             );
-        background-color: var(--darkBackgroundColor);
+        background-color: var(--color3);
 
         & .inner {
             padding: 50px 10px 30px;
@@ -214,8 +218,8 @@ endregion */
                 right: 10px;
                 z-index: 10;
                 padding: 10px;
-                color: var(--brightFontColor);
-                background-color: var(--linkColor);
+                color: var(--color8);
+                background-color: var(--color9);
                 font-weight: 700;
 
                 &:hover { background-color: #585858; }
@@ -224,11 +228,11 @@ endregion */
             & h1.project-title,
             & h2.project-tagline {
                 border: none;
-                color: var(--brightFontColor);
+                color: var(--color8);
                 text-shadow: #111 0 0 10px;
 
                 & a {
-                    color: var(--brightFontColor);
+                    color: var(--color8);
                     text-shadow: #111 0 0 10px;
                 }
             }
@@ -262,7 +266,7 @@ endregion */
                     &.zip-source-download:hover,
                     &.zip-distribution-bundle-download:hover,
                     &.tar-gz-source-download:hover {
-                        color: var(--brightFontColor);
+                        color: var(--color8);
                         width: 90px;
                         height: 70px;
                     }
@@ -294,7 +298,7 @@ endregion */
     /* endregion */
     /* region content */
     & section {
-        background-color: var(--brightBackgroundColor);
+        background-color: var(--color8);
         overflow: auto;
         word-wrap: break-word;
         /* region content */
@@ -305,8 +309,8 @@ endregion */
                 /* region code blocks */
                 & .codehilite pre {
                     border-radius: 0;
-                    border-color: var(--codeBorderColor);
-                    background-color: var(--codeBackgroundColor);
+                    border-color: var(--color5);
+                    background-color: var(--color7);
                     margin: var(--defaultSpace) 0 0 0;
                     /* Don't highlight syntax errors. */
                     & .err { border: 0; }
@@ -326,13 +330,13 @@ endregion */
 
                     & .linenos,
                     & .code {
-                        border-color: var(--codeBorderColor);
+                        border-color: var(--color5);
                         padding: 0;
 
                         & .linenodiv,
                         & .codehilite {
                             & pre {
-                                border-color: var(--codeBorderColor);
+                                border-color: var(--color5);
                                 white-space: pre;
                                 margin: 0;
                             }
@@ -342,14 +346,14 @@ endregion */
                             border-radius: 0;
                             padding: 10px 4px;
                             text-align: right;
-                            color: var(--codeLineNumberColor);
-                            background-color: var(--codeLineNumberBackgroundColor);
+                            color: var(--color4);
+                            background-color: var(--color6);
                         }
 
                         & .codehilite pre {
                             padding: 10px;
                             overflow: auto;
-                            background-color: var(--codeBackgroundColor);
+                            background-color: var(--color7);
                             border-left: 0;
                             /* Don't highlight syntax errors. */
                             & .err { border: 0; }
@@ -359,9 +363,9 @@ endregion */
                 & p { margin: var(--defaultSpace) 0 0 0; }
                 /* endregion */
                 & .show-example-wrapper {
-                    border: 1px solid var(--codeBorderColor);
+                    border: 1px solid var(--color5);
                     border-top: 0;
-                    background-color: var(--codeBackgroundColor);
+                    background-color: var(--color7);
                     padding: var(--defaultSpace);
                     padding-top: calc(var(--defaultSpace) / 2);
 
