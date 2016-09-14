@@ -113,13 +113,13 @@ export default class Documentation extends $.Website.class {
                 `
             },
             domNode: {
-                tableOfContentLinks: 'div.toc > ul > li a[href^="#"]',
+                tableOfContentLinks: '.toc ul li a[href^="#"]',
                 aboutThisWebsiteLink: 'a[href="#about-this-website"]',
                 homeLink: 'a[href="#home"]',
-                aboutThisWebsiteSection: 'section.about-this-website',
-                mainSection: 'section.main-content',
-                codeWrapper: 'div.codehilite',
-                code: 'div.codehilite > pre, code'
+                aboutThisWebsiteSection: '.about-this-website',
+                mainSection: '.main-content',
+                codeWrapper: '.codehilite',
+                code: '.codehilite pre, code'
             },
             section: {
                 aboutThisWebsite: {
@@ -267,7 +267,6 @@ export default class Documentation extends $.Website.class {
         excess += 3
         let newContent:string = ''
         let $content:$DomNode
-        let wrapped:boolean = false
         $content = $(`<wrapper>${content}</wrapper>`)
         for (const domNode:DomNode of $content.contents().get().reverse()) {
             const $wrapper:$DomNode = $(domNode).wrap('<wrapper>').parent()
