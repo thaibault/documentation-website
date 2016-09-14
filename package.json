@@ -23,7 +23,6 @@
     "url": "git@github.io:thaibault/documentationWebsite.git"
   },
   "dependencies": {
-    "bootstrap": "3.3.6",
     "website-utilities": "latest"
   },
   "devDependencies": {
