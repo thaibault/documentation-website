@@ -20,9 +20,10 @@ endregion */
     --color7: #fbfbfc; /*2*/
     --color6: #f7f7f9; /*3*/
     --color5: #ddd;    /*4*/
-    --color1: #797979; /*5
-    --color2: #494949; /*6*/
+    --color1: #797979; /*5*/
+    --color2: #333; /*6*/
     --color3: #212121; /*7*/
+    --color4: #cbcbcd;
     --color: black;    /*8*/
     --color9: #0090ff; /*9*/
     --color10: #0069ba; /*10*/
@@ -139,7 +140,7 @@ endregion */
         color: var(--color9);
         text-shadow: none;
         outline: none !important;
-        transition: color 0.5s ease;
+        transition: color 0.5s ease, background-color 0.5s ease;
 
         &:hover { color: var(--color10); }
 
@@ -159,8 +160,8 @@ endregion */
     & a[href^="#language-"] {
         color: var(--color1);
 
-        &.current { color: var(--color3); }
-        &:hover { color: var(--color2); }
+        &.current { color: var(--color2); }
+        &:hover { color: var(--color3); }
     }
     /*** endregion */
     /** endregion */
@@ -373,7 +374,7 @@ endregion */
                         font-family: var(--fontFamily);
                         font-size: 0.9em;
                         font-weight: bold;
-                        color: var(--color2);
+                        color: var(--color4);
                         letter-spacing: 1px;
                         margin-bottom: calc(var(--defaultSpace) / 2);
                         margin-top: 0;
@@ -404,7 +405,7 @@ endregion */
         padding-right: 0;
 
         & p { color: var(--color6); }
-        & a:hover { color: var(--color9); }
+        & a:hover { color: var(--color10); }
     }
     /* endregion */
     /* region responsive */
