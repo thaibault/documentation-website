@@ -16,16 +16,16 @@ endregion */
 :root {
     /* region constants */
     /** region color */
-    --color1: #797979;
-    --color2: #494949;
-    --color3: #212121;
-    --color4: #cbcbcd;
-    --color5: #ddd;
-    --color6: #f7f7f9;
-    --color7: #fbfbfc;
-    --color8: #fff;
-    --color9: #0090ff;
-    --color10: #0069ba;
+    --color8: #fff;    /*1*/
+    --color7: #fbfbfc; /*2*/
+    --color6: #f7f7f9; /*3*/
+    --color5: #ddd;    /*4*/
+    --color1: #797979; /*5
+    --color2: #494949; /*6*/
+    --color3: #212121; /*7*/
+    --color: black;    /*8*/
+    --color9: #0090ff; /*9*/
+    --color10: #0069ba; /*10*/
     /** endregion */
     /** region space */
     --defaultSpace: 20px;
@@ -124,7 +124,7 @@ endregion */
     & h5,
     & h6 {
         margin: 10px 0;
-        color: #222;
+        color: var(--color3);
         letter-spacing: -1px;
         font-family: var(--fontFamilyCondensed);
         font-size: 2em;
@@ -210,7 +210,7 @@ endregion */
             padding: 50px 10px 30px;
 
             & a.forkme-banner {
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                box-shadow: 0 0 10px var(--color);
                 border-radius: 0 0 2px 2px;
                 display: block;
                 position: absolute;
@@ -222,18 +222,18 @@ endregion */
                 background-color: var(--color9);
                 font-weight: 700;
 
-                &:hover { background-color: #585858; }
+                &:hover { background-color: var(--color10); }
             }
 
             & h1.project-title,
             & h2.project-tagline {
                 border: none;
                 color: var(--color8);
-                text-shadow: #111 0 0 10px;
+                text-shadow: var(--color) 0 0 10px;
 
                 & a {
                     color: var(--color8);
-                    text-shadow: #111 0 0 10px;
+                    text-shadow: var(--color) 0 0 10px;
                 }
             }
 
@@ -373,7 +373,7 @@ endregion */
                         font-family: var(--fontFamily);
                         font-size: 0.9em;
                         font-weight: bold;
-                        color: #bbb;
+                        color: var(--color2);
                         letter-spacing: 1px;
                         margin-bottom: calc(var(--defaultSpace) / 2);
                         margin-top: 0;
@@ -403,8 +403,8 @@ endregion */
         padding-left: 0;
         padding-right: 0;
 
-        & p { color: #f2f2f2; }
-        & a:hover { color: #43adff; }
+        & p { color: var(--color6); }
+        & a:hover { color: var(--color9); }
     }
     /* endregion */
     /* region responsive */
