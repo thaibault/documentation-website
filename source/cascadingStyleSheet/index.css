@@ -16,17 +16,17 @@ endregion */
 :root {
     /* region constants */
     /** region color */
-    --color8: #fff;    /*1*/
-    --color7: #fbfbfc; /*2*/
-    --color6: #f7f7f9; /*3*/
-    --color5: #ddd;    /*4*/
-    --color1: #797979; /*5*/
-    --color2: #333; /*6*/
-    --color3: #212121; /*7*/
-    --color4: #cbcbcd;
-    --color: black;    /*8*/
-    --color9: #0090ff; /*9*/
-    --color10: #0069ba; /*10*/
+    --color1: #fff;
+    --color2: #fbfbfc;
+    --color3: #f7f7f9;
+    --color4: #ddd;
+    --color5: #cbcbcd;
+    --color6: #797979;
+    --color7: #333;
+    --color8: #212121;
+    --color9: black;
+    --color10: #0090ff;
+    --color11: #0069ba;
     /** endregion */
     /** region space */
     --defaultSpace: 20px;
@@ -91,8 +91,8 @@ endregion */
     @apply --codehilite;
     @apply --website;
 
-    color: var(--color1);
-    background: var(--color3);
+    color: var(--color6);
+    background: var(--color8);
     line-height: 1.5;
     /** region grid */
     & .outer { width: 100%; }
@@ -125,7 +125,7 @@ endregion */
     & h5,
     & h6 {
         margin: 10px 0;
-        color: var(--color3);
+        color: var(--color8);
         letter-spacing: -1px;
         font-family: var(--fontFamilyCondensed);
         font-size: 2em;
@@ -134,15 +134,13 @@ endregion */
     & h2 { font-size: 3em; }
     /** endregion */
     /** region link */
-    & a,
-    & a:visited,
-    & a:focus {
-        color: var(--color9);
+    & a {
+        color: var(--color10);
         text-shadow: none;
         outline: none !important;
         transition: color 0.5s ease, background-color 0.5s ease;
 
-        &:hover { color: var(--color10); }
+        &:hover { color: var(--color11); }
 
         &.api-link {
             padding-top: 36px;
@@ -155,15 +153,14 @@ endregion */
             bottom: 30px;
             right: 45px;
         }
-    }
-    /*** region language links */
-    & a[href^="#language-"] {
-        color: var(--color1);
 
-        &.current { color: var(--color2); }
-        &:hover { color: var(--color3); }
+        &[href^="#language-"] {
+            color: var(--color6);
+
+            &.current { color: var(--color7); }
+            &:hover { color: var(--color8); }
+        }
     }
-    /*** endregion */
     /** endregion */
     /** region image */
     /*** region generic */
@@ -202,16 +199,16 @@ endregion */
         background-image:
             linear-gradient(
                 to bottom,
-                var(--color2),
-                var(--color3)
+                var(--color7),
+                var(--color8)
             );
-        background-color: var(--color3);
+        background-color: var(--color8);
 
         & .inner {
             padding: 50px 10px 30px;
 
             & a.forkme-banner {
-                box-shadow: 0 0 10px var(--color);
+                box-shadow: 0 0 10px var(--color9);
                 border-radius: 0 0 2px 2px;
                 display: block;
                 position: absolute;
@@ -219,22 +216,22 @@ endregion */
                 right: 10px;
                 z-index: 10;
                 padding: 10px;
-                color: var(--color8);
-                background-color: var(--color9);
+                color: var(--color1);
+                background-color: var(--color10);
                 font-weight: 700;
 
-                &:hover { background-color: var(--color10); }
+                &:hover { background-color: var(--color11); }
             }
 
             & h1.project-title,
             & h2.project-tagline {
                 border: none;
-                color: var(--color8);
-                text-shadow: var(--color) 0 0 10px;
+                color: var(--color1);
+                text-shadow: var(--color9) 0 0 10px;
 
                 & a {
-                    color: var(--color8);
-                    text-shadow: var(--color) 0 0 10px;
+                    color: var(--color1);
+                    text-shadow: var(--color9) 0 0 10px;
                 }
             }
 
@@ -267,7 +264,7 @@ endregion */
                     &.zip-source-download:hover,
                     &.zip-distribution-bundle-download:hover,
                     &.tar-gz-source-download:hover {
-                        color: var(--color8);
+                        color: var(--color1);
                         width: 90px;
                         height: 70px;
                     }
@@ -299,7 +296,7 @@ endregion */
     /* endregion */
     /* region content */
     & section {
-        background-color: var(--color8);
+        background-color: var(--color1);
         overflow: auto;
         word-wrap: break-word;
         /* region content */
@@ -310,8 +307,8 @@ endregion */
                 /* region code blocks */
                 & .codehilite pre {
                     border-radius: 0;
-                    border-color: var(--color5);
-                    background-color: var(--color7);
+                    border-color: var(--color4);
+                    background-color: var(--color2);
                     margin: var(--defaultSpace) 0 0 0;
                     /* Don't highlight syntax errors. */
                     & .err { border: 0; }
@@ -331,13 +328,13 @@ endregion */
 
                     & .linenos,
                     & .code {
-                        border-color: var(--color5);
+                        border-color: var(--color4);
                         padding: 0;
 
                         & .linenodiv,
                         & .codehilite {
                             & pre {
-                                border-color: var(--color5);
+                                border-color: var(--color4);
                                 white-space: pre;
                                 margin: 0;
                             }
@@ -347,14 +344,14 @@ endregion */
                             border-radius: 0;
                             padding: 10px 4px;
                             text-align: right;
-                            color: var(--color4);
-                            background-color: var(--color6);
+                            color: var(--color5);
+                            background-color: var(--color3);
                         }
 
                         & .codehilite pre {
                             padding: 10px;
                             overflow: auto;
-                            background-color: var(--color7);
+                            background-color: var(--color2);
                             border-left: 0;
                             /* Don't highlight syntax errors. */
                             & .err { border: 0; }
@@ -364,9 +361,9 @@ endregion */
                 & p { margin: var(--defaultSpace) 0 0 0; }
                 /* endregion */
                 & .show-example-wrapper {
-                    border: 1px solid var(--color5);
+                    border: 1px solid var(--color4);
                     border-top: 0;
-                    background-color: var(--color7);
+                    background-color: var(--color2);
                     padding: var(--defaultSpace);
                     padding-top: calc(var(--defaultSpace) / 2);
 
@@ -374,7 +371,7 @@ endregion */
                         font-family: var(--fontFamily);
                         font-size: 0.9em;
                         font-weight: bold;
-                        color: var(--color4);
+                        color: var(--color5);
                         letter-spacing: 1px;
                         margin-bottom: calc(var(--defaultSpace) / 2);
                         margin-top: 0;
@@ -404,8 +401,8 @@ endregion */
         padding-left: 0;
         padding-right: 0;
 
-        & p { color: var(--color6); }
-        & a:hover { color: var(--color10); }
+        & p { color: var(--color3); }
+        & a:hover { color: var(--color11); }
     }
     /* endregion */
     /* region responsive */
@@ -437,7 +434,7 @@ endregion */
                 /** region headline */
                 & h2 {
                     padding-bottom: 10px;
-                    border-bottom: 1px dashed #bdbdbd;
+                    border-bottom: 1px dashed var(--color4);
                 }
                 /** endregion */
 
