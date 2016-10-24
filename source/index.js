@@ -20,8 +20,7 @@
 // region imports
 import {$} from 'website-utilities'
 import Language from 'internationalisation'
-import type {DomNode} from 'weboptimizer/type'
-import type {$DomNode} from 'clientnode'
+import type {DomNode, $DomNode} from 'clientnode'
 // endregion
 // region declaration
 declare var ANALYTICS_CODE:string
