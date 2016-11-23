@@ -58,6 +58,7 @@
       "aliases": {
         "bootstrap$": "bootstrap/dist/css/bootstrap.css",
         "babel-polyfill$": "babel-polyfill/dist/polyfill.min",
+        "jquery$": "jquery/dist/jquery.min",
         "jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo",
         "jQuery-spin$": "spin.js/jquery.spin"
       },
