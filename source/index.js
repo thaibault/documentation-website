@@ -254,7 +254,7 @@ export default class Documentation extends $.Website.class {
                 else
                     newContent += value
                 if (subIndex + 1 !== codeLines.length)
-                    newContent += "\n"
+                    newContent += '\n'
                 subIndex += 1
             }
             $domNode.html(newContent)
@@ -358,9 +358,8 @@ export default class Documentation extends $.Website.class {
     // endregion
 }
 // endregion
-$.Documentation = function():any {
-    return $.Tools().controller(Documentation, arguments)
-}
+$.Documentation = (...parameter:Array<any>):any => $.Tools().controller(
+    Documentation, parameter)
 $.Documentation.class = Documentation
 if (typeof OFFLINE !== 'undefined' && OFFLINE) {
     const offlineHandler:Object = require('offline-plugin/runtime')
