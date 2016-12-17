@@ -70,13 +70,6 @@
     },
     "library": false,
     "module": {
-      "aliases": {
-        "bootstrap$": "bootstrap/dist/css/bootstrap.css",
-        "babel-polyfill$": "babel-polyfill/dist/polyfill.min",
-        "jquery$": "jquery/dist/jquery.min",
-        "jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo",
-        "jQuery-spin$": "spin.js/jquery.spin"
-      },
       "optimizer": {
         "htmlMinifier": {
           "ignoreCustomComments": [
@@ -115,8 +108,14 @@
           }
         }
       },
+      "replacements": {
+        "normale": {
+          "babel-polyfill$": "babel-polyfill/dist/polyfill.min",
+          "bootstrap$": "bootstrap/dist/css/bootstrap"
+        }
+      },
       "skipParseRegularExpressions": {
-        "__evaluate__": "/\\/(?:(?:clientnode(?:\\.compiled)?)|(?:jquery\\/dist\\/jquery)|(?:module)|(?:spin)|([^/]+\\.min))\\.js(?:\\?.+|$)/"
+        "__evaluate__": "/\\/(?:(?:clientnode(?:\\.compiled)?)|(?:jquery\\/dist\\/jquery)|(?:module)|([^/]+\\.min))\\.js(?:\\?.+|$)/"
       }
     },
     "path": {
