@@ -70,6 +70,9 @@
     },
     "library": false,
     "module": {
+      "aliases": {
+        "^bootstrap$": "bootstrap/dist/css/bootstrap.min.css"
+      },
       "optimizer": {
         "htmlMinifier": {
           "ignoreCustomComments": [
@@ -109,9 +112,10 @@
         }
       },
       "replacements": {
-        "normale": {
-          "babel-polyfill$": "babel-polyfill/dist/polyfill.min",
-          "bootstrap$": "bootstrap/dist/css/bootstrap"
+        "normal": {
+          "^babel-polyfill$": "babel-polyfill/dist/polyfill.min.js",
+          "^jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo.js",
+          "^jQuery-spin$": "spin.js/jquery.spin.js"
         }
       },
       "skipParseRegularExpressions": {
