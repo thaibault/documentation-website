@@ -74,6 +74,7 @@
         "^bootstrap$": "bootstrap/dist/css/bootstrap.min.css"
       },
       "optimizer": {
+        "babili": null,
         "htmlMinifier": {
           "ignoreCustomComments": [
             {
@@ -109,11 +110,19 @@
               }
             }
           }
+        },
+        "javaScript": {
+          "configuration": {
+            "presets": {
+              "__evaluate__": "(self.target === 'node' ? ['es2017-node7'] : [['modern-browsers', {loose: true}], 'es2017']).concat('stage-0')"
+            }
+          }
         }
       },
       "replacements": {
         "normal": {
           "^babel-polyfill$": "babel-polyfill/dist/polyfill.min.js",
+          "^jquery$": "jquery/dist/jquery.min.js",
           "^jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo.js",
           "^jQuery-spin$": "spin.js/jquery.spin.js"
         }
