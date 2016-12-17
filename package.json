@@ -71,7 +71,7 @@
     "library": false,
     "module": {
       "aliases": {
-        "^bootstrap$": "bootstrap/dist/css/bootstrap.min.css"
+        "bootstrap$": "bootstrap/dist/css/bootstrap.min.css"
       },
       "optimizer": {
         "babili": null,
