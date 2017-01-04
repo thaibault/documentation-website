@@ -42,10 +42,7 @@
     "website-utilities": "latest"
   },
   "devDependencies": {
-    "jsdom": "latest",
     "legal-notes": "latest",
-    "qunitjs": "latest",
-    "qunit-cli": "latest",
     "source-map-support": "latest",
     "weboptimizer": "latest"
   },
