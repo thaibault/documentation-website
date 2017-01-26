@@ -120,7 +120,7 @@
         "normal": {
           "^babel-polyfill$": "babel-polyfill/dist/polyfill.min.js",
           "^jquery$": "jquery/dist/jquery.min.js",
-          "^jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo.js",
+          "^jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo.min.js",
           "^jQuery-spin$": "spin.js/jquery.spin.js"
         }
       },
