@@ -1,17 +1,6 @@
 doctype html
 //-
-    sync with
-    skillKeywordsEnglish.txt
-    skillKeywordsGerman.txt
-    projectDescriptionEnglish.txt
-    projectDescriptionGerman.txt
-    https://www.xing.com/
-    https://www.linkedin.com/
-    https://www.facebook.com/
-    https://plus.google.com
-
     region header
-
     Copyright Torben Sickert 16.12.2012
 
     License
@@ -19,553 +8,211 @@ doctype html
 
     This library written by Torben Sickert stand under a creative commons naming
     3.0 unported license. see http://creativecommons.org/licenses/by/3.0/deed.de
-
     endregion
--
-    // region helper functions
-    swapCase = (letters) => {
-        var newLetters = ''
-        for (var index = 0; index < letters.length; index++)
-            if (letters[index] === letters[index].toLowerCase())
-                newLetters += letters[index].toUpperCase()
-            else
-                newLetters += letters[index].toLowerCase()
-        return newLetters
-    }
-    // endregion
-    // region language
-    DEFAULT_LANGUAGE = 'enUS'
-    ALTERNATE_LANGUAGE = 'deDE'
-    // endregion
-    // region location
-    IMAGE_PATH = 'image/'
-    DATA_PATH = 'data/'
-    LINK_PUBLIC_SSH_KEY_PATH = `${DATA_PATH}publicSSHKey.txt`
-    LINK_V_CARD_PATH = `${DATA_PATH}vCard.vcf`
-    LINK_CURRICULUM_VITAE_DEFAULT_LANGUAGE_PATH = `${DATA_PATH}curriculumVitae${swapCase(DEFAULT_LANGUAGE)}.pdf`
-    LINK_CURRICULUM_VITAE_ALTERNATE_LANGUAGE_PATH = `${DATA_PATH}curriculumVitae${swapCase(ALTERNATE_LANGUAGE)}.pdf`
-    // endregion
-    // region runtime
-    START_UP_ANIMATION_NUMBER = 1
-    // endregion
-    // region content
-    SOCIAL_MEDIA = [
-        {'title': 'e-mail', 'url': 'info@torben.website'},
-        {'title': 'github', 'url': 'https://github.com/thaibault'},
-        {
-            'title': 'google_plus',
-            'url': 'https://plus.google.com/+TorbenSickert'
-        },
-        {'title': 'xing', 'url': 'http://www.xing.com/profile/Torben_Sickert'},
-        {
-            'title': 'linked_in',
-            'url': 'http://de.linkedin.com/pub/torben-sickert/28/aa9/919'
-        },
-        // {'title': 'skype', 'url': 'skype:t.sickert?add'},
-        {'title': 'twitter', 'url': 'https://twitter.com/tsickert'},
-        {'title': 'facebook', 'url': 'https://de-de.facebook.com/tsickert'},
-        {'title': 'website', 'url': 'http://torben.website'}
-    ]
-    SECTIONS = [
-        {title: 'about', content: [
-            {enUS: 'About me', deDE: 'Über mich'}, {enUS: '', deDE: ''},
-            {
-                enUS: 'I love the challenge',
-                deDE: 'Ich liebe die Herausforderung'
-            }
-        ]},
-        {title: 'contact', content: [
-            {enUS: 'Contact', deDE: 'Kontakt'},
-            {enUS: 'Get in touch', deDE: 'Lernen wir uns kennen'},
-            {
-                enUS: "I'm a freelancer, ready to help you. Let's talk about" +
-                      ' your project and what I can do.',
-                deDE: 'Ich arbeite selbständig und bin bereit für Ihr ' +
-                      'Projekt. Kontaktieren Sie mich und wir sprechen über ' +
-                      'Ihr Vorhaben.'
-            }
-        ]},
-        {title: 'work', content: [
-            {enUS: 'Work', deDE: 'Arbeiten'},
-            {enUS: "I love what I'm doing", deDE: 'Ich liebe was ich mache'},
-            {enUS: 'I offer', deDE: 'ich biete'},
-            {
-                enUS: [
-                    ['abstract', [
-                        'contacts', 'conception',
-                        'Implementation and optimization of applications for' +
-                            ' the web; desktop and server',
-                        'quality Assurance', 'High Reliability Applications',
-                        'Test-driven Design', '(Web)programming', 'Usability',
-                        'Web and search engine optimization',
-                        'administering servers on Linux, Mac or Windows',
-                        'Intranet Solutions', 'Community Portal solution',
-                        'Accessibility', 'Rich Internet Applications',
-                        'Content Management Systems', 'Web 2.0'
-                    ]],
-                    ['security', [
-                        'Design by Contract',
-                        'Integration, application, and unit tests',
-                        'Proofs of program properties'
-                    ]],
-                    ['knowledge', [
-                        'economic theoretical knowledge',
-                        'matic computerized knowledge',
-                        'mathematical knowledge'
-                    ]],
-                    ['programing Techniques', [
-                        'Functionally oriented programming',
-                        'Imperative Oriented Programming',
-                        'Object-Oriented Programming',
-                        'Aspect-Oriented Programming'
-                    ]],
-                    ['database', [
-                        'Object-Relational Modeling (ORM) with SQLAlchemy or' +
-                            ' Django ORM',
-                        'SQL'
-                    ]],
-                    ['versioning', ['GIT', 'SVN', 'CVS', 'Mercurial']],
-                    ['programing Language', [
-                        'Python', 'CoffeeScript', 'JavaScript', 'C++', 'C',
-                        'C# (mit XNA)', 'Java', 'Scheme', 'PHP'
-                    ]],
-                    ['declarative Language', ['XHTML', 'CSS', 'less']],
-                    ['server', ['apache', 'nginx']],
-                    ['framework', [
-                        'AngularJS', 'django', 'jQuery', 'Mootools',
-                        'Bootstrap'
-                    ]]
-                ],
-                deDE: [
-                    ['Abstrakt', [
-                        'Kontakte', 'Konzeption',
-                        'Umsetzung und Optimierung von Anwendungen fürs Web,' +
-                            ' Desktop und Server',
-                        'Qualitätssicherung',
-                        'Hochzuverlässigkeits-Anwendungen',
-                        'Test-driven Design', '(Web)Programmierung',
-                        'Usabillity', 'Web- und Suchengine-Optimierung',
-                        'Administrierung für Server auf Linux Mac oder ' +
-                            'Windows',
-                        'Intranet Lösungen', 'Community Portallösung',
-                        'Barrierefreiheit', 'Rich Internet Applications',
-                        'Content Management Systeme', 'Web 2.0', 'ERP', 'CRM'
-                    ]],
-                    ['Sicherheit', [
-                        'Design by Contract',
-                        'Integrationstests, Ende-zu-Ende-Tests und Unit-Tests',
-                        'Beweisen von Programmeigenschaften'
-                    ]],
-                    ['Wissen', [
-                        'wirtschaftstheoretisches Wissen',
-                        'informatisches Wissen', 'mathematisches Wissen'
-                    ]],
-                    ['Programmiertechniken', [
-                        'Funktionalorientierte Programmierung',
-                        'Imperativorientierte Programmierung',
-                        'Objektorientierte Programmierung',
-                        'Aspektorientierte Programmierung'
-                    ]],
-                    ['Datenbanken', [
-                        'Relationale-Objekt-Modelierung (ORM) mit sqlAlchemy' +
-                            ' oder Django ORM',
-                        'SQL'
-                    ]],
-                    ['Versionierung', ['GIT', 'SVN', 'CVS', 'Mercurial']],
-                    ['Programmiersprachen', [
-                        'Python', 'CoffeeScript', 'JavaScript', 'C++', 'C',
-                        'C# (mit XNA)', 'Java', 'Scheme', 'PHP'
-                    ]],
-                    ['Deklarative Sprachen', ['XHTML', 'CSS', 'less']],
-                    ['Server', ['apache', 'nginx']],
-                    ['Framework', [
-                        'AngularJS', 'django', 'jQuery', 'Mootools',
-                        'Bootstrap'
-                    ]]
-                ]
-            }, {enUS: 'Projects', deDE: 'Projekte'}
-        ]}
-    ]
-    PROJECTS = [
-        {
-            title: 'boostNode', url: 'http://torben.website/boostNode',
-            content: {
-                enUS: [
-                    'A universal python framework for platform independent ' +
-                        'application developement with web technoligies. ' +
-                        'The framework provides High reliability features:',
-                    [
-                        '100% branch coverage tested',
-                        'Type checking in development mode',
-                        'Cyclomatic complexity smaller than eight',
-                        'Full API documentation http://torben.website/' +
-                            'boostNode/api',
-                        'Always compatible with the latest versions of both ' +
-                            'Python through integrated macros',
-                        'Platform independent web-view and flexible ' +
-                            'multi-process and multi-threaded Web server'
-                    ]
-                ],
-                deDE: [
-                    'Ein universelles Python-Framework zur Anwendung von ' +
-                        'plattformunabhängigen Desktopanwendungen mit ' +
-                        'Web-Technologien. Das Framework bietet ' +
-                        'Hochzuverlässigkeitsmerkmale:',
-                    [
-                        '100% branch coverage getestet',
-                        'Type checking im Entwicklungsmodus',
-                        'zyklomatische Komplexität kleiner acht',
-                        'vollständige API-Dokumentation ' +
-                            'http://torben.website/boostNode/api',
-                        'stets kompatibel zu den neusten beiden ' +
-                            'Pythonversionen durch integrierte Macros',
-                        'plattformunabhängige Web-View und flexibler ' +
-                            'multiprozess- und multithread Web-Server'
-                    ]
-                ]
-            }
-        }, {
-            title: 'archInstall', url: 'http://archinstall.github.com',
-            content: {
-                enUS: [
-                    'Install a configured ArchLinux with pacman as a package' +
-                        ' management in any places such as hard drives, USB ' +
-                        'flash drive, partition, or in an existing system as' +
-                        ' a sandbox environment. Automatic configuration of ' +
-                        'existing posix compliant unix-like systems. Both ' +
-                        'online and Offline installations are possible. Even' +
-                        ' without root privileges, the system is able to be ' +
-                        'installed into its own environment below the home ' +
-                        'folder. All required dependencies could be served ' +
-                        'via a typical posix environment given by Busybox or' +
-                        ' ArchLinux itself.'
-                ],
-                deDE: [
-                    'Installiere ein konfiguriertes ArchLinux mit Pacman als' +
-                        ' Paketverwaltung an beliebige Orte wie Festplatten,' +
-                        ' USB-Stick, alternative Partition oder in das ' +
-                        'bestehende System als Sandboxumgebung. Automatische' +
-                        ' Konfiguration bestehender posix konformer ' +
-                        'unix-artiger Systeme. Sowohl Online- als auch ' +
-                        'Offline-Installationen sind möglich. Selbst ohne ' +
-                        'root Rechte kann das System in eine eigene Umgebung' +
-                        ' unterhalb des Home-Ordner installiert werden. Alle' +
-                        ' benötigten Abhängigkeiten zum Aufsetzen sind durch' +
-                        ' eine einfache posix-Umgebung gegeben wie Busybox ' +
-                        'oder ArchLinux selbst.'
-                ]
-            }
-        }, {
-            title: 'genericServiceHandler',
-            url: 'http://torben.website/genericServiceHandler',
-            content: {
-                enUS: [
-                    'This bash module provides a generic service handlers to' +
-                        ' control any services which support standard ' +
-                        'process signals. The project is inspired by the ' +
-                        'systemd service handling and can live in any ' +
-                        'unix-like environment. It is particularly suitable ' +
-                        "for beeing integrated into the operating system's " +
-                        'boot and shutdown process.'
-                ],
-                deDE: [
-                    'Dieses bash-Modul bietet einen generischen ' +
-                        'Service-Handler zur Steuerung jeglicher Dienste, ' +
-                        'welche standard Prozesssignale unterstützen. Das ' +
-                        'Projekt ist vom Systemd-Service-Handling inspiriert' +
-                        ' und kann in jeder unix-artigen Umgebung eingesetzt' +
-                        ' werden. Es eignet sich besonders um Dienste in den' +
-                        ' Hoch- und Herunterfahr-Prozess des Betriebssystems' +
-                        ' einzubetten.'
-                ]
-            }
-        }, {
-            title: 'clientNode', url: 'http://torben.website/clientNode',
-            content: {
-                enUS: [
-                        'clientNode brings an object oriented Plugin ' +
-                        'concept. In Addition many reusable helper and a ' +
-                        'cool controller logic is included. Furthermore some' +
-                        ' handler for dealing with mutual exclusion, ' +
-                        'scope-based event handling and some low-level ' +
-                        'extensions for native data types are available. ' +
-                        'Example implementations can be found in the ' +
-                        'projects:',
-                    [
-                        ['storeLocator', 'http://torben.website/storeLocator'],
-                        ['incrementer', 'http://torben.website/incrementer'],
-                        ['language', 'http://torben.website/language'],
-                        ['websiteUtilities',
-                         'http://torben.website/websiteUtilities'],
-                        ['My personal website', 'http://torben.website']
-                    ]
-                ],
-                deDE: [
-                        'clientNode führt ein object orientiertes ' +
-                        'Plugin-Konzept um optional auf DOM-orientierten ' +
-                        'Bibliotheken wie "jQuery" als Plugin  aufzusetzen.' +
-                        'Verschiedene generische Software-Pattern werden ' +
-                        'durch eine wiederverwendbare Controller-Logik ' +
-                        'möglich. Zudem werden einige nützliche Werkzeuge ' +
-                        'zum Bauen von grafischen Oberflächen angeboten wie ' +
-                        'Wechselseitiger Ausschluss, Scope-basiertes ' +
-                        'Event-Handling und einige Low-Level Erweiterungen ' +
-                        'für native Datentypen. Beispiel-Implementierungen ' +
-                        'findet sich in den Projekten:',
-                    [
-                        ['storeLocator', 'http://torben.website/storeLocator'],
-                        ['incrementer', 'http://torben.website/incrementer'],
-                        ['language', 'http://torben.website/language'],
-                        ['websiteUtilities',
-                        'http://torben.website/websiteUtilities'],
-                        ['Meine persönliche Website', 'http://torben.website']
-                    ]
-                ]
-            }
-        }
-    ]
-    // endregion
-html.no-javascript(lang='en')
+- START_UP_ANIMATION_NUMBER = 0
+html.no-javascript(lang=en)
     // region head
     head
         // region meta informations
         meta(charset='utf-8')
         meta(
             name='description'
-            content='development responsive python javascript coffeescript bash design')
+            content=TAGLINE.replace(/^(.+?)<!--.+-->$/, '$1').replace("'", "\\'"))
         meta(name='author' content='Torben Sickert')
         meta(name='viewport' content='width=device-width, initial-scale=1.0')
-        meta(
-            name='google-site-verification'
-            content='1_qh0NqpYkHYZeDLXPujeE6dzcpozXmOLItTv7hbbXU')
+        meta&attributes(META_TAGS || {})
         // endregion
-        title Torben Sickert development
-        // region pre load resources
+        title #{NAME}
         script(type="text/javascript").
             window.document.documentElement.className =
                 window.document.documentElement.className.replace(
                     /(^|\s)no-javascript(\s|$)/, '$1javascript$2');
-        // endregion
     // endregion
     // region body
-    body.home-page.tools-hidden-on-javascript-enabled
-        .website-window-loading-cover.tools-visible-on-javascript-enabled: div
-        // region menu
-        header.navbar-wrapper(
-            class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-        )
-            .container: .navbar.navbar-inverse.navbar-static-top: .container
-                .navbar-header
-                    a.navbar-brand(href='#')
-                        | thaibault
-                        = ' '
-                        span.dimension-indicator
-                    - START_UP_ANIMATION_NUMBER += 1
-                    a.tools-visible-on-javascript-enabled(
-                        href=`#language-${ALTERNATE_LANGUAGE}`
+    body.no-javascript(class='documentation')
+        script(type="text/javascript").
+            window.document.body.className =
+                window.document.body.className.replace(
+                    /(^|\s)no-javascript(\s|$)/, '$1javascript$2');
+        .website-window-loading-cover.tools-hidden-on-javascript-disabled: div
+        // region header
+        header.header-wrap.outer: .inner
+            - START_UP_ANIMATION_NUMBER += 1
+            a.forkme-banner(
+                href=SOURCE_URL
+                class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
+            )
+                | View on GitHub
+                //deDE:GitHub-Projekt
+                //frFR:GitHub-Project
+                i.icon-github
+            - START_UP_ANIMATION_NUMBER += 1
+            h1.project-title(
+                class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
+            ): a(href=URL) #{NAME}
+            - START_UP_ANIMATION_NUMBER += 1
+            h2.project-tagline(
+                class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
+            )
+                != TAGLINE
+                br
+            .header-links
+                //NOTE: This elements are shown in reverse order.
+                - numberOfLanguageLinks = 0
+                if 1 < LANGUAGES.length
+                    - numberOfLanguageLinks = LANGUAGES.length
+                    - START_UP_ANIMATION_NUMBER += numberOfLanguageLinks
+                if API_DOCUMENTATION_PATH
+                    - START_UP_ANIMATION_NUMBER += 4
+                else
+                    - START_UP_ANIMATION_NUMBER += 2
+                - START_UP_ANIMATION_NUMBER += 1
+                if DISTRIBUTION_BUNDLE_FILE_PATH && typeof BUNDLE === 'undefined' || BUNDLE === true
+                    a.zip-source-download(
+                        href=`https://github.com/thaibault/${NAME}/zipball/master`
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-                    ) #{ALTERNATE_LANGUAGE.substring(0, ALTERNATE_LANGUAGE.length - 2)}
-                    button.navbar-toggle.tools-visible-on-javascript-enabled(
-                        type='button' data-toggle='collapse'
-                        data-target='.navbar-collapse'
+                    ) src.zip
+                    - START_UP_ANIMATION_NUMBER -= 1
+                    a.zip-distribution-bundle-download(
+                        href=URL + '/' + DISTRIBUTION_BUNDLE_FILE_PATH
+                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
+                    ) app.zip
+                else
+                    a.zip-source-download(
+                        href=`https://github.com/thaibault/${NAME}/zipball/master`
+                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
+                    ) .zip
+                    - START_UP_ANIMATION_NUMBER -= 1
+                    a.tar-gz-source-download(
+                        href=`https://github.com/thaibault/${NAME}/tarball/master`
+                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
+                    ) .tar.gz
+                - START_UP_ANIMATION_NUMBER -= 1
+                i.icon-download-arrow(
+                    class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`)
+                if numberOfLanguageLinks
+                    for language in LANGUAGES
+                        - START_UP_ANIMATION_NUMBER -= 1
+                        a.tools-hidden-on-javascript-disabled(
+                            href=`#language-${language}`
+                            class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
+                        ) #{language.slice(0, 2)}
+                if API_DOCUMENTATION_PATH
+                    - START_UP_ANIMATION_NUMBER -= 1
+                    span.glyphicon.glyphicon-arrow-left.arrow-left-api(
+                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`)
+                    - START_UP_ANIMATION_NUMBER -= 1
+                    a.api-link(
+                        href=`${URL}${API_DOCUMENTATION_PATH}`
+                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     )
-                        each section in [1, 2, 3]
-                            span.icon-bar
-                .navbar-collapse.collapse
-                    .navbar-highlighter.tools-visible-on-javascript-enabled
-                    ul.nav.navbar-nav
-                        each section in SECTIONS
-                            if (section.content[0])
-                                - START_UP_ANIMATION_NUMBER += 1
-                                li(
-                                    class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}${(section.title === SECTIONS[0].title ? ' active' : '')}`
-                                )
-                                    a(href=`#${section.title}`)
-                                        | #{section.content[0][DEFAULT_LANGUAGE]}
-                                        != `<!--${ALTERNATE_LANGUAGE}:${section.content[0][ALTERNATE_LANGUAGE]}-->`
+                        langreplace
+                            | API
+                            span
+                                = ' '
+                                | Documentation
+                        //deDE:API<span>-Dokumentation</span>
+                        //frFR:<span>Documentation de l'</span>API
+                    - START_UP_ANIMATION_NUMBER += 4 + numberOfLanguageLinks
+                else
+                    - START_UP_ANIMATION_NUMBER += 2 + numberOfLanguageLinks
         // endregion
-        // region carousel
-        section.carousel.slide: .carousel-inner
-            each section in SECTIONS
-                .item(class=section.title): div(
-                    class=`carousel-image-${section.title}`
-                ): .container
-                    if (section.content[1][DEFAULT_LANGUAGE])
-                        h1(id=section.title)
-                            | #{section.content[1][DEFAULT_LANGUAGE]}
-                            != `<!--${ALTERNATE_LANGUAGE}:${section.content[1][ALTERNATE_LANGUAGE]}-->`
-                    else
-                        // Serves as anchor point if javaScript isn't supported.
-                        h1(id=section.title)
-                    if (section.title === 'work')
-                        h2
-                            | #{section.content[2][DEFAULT_LANGUAGE]}
-                            != `<!--${ALTERNATE_LANGUAGE}:${section.content[2][ALTERNATE_LANGUAGE]}-->`
-                        p
-                            langReplace
-                                each keywords in section.content[3][DEFAULT_LANGUAGE]
-                                    if (keywords[0] !== section.content[3][DEFAULT_LANGUAGE][0][0])
-                                        = ' '
-                                        strong #{keywords[0]}
-                                        = ' '
-                                    | #{keywords[1].join(', ')}
-                            != `<!--${ALTERNATE_LANGUAGE}:`
-                            each keywords in section.content[3][ALTERNATE_LANGUAGE]
-                                if (keywords[0] !== section.content[3][ALTERNATE_LANGUAGE][0][0])
-                                    strong #{keywords[0]}
-                                | #{keywords[1].join(', ')}
-                            != '-->'
-                        h2
-                            | #{section.content[4][DEFAULT_LANGUAGE]}
-                            != `<!--${ALTERNATE_LANGUAGE}:`
-                            | #{section.content[4][ALTERNATE_LANGUAGE]}
-                            != '-->'
-                        dl.dl-horizontal
-                            each project in PROJECTS
-                                dt: a(href=project.url, target='_blank').
-                                    #{project.title}
-                                dd
-                                    | #{project.content[DEFAULT_LANGUAGE][0]}
-                                    != `<!--${ALTERNATE_LANGUAGE}:`
-                                    | #{project.content[ALTERNATE_LANGUAGE][0]}
-                                    != '-->'
-                                    if (project.content[DEFAULT_LANGUAGE].length > 1)
-                                        ul
-                                            - index = 0
-                                            each element in project.content[DEFAULT_LANGUAGE][1]
-                                                li
-                                                    if (Array.isArray(element))
-                                                        langreplace: a(
-                                                            href=element[1]
-                                                        ) #{element[0]}
-                                                        langreplacement
-                                                            | #{ALTERNATE_LANGUAGE}:
-                                                            a(
-                                                                href=project.content[ALTERNATE_LANGUAGE][1][index][1]
-                                                            ) #{project.content[ALTERNATE_LANGUAGE][1][index][0]}
-                                                    else
-                                                        | #{element}
-                                                        != `<!--${ALTERNATE_LANGUAGE}:`
-                                                        | #{project.content[ALTERNATE_LANGUAGE][1][index]}
-                                                        != '-->'
-                                                - index += 1
-                    else
-                        p.lead
-                            | #{section.content[2][DEFAULT_LANGUAGE]}
-                            != `<!--${ALTERNATE_LANGUAGE}:`
-                            | #{section.content[2][ALTERNATE_LANGUAGE]}
-                            != '-->'
-                            if (section.title === 'about')
-                                a.visible-xs(
-                                    href=LINK_CURRICULUM_VITAE_DEFAULT_LANGUAGE_PATH
-                                    target='_blank'
-                                )
-                                    | Curriculum Vitae (German)
-                                    != `<!--${ALTERNATE_LANGUAGE}:`
-                                    | Lebenslauf (Deutsch)
-                                    != '-->'
-                                a.visible-xs(
-                                    href=LINK_CURRICULUM_VITAE_ALTERNATE_LANGUAGE_PATH
-                                    target='_blank'
-                                )
-                                    | Curriculum Vitae (English)
-                                    != `<!--${ALTERNATE_LANGUAGE}:`
-                                    | Lebenslauf (Englisch)
-                                    != '-->'
-                                a.hidden-xs(
-                                    href=LINK_CURRICULUM_VITAE_DEFAULT_LANGUAGE_PATH
-                                    target='_blank'
-                                )
-                                    | Curriculum Vitae
-                                    != `<!--${ALTERNATE_LANGUAGE}:`
-                                    | Lebenslauf
-                                    != '-->'
-                                a(href=LINK_V_CARD_PATH, target='_blank') vCard
-                    if (section.title === 'contact')
-                        a(href='tel:004917610248185')
-                            | Phone
-                            != `<!--${ALTERNATE_LANGUAGE}:Tel.-->`
-                            | +49 (0) 176
-                            = ' '
-                            span /
-                            = ' '
-                            | 10 248 185
-                        each link in SOCIAL_MEDIA
-                            if (link.url.indexOf('@') !== -1)
-                                - link.url = `mailto:${link.url}`
-                            if ('website' === link.title)
-                                a.glyphicon.glyphicon-globe(
-                                    href=link.url target='_blank')
-                            else
-                                a.glyphicon-social(
-                                    href=link.url target='_blank'
-                                    class=`glyphicon-social-${link.title}`)
-        // endregion
-        // region about this website
-        section.about-this-website: .carousel-image-about-this-website: .container
-            h1(id='about-this-website')
-                | About this website
-                != `<!--${ALTERNATE_LANGUAGE}:Impressum-->`
-            h2
-                | Contact
-                != `<!--${ALTERNATE_LANGUAGE}:Kontakt-->`
-            div
-                | Provider of
-                != `<!--${ALTERNATE_LANGUAGE}:Anbieter von-->`
-                =' '
-                a(href=SOCIAL_MEDIA[SOCIAL_MEDIA.length - 1].url).
-                    #{SOCIAL_MEDIA[SOCIAL_MEDIA.length - 1].url}
-                | :
-                br
-                | Torben Sickert
-                br
-                | Christoph-Mang-Str. 14
-                br
-                | 79100 Freiburg
-                br
-                a(href='tel:004917610248185')
-                    | Phone
-                    != `<!--${ALTERNATE_LANGUAGE}:Tel.-->`
-                    | : +49 (0) 176
-                    span /
-                    | 10 248 185
+        // region sections
+        section.main-content-wrap.outer
+            // region main content
+            .main-content.inner
+                if (CONTENT_FILE_PATH)
+                    // NOTE: Dynamic pug file includes aren't possible yet.
+                    != require(CONTENT_FILE_PATH)
+                    //- Right indenting with
+                        ".replace(/\n/g, '\n                ')"
+                        would break nested pre blocks.
+                else if (CONTENT)
+                    - content = CONTENT
+                    if (RENDER_CONTENT)
+                        - content = compile(CONTENT)(locals)
+                    if (content)
+                        != content
+                        //- Right indenting with
+                            ".replace(/\n/g, '\n                ')"
+                            would break nested pre blocks.
+            // endregion
+            // region about this website
+            .about-this-website.inner
+                h2(id='about-this-website')
+                    | About this website
+                    //deDE:Impressum
+                    //frFR:Mentions légales
+                p
+                    | Provider of
+                    //deDE:Anbieter von
+                    //frFR:Fournisseur de
+                    //- NOTE: JavaScript Templatestrings doesn't work here.
+                    = ' '
+                    a(href='http://torben.website/' + NAME)
+                        | http://torben.website/#{NAME}
+                    | :
                     br
-                | Email:
-                != `<!--${ALTERNATE_LANGUAGE}:E-Mail-->`
-                =' '
-                a(href='mailto:#') #{SOCIAL_MEDIA[0].url}
-                br
-                | Website
-                != `<!--${ALTERNATE_LANGUAGE}:Webseite-->`
-                =' '
-                | :
-                a(href=SOCIAL_MEDIA[SOCIAL_MEDIA.length - 1].url).
-                    #{SOCIAL_MEDIA[SOCIAL_MEDIA.length - 1].url}
-                br
-                br
-                a(href=LINK_PUBLIC_SSH_KEY_PATH target='_blank')
-                    | public ssh key
-                    != `<!--${ALTERNATE_LANGUAGE}:öffentlicher SSH-Schlüssel-->`
-            != require('legal-notes').replace(/\n/g, '\n            ')
+                    | Torben Sickert
+                    br
+                    | Christoph-Mang-Str. 14
+                    br
+                    | 79100 Freiburg
+                    br
+                    | Phone:
+                    //deDE:Tel.:
+                    //frFR:Téléphone:
+                    = ' '
+                    a(href='tel:004917610248185')
+                        | +49 (0) 176
+                        span /
+                        | 10 248 185
+                    br
+                    | Email:
+                    //deDE:E-Mail:
+                    = ' '
+                    a(href='mailto:info@torben.website')
+                        | info@torben.website
+                    br
+                    | Website:
+                    = ' '
+                    //deDE:Webseite:
+                    //frFR:Site:
+                    = ' '
+                    a(href='http://torben.website') http://torben.website
+                    br
+                    span.glyphicon.glyphicon-arrow-left.arrow-left-home.tools-visible-on-javascript-enabled
+                    a.tools-visible-on-javascript-enabled(href='#home')
+                        | home
+                        //deDE:Startseite
+                        //frFR:Maison
+                != require('legal-notes').replace(/\n/g, '\n                ')
+            // endregion
         // endregion
         // region footer
-        //
-            Wrap the footer of the page in another container to center the
-            content.
-        - START_UP_ANIMATION_NUMBER += 1
-        .footer(
-            class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-        )
-            footer: p
-                | &copy; 2013 Torben Sickert &middot;
-                = ' '
-                a(href='#about-this-website')
-                    | about this website
-                    != `<!--${ALTERNATE_LANGUAGE}:Impressum-->`
+        footer.footer-wrap.outer
+            .inner
+                - START_UP_ANIMATION_NUMBER += 1
+                p.copyright(
+                    class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
+                )
+                    | #{NAME} maintained by
+                    | <!--deDE:#{NAME} betrieben von-->
+                    | <!--frFR:#{NAME} exploité par-->
+                    = ' '
+                    a(href='http://torben.website') thaibault
+                    = ' '
+                    | &middot; &copy; 2013 Torben Sickert &middot;
+                    = ' '
+                    a(href='#about-this-website')
+                        | about this website
+                        //deDE:Impressum
+                        //frFR:Mentions légales
         // endregion
         a(href='#top')
             | top
             //deDE:nach oben
+            //frFR:ascendant
     if configuration.offline
         noscript: iframe(src='manifest.html' style='display: none')
     // endregion
