@@ -93,45 +93,50 @@ const START_UP_ANIMATION_NUMBER = 0
                         href="<%- `${URL}/${DISTRIBUTION_BUNDLE_FILE_PATH}` %>"
                     >app.zip</a>
                 <% } else { %>
-                    a.zip-source-download(
-                        href=`https://github.com/thaibault/${NAME}/zipball/master`
-                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-                    ) .zip
-                    - START_UP_ANIMATION_NUMBER -= 1
-                    a.tar-gz-source-download(
-                        href=`https://github.com/thaibault/${NAME}/tarball/master`
-                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-                    ) .tar.gz
+                    <a
+                        class="zip-source-download website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+                        href="https://github.com/thaibault/<%- NAME %>/zipball/master"
+                    >.zip</a>
+                    <% START_UP_ANIMATION_NUMBER -= 1 %>
+                    <a
+                        class="tar-gz-source-download website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+                        href="https://github.com/thaibault/<%- NAME %>/tarball/master"
+                    >.tar.gz</a>
                 <% } %>
-                - START_UP_ANIMATION_NUMBER -= 1
-                i.icon-download-arrow(
-                    class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`)
-                if numberOfLanguageLinks
-                    for language in LANGUAGES
-                        - START_UP_ANIMATION_NUMBER -= 1
-                        a.tools-hidden-on-javascript-disabled(
-                            href=`#language-${language}`
-                            class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-                        ) #{language.slice(0, 2)}
-                if API_DOCUMENTATION_PATH
-                    - START_UP_ANIMATION_NUMBER -= 1
-                    span.glyphicon.glyphicon-arrow-left.arrow-left-api(
-                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`)
-                    - START_UP_ANIMATION_NUMBER -= 1
-                    a.api-link(
-                        href=`${URL}${API_DOCUMENTATION_PATH}`
-                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-                    )
-                        langreplace
-                            | API
-                            span
-                                = ' '
-                                | Documentation
-                        //deDE:API<span>-Dokumentation</span>
-                        //frFR:<span>Documentation de l'</span>API
-                    - START_UP_ANIMATION_NUMBER += 4 + numberOfLanguageLinks
-                else
-                    - START_UP_ANIMATION_NUMBER += 2 + numberOfLanguageLinks
+                <% START_UP_ANIMATION_NUMBER -= 1 %>
+                <i
+                    class="icon-download-arrow website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+                >
+                <%
+                    if (numberOfLanguageLinks)
+                        for (language in LANGUAGES) {
+                            START_UP_ANIMATION_NUMBER -= 1
+                %>
+                            <a
+                                class="tools-hidden-on-javascript-disabled website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+                                href="#language-<%- language %>"
+                            ><%- language.slice(0, 2) %></a>
+                <%      }
+                    if (API_DOCUMENTATION_PATH) {
+                        START_UP_ANIMATION_NUMBER -= 1
+                %>
+                        <span
+                            class="glyphicon.glyphicon-arrow-left.arrow-left-api website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+                         >
+                        <% START_UP_ANIMATION_NUMBER -= 1 %>
+                        <a
+                            class="api-link website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+                            href="<%- URL %><%- API_DOCUMENTATION_PATH %>"
+                        >
+                            <langreplace>
+                                API<span>Documentation</span>
+                            </langreplace>
+                            <!--deDE:API<span>-Dokumentation</span>-->
+                            <!--frFR:<span>Documentation de l'</span>API-->
+                <%      START_UP_ANIMATION_NUMBER += 4 + numberOfLanguageLinks
+                    } else
+                        START_UP_ANIMATION_NUMBER += 2 + numberOfLanguageLinks
+                %>
         </div></header>
         <!--endregion-->
         <!--region sections-->
