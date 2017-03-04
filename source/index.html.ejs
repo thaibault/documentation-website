@@ -1,5 +1,5 @@
-doctype html
-//-
+<doctype html>
+<% /*
     region header
     Copyright Torben Sickert 16.12.2012
 
@@ -9,75 +9,90 @@ doctype html
     This library written by Torben Sickert stand under a creative commons naming
     3.0 unported license. see http://creativecommons.org/licenses/by/3.0/deed.de
     endregion
-- START_UP_ANIMATION_NUMBER = 0
-html.no-javascript(lang=en)
-    // region head
-    head
-        // region meta informations
-        meta(charset='utf-8')
-        meta(
-            name='description'
-            content=TAGLINE.replace(/^(.+?)<!--.+-->$/, '$1').replace("'", "\\'"))
-        meta(name='author' content='Torben Sickert')
-        meta(name='viewport' content='width=device-width, initial-scale=1.0')
-        meta&attributes(META_TAGS || {})
-        // endregion
-        title #{NAME}
-        script(type="text/javascript").
+*/
+const START_UP_ANIMATION_NUMBER = 0
+%>
+<html class="no-javascript" lang="en">
+    <!--region head-->
+    <head>
+        <!--region meta informations-->
+        <meta charset="utf-8">
+        <meta
+            name="description"
+            content="<%- TAGLINE.replace(/^(.+?)<!--.+-->$/, '$1').replace("'", "\\'") %>"
+        >
+        <meta name="author" content="Torben Sickert">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta <% for (const key in META_TAGS) { %>
+            <%- key %>="<%- META_TAGS[key] %>"
+        <% } %>>
+        <!--endregion-->
+        <title><%- NAME %></title>
+        <script>
             window.document.documentElement.className =
                 window.document.documentElement.className.replace(
                     /(^|\s)no-javascript(\s|$)/, '$1javascript$2');
-    // endregion
-    // region body
-    body.no-javascript(class='documentation')
-        script(type="text/javascript").
+        </script>
+    </head>
+    <!--endregion-->
+    <!--region body-->
+    <body class="no-javascript documentation">
+        <script>
             window.document.body.className =
                 window.document.body.className.replace(
                     /(^|\s)no-javascript(\s|$)/, '$1javascript$2');
-        .website-window-loading-cover.tools-hidden-on-javascript-disabled: div
-        // region header
-        header.header-wrap.outer: .inner
-            - START_UP_ANIMATION_NUMBER += 1
-            a.forkme-banner(
-                href=SOURCE_URL
-                class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-            )
-                | View on GitHub
-                //deDE:GitHub-Projekt
-                //frFR:GitHub-Project
-                i.icon-github
-            - START_UP_ANIMATION_NUMBER += 1
-            h1.project-title(
-                class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-            ): a(href=URL) #{NAME}
-            - START_UP_ANIMATION_NUMBER += 1
-            h2.project-tagline(
-                class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-            )
-                != TAGLINE
-                br
-            .header-links
-                //NOTE: This elements are shown in reverse order.
-                - numberOfLanguageLinks = 0
-                if 1 < LANGUAGES.length
-                    - numberOfLanguageLinks = LANGUAGES.length
-                    - START_UP_ANIMATION_NUMBER += numberOfLanguageLinks
-                if API_DOCUMENTATION_PATH
-                    - START_UP_ANIMATION_NUMBER += 4
-                else
-                    - START_UP_ANIMATION_NUMBER += 2
-                - START_UP_ANIMATION_NUMBER += 1
-                if DISTRIBUTION_BUNDLE_FILE_PATH && typeof BUNDLE === 'undefined' || BUNDLE === true
-                    a.zip-source-download(
-                        href=`https://github.com/thaibault/${NAME}/zipball/master`
-                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-                    ) src.zip
-                    - START_UP_ANIMATION_NUMBER -= 1
-                    a.zip-distribution-bundle-download(
-                        href=URL + '/' + DISTRIBUTION_BUNDLE_FILE_PATH
-                        class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-                    ) app.zip
-                else
+        </script>
+        <div
+            class="website-window-loading-cover tools-hidden-on-javascript-disabled"
+        ><div></div></div>
+        <!--region header-->
+        <header class="header-wrap outer"><div class="inner">
+            <% START_UP_ANIMATION_NUMBER += 1 %>
+            <a
+                class="forkme-banner website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+                href="<%- SOURCE_URL %>"
+            >
+                View on GitHub
+                <!--deDE:GitHub-Projekt-->
+                <!--frFR:GitHub-Project-->
+                <i class="icon-github"></i>
+            </a>
+            <% START_UP_ANIMATION_NUMBER += 1 %>
+            <h1
+                class="project-title website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+            ><a href="<%- URL %>"><%- NAME %></a>
+            <% START_UP_ANIMATION_NUMBER += 1 %>
+            <h2
+                class="project-tagline website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+            >
+                <%- TAGLINE %>
+                <br />
+            </h2>
+            <header-links>
+                <!--NOTE: This elements are shown in reverse order.-->
+                <%
+                    let numberOfLanguageLinks = 0
+                    if (1 < LANGUAGES.length) {
+                        numberOfLanguageLinks = LANGUAGES.length
+                        START_UP_ANIMATION_NUMBER += numberOfLanguageLinks
+                    }
+                    if (API_DOCUMENTATION_PATH)
+                        START_UP_ANIMATION_NUMBER += 4
+                    else
+                        START_UP_ANIMATION_NUMBER += 2
+                    START_UP_ANIMATION_NUMBER += 1
+                %>
+                <% if (DISTRIBUTION_BUNDLE_FILE_PATH && typeof BUNDLE === 'undefined' || BUNDLE === true) { %>
+                    <a
+                        class="zip-source-download website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+                        href="https://github.com/thaibault/<%- NAME %>/zipball/master"
+                    >src.zip</a>
+                    <% START_UP_ANIMATION_NUMBER -= 1 %>
+                    <a
+                        class="zip-distribution-bundle-download website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+                        href="<%- `${URL}/${DISTRIBUTION_BUNDLE_FILE_PATH}` %>"
+                    >app.zip</a>
+                <% } else { %>
                     a.zip-source-download(
                         href=`https://github.com/thaibault/${NAME}/zipball/master`
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
@@ -87,6 +102,7 @@ html.no-javascript(lang=en)
                         href=`https://github.com/thaibault/${NAME}/tarball/master`
                         class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
                     ) .tar.gz
+                <% } %>
                 - START_UP_ANIMATION_NUMBER -= 1
                 i.icon-download-arrow(
                     class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`)
@@ -116,9 +132,10 @@ html.no-javascript(lang=en)
                     - START_UP_ANIMATION_NUMBER += 4 + numberOfLanguageLinks
                 else
                     - START_UP_ANIMATION_NUMBER += 2 + numberOfLanguageLinks
-        // endregion
-        // region sections
-        section.main-content-wrap.outer
+        </div></header>
+        <!--endregion-->
+        <!--region sections-->
+        <section class="main-content-wrap.outer">
             // region main content
             .main-content.inner
                 if (CONTENT_FILE_PATH)
@@ -188,36 +205,41 @@ html.no-javascript(lang=en)
                         //frFR:Maison
                 != require('legal-notes').replace(/\n/g, '\n                ')
             // endregion
-        // endregion
-        // region footer
-        footer.footer-wrap.outer
-            .inner
-                - START_UP_ANIMATION_NUMBER += 1
-                p.copyright(
-                    class=`website-start-up-animation-number-${START_UP_ANIMATION_NUMBER}`
-                )
-                    | #{NAME} maintained by
-                    | <!--deDE:#{NAME} betrieben von-->
-                    | <!--frFR:#{NAME} exploité par-->
-                    = ' '
-                    a(href='http://torben.website') thaibault
-                    = ' '
-                    | &middot; &copy; 2013 Torben Sickert &middot;
-                    = ' '
-                    a(href='#about-this-website')
-                        | about this website
-                        //deDE:Impressum
-                        //frFR:Mentions légales
-        // endregion
-        a(href='#top')
-            | top
-            //deDE:nach oben
-            //frFR:ascendant
-    if configuration.offline
-        noscript: iframe(src='manifest.html' style='display: none')
-    // endregion
-//-
+        </section>
+        <!--endregion-->
+        <!--region footer-->
+        <footer class="footer-wrap.outer">
+            <div class="inner">
+                <% START_UP_ANIMATION_NUMBER += 1 %>
+                <p
+                    class="copyright website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+                >
+                    <%- NAME %> maintained by
+                    <!--deDE:<%- NAME %> betrieben von-->
+                    <!--frFR:<%- NAME %> exploité par-->
+                    <a href="http://torben.website">thaibault</a>
+                    &middot; &copy; 2013 Torben Sickert &middot;
+                    <a href="#about-this-website">
+                        about this website
+                        <!--deDE:Impressum-->
+                        <!--frFR:Mentions légales-->
+                    </a>
+                </p>
+            </div>
+        </footer>
+        <!--endregion-->
+        <a href="#top">top<!--deDE:nach oben--><!--frFR:ascendant--></a>
+        <% if (configuration.offline) { %>
+            <noscript>
+                <iframe src="manifest.html" style="display: none"></iframe>
+            </noscript>
+        <% } %>
+    </body>
+    <!--endregion-->
+</html>
+<% /*
     region vim modline
     vim: set tabstop=4 shiftwidth=4 expandtab:
     vim: foldmethod=marker foldmarker=region,endregion:
     endregion
+*/ %>
