@@ -23,9 +23,9 @@ let START_UP_ANIMATION_NUMBER = 0
         >
         <meta name="author" content="Torben Sickert">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta <% for (const key in META_TAGS) { %>
+        <meta <%_ for (const key in META_TAGS) { _%>
             <%- key %>="<%- META_TAGS[key] %>"
-        <% } %>>
+        <%_ } _%>>
         <!--endregion-->
         <title><%- NAME %></title>
         <script>
@@ -144,8 +144,7 @@ let START_UP_ANIMATION_NUMBER = 0
             <!--region main content-->
             <div class="main-content inner">
                 <% if (CONTENT_FILE_PATH) { %>
-                    <!--NOTE: Dynamic pug file includes aren't possible yet.-->
-                    <%- include(require(CONTENT_FILE_PATH)) %>
+                    <%- include(CONTENT_FILE_PATH) %>
                 <% } else if (CONTENT) {
                     let content = CONTENT
                     if (RENDER_CONTENT)
@@ -153,6 +152,8 @@ let START_UP_ANIMATION_NUMBER = 0
                     if (content)
                 %>
                         <%- content %>
+                <% } %>
+            </div>
             <!--endregion-->
             <!--region about this website-->
             <div class="about-this-website inner">
