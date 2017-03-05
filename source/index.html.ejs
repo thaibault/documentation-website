@@ -141,75 +141,71 @@ let START_UP_ANIMATION_NUMBER = 0
         <!--endregion-->
         <!--region sections-->
         <section class="main-content-wrap.outer">
-            // region main content
-            .main-content.inner
-                if (CONTENT_FILE_PATH)
-                    // NOTE: Dynamic pug file includes aren't possible yet.
-                    != require(CONTENT_FILE_PATH)
-                    //- Right indenting with
-                        ".replace(/\n/g, '\n                ')"
-                        would break nested pre blocks.
-                else if (CONTENT)
-                    - content = CONTENT
+            <!--region main content-->
+            <div class="main-content inner">
+                <% if (CONTENT_FILE_PATH) { %>
+                    <!--NOTE: Dynamic pug file includes aren't possible yet.-->
+                    <%- include(require(CONTENT_FILE_PATH)) %>
+                <% } else if (CONTENT) {
+                    let content = CONTENT
                     if (RENDER_CONTENT)
-                        - content = compile(CONTENT)(locals)
+                        content = compile(CONTENT)(locals)
                     if (content)
-                        != content
-                        //- Right indenting with
-                            ".replace(/\n/g, '\n                ')"
-                            would break nested pre blocks.
-            // endregion
-            // region about this website
-            .about-this-website.inner
-                h2(id='about-this-website')
-                    | About this website
-                    //deDE:Impressum
-                    //frFR:Mentions légales
-                p
-                    | Provider of
-                    //deDE:Anbieter von
-                    //frFR:Fournisseur de
-                    //- NOTE: JavaScript Templatestrings doesn't work here.
-                    = ' '
-                    a(href='http://torben.website/' + NAME)
-                        | http://torben.website/#{NAME}
-                    | :
-                    br
-                    | Torben Sickert
-                    br
-                    | Christoph-Mang-Str. 14
-                    br
-                    | 79100 Freiburg
-                    br
-                    | Phone:
-                    //deDE:Tel.:
-                    //frFR:Téléphone:
-                    = ' '
-                    a(href='tel:004917610248185')
-                        | +49 (0) 176
-                        span /
-                        | 10 248 185
-                    br
-                    | Email:
-                    //deDE:E-Mail:
-                    = ' '
-                    a(href='mailto:info@torben.website')
-                        | info@torben.website
-                    br
-                    | Website:
-                    = ' '
-                    //deDE:Webseite:
-                    //frFR:Site:
-                    = ' '
-                    a(href='http://torben.website') http://torben.website
-                    br
-                    span.glyphicon.glyphicon-arrow-left.arrow-left-home.tools-visible-on-javascript-enabled
-                    a.tools-visible-on-javascript-enabled(href='#home')
-                        | home
-                        //deDE:Startseite
-                        //frFR:Maison
-                != require('legal-notes').replace(/\n/g, '\n                ')
-            // endregion
+                %>
+                        <%- content %>
+            <!--endregion-->
+            <!--region about this website-->
+            <div class="about-this-website inner">
+                <h2 id="about-this-website">
+                    About this website
+                    <!--deDE:Impressum-->
+                    <!--frFR:Mentions légales-->
+                </h2>
+                <p>
+                    Provider of
+                    <!--deDE:Anbieter von-->
+                    <!--frFR:Fournisseur de-->
+                    <a href="http://torben.website/<%- NAME %>">
+                        http://torben.website/<%- NAME %>
+                    </a>
+                    :
+                    <br>
+                    Torben Sickert
+                    <br>
+                    Christoph-Mang-Str. 14
+                    <br>
+                    79100 Freiburg
+                    <br>
+                    Phone:
+                    <!--deDE:Tel.:-->
+                    <!--frFR:Téléphone:-->
+                    <a href="tel:004917610248185">
+                        +49 (0) 176 <span>/</span> 10 248 185
+                    <br>
+                    Email:
+                    <!--deDE:E-Mail:-->
+                    <a href="mailto:info@torben.website">
+                        info@torben.website
+                    </a>
+                    <br>
+                    Website:
+                    <!--deDE:Webseite:-->
+                    <!--frFR:Site:-->
+                    <a href="http://torben.website">http://torben.website</a>
+                    <br>
+                    <span class="glyphicon glyphicon-arrow-left arrow-left-home tools-visible-on-javascript-enabled">
+                    <a
+                        class="tools-visible-on-javascript-enabled"
+                        href="#home"
+                    >
+                        home
+                        <!--deDE:Startseite-->
+                        <!--frFR:Maison-->
+                    </a>
+                </p>
+                <%- require('legal-notes') %>
+            </div>
+            <!--endregion-->
         </section>
         <!--endregion-->
         <!--region footer-->
