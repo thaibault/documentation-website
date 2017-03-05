@@ -1,5 +1,5 @@
-<doctype html>
-<% /*
+<!doctype html>
+<%_ /*
     region header
     Copyright Torben Sickert 16.12.2012
 
@@ -11,7 +11,7 @@
     endregion
 */
 let START_UP_ANIMATION_NUMBER = 0
-%>
+_%>
 <html class="no-javascript" lang="en">
     <!--region head-->
     <head>
@@ -23,9 +23,11 @@ let START_UP_ANIMATION_NUMBER = 0
         >
         <meta name="author" content="Torben Sickert">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta <%_ for (const key in META_TAGS) { _%>
-            <%- key %>="<%- META_TAGS[key] %>"
-        <%_ } _%>>
+        <%_ for (const metaTag of META_TAGS) { _%>
+            <meta <%_ for (const key in metaTag) { _%>
+                <%- key %>="<%- metaTag[key] %>"
+            <%_ } _%>>
+        <%_ } _%>
         <!--endregion-->
         <title><%- NAME %></title>
         <script>
@@ -47,7 +49,7 @@ let START_UP_ANIMATION_NUMBER = 0
         ><div></div></div>
         <!--region header-->
         <header class="header-wrap outer"><div class="inner">
-            <% START_UP_ANIMATION_NUMBER += 1 %>
+            <%_ START_UP_ANIMATION_NUMBER += 1 _%>
             <a
                 class="forkme-banner website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
                 href="<%- SOURCE_URL %>"
@@ -57,20 +59,20 @@ let START_UP_ANIMATION_NUMBER = 0
                 <!--frFR:GitHub-Project-->
                 <i class="icon-github"></i>
             </a>
-            <% START_UP_ANIMATION_NUMBER += 1 %>
+            <%_ START_UP_ANIMATION_NUMBER += 1 _%>
             <h1
                 class="project-title website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
             ><a href="<%- URL %>"><%- NAME %></a>
-            <% START_UP_ANIMATION_NUMBER += 1 %>
+            <%_ START_UP_ANIMATION_NUMBER += 1 _%>
             <h2
                 class="project-tagline website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
             >
                 <%- TAGLINE %>
                 <br />
             </h2>
-            <header-links>
+            <div class="header-links">
                 <!--NOTE: This elements are shown in reverse order.-->
-                <%
+                <%_
                     let numberOfLanguageLinks = 0
                     if (1 < LANGUAGES.length) {
                         numberOfLanguageLinks = LANGUAGES.length
@@ -81,49 +83,49 @@ let START_UP_ANIMATION_NUMBER = 0
                     else
                         START_UP_ANIMATION_NUMBER += 2
                     START_UP_ANIMATION_NUMBER += 1
-                %>
-                <% if (DISTRIBUTION_BUNDLE_FILE_PATH && typeof BUNDLE === 'undefined' || BUNDLE === true) { %>
+                _%>
+                <%_ if (DISTRIBUTION_BUNDLE_FILE_PATH && typeof BUNDLE === 'undefined' || BUNDLE === true) { _%>
                     <a
                         class="zip-source-download website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
                         href="https://github.com/thaibault/<%- NAME %>/zipball/master"
                     >src.zip</a>
-                    <% START_UP_ANIMATION_NUMBER -= 1 %>
+                    <%_ START_UP_ANIMATION_NUMBER -= 1 _%>
                     <a
                         class="zip-distribution-bundle-download website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
                         href="<%- `${URL}/${DISTRIBUTION_BUNDLE_FILE_PATH}` %>"
                     >app.zip</a>
-                <% } else { %>
+                <%_ } else { _%>
                     <a
                         class="zip-source-download website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
                         href="https://github.com/thaibault/<%- NAME %>/zipball/master"
                     >.zip</a>
-                    <% START_UP_ANIMATION_NUMBER -= 1 %>
+                    <%_ START_UP_ANIMATION_NUMBER -= 1 _%>
                     <a
                         class="tar-gz-source-download website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
                         href="https://github.com/thaibault/<%- NAME %>/tarball/master"
                     >.tar.gz</a>
-                <% } %>
-                <% START_UP_ANIMATION_NUMBER -= 1 %>
+                <%_ }
+                START_UP_ANIMATION_NUMBER -= 1 _%>
                 <i
                     class="icon-download-arrow website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
-                >
-                <%
+                ></i>
+                <%_
                     if (numberOfLanguageLinks)
                         for (language in LANGUAGES) {
                             START_UP_ANIMATION_NUMBER -= 1
-                %>
+                _%>
                             <a
                                 class="tools-hidden-on-javascript-disabled website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
                                 href="#language-<%- language %>"
                             ><%- language.slice(0, 2) %></a>
-                <%      }
+                <%_      }
                     if (API_DOCUMENTATION_PATH) {
                         START_UP_ANIMATION_NUMBER -= 1
-                %>
+                _%>
                         <span
-                            class="glyphicon.glyphicon-arrow-left.arrow-left-api website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
-                         >
-                        <% START_UP_ANIMATION_NUMBER -= 1 %>
+                            class="glyphicon glyphicon-arrow-left arrow-left-api website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+                        ></span>
+                        <%_ START_UP_ANIMATION_NUMBER -= 1 _%>
                         <a
                             class="api-link website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
                             href="<%- URL %><%- API_DOCUMENTATION_PATH %>"
@@ -133,26 +135,28 @@ let START_UP_ANIMATION_NUMBER = 0
                             </langreplace>
                             <!--deDE:API<span>-Dokumentation</span>-->
                             <!--frFR:<span>Documentation de l'</span>API-->
-                <%      START_UP_ANIMATION_NUMBER += 4 + numberOfLanguageLinks
+                        </a>
+                <%_     START_UP_ANIMATION_NUMBER += 4 + numberOfLanguageLinks
                     } else
                         START_UP_ANIMATION_NUMBER += 2 + numberOfLanguageLinks
-                %>
+                _%>
+            </div>
         </div></header>
         <!--endregion-->
         <!--region sections-->
         <section class="main-content-wrap.outer">
             <!--region main content-->
             <div class="main-content inner">
-                <% if (CONTENT_FILE_PATH) { %>
+                <%_ if (CONTENT_FILE_PATH) { _%>
                     <%- include(CONTENT_FILE_PATH) %>
-                <% } else if (CONTENT) {
+                <%_ } else if (CONTENT) {
                     let content = CONTENT
                     if (RENDER_CONTENT)
                         content = compile(CONTENT)(locals)
                     if (content)
-                %>
+                _%>
                         <%- content %>
-                <% } %>
+                <%_ } _%>
             </div>
             <!--endregion-->
             <!--region about this website-->
@@ -210,38 +214,36 @@ let START_UP_ANIMATION_NUMBER = 0
         </section>
         <!--endregion-->
         <!--region footer-->
-        <footer class="footer-wrap.outer">
-            <div class="inner">
-                <% START_UP_ANIMATION_NUMBER += 1 %>
-                <p
-                    class="copyright website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
-                >
-                    <%- NAME %> maintained by
-                    <!--deDE:<%- NAME %> betrieben von-->
-                    <!--frFR:<%- NAME %> exploité par-->
-                    <a href="http://torben.website">thaibault</a>
-                    &middot; &copy; 2013 Torben Sickert &middot;
-                    <a href="#about-this-website">
-                        about this website
-                        <!--deDE:Impressum-->
-                        <!--frFR:Mentions légales-->
-                    </a>
-                </p>
-            </div>
-        </footer>
+        <footer class="footer-wrap.outer"><div class="inner">
+            <%_ START_UP_ANIMATION_NUMBER += 1 _%>
+            <p
+                class="copyright website-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+            >
+                <%- NAME %> maintained by
+                <!--deDE:<%- NAME %> betrieben von-->
+                <!--frFR:<%- NAME %> exploité par-->
+                <a href="http://torben.website">thaibault</a>
+                &middot; &copy; 2013 Torben Sickert &middot;
+                <a href="#about-this-website">
+                    about this website
+                    <!--deDE:Impressum-->
+                    <!--frFR:Mentions légales-->
+                </a>
+            </p>
+        </div></footer>
         <!--endregion-->
         <a href="#top">top<!--deDE:nach oben--><!--frFR:ascendant--></a>
-        <% if (configuration.offline) { %>
+        <%_ if (configuration.offline) { _%>
             <noscript>
                 <iframe src="manifest.html" style="display: none"></iframe>
             </noscript>
-        <% } %>
+        <%_ } _%>
     </body>
     <!--endregion-->
 </html>
-<% /*
+<%_ /*
     region vim modline
     vim: set tabstop=4 shiftwidth=4 expandtab:
     vim: foldmethod=marker foldmarker=region,endregion:
     endregion
-*/ %>
+*/ _%>

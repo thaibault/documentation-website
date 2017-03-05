@@ -102,7 +102,7 @@
                 "__evaluate__": "self.module.preprocessor.html.options.locals.NAME === 'documentationWebsite' ? ['enUS', 'deDE', 'frFR'] : ['enUS']"
               },
               "NAME": "documentationWebsite",
-              "META_TAGS": {},
+              "META_TAGS": [],
               "RENDER_CONTENT": true,
               "SOURCE_URL": {
                 "__evaluate__": "`https://github.com/thaibault/${self.module.preprocessor.html.options.locals.NAME}`"
