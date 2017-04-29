@@ -73,7 +73,8 @@
     "library": false,
     "module": {
       "aliases": {
-        "bootstrap$": "bootstrap/dist/css/bootstrap.min.css"
+        "bootstrap$": "bootstrap/dist/css/bootstrap.min.css",
+        "website-utilities/index.css$": "website-utilities/index.compiled.css"
       },
       "optimizer": {
         "babili": null,
