@@ -42,11 +42,21 @@
     "website-utilities": "latest"
   },
   "devDependencies": {
+    "babel-eslint": "latest",
     "errorreporter": "latest",
+    "eslint": "latest",
+    "eslint-config-google": "latest",
+    "eslint-plugin-flowtype": "latest",
+    "eslint-plugin-jsdoc": "latest",
+    "flow-bin": "latest",
+    "jsdoc": "latest",
     "legal-notes": "latest",
     "source-map-support": "latest",
+    "stylelint": "latest",
     "ua-parser-js": "latest",
-    "weboptimizer": "latest"
+    "weboptimizer": "latest",
+    "webpack": "latest",
+    "webpack-dev-server": "latest"
   },
   "webOptimizer": {
     "build": {
