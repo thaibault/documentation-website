@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "babel-polyfill": "^6.23.0",
     "errorreporter": "^1.0.16",
     "eslint": "^4.2.0",
     "eslint-config-google": "^0.9.1",
@@ -56,8 +57,7 @@
     "ua-parser-js": "^0.7.13",
     "weboptimizer": "^1.0.347",
     "webpack": "^3.2.0",
-    "webpack-dev-server": "^2.5.1",
-    "website-utilities": "^1.0.36"
+    "webpack-dev-server": "^2.5.1"
   },
   "webOptimizer": {
     "build": {
