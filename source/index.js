@@ -72,7 +72,7 @@ export default class Documentation extends $.Website.class {
     static _name:string = 'Documentation'
 
     startUpAnimationIsComplete:boolean
-    languageHandler:Object;
+    languageHandler:Object
 
     _activateLanguageSupport:boolean
     // region public methods
