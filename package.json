@@ -45,7 +45,7 @@
     "babel-eslint": "^7.2.3",
     "babel-polyfill": "^6.23.0",
     "clientnode": "^1.0.225",
-    "errorreporter": "^1.0.20",
+    "errorreporter": "^1.0.21",
     "eslint": "^4.2.0",
     "eslint-config-google": "^0.9.1",
     "eslint-plugin-flowtype": "^2.35.0",
