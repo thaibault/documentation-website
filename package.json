@@ -38,12 +38,12 @@
   },
   "dependencies": {
     "boostnode": "^1.0.6",
-    "website-utilities": "^1.0.55"
+    "website-utilities": "^1.0.57"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.2",
     "babel-polyfill": "^6.23.0",
-    "clientnode": "^1.0.286",
+    "clientnode": "^1.0.288",
     "default-gateway": "^2.6.1",
     "errorreporter": "^1.0.25",
     "eslint": "^4.11.0",
@@ -51,7 +51,6 @@
     "eslint-plugin-flowtype": "^2.36.0",
     "eslint-plugin-jsdoc": "^3.2.0",
     "flow-bin": "^0.59.0",
-    "internationalisation": "^1.0.35",
     "jsdoc": "^3.5.2",
     "legal-notes": "^1.0.5",
     "source-map-support": "^0.5.0",
