@@ -85,6 +85,7 @@ endregion */
     }
     /* endregion */
 }
+
 .documentation {
     /* region global */
     @apply --codehilite;
@@ -182,6 +183,7 @@ endregion */
             margin-top: 39px;
             margin-left: var(--defaultSpace);
         }
+
         &.icon-github {
             @apply --icon-blacktocat;
 
@@ -221,6 +223,53 @@ endregion */
                 &:hover { background-color: var(--color11); }
             }
 
+            & .header-links {
+                bottom: -40px;
+                height: 70px;
+                padding: 0;
+                position: absolute;
+                right: 0;
+                z-index: 10;
+
+                & a {
+                    &.api-link { margin-left: 10px; }
+
+                    &[href^="#language-"] {
+                        padding-right: 10px;
+                        padding-top: 35px;
+                        float: right;
+                    }
+                    /* region download buttons */
+                    &.zip-source-download,
+                    &.zip-distribution-bundle-download,
+                    &.tar-gz-source-download {
+                        @apply --icon-archiv-gray;
+
+                        color: var(--color1);
+                        display: block;
+                        float: right;
+                        font-size: 1.2em;
+                        font-weight: bolder;
+                        height: 70px;
+                        overflow: hidden;
+                        padding-top: 29px;
+                        text-align: center;
+                        width: 90px;
+                    }
+
+                    &.zip-source-download:hover,
+                    &.zip-distribution-bundle-download:hover,
+                    &.tar-gz-source-download:hover {
+                        @apply --icon-archiv-blue;
+
+                        color: var(--color1);
+                        width: 90px;
+                        height: 70px;
+                    }
+                    /* endregion */
+                }
+            }
+
             & h1.project-title,
             & h2.project-tagline {
                 border: none;
@@ -237,57 +286,6 @@ endregion */
                 font-weight: 300;
                 background: none;
                 font-size: 2em;
-            }
-
-            & .header-links {
-                padding: 0;
-                right: 0;
-                position: absolute;
-                z-index: 10;
-                bottom: -40px;
-                height: 70px;
-
-                & a {
-                    &.api-link { margin-left: 10px; }
-
-                    &[href^="#language-"] {
-                        padding-right: 10px;
-                        padding-top: 35px;
-                        float: right;
-                    }
-                    /* region download buttons */
-                    &.zip-source-download,
-                    &.zip-distribution-bundle-download,
-                    &.tar-gz-source-download,
-                    &.zip-source-download:hover,
-                    &.zip-distribution-bundle-download:hover,
-                    &.tar-gz-source-download:hover {
-                        color: var(--color1);
-                        width: 90px;
-                        height: 70px;
-                    }
-
-                    &.zip-source-download,
-                    &.zip-distribution-bundle-download,
-                    &.tar-gz-source-download {
-                        @apply --icon-archiv-gray;
-
-                        font-size: 1.2em;
-                        text-align: center;
-                        padding-top: 29px;
-                        font-weight: bolder;
-                        display: block;
-                        float: right;
-                        overflow: hidden;
-                    }
-
-                    &.zip-source-download:hover,
-                    &.zip-distribution-bundle-download:hover,
-                    &.tar-gz-source-download:hover {
-                        @apply --icon-archiv-blue;
-                    }
-                    /* endregion */
-                }
             }
         }
     }
