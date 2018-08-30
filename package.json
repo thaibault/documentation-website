@@ -86,7 +86,7 @@
       "internal": {
         "errorreporter": "errorreporter",
         "index": {
-          "__evaluate__": "['babel-polyfill', 'ua-parser-js', `./${path.relative(self.path.source.base, self.path.source.asset.cascadingStyleSheet)}/index`].concat(self.offline ? 'offline-plugin/runtime' : []).concat('./index')"
+          "__evaluate__": "['@babel/polyfill', 'ua-parser-js', `./${path.relative(self.path.source.base, self.path.source.asset.cascadingStyleSheet)}/index`].concat(self.offline ? 'offline-plugin/runtime' : []).concat('./index')"
         }
       }
     },
@@ -148,7 +148,7 @@
           "^clientnode$": {
             "__evaluate__": "path.resolve('./node_modules/clientnode/index.compiled.js')"
           },
-          "^babel-polyfill$": "babel-polyfill/dist/polyfill.min.js",
+          "^@babel/polyfill$": "@babel/polyfill/dist/polyfill.min.js",
           "^jquery$": {
             "__evaluate__": "path.resolve('./node_modules/jquery/dist/jquery.min.js')"
           },
@@ -156,7 +156,7 @@
         }
       },
       "skipParseRegularExpressions": {
-        "__evaluate__": "/(?:^|\\/)(?:(?:babel-polyfill\\/dist\\/polyfill)|(?:jquery\\/dist\\/jquery)|(?:webpack\\/buildin\\/global)|(?:webpack\\/buildin\\/module))(?:\\.min)?\\.js(?:\\?.+|$)/"
+        "__evaluate__": "/(?:^|\\/)(?:(?:@babel\\/polyfill\\/dist\\/polyfill)|(?:jquery\\/dist\\/jquery)|(?:webpack\\/buildin\\/global)|(?:webpack\\/buildin\\/module))(?:\\.min)?\\.js(?:\\?.+|$)/"
       }
     },
     "path": {
