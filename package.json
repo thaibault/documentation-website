@@ -16,23 +16,23 @@
   ],
   "main": "source/index.html.ejs",
   "bin": {
-    "documentationWebsite": "index.py"
+    "documentation-website": "index.py"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.io:thaibault/documentationWebsite.git"
+    "url": "git@github.io:thaibault/documentation-website.git"
   },
   "scripts": {
-    "build": "webOptimizer build",
-    "build:stats": "webOptimizer build --profile --json >/tmp/stat.json && echo 'Results successfully written to \"/tmp/stat.json\".'",
-    "clear": "webOptimizer clear",
-    "document": "webOptimizer document",
-    "lint": "webOptimizer check:type; webOptimizer lint",
-    "serve": "webOptimizer serve",
+    "build": "weboptimizer build",
+    "build:stats": "weboptimizer build --profile --json >/tmp/stat.json && echo 'Results successfully written to \"/tmp/stat.json\".'",
+    "clear": "weboptimizer clear",
+    "document": "weboptimizer document",
+    "lint": "weboptimizer check:type; weboptimizer lint",
+    "serve": "weboptimizer serve",
     "start": "yarn serve",
     "test": "yarn build",
     "update": "yarn version --patch && yarn publish",
-    "watch": "webOptimizer build --watch"
+    "watch": "weboptimizer build --watch"
   },
   "dependencies": {
     "boostnode": "*",
@@ -113,9 +113,9 @@
       "optimizer": {
         "babelMinify": {
           "module": {
-            "#": "Activating this module would result in this error for task \"serve\": \"Module build failed (from ./node_modules/babel-loader/lib/index.js): TypeError: documentationWebsite/source/index.js: Cannot read property 'end' of null at _evaluate (documentationWebsite/node_modules/babel-traverse/lib/path/evaluation.js:159:58)\".",
+            "#": "Activating this module would result in this error for task \"serve\": \"Module build failed (from ./node_modules/babel-loader/lib/index.js): TypeError: documentation-website/source/index.js: Cannot read property 'end' of null at _evaluate (documentation-website/node_modules/babel-traverse/lib/path/evaluation.js:159:58)\".",
             "evaluate": false,
-            "#0": "Activating this module would result in this error for task \"serve\": \"Module build failed (from ./node_modules/babel-loader/lib/index.js): TypeError: documentationWebsite/source/index.js: Cannot read property 'end' of null at _evaluate (documentationWebsite/node_modules/babel-traverse/lib/path/evaluation.js:159:58)\".",
+            "#0": "Activating this module would result in this error for task \"serve\": \"Module build failed (from ./node_modules/babel-loader/lib/index.js): TypeError: documentation-website/source/index.js: Cannot read property 'end' of null at _evaluate (documentation-website/node_modules/babel-traverse/lib/path/evaluation.js:159:58)\".",
             "guards": false
           }
         },
@@ -150,9 +150,9 @@
               "CONTENT_FILE_PATH": "dummyDocumentation.html",
               "DISTRIBUTION_BUNDLE_FILE_PATH": "dummyDistributionBundle.zip",
               "LANGUAGES": {
-                "__evaluate__": "self.module.preprocessor.html.options.locals.NAME === 'documentationWebsite' ? ['enUS', 'deDE', 'frFR'] : ['enUS']"
+                "__evaluate__": "self.module.preprocessor.html.options.locals.NAME === 'documentation-website' ? ['enUS', 'deDE', 'frFR'] : ['enUS']"
               },
-              "NAME": "documentationWebsite",
+              "NAME": "documentation-website",
               "META_TAGS": [],
               "RENDER_CONTENT": true,
               "SOURCE_URL": {
