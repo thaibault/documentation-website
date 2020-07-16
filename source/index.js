@@ -1,7 +1,7 @@
 // @flow
-// #!/usr/bin/env node
+// #!/usr/bin/env babel-node
 // -*- coding: utf-8 -*-
-/** @module Documentation */
+/** @module documentation-website */
 'use strict'
 /* !
     region header
