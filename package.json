@@ -67,8 +67,6 @@
     "stylelint-config-standard": "*",
     "ua-parser-js": "*",
     "weboptimizer": "*",
-    "webpack": "*",
-    "webpack-cli": "*",
     "webpack-dev-server": "*"
   },
   "sideEffects": true,
