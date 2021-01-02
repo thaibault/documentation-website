@@ -24,10 +24,13 @@
   },
   "scripts": {
     "build": "weboptimizer build",
-    "build:stats": "weboptimizer build --profile --json >/tmp/stat.json && echo 'Results successfully written to \"/tmp/stat.json\".'",
+    "build:stats": "weboptimizer build --json /tmp/stat.json && echo 'Results successfully written to \"/tmp/stat.json\".'",
+    "check": "yarn check:types; yarn lint",
+    "check:types": "weboptimizer check:types",
     "clear": "weboptimizer clear",
     "document": "weboptimizer document",
-    "lint": "weboptimizer check:type; weboptimizer lint",
+    "lint": "weboptimizer lint",
+    "prepare": "yarn build",
     "serve": "weboptimizer serve",
     "start": "yarn serve",
     "test": "yarn build",
@@ -40,7 +43,16 @@
     "website-utilities": "*"
   },
   "devDependencies": {
+    "@types/ejs": "*",
+    "@types/html-minifier": "*",
+    "@types/jest": "*",
+    "@types/jquery": "*",
+    "@types/jsdom": "*",
+    "@types/loader-utils": "*",
+    "@types/node": "*",
     "@types/workbox-webpack-plugin": "*",
+    "@typescript-eslint/eslint-plugin": "*",
+    "@typescript-eslint/parser": "*",
     "babel-eslint": "*",
     "css-loader": "*",
     "cssnano": "*",
@@ -48,21 +60,19 @@
     "errorreporter": "*",
     "eslint": "*",
     "eslint-config-google": "*",
-    "eslint-plugin-flowtype": "*",
     "eslint-plugin-jsdoc": "*",
     "favicons-webpack-plugin": "*",
-    "flow-bin": "*",
+    "jest": "*",
     "jsdoc": "*",
     "legal-notes": "*",
     "mini-css-extract-plugin": "*",
-    "offline-plugin": "*",
     "postcss-fontpath": "*",
     "postcss-import": "<=12",
     "postcss-loader": "*",
-    "postcss-mixins": "*",
+    "postcss-mixins": "<=6",
     "postcss-preset-env": "*",
     "postcss-sprites": "*",
-    "postcss-url": "*",
+    "postcss-url": "<=9",
     "style-loader": "*",
     "stylelint": "*",
     "stylelint-config-standard": "*",
@@ -79,17 +89,6 @@
         },
         "LANGUAGES": {
           "__evaluate__": "`['${self.module.preprocessor.html.options.locals.LANGUAGES.join(\"', '\")}']`"
-        }
-      }
-    },
-    "debug": {
-      "module": {
-        "optimizer": {
-          "babelMinify": {
-            "bundle": null,
-            "module": null
-          },
-          "htmlMinifier": null
         }
       }
     },
@@ -110,14 +109,6 @@
         "website-utilities/index.css$": "website-utilities/index.compiled.css"
       },
       "optimizer": {
-        "babelMinify": {
-          "module": {
-            "#": "Activating this module would result in this error for task \"serve\": \"Module build failed (from ./node_modules/babel-loader/lib/index.js): TypeError: documentation-website/source/index.js: Cannot read property 'end' of null at _evaluate (documentation-website/node_modules/babel-traverse/lib/path/evaluation.js:159:58)\".",
-            "evaluate": false,
-            "#0": "Activating this module would result in this error for task \"serve\": \"Module build failed (from ./node_modules/babel-loader/lib/index.js): TypeError: documentation-website/source/index.js: Cannot read property 'end' of null at _evaluate (documentation-website/node_modules/babel-traverse/lib/path/evaluation.js:159:58)\".",
-            "guards": false
-          }
-        },
         "htmlMinifier": {
           "ignoreCustomComments": [
             {
@@ -132,29 +123,29 @@
           ]
         }
       },
-      "preprocessor": {
-        "cascadingStyleSheet": {
-          "additional": {
-            "plugins": {
-              "pre": [
-                "require('postcss-mixins')"
-              ]
-            }
-          }
-        },
-        "ejs": {
-          "options": {
-            "locals": {
-              "API_DOCUMENTATION_PATH": "/apiDocumentation/",
-              "CONTENT_FILE_PATH": "dummyDocumentation.html",
-              "DISTRIBUTION_BUNDLE_FILE_PATH": "dummyDistributionBundle.zip",
-              "LANGUAGES": {
-                "__evaluate__": "self.module.preprocessor.html.options.locals.NAME === 'documentation-website' ? ['enUS', 'deDE', 'frFR'] : ['enUS']"
-              },
-              "NAME": "documentation-website",
-              "META_TAGS": [],
-              "RENDER_CONTENT": true,
-              "SOURCE_URL": {
+  "preprocessor": {
+    "cascadingStyleSheet": {
+      "additional": {
+        "plugins": {
+          "pre": [
+            "require('postcss-mixins')"
+          ]
+        }
+      }
+    },
+    "ejs": {
+      "options": {
+        "locals": {
+          "API_DOCUMENTATION_PATH": "/apiDocumentation/",
+          "CONTENT_FILE_PATH": "dummyDocumentation.html",
+          "DISTRIBUTION_BUNDLE_FILE_PATH": "dummyDistributionBundle.zip",
+          "LANGUAGES": {
+            "__evaluate__": "self.module.preprocessor.html.options.locals.NAME === 'documentation-website' ? ['enUS', 'deDE', 'frFR'] : ['enUS']"
+          },
+          "NAME": "documentation-website",
+          "META_TAGS": [],
+          "RENDER_CONTENT": true,
+          "SOURCE_URL": {
                 "__evaluate__": "`https://github.com/thaibault/${self.module.preprocessor.html.options.locals.NAME}`"
               },
               "TAGLINE": "generic documentation website pattern",
@@ -166,7 +157,7 @@
         }
       },
       "skipParseRegularExpressions": {
-        "__evaluate__": "/(?:^|\\/)(?:(?:jquery\\/dist\\/jquery)|(?:webpack\\/buildin\\/global)|(?:webpack\\/buildin\\/module))(?:\\.min)?\\.js(?:\\?.+|$)/"
+        "__evaluate__": "/(?:^|\\/)(?:(?:jquery\\/dist\\/jquery))(?:\\.min)?\\.js(?:\\?.+|$)/"
       }
     },
     "path": {
