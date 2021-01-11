@@ -6,13 +6,13 @@
   "keywords": [
     "documentation",
     "website",
-    "project",
     "homepage",
-    "page"
+    "page",
+    "project"
   ],
   "files": [
-    "source",
-    "index.py"
+    "index.py",
+    "source"
   ],
   "main": "source/index.html.ejs",
   "bin": {
