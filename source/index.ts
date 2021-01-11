@@ -36,7 +36,6 @@ declare var OFFLINE:boolean
  *
  * @property startUpAnimationIsComplete - Indicates whether start up animations
  * has been completed.
- * @property languageHandler - Saves a reference to the language handler.
  *
  * @property _activateLanguageSupport - Indicates whether a language switcher
  * should be activated.
@@ -74,7 +73,6 @@ declare var OFFLINE:boolean
 export class Documentation extends WebsiteUtilities {
     static _name:'Documentation' = 'Documentation'
 
-    languageHandler:Internationalisation
     startUpAnimationIsComplete:boolean = false
 
     _activateLanguageSupport:boolean = false
@@ -120,10 +118,6 @@ export class Documentation extends WebsiteUtilities {
     /**
      * Initializes the interactive web application.
      * @param options - An options object.
-     * @param activateLanguageSupport - Indicates whether a language handler
-     * should be used or not.
-     * @param languageHandler - A language handler to use. If "null" is given
-     * a new handler will be created.
      * @returns Returns the current instance.
      */
     async initialize(options:Partial<Options> = {}):Promise<Documentation> {
@@ -198,11 +192,13 @@ export class Documentation extends WebsiteUtilities {
         // New injected dom nodes may take affect on language handler.
         if (
             this.startUpAnimationIsComplete &&
-            this._activateLanguageSupport &&
-            !this._languageHandler
+            this._options._activateLanguageSupport &&
+            !this.languageHandler
         )
-            this._languageHandler =
-                $.Internationalisation(this._options.language)
+            this.languageHandler = (
+                await $(this.$domNodes.parent)
+                    .Internationalisation(this._options.language)
+            ).data(Internationalisation._name)
     }
     /**
      * This method triggers if we change the current section.
