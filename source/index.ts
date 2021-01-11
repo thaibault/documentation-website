@@ -389,11 +389,13 @@ $.Documentation = ((...parameter:Array<any>):any =>
 ) as Documentation
 $.Documentation.class = Documentation
 if (!'TODO' && typeof OFFLINE !== 'undefined' && OFFLINE) {
+    /*
     const offlineHandler:Object = require('offline-plugin/runtime')
     offlineHandler.install({
         // NOTE: Tell the new service worker to take control immediately.
         onUpdateReady: ():void => offlineHandler.applyUpdate()
     })
+    */
 }
 // NOTE: We make jQuery available to make bootstrapping examples with deferred
 // script loading simpler.
