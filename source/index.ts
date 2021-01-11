@@ -126,7 +126,7 @@ export class Documentation extends WebsiteUtilities {
      * a new handler will be created.
      * @returns Returns the current instance.
      */
-    initialize(options:Partial<Options> = {}):Promise<Documentation> {
+    async initialize(options:Partial<Options> = {}):Promise<Documentation> {
         /*
             NOTE: We will initialize language support after examples are
             injected if activated via options.
