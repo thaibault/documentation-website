@@ -63,7 +63,7 @@
     "eslint": "*",
     "eslint-config-google": "*",
     "eslint-plugin-jsdoc": "*",
-    "favicons-webpack-plugin": "next",
+    "favicons-webpack-plugin": "^5.0.0-alpha.6",
     "internationalisation": "*",
     "jest": "*",
     "jquery": "*",
@@ -113,6 +113,7 @@
         "^jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo.min.js",
         "website-utilities/index.css$": "website-utilities/index.compiled.css"
       },
+      "enforceDeduplication": true,
       "optimizer": {
         "htmlMinifier": {
           "ignoreCustomComments": [
