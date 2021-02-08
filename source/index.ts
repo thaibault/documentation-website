@@ -71,9 +71,8 @@ declare var OFFLINE:boolean
  * configurations.
  */
 export class Documentation extends WebsiteUtilities {
-    static _name:'Documentation' = 'Documentation'
+    static readonly _name:'Documentation' = 'Documentation'
 
-    startUpAnimationIsComplete:boolean = false
 
     _activateLanguageSupport:boolean = false
     _options:Options = {
@@ -211,6 +210,7 @@ export class Documentation extends WebsiteUtilities {
             .add(this.$domNodes.homeLink)
             .filter(`a[href="#${sectionName}"]`)
             .trigger('click')
+
         super._onSwitchSection(sectionName)
     }
     /**
