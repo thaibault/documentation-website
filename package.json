@@ -58,7 +58,7 @@
     "babel-eslint": "*",
     "clientnode": "*",
     "css-loader": "*",
-    "cssnano": "*",
+    "cssnano": "<=4",
     "default-gateway": "*",
     "errorreporter": "*",
     "eslint": "*",
