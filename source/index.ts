@@ -182,7 +182,7 @@ export class Documentation extends WebsiteUtilities {
      * This method triggers if all examples loaded.
      * @returns Returns the current instance.
      */
-    _onExamplesLoaded():void {
+    async _onExamplesLoaded():Promise<void> {
         /*
             NOTE: After injecting new dom nodes we have to grab them for
             further controller logic.
