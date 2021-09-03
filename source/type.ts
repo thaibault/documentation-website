@@ -48,7 +48,7 @@ export type $DomNodes = DomNodes<$DomNode> & {
     parent:$DomNode<HTMLElement>
     window:$DomNode<Window>
 }
-export type Options = Partial<BaseOptions> & {
+export type Options = BaseOptions & {
     codeTableWrapper:string
     domNodes:DomNodes
     onExamplesLoaded:ProcedureFunction

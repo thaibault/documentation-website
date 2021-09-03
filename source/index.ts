@@ -22,7 +22,7 @@ import WebsiteUtilities from 'website-utilities'
 import Tools, {$} from 'clientnode'
 import {$DomNode} from 'clientnode/type'
 
-import {Options, $DomNodes} from './type'
+import {DomNodes, Options, $DomNodes} from './type'
 // endregion
 // region declaration
 declare var LANGUAGES:Array<string>
@@ -71,8 +71,7 @@ declare var OFFLINE:boolean
  * configurations.
  */
 export class Documentation extends WebsiteUtilities {
-    static readonly _name:'Documentation' = 'Documentation'
-
+    static readonly _name:string = 'Documentation'
 
     _activateLanguageSupport:boolean = false
     _options:Options = {
@@ -85,9 +84,9 @@ export class Documentation extends WebsiteUtilities {
             homeLink: 'a[href="#home"]',
             mainSection: '.main-content',
             tableOfContentLinks: '.toc ul li a[href^="#"]'
-        },
+        } as DomNodes,
         domNodeSelectorPrefix: 'body.{1}',
-        onExamplesLoaded: this.constructor.noop,
+        onExamplesLoaded: Tools.noop,
         section: {
             aboutThisWebsite: {
                 fadeInOptions: {duration: 'fast'},
@@ -111,7 +110,7 @@ export class Documentation extends WebsiteUtilities {
             `,
             pattern: '^ *showExample(: *([^ ]+))? *$'
         }
-    }
+    } as Options
     // region public methods
     // / region special
     /**
@@ -124,7 +123,7 @@ export class Documentation extends WebsiteUtilities {
             NOTE: We will initialize language support after examples are
             injected if activated via options.
         */
-        this._activateLanguageSupport = options.activateLanguageSupport
+        this._activateLanguageSupport = options.activateLanguageSupport!
         options.activateLanguageSupport = false
 
         await super.initialize(options)
@@ -132,8 +131,10 @@ export class Documentation extends WebsiteUtilities {
         if (!this._activateLanguageSupport)
             this._activateLanguageSupport =
                 this._parentOptions.activateLanguageSupport
+
         if (!$.global.location?.hash)
             $.global.location.hash = this.$domNodes.homeLink.attr('href')
+
         this.$domNodes.aboutThisWebsiteSection.hide()
         /*
             NOTE: We have to render examples first to avoid having dots in
@@ -141,6 +142,7 @@ export class Documentation extends WebsiteUtilities {
         */
         this._showExamples()
         this._makeCodeEllipsis()
+
         this.on(
             this.$domNodes.tableOfContentLinks,
             'click',
@@ -162,6 +164,7 @@ export class Documentation extends WebsiteUtilities {
             this.$domNodes.aboutThisWebsiteSection.fadeIn(
                 this._options.section.aboutThisWebsite.fadeInOptions
             )
+
         this.on(this.$domNodes.aboutThisWebsiteLink, 'click', ():$DomNode =>
             this.scrollToTop().$domNodes.mainSection.fadeOut(
                 this._options.section.main.fadeOutOptions
@@ -172,6 +175,7 @@ export class Documentation extends WebsiteUtilities {
                 this._options.section.aboutThisWebsite.fadeOutOptions
             )
         )
+
         return this
     }
     // / endregion
