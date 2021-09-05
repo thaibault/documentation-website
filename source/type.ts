@@ -16,7 +16,7 @@
     endregion
 */
 // region imports
-import {ProcedureFunction, $DomNode} from 'clientnode/type'
+import {ProcedureFunction, $DomNode, $Function, $Global} from 'clientnode/type'
 import {
     DomNodes as BaseDomNodes,
     Options as BaseOptions,
@@ -31,6 +31,9 @@ export type DocumentationFunction =
     {class:typeof Documentation}
 export interface StaticScope extends BaseStaticScope {
     Documentation:DocumentationFunction
+    global:$Global & {
+        $documentationWebsite:$Function
+    }
 }
 declare global {
     interface JQueryStatic extends StaticScope {}
@@ -48,9 +51,11 @@ export type $DomNodes = DomNodes<$DomNode> & {
     parent:$DomNode<HTMLElement>
     window:$DomNode<Window>
 }
-export type Options = BaseOptions & {
+export interface DefaultOptions {
     codeTableWrapper:string
     domNodes:DomNodes
+    domNodeSelectorPrefix:string
+    name:string
     onExamplesLoaded:ProcedureFunction
     section:{
         aboutThisWebsite:{
@@ -68,6 +73,7 @@ export type Options = BaseOptions & {
         pattern:string
     }
 }
+export type Options = BaseOptions & DefaultOptions
 // endregion
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
