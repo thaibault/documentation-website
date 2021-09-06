@@ -16,28 +16,29 @@
     endregion
 */
 // region imports
-import {ProcedureFunction, $DomNode, $Function, $Global} from 'clientnode/type'
+import {ProcedureFunction, $DomNode, $Function} from 'clientnode/type'
 import {
+    DefaultOptions as BaseDefaultOptions,
     DomNodes as BaseDomNodes,
     Options as BaseOptions,
     StaticScope as BaseStaticScope
 } from 'website-utilities/type'
 
 import Documentation from './index'
-// endregion
+ // endregion
 // region exports
 export type DocumentationFunction =
     ((...parameter:Array<any>) => any) &
     {class:typeof Documentation}
+
 export interface StaticScope extends BaseStaticScope {
     Documentation:DocumentationFunction
-    global:$Global & {
-        $documentationWebsite:$Function
-    }
+    scrollTo:(selector:string, animation:string) => void
 }
 declare global {
     interface JQueryStatic extends StaticScope {}
 }
+
 export type DomNodes<Type = string> = BaseDomNodes<Type> & {
     aboutThisWebsiteLink:Type
     aboutThisWebsiteSection:Type
@@ -51,7 +52,8 @@ export type $DomNodes = DomNodes<$DomNode> & {
     parent:$DomNode<HTMLElement>
     window:$DomNode<Window>
 }
-export interface DefaultOptions {
+
+export interface DefaultOptions extends BaseDefaultOptions {
     codeTableWrapper:string
     domNodes:DomNodes
     domNodeSelectorPrefix:string

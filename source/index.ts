@@ -113,7 +113,7 @@ export class Documentation extends WebsiteUtilities {
             `,
             pattern: '^ *showExample(: *([^ ]+))? *$'
         }
-    }
+    } as DefaultOptions
 
     options:Options = null as unknown as Options
 
@@ -428,10 +428,11 @@ if (!'TODO' && typeof OFFLINE !== 'undefined' && OFFLINE) {
 }
 // NOTE: We make jQuery available to make bootstrapping examples with deferred
 // script loading simpler.
-$.global.$documentationWebsite = $
+;($.global as unknown as {$documentationWebsite:JQueryStatic})
+    .$documentationWebsite = $
 // endregion
 // region bootstrap
-$.noConflict(true)(($:JQuery):Documentation =>
+$.noConflict(true)(($:JQueryStatic):Documentation =>
     $.Documentation({
         language: {
             selection: typeof LANGUAGES === 'undefined' ? [] : LANGUAGES,
