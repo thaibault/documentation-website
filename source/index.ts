@@ -119,7 +119,7 @@ export class Documentation extends WebsiteUtilities {
 
     _activateLanguageSupport:boolean = false
     // region public methods
-    // / region special
+    /// region special
     /**
      * Initializes the interactive web application.
      * @param options - An options object.
@@ -187,10 +187,10 @@ export class Documentation extends WebsiteUtilities {
 
         return this
     }
-    // / endregion
+    /// endregion
     // endregion
     // region protected methods
-    // / region event handler
+    /// region event handler
     /**
      * This method triggers if all examples loaded.
      * @returns Returns the current instance.
@@ -254,7 +254,7 @@ export class Documentation extends WebsiteUtilities {
 
         super._onStartUpAnimationComplete()
     }
-    // / endregion
+    /// endregion
     /**
      * This method makes dotes after code lines which are too long. This
      * prevents line wrapping.
