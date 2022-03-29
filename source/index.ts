@@ -19,16 +19,13 @@
 // region imports
 import Internationalisation from 'internationalisation'
 import WebsiteUtilities from 'website-utilities'
-import Tools, {$} from 'clientnode'
-import {$DomNode} from 'clientnode/type'
+import Tools from 'clientnode'
+import {$T} from 'clientnode/type'
 
-import {
-    DocumentationFunction, DomNodes, DefaultOptions, Options, $DomNodes
-} from './type'
+import {DocumentationFunction, DomNodes, DefaultOptions, Options} from './type'
 // endregion
 // region declaration
-declare var LANGUAGES:Array<string>
-declare var OFFLINE:boolean
+declare const LANGUAGES:Array<string>
 // endregion
 // region plugins/classes
 /**
@@ -56,10 +53,10 @@ declare var OFFLINE:boolean
  * section switches between the main page and legal notes descriptions.
  * @property static:_defaultOptions.section.aboutThisWebsite {Object} -
  * Configuration object for transitions concerning the legal notes section.
- * @property static:_defaultOptions.section.aboutThisWebsite.fadeOutOptions {Object} -
- * Fade out configurations.
- * @property static:_defaultOptions.section.aboutThisWebsite.fadeInOptions {Object} -
- * Fade in configurations.
+ * @property static:_defaultOptions.section.aboutThisWebsite.fadeOutOptions
+ * {Object} - Fade out configurations.
+ * @property static:_defaultOptions.section.aboutThisWebsite.fadeInOptions
+ * {Object} - Fade in configurations.
  * @property static:_defaultOptions.section.main {Object} - Configuration
  * object for transitions concerning the main section.
  * @property static:_defaultOptions.section.main.fadeOutOptions {Object} - Fade
@@ -113,11 +110,11 @@ export class Documentation extends WebsiteUtilities {
             `,
             pattern: '^ *showExample(: *([^ ]+))? *$'
         }
-    } as DefaultOptions
+    }
 
     options:Options = null as unknown as Options
 
-    _activateLanguageSupport:boolean = false
+    _activateLanguageSupport = false
     // region public methods
     /// region special
     /**
@@ -125,7 +122,9 @@ export class Documentation extends WebsiteUtilities {
      * @param options - An options object.
      * @returns Returns the current instance.
      */
-    async initialize(options:Partial<Options> = {}):Promise<Documentation> {
+    initialize<R = Promise<Documentation>>(
+        options:RecursivePartial<Options> = {}
+    ):R {
         /*
             NOTE: We will initialize language support after examples are
             injected if activated via options.
@@ -133,59 +132,66 @@ export class Documentation extends WebsiteUtilities {
         this._activateLanguageSupport = options.activateLanguageSupport!
         options.activateLanguageSupport = false
 
-        await super.initialize(Tools.extend(
+        return super.initialize(Tools.extend(
             true, {} as Options, Documentation._defaultOptions, options
-        ))
+        )).then(():Documentation => {
+            if (!this._activateLanguageSupport)
+                this._activateLanguageSupport =
+                    this.options.activateLanguageSupport
 
-        if (!this._activateLanguageSupport)
-            this._activateLanguageSupport =
-                this.options.activateLanguageSupport
+            if (!$.global.location?.hash)
+                $.global.location.hash = this.$domNodes.homeLink.attr('href')!
 
-        if (!$.global.location?.hash)
-            $.global.location.hash = this.$domNodes.homeLink.attr('href')!
+            this.$domNodes.aboutThisWebsiteSection.hide()
+            /*
+                NOTE: We have to render examples first to avoid having dots in
+                example code.
+            */
+            this._showExamples()
+            this._makeCodeEllipsis()
 
-        this.$domNodes.aboutThisWebsiteSection.hide()
-        /*
-            NOTE: We have to render examples first to avoid having dots in
-            example code.
-        */
-        this._showExamples()
-        this._makeCodeEllipsis()
+            this.on(
+                this.$domNodes.tableOfContentLinks,
+                'click',
+                (event:Event):void => {
+                    const hashReference:null|string =
+                        $(event.target).attr('href')
+                    if (hashReference && hashReference !== '#')
+                        $.scrollTo(hashReference, 'slow')
+                    else
+                        this.scrollToTop()
+                }
+            )
 
-        this.on(
-            this.$domNodes.tableOfContentLinks,
-            'click',
-            (event:Event):void => {
-                const hashReference:null|string = $(event.target).attr('href')
-                if (hashReference && hashReference !== '#')
-                    $.scrollTo(hashReference, 'slow')
-                else
-                    this.scrollToTop()
-            }
-        )
-        // Handle section switch between documentation and legal notes section.
-        this.options.section.aboutThisWebsite.fadeOutOptions.always =
-            ():$DomNode =>
-                this.$domNodes.mainSection.fadeIn(
-                    this.options.section.main.fadeInOptions
+            /*
+                Handle section switch between documentation and legal notes
+                section.
+            */
+            this.options.section.aboutThisWebsite.fadeOutOptions.always =
+                ():void => {
+                    this.$domNodes.mainSection.fadeIn(
+                        this.options.section.main.fadeInOptions
+                    )
+                }
+            this.options.section.main.fadeOutOptions.always = ():void => {
+                this.$domNodes.aboutThisWebsiteSection.fadeIn(
+                    this.options.section.aboutThisWebsite.fadeInOptions
                 )
-        this.options.section.main.fadeOutOptions.always = ():$DomNode =>
-            this.$domNodes.aboutThisWebsiteSection.fadeIn(
-                this.options.section.aboutThisWebsite.fadeInOptions
-            )
+            }
 
-        this.on(this.$domNodes.aboutThisWebsiteLink, 'click', ():$DomNode =>
-            this.scrollToTop().$domNodes.mainSection.fadeOut(
-                this.options.section.main.fadeOutOptions
-            )
-        )
-        this.on(this.$domNodes.homeLink, 'click', ():$DomNode =>
-            this.scrollToTop().$domNodes.aboutThisWebsiteSection.fadeOut(
-                this.options.section.aboutThisWebsite.fadeOutOptions
-            )
-        )
+            this.on(this.$domNodes.aboutThisWebsiteLink, 'click', ():void => {
+                this.scrollToTop().$domNodes.mainSection.fadeOut(
+                    this.options.section.main.fadeOutOptions
+                )
+            })
+            this.on(this.$domNodes.homeLink, 'click', ():void => {
+                this.scrollToTop().$domNodes.aboutThisWebsiteSection.fadeOut(
+                    this.options.section.aboutThisWebsite.fadeOutOptions
+                )
+            })
 
-        return this
+            return this
+        })
     }
     /// endregion
     // endregion
@@ -262,8 +268,8 @@ export class Documentation extends WebsiteUtilities {
      */
     _makeCodeEllipsis():void {
         this.$domNodes.code.each((index:number, domNode:HTMLElement):void => {
-            const $domNode:$DomNode = $(domNode)
-            const tableParent:$DomNode = $domNode.closest('table')
+            const $domNode:$T = $(domNode)
+            const tableParent:$T = $domNode.closest('table')
             if (tableParent.length)
                 tableParent.wrap(this.options.codeTableWrapper)
             let newContent:string = ''
@@ -298,10 +304,9 @@ export class Documentation extends WebsiteUtilities {
         // Add space for ending dots.
         excess += 3
         let newContent:string = ''
-        const $content:$DomNode = $(`<wrapper>${content}</wrapper>`)
+        const $content:$T = $(`<wrapper>${content}</wrapper>`)
         for (const domNode of $content.contents().get().reverse()) {
-            const $wrapper:$DomNode =
-                $(domNode).wrap('<wrapper>').parent() as $DomNode
+            const $wrapper:$T = $(domNode).wrap('<wrapper>').parent()
 
             const textContent:string = domNode.textContent || ''
 
@@ -352,7 +357,7 @@ export class Documentation extends WebsiteUtilities {
                             new RegExp(this.options.showExample.pattern)
                         )
                     if (match) {
-                        const $codeDomNode:$DomNode<Node> = $(domNode).next()
+                        const $codeDomNode:$T<Node> = $(domNode).next()
 
                         let code:string = $codeDomNode
                             .find(this.$domNodes.codeWrapper)
@@ -417,15 +422,6 @@ $.Documentation = ((...parameter:Array<unknown>):unknown =>
     Tools.controller(Documentation, parameter)
 ) as DocumentationFunction
 $.Documentation.class = Documentation
-if (!'TODO' && typeof OFFLINE !== 'undefined' && OFFLINE) {
-    /*
-    const offlineHandler:Object = require('offline-plugin/runtime')
-    offlineHandler.install({
-        // NOTE: Tell the new service worker to take control immediately.
-        onUpdateReady: ():void => offlineHandler.applyUpdate()
-    })
-    */
-}
 // NOTE: We make jQuery available to make bootstrapping examples with deferred
 // script loading simpler.
 ;($.global as unknown as {$documentationWebsite:JQueryStatic})
