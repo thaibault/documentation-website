@@ -33,7 +33,7 @@
   },
   "scripts": {
     "build": "weboptimizer build",
-    "build:stats": "weboptimizer build --json /tmp/stat.json && echo 'Results successfully written to \"/tmp/stat.json\".'",
+    "build:stats": "weboptimizer build --profile --json /tmp/stats.json | sed --regexp-extended 's/^Running \".+$//' | sed --regexp-extended 's/^Consolidate module request \".+$//' >/tmp/stats.json && echo 'Results successfully written to \"/tmp/stats.json\".'",
     "check": "yarn check:types; yarn lint",
     "check:types": "weboptimizer check:types",
     "clear": "weboptimizer clear",
@@ -43,6 +43,8 @@
     "serve": "weboptimizer serve",
     "start": "yarn serve",
     "test": "yarn build",
+    "test:coverage": "yarn test",
+    "test:coverage:report": "yarn test:coverage",
     "update": "yarn version --patch && yarn publish",
     "watch": "weboptimizer build --watch"
   },
@@ -61,7 +63,6 @@
     "@types/node": "*",
     "@typescript-eslint/eslint-plugin": "*",
     "@typescript-eslint/parser": "*",
-    "bootstrap": "^3.3.7",
     "clientnode": "*",
     "css-loader": "*",
     "cssnano": "<=4",
@@ -115,8 +116,9 @@
       }
     },
     "injection": {
+      "chunks": false,
       "entry": {
-        "errorreporter": "errorreporter",
+        "#": "errorreporter\": \"errorreporter",
         "index": {
           "__evaluate__": "['ua-parser-js', `./${path.relative(self.path.source.base, self.path.source.asset.cascadingStyleSheet)}/index`, './index']"
         }
@@ -125,9 +127,7 @@
     "library": false,
     "module": {
       "aliases": {
-        "bootstrap$": "bootstrap/dist/css/bootstrap.min.css",
         "^jquery$": "jquery/dist/jquery.min.js",
-        "^jQuery-scrollTo$": "jquery.scrollto/jquery.scrollTo.min.js",
         "website-utilities/index.css$": "website-utilities/index.compiled.css"
       },
       "enforceDeduplication": true,

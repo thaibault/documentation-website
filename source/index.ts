@@ -17,10 +17,10 @@
     endregion
 */
 // region imports
+import Tools from 'clientnode'
+import {RecursivePartial, $T} from 'clientnode/type'
 import Internationalisation from 'internationalisation'
 import WebsiteUtilities from 'website-utilities'
-import Tools from 'clientnode'
-import {$T} from 'clientnode/type'
 
 import {DocumentationFunction, DomNodes, DefaultOptions, Options} from './type'
 // endregion
@@ -30,38 +30,38 @@ declare const LANGUAGES:Array<string>
 // region plugins/classes
 /**
  * This plugin holds all needed methods to extend a whole documentation site.
- * @property static:_defaultOptions - Options extended by the options given to
+ * @property static:_commonOptions - Options extended by the options given to
  * the initializer method.
- * @property static:_defaultOptions.onExamplesLoaded {Function} - Callback to
+ * @property static:_commonOptions.onExamplesLoaded {Function} - Callback to
  * trigger when all example loaded.
- * @property static:_defaultOptions.domNodeSelectorPrefix {string} - Something
+ * @property static:_commonOptions.domNodeSelectorPrefix {string} - Something
  * like "body.{1}" which resolves to "body.documentationWebsite" e.g. depending
  * how given option "name" is specified.
- * @property static:_defaultOptions.codeTableWrapper {string} - Markup to use
- * as wrapper for all code highlighted examples.
- * @property static:_defaultOptions.showExample {Object} - Options object to
+ * @property static:_commonOptions.codeTableWrapper {string} - Markup to use as
+ * wrapper for all code highlighted examples.
+ * @property static:_commonOptions.showExample {Object} - Options object to
  * configure code example representation.
- * @property static:_defaultOptions.showExample.pattern {string} - Regular
+ * @property static:_commonOptions.showExample.pattern {string} - Regular
  * expression to introduce a code example section.
- * @property static:_defaultOptions.showExample.domNodeName {string} - Dom node
+ * @property static:_commonOptions.showExample.domNodeName {string} - Dom node
  * name to indicate a declarative example section.
- * @property static:_defaultOptions.showExample.htmlWrapper {string} - HTML
+ * @property static:_commonOptions.showExample.htmlWrapper {string} - HTML
  * example wrapper.
- * @property static:_defaultOptions.domNode {Object} - Object with a mapping of
+ * @property static:_commonOptions.domNode {Object} - Object with a mapping of
  * needed dom node descriptions to their corresponding selectors.
- * @property static:_defaultOptions.section {Object} - Configuration object for
+ * @property static:_commonOptions.section {Object} - Configuration object for
  * section switches between the main page and legal notes descriptions.
- * @property static:_defaultOptions.section.aboutThisWebsite {Object} -
+ * @property static:_commonOptions.section.aboutThisWebsite {Object} -
  * Configuration object for transitions concerning the legal notes section.
- * @property static:_defaultOptions.section.aboutThisWebsite.fadeOutOptions
+ * @property static:_commonOptions.section.aboutThisWebsite.fadeOutOptions
  * {Object} - Fade out configurations.
- * @property static:_defaultOptions.section.aboutThisWebsite.fadeInOptions
+ * @property static:_commonOptions.section.aboutThisWebsite.fadeInOptions
  * {Object} - Fade in configurations.
- * @property static:_defaultOptions.section.main {Object} - Configuration
- * object for transitions concerning the main section.
- * @property static:_defaultOptions.section.main.fadeOutOptions {Object} - Fade
+ * @property static:_commonOptions.section.main {Object} - Configuration object
+ * for transitions concerning the main section.
+ * @property static:_commonOptions.section.main.fadeOutOptions {Object} - Fade
  * out configurations.
- * @property static:_defaultOptions.section.main.fadeInOptions {Object} - Fade
+ * @property static:_commonOptions.section.main.fadeInOptions {Object} - Fade
  * in configurations.
  *
  * @property options - Finally configured given options.
@@ -73,7 +73,7 @@ declare const LANGUAGES:Array<string>
  * should be activated.
  */
 export class Documentation extends WebsiteUtilities {
-    static _defaultOptions:DefaultOptions = {
+    static _commonOptions:DefaultOptions = {
         codeTableWrapper: '<div class="table-responsive">',
         domNodes: {
             aboutThisWebsiteLink: 'a[href="#about-this-website"]',
@@ -133,7 +133,7 @@ export class Documentation extends WebsiteUtilities {
         options.activateLanguageSupport = false
 
         return super.initialize(Tools.extend(
-            true, {} as Options, Documentation._defaultOptions, options
+            true, {} as Options, Documentation._commonOptions, options
         )).then(():Documentation => {
             if (!this._activateLanguageSupport)
                 this._activateLanguageSupport =
@@ -154,10 +154,15 @@ export class Documentation extends WebsiteUtilities {
                 this.$domNodes.tableOfContentLinks,
                 'click',
                 (event:Event):void => {
-                    const hashReference:null|string =
-                        $(event.target).attr('href')
+                    const hashReference:string|undefined =
+                        $(event.target as HTMLLinkElement).attr('href')
                     if (hashReference && hashReference !== '#')
-                        $.scrollTo(hashReference, 'slow')
+                        this.$domNodes.window!
+                            .stop()
+                            .animate(
+                                {scrollTop: $(hashReference).offset()!.top},
+                                this.options.scrollToTop.options
+                            )
                     else
                         this.scrollToTop()
                 }
@@ -180,18 +185,20 @@ export class Documentation extends WebsiteUtilities {
             }
 
             this.on(this.$domNodes.aboutThisWebsiteLink, 'click', ():void => {
-                this.scrollToTop().$domNodes.mainSection.fadeOut(
+                this.scrollToTop()
+                this.$domNodes.mainSection.fadeOut(
                     this.options.section.main.fadeOutOptions
                 )
             })
             this.on(this.$domNodes.homeLink, 'click', ():void => {
-                this.scrollToTop().$domNodes.aboutThisWebsiteSection.fadeOut(
+                this.scrollToTop()
+                this.$domNodes.aboutThisWebsiteSection.fadeOut(
                     this.options.section.aboutThisWebsite.fadeOutOptions
                 )
             })
 
             return this
-        })
+        }) as unknown as R
     }
     /// endregion
     // endregion
@@ -214,9 +221,9 @@ export class Documentation extends WebsiteUtilities {
             !this.languageHandler
         )
             this.languageHandler = (
-                await $(this.$domNodes.parent)
+                await $(this.$domNodes.parent as unknown as HTMLBodyElement)
                     .Internationalisation(this.options.language)
-            ).data(this.options.name)
+            ).data('Internationalisation')
     }
     /**
      * This method triggers if we change the current section.
@@ -239,9 +246,9 @@ export class Documentation extends WebsiteUtilities {
     async _onStartUpAnimationComplete():Promise<void> {
         if (this._activateLanguageSupport && !this.languageHandler)
             this.languageHandler = (
-                await $(this.$domNodes.parent)
+                await $(this.$domNodes.parent as unknown as HTMLBodyElement)
                     .Internationalisation(this.options.language)
-            ).data(this.options.name)
+            ).data('Internationalisation')
 
         // All start up effects are ready. Handle direct section links.
         this.startUpAnimationIsComplete = true
@@ -306,7 +313,7 @@ export class Documentation extends WebsiteUtilities {
         let newContent:string = ''
         const $content:$T = $(`<wrapper>${content}</wrapper>`)
         for (const domNode of $content.contents().get().reverse()) {
-            const $wrapper:$T = $(domNode).wrap('<wrapper>').parent()
+            const $wrapper:$T = $(domNode).wrap('<wrapper>').parent() as $T
 
             const textContent:string = domNode.textContent || ''
 
