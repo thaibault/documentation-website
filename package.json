@@ -42,9 +42,10 @@
     "prepare": "yarn build",
     "serve": "weboptimizer serve",
     "start": "yarn serve",
-    "test": "yarn build",
-    "test:coverage": "yarn test",
-    "test:coverage:report": "yarn test:coverage",
+    "test": "weboptimizer test",
+    "test:browser": "weboptimizer test:browser",
+    "test:coverage": "weboptimizer test:coverage",
+    "test:coverage:report": "weboptimizer test:coverage:report",
     "update": "yarn version --patch && yarn publish",
     "watch": "weboptimizer build --watch"
   },
@@ -115,13 +116,18 @@
         }
       }
     },
+    "commandLine": {
+      "test": {
+        "environments": [
+          "jsdom"
+        ]
+      }
+    },
     "injection": {
       "chunks": false,
       "entry": {
         "#": "errorreporter\": \"errorreporter",
-        "index": {
-          "__evaluate__": "['ua-parser-js', `./${path.relative(self.path.source.base, self.path.source.asset.cascadingStyleSheet)}/index`, './index']"
-        }
+        "__evaluate__": "2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2].startsWith('test') ? {testBundle: './test.ts'} : {index: ['ua-parser-js', `./${path.relative(self.path.source.base, self.path.source.asset.cascadingStyleSheet)}/index`, './index']}"
       }
     },
     "library": false,

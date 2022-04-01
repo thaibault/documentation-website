@@ -17,7 +17,7 @@
     endregion
 */
 // region imports
-import Tools from 'clientnode'
+import Tools, {$} from 'clientnode'
 import {RecursivePartial, $T} from 'clientnode/type'
 import Internationalisation from 'internationalisation'
 import WebsiteUtilities from 'website-utilities'
