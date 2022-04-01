@@ -25,7 +25,7 @@ import Documentation from './index'
  // endregion
 // region exports
 export type DocumentationFunction =
-    ((...parameter:Array<any>) => any) &
+    ((..._parameters:Array<unknown>) => unknown) &
     {class:typeof Documentation}
 declare global {
     interface JQueryStatic {

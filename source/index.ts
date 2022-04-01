@@ -28,6 +28,7 @@ import {DocumentationFunction, DomNodes, DefaultOptions, Options} from './type'
 declare const LANGUAGES:Array<string>
 // endregion
 // region plugins/classes
+/* eslint-disable jsdoc/require-description-complete-sentence */
 /**
  * This plugin holds all needed methods to extend a whole documentation site.
  * @property static:_commonOptions - Options extended by the options given to
@@ -73,6 +74,7 @@ declare const LANGUAGES:Array<string>
  * should be activated.
  */
 export class Documentation extends WebsiteUtilities {
+/* eslint-enable jsdoc/require-description-complete-sentence */
     static _commonOptions:DefaultOptions = {
         codeTableWrapper: '<div class="table-responsive">',
         domNodes: {
@@ -223,7 +225,7 @@ export class Documentation extends WebsiteUtilities {
             this.languageHandler = (
                 await $(this.$domNodes.parent as unknown as HTMLBodyElement)
                     .Internationalisation(this.options.language)
-            ).data('Internationalisation')
+            ).data('Internationalisation') as Internationalisation
     }
     /**
      * This method triggers if we change the current section.
@@ -248,7 +250,7 @@ export class Documentation extends WebsiteUtilities {
             this.languageHandler = (
                 await $(this.$domNodes.parent as unknown as HTMLBodyElement)
                     .Internationalisation(this.options.language)
-            ).data('Internationalisation')
+            ).data('Internationalisation') as Internationalisation
 
         // All start up effects are ready. Handle direct section links.
         this.startUpAnimationIsComplete = true
@@ -279,9 +281,9 @@ export class Documentation extends WebsiteUtilities {
             const tableParent:$T = $domNode.closest('table')
             if (tableParent.length)
                 tableParent.wrap(this.options.codeTableWrapper)
-            let newContent:string = ''
+            let newContent = ''
             const codeLines:Array<string> = $domNode.html().split('\n')
-            let subIndex:number = 0
+            let subIndex = 0
             for (const value of codeLines) {
                 /*
                     NOTE: Wrap a div object to grantee that $ will accept the
@@ -310,7 +312,7 @@ export class Documentation extends WebsiteUtilities {
     _replaceExcessWithDots(content:string, excess:number):string {
         // Add space for ending dots.
         excess += 3
-        let newContent:string = ''
+        let newContent = ''
         const $content:$T = $(`<wrapper>${content}</wrapper>`)
         for (const domNode of $content.contents().get().reverse()) {
             const $wrapper:$T = $(domNode).wrap('<wrapper>').parent() as $T
@@ -412,7 +414,7 @@ export class Documentation extends WebsiteUtilities {
                         } catch (error) {
                             this.critical(
                                 `Error while integrating code "${code}": ` +
-                                error
+                                String(error)
                             )
                         }
                     }
@@ -435,14 +437,14 @@ $.Documentation.class = Documentation
     .$documentationWebsite = $
 // endregion
 // region bootstrap
-$.noConflict(true)(($:JQueryStatic):Documentation =>
+$.noConflict(true)(($:JQueryStatic):void => {
     $.Documentation({
         language: {
             selection: typeof LANGUAGES === 'undefined' ? [] : LANGUAGES,
             sessionDescription: 'documentationWebsite{1}'
         }
     })
-)
+})
 // endregion
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
