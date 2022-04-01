@@ -29,7 +29,6 @@ Project status
 [![development dependencies](https://img.shields.io/david/dev/thaibault/documentation-website.svg)](https://david-dm.org/thaibault/documentation-website?type=dev)
 [![peer dependencies](https://img.shields.io/david/peer/thaibault/documentation-website.svg)](https://david-dm.org/thaibault/documentation-website?type=peer)
 -->
-[![documentation website](https://img.shields.io/website-up-down-green-red/https/torben.website/documentation-website.svg?label=documentation-website)](https://torben.website/documentation-website)
 
 Use case
 --------
