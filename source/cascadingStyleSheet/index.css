@@ -10,7 +10,7 @@ This library written by Torben Sickert stand under a creative commons naming
 3.0 unported license. See https://creativecommons.org/licenses/by/3.0/deed.de
 endregion */
 @import "pygment-vim-like-highlighting";
-@import "website-utilities/index.css";
+@import "website-utilities/index.compiled.css";
 
 :root {
     /* region constants */
@@ -83,11 +83,10 @@ endregion */
     /* endregion */
 }
 
-.documentation {
+.doc {
     /* region global */
     /* stylelint-disable at-rule-no-unknown */
     @mixin codehilite;
-    /* TODO @mixin website-utilities; */
     /* stylelint-enable at-rule-no-unknown */
     /*
         NOTE: If we swap these lines to order alphabetical bodies background

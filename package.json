@@ -80,6 +80,7 @@
     "jsdoc": "*",
     "legal-notes": "*",
     "mini-css-extract-plugin": "*",
+    "postcss": "*",
     "postcss-fontpath": "*",
     "postcss-import": "<=12",
     "postcss-loader": "*",
@@ -133,8 +134,7 @@
     "library": false,
     "module": {
       "aliases": {
-        "^jquery$": "jquery/dist/jquery.min.js",
-        "website-utilities/index.css$": "website-utilities/index.compiled.css"
+        "^jquery$": "jquery/dist/jquery.min.js"
       },
       "enforceDeduplication": true,
       "optimizer": {
@@ -156,9 +156,9 @@
         "cascadingStyleSheet": {
           "additional": {
             "plugins": {
-              "pre": [
-                "require('postcss-mixins')"
-              ]
+              "pre": {
+                "__append__": "require('postcss-mixins')"
+              }
             }
           }
         },
