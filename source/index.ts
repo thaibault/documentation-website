@@ -35,9 +35,8 @@ declare const LANGUAGES:Array<string>
  * the initializer method.
  * @property static:_commonOptions.onExamplesLoaded {Function} - Callback to
  * trigger when all example loaded.
- * @property static:_commonOptions.domNodeSelectorPrefix {string} - Something
- * like "body.{1}" which resolves to "body.documentationWebsite" e.g. depending
- * how given option "name" is specified.
+ * @property static:_commonOptions.domNodeSelectorInfix {string} - Something
+ * indicating controlled nodes.
  * @property static:_commonOptions.codeTableWrapper {string} - Markup to use as
  * wrapper for all code highlighted examples.
  * @property static:_commonOptions.showExample {Object} - Options object to
@@ -86,7 +85,7 @@ export class Documentation extends WebsiteUtilities {
             mainSection: '.main-content',
             tableOfContentLinks: '.toc ul li a[href^="#"]'
         } as DomNodes,
-        domNodeSelectorPrefix: 'body.{1}',
+        domNodeSelectorInfix: 'doc',
         name: 'Documentation',
         onExamplesLoaded: Tools.noop,
         section: {
@@ -145,6 +144,7 @@ export class Documentation extends WebsiteUtilities {
                 $.global.location.hash = this.$domNodes.homeLink.attr('href')!
 
             this.$domNodes.aboutThisWebsiteSection.hide()
+
             /*
                 NOTE: We have to render examples first to avoid having dots in
                 example code.
@@ -216,6 +216,7 @@ export class Documentation extends WebsiteUtilities {
             further controller logic.
         */
         this.$domNodes = this.grabDomNodes(this.options.domNodes)
+
         // New injected dom nodes may take affect on language handler.
         if (
             this.startUpAnimationIsComplete &&
@@ -420,6 +421,7 @@ export class Documentation extends WebsiteUtilities {
                     }
                 }
             })
+
         this.fireEvent('examplesLoaded')
     }
     // endregion
