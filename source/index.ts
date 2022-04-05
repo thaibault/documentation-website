@@ -159,7 +159,7 @@ export class Documentation extends WebsiteUtilities {
                     const hashReference:string|undefined =
                         $(event.target as HTMLLinkElement).attr('href')
                     if (hashReference && hashReference !== '#')
-                        this.$domNodes.window!
+                        $('html, body')
                             .stop()
                             .animate(
                                 {scrollTop: $(hashReference).offset()!.top},

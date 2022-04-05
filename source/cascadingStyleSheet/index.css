@@ -12,7 +12,7 @@ endregion */
 @import "pygment-vim-like-highlighting";
 @import "website-utilities/index.compiled.css";
 
-:root {
+.doc.wu {
     /* region constants */
     /** region color */
     --color1: #fff;
@@ -81,9 +81,6 @@ endregion */
     }
     /* stylelint-enable at-rule-no-unknown */
     /* endregion */
-}
-
-.doc {
     /* region global */
     /* stylelint-disable at-rule-no-unknown */
     @mixin codehilite;
@@ -409,7 +406,7 @@ endregion */
     /* endregion */
     /* region responsive */
     /** region extra extra small */
-    /* @media (--extra-extra-small) { */
+    /* TODO pre-process media of wu @media (--extra-extra-small) { */
     @media (min-width: 360px) {
         & header .inner .header-links {
             & .arrow-left-api,

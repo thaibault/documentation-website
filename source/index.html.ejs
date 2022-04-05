@@ -121,23 +121,23 @@ _%>
                 _%>
                             <a
                                 class="tools-hidden-on-javascript-disabled wu-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
-                                href="#language-<%- language %>"
+                                href="#lang-<%- language %>"
                             ><%- language.slice(0, 2) %></a>
                 <%_      }
                     if (API_DOCUMENTATION_PATH) {
                         START_UP_ANIMATION_NUMBER -= 1
                 _%>
                         <span
-                            class="arrow-left-api glyphicon glyphicon-arrow-left wu-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
+                            class="arrow-left-api icon-social glyphicon-arrow-left wu-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
                         ></span>
                         <%_ START_UP_ANIMATION_NUMBER -= 1 _%>
                         <a
                             class="api-link wu-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
                             href="<%- URL %><%- API_DOCUMENTATION_PATH %>"
                         >
-                            <langreplace>
+                            <lang-replace>
                                 API <span>Documentation</span>
-                            </langreplace>
+                            </lang-replace>
                             <!--deDE:API<span>-Dokumentation</span>-->
                             <!--frFR:<span>Documentation de l'</span>API-->
                         </a>
