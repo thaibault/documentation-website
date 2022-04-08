@@ -85,6 +85,7 @@
     "postcss-import": "<=12",
     "postcss-loader": "*",
     "postcss-mixins": "<=6",
+    "postcss-nested": "*",
     "postcss-preset-env": "*",
     "postcss-sprites": "*",
     "postcss-url": "<=9",
@@ -157,7 +158,10 @@
           "additional": {
             "plugins": {
               "pre": {
-                "__append__": "require('postcss-mixins')"
+                "__append__": [
+                  "require('postcss-mixins')",
+                  "require('postcss-nested')"
+                ]
               }
             }
           }
