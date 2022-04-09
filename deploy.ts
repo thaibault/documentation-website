@@ -17,6 +17,7 @@
     endregion
 */
 // region imports
+import Tools from 'clientnode'
 import {execSync} from 'child_process'
 import {basename, resolve} from 'path'
 // endregion
@@ -28,168 +29,167 @@ const run = (command:string, options = {}):string =>
 const DOCUMENTATION_BUILD_PATH = 'build/'
 const DATA_PATH = 'data/'
 const API_DOCUMENTATION_PATHS = ['apiDocumentation/', '/api/']
-const API_DOCUMENTATION_PATH_SUFFIX = '{name}/{version}/'
+let API_DOCUMENTATION_PATH_SUFFIX = '${name}/${version}/'
 const DISTRIBUTION_BUNDLE_FILE_PATH = `${DATA_PATH}distributionBundle.zip`
-DISTRIBUTION_BUNDLE_DIRECTORY_PATH = '%sdistributionBundle' % DATA_PATH
+const DISTRIBUTION_BUNDLE_DIRECTORY_PATH = `${DATA_PATH}distributionBundle`
 /// endregion
-BUILD_DOCUMENTATION_PAGE_COMMAND = [
-    '/usr/bin/env', 'yarn', 'build', '{parameterFilePath}']
-BUILD_DOCUMENTATION_PAGE_PARAMETER_TEMPLATE = ('{{' +
+const BUILD_DOCUMENTATION_PAGE_COMMAND = [
+    '/usr/bin/env', 'yarn', 'build', '${parameterFilePath}'
+]
+const BUILD_DOCUMENTATION_PAGE_PARAMETER_TEMPLATE =
+    '{{' +
     'module:{{preprocessor:{{ejs:{{options:{{locals:{serializedParameter}}}}}}}}},' +
-    # NOTE: We habe to disable offline features since the domains cache is
-    # already in use for the main home page.
+    /*
+        NOTE: We habe to disable offline features since the domains cache is
+        already in use for the main home page.
+    */
     'offline:null' +
-    '}}')
-CONTENT = ''
-DOCUMENTATION_REPOSITORY = 'git@github.com:"thaibault/documentationWebsite"'
-MARKDOWN_EXTENSIONS = (
-    'toc', 'codehilite', 'extra', 'headerid', 'meta', 'sane_lists', 'wikilinks'
-)  # , 'nl2br')
-PROJECT_PAGE_COMMIT_MESSAGE = 'Update project homepage content.'
-SCOPE = {'name': '__dummy__', 'version': '1.0.0'}
+    '}}'
+const CONTENT = ''
+const DOCUMENTATION_REPOSITORY = 'git@github.com:"thaibault/documentationWebsite"'
+const MARKDOWN_EXTENSIONS = [
+    'toc',
+    'codehilite',
+    'extra',
+    'headerid',
+    'meta',
+    'sane_lists',
+    'wikilinks',
+    'nl2br'
+]
+const PROJECT_PAGE_COMMIT_MESSAGE = 'Update project homepage content.'
+let SCOPE = {name: '__dummy__', version: '1.0.0'}
 // endregion
 
-# region functions
-def main() -> None:
-    '''Entry point for this script.'''
-    global API_DOCUMENTATION_PATH_SUFFIX, CONTENT, SCOPE
+if (
+    run('git branch').includes('* master') && 
+    run('/usr/bin/env git branch --all').includes('gh-pages')
+) {
+    try {
+        SCOPE = require('./package.json)
+    } catch (error) {
+        // Use default scope.
+    }
 
-    if markdown is None:
-        logging.critical(
-            "You haven't install a suitable markdown version. Documentation "
-            "couldn't be updated."
-        )
+    API_DOCUMENTATION_PATH_SUFFIX = Tools.stringEvaluate(
+        API_DOCUMENTATION_PATH_SUFFIX, SCOPE
+    ).result
 
-        return None
+    // TODO
+    const temporary_documentation_folder = FileHandler(
+        location=DOCUMENTATION_REPOSITORY[DOCUMENTATION_REPOSITORY.find(
+            '/'
+        ) + 1:-1])
+    if temporary_documentation_folder:
+        temporary_documentation_folder.remove_deep()
+    __logger__.info('Compile all readme markdown files to html5.')
+    FileHandler().iterate_directory(function=add_readme, recursive=True)
+    CONTENT = markdown.markdown(
+        CONTENT, output='html5',
+        extensions=builtins.list(MARKDOWN_EXTENSIONS))
+    distribution_bundle_file = create_distribution_bundle_file()
+    if distribution_bundle_file is not None:
+        data_location = FileHandler(location=DATA_PATH)
+        data_location.make_directories()
+        distribution_bundle_file.directory = data_location
+    has_api_documentation = SCOPE['scripts'].get('document', False)
+    if has_api_documentation:
+        has_api_documentation = Platform.run(
+            '/usr/bin/env yarn document', error=False, log=True
+        )['return_code'] == 0
+    if Platform.run(
+        ('/usr/bin/env git checkout gh-pages', '/usr/bin/env git pull'),
+        error=False, log=True
+    )['return_code'][0] == 0:
+        existing_api_documentation_directory = FileHandler(location='.%s' %
+            API_DOCUMENTATION_PATH[1])
+        if existing_api_documentation_directory.is_directory():
+            existing_api_documentation_directory.remove_deep()
+        FileHandler(location=API_DOCUMENTATION_PATH[0]).path = \
+            existing_api_documentation_directory
+        local_documentation_website_location = FileHandler(
+            location='../%s' % temporary_documentation_folder.name)
+        if local_documentation_website_location.is_directory():
+            temporary_documentation_folder.make_directories()
+            local_documentation_website_location.iterate_directory(
+                function=copy_repository_file, recursive=True,
+                source=local_documentation_website_location,
+                target=temporary_documentation_folder)
+            node_modules_directory = FileHandler(location='%s%s' % (
+                local_documentation_website_location.path, 'node_modules'))
+            if node_modules_directory.is_directory():
+                temporary_documentation_node_modules_directory = \
+                    FileHandler('%snode_modules' %
+                        temporary_documentation_folder.path)
+                '''
+                    NOTE: Symlinking doesn't work since some node modules
+                    need the right absolute location to work.
 
-    // if (run('git branch').includes('* master')) {
-    if (
-        '* master' in Platform.run('/usr/bin/env git branch')[
-            'standard_output'
-        ] and
-        'gh-pages' in Platform.run('/usr/bin/env git branch --all')[
-            'standard_output'
-        ]
-    ):
-        package_file = FileHandler('package.json')
-        if package_file.is_file():
-            SCOPE = json.loads(package_file.content)
-        API_DOCUMENTATION_PATH_SUFFIX = API_DOCUMENTATION_PATH_SUFFIX.format(
-            **SCOPE)
-        temporary_documentation_folder = FileHandler(
-            location=DOCUMENTATION_REPOSITORY[DOCUMENTATION_REPOSITORY.find(
-                '/'
-            ) + 1:-1])
-        if temporary_documentation_folder:
-            temporary_documentation_folder.remove_deep()
-        __logger__.info('Compile all readme markdown files to html5.')
-        FileHandler().iterate_directory(function=add_readme, recursive=True)
-        CONTENT = markdown.markdown(
-            CONTENT, output='html5',
-            extensions=builtins.list(MARKDOWN_EXTENSIONS))
-        distribution_bundle_file = create_distribution_bundle_file()
-        if distribution_bundle_file is not None:
-            data_location = FileHandler(location=DATA_PATH)
-            data_location.make_directories()
-            distribution_bundle_file.directory = data_location
-        has_api_documentation = SCOPE['scripts'].get('document', False)
-        if has_api_documentation:
-            has_api_documentation = Platform.run(
-                '/usr/bin/env yarn document', error=False, log=True
-            )['return_code'] == 0
-        if Platform.run(
-            ('/usr/bin/env git checkout gh-pages', '/usr/bin/env git pull'),
-            error=False, log=True
-        )['return_code'][0] == 0:
-            existing_api_documentation_directory = FileHandler(location='.%s' %
-                API_DOCUMENTATION_PATH[1])
-            if existing_api_documentation_directory.is_directory():
-                existing_api_documentation_directory.remove_deep()
-            FileHandler(location=API_DOCUMENTATION_PATH[0]).path = \
-                existing_api_documentation_directory
-            local_documentation_website_location = FileHandler(
-                location='../%s' % temporary_documentation_folder.name)
-            if local_documentation_website_location.is_directory():
-                temporary_documentation_folder.make_directories()
-                local_documentation_website_location.iterate_directory(
-                    function=copy_repository_file, recursive=True,
-                    source=local_documentation_website_location,
-                    target=temporary_documentation_folder)
-                node_modules_directory = FileHandler(location='%s%s' % (
-                    local_documentation_website_location.path, 'node_modules'))
-                if node_modules_directory.is_directory():
-                    temporary_documentation_node_modules_directory = \
-                        FileHandler('%snode_modules' %
-                            temporary_documentation_folder.path)
-                    '''
-                        NOTE: Symlinking doesn't work since some node modules
-                        need the right absolute location to work.
+                    node_modules_directory.make_symbolic_link(
+                        target='%s%s' % (
+                            temporary_documentation_folder, 'node_modules')
+                    )
+                    return_code = 0
 
-                        node_modules_directory.make_symbolic_link(
-                            target='%s%s' % (
-                                temporary_documentation_folder, 'node_modules')
-                        )
-                        return_code = 0
+                    NOTE: Coping complete "node_modules" folder takes to
+                    long.
 
-                        NOTE: Coping complete "node_modules" folder takes to
-                        long.
+                    node_modules_directory.copy(target='%s%s' % (
+                        temporary_documentation_folder, 'node_modules'))
+                    return_code = 0
 
-                        node_modules_directory.copy(target='%s%s' % (
-                            temporary_documentation_folder, 'node_modules'))
-                        return_code = 0
+                    NOTE: Mounting "node_modules" folder needs root
+                    privileges.
 
-                        NOTE: Mounting "node_modules" folder needs root
-                        privileges.
-
-                        temporary_documentation_node_modules_directory\
-                            .make_directory(right=777)
-                        return_code = Platform.run(
-                            "/usr/bin/env sudo mount --bind --options ro '%s' "
-                            "'%s'" % (
-                                node_modules_directory.path,
-                                temporary_documentation_node_modules_directory.path
-                            ), native_shell=True, error=False, log=True
-                        )['return_code']
-                    '''
+                    temporary_documentation_node_modules_directory\
+                        .make_directory(right=777)
                     return_code = Platform.run(
-                        "/usr/bin/env cp --dereference --recursive --reflink=auto '%s' '%s'" % (
+                        "/usr/bin/env sudo mount --bind --options ro '%s' "
+                        "'%s'" % (
                             node_modules_directory.path,
                             temporary_documentation_node_modules_directory.path
-                        ),
-                        native_shell=True,
-                        error=False,
-                        log=True
+                        ), native_shell=True, error=False, log=True
                     )['return_code']
-                else:
-                    return_code = Platform.run(
-                        '/usr/bin/env yarn --production=false',
-                        native_shell=True,
-                        error=False,
-                        log=True
-                    )['return_code']
-                if return_code == 0:
-                    current_working_directory_backup = FileHandler()
-                    temporary_documentation_folder.change_working_directory()
-                    return_code = Platform.run(
-                        '/usr/bin/env yarn clear', native_shell=True,
-                        error=False, log=True
-                    )['return_code']
-                    current_working_directory_backup.change_working_directory()
+                '''
+                return_code = Platform.run(
+                    "/usr/bin/env cp --dereference --recursive --reflink=auto '%s' '%s'" % (
+                        node_modules_directory.path,
+                        temporary_documentation_node_modules_directory.path
+                    ),
+                    native_shell=True,
+                    error=False,
+                    log=True
+                )['return_code']
             else:
-                return_code = Platform.run((
-                    'unset GIT_WORK_TREE; /usr/bin/env git clone %s;'
-                    'yarn --production=false'
-                ) % DOCUMENTATION_REPOSITORY, native_shell=True, error=False,
-                log=True)['return_code']
+                return_code = Platform.run(
+                    '/usr/bin/env yarn --production=false',
+                    native_shell=True,
+                    error=False,
+                    log=True
+                )['return_code']
             if return_code == 0:
-                generate_and_push_new_documentation_page(
-                    temporary_documentation_folder,
-                    distribution_bundle_file,
-                    has_api_documentation,
-                    temporary_documentation_node_modules_directory)
-            if existing_api_documentation_directory.is_directory():
-                existing_api_documentation_directory.remove_deep()
-
+                current_working_directory_backup = FileHandler()
+                temporary_documentation_folder.change_working_directory()
+                return_code = Platform.run(
+                    '/usr/bin/env yarn clear', native_shell=True,
+                    error=False, log=True
+                )['return_code']
+                current_working_directory_backup.change_working_directory()
+        else:
+            return_code = Platform.run((
+                'unset GIT_WORK_TREE; /usr/bin/env git clone %s;'
+                'yarn --production=false'
+            ) % DOCUMENTATION_REPOSITORY, native_shell=True, error=False,
+            log=True)['return_code']
+        if return_code == 0:
+            generate_and_push_new_documentation_page(
+                temporary_documentation_folder,
+                distribution_bundle_file,
+                has_api_documentation,
+                temporary_documentation_node_modules_directory)
+        if existing_api_documentation_directory.is_directory():
+            existing_api_documentation_directory.remove_deep()
+}
 
 @JointPoint
 # # python3.5
@@ -409,23 +409,7 @@ def add_readme(file):
                 CONTENT += '\n'
             CONTENT += file.content
         return True
-# endregion
-
-# region footer
-'''
-    Preset some variables given by introspection letting the linter know what \
-    globale variables are available.
-'''
-__logger__ = __exception__ = __module_name__ = __file_path__ = \
-    __test_mode__ = __test_buffer__ = __test_folder__ = __test_globals__ = None
-'''
-    Extends this module with some magic environment variables to provide \
-    better introspection support. A generic command line interface for some \
-    code preprocessing tools is provided by default.
-'''
-Module.default(name=__name__, frame=inspect.currentframe())
-# endregion
-# region vim modline
-# vim: set tabstop=4 shiftwidth=4 expandtab:
-# vim: foldmethod=marker foldmarker=region,endregion:
-# endregion
+// region vim modline
+// vim: set tabstop=4 shiftwidth=4 expandtab:
+// vim: foldmethod=marker foldmarker=region,endregion:
+// endregion
