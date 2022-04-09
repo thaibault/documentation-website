@@ -1,78 +1,37 @@
-#!/usr/bin/env python2.7
-# -*- coding: utf-8 -*-
+// #!/usr/bin/env babel-node
+// -*- coding: utf-8 -*-
+/** @module deploy */
+'use strict'
+/* !
+    region header
+    [Project page](https://torben.website/website-utilities)
 
-# region header
-'''
-    This script is indented to use as "post-commit" hook for any git \
-    repository with a page branch.
-'''
+    Copyright Torben Sickert (info["~at~"]torben.website) 16.12.2012
 
-# # python3.5
-# # pass
-from __future__ import absolute_import, division, print_function, \
-    unicode_literals
-# #
+    License
+    -------
 
-'''
-    For conventions see "boostnode/__init__.py" on \
-    https://github.com/thaibault/boostnode
-'''
+    This library written by Torben Sickert stand under a creative commons
+    naming 3.0 unported license.
+    See https://creativecommons.org/licenses/by/3.0/deed.de
+    endregion
+*/
+// region imports
+import {execSync} from 'child_process'
+import {basename, resolve} from 'path'
+// endregion
+const run = (command:string, options = {}):string =>
+    execSync(command, {encoding: 'utf-8', shell: '/bin/bash', ...options})
 
-__author__ = 'Torben Sickert'
-__copyright__ = 'see boostnode/__init__.py'
-__credits__ = 'Torben Sickert',
-__license__ = 'see boostnode/__init__.py'
-__maintainer__ = 'Torben Sickert'
-__maintainer_email__ = 'info["~at~"]torben.website'
-__status__ = 'stable'
-__version__ = '1.0'
-
-# # python3.5
-# # import builtins
-import __builtin__ as builtins
-# #
-import inspect
-import json
-import logging
-try:
-    import markdown
-except builtins.ImportError:
-    markdown = None
-import os
-import sys
-from tempfile import mkstemp as make_secure_temporary_file
-import zipfile
-
-sys.path.append(os.environ['ILU_PUBLIC_REPOSITORY_PATH'])
-
-# # python3.5 from boostnode.aspect.signature import add_check as add_signature_check
-pass
-from boostnode.extension.file import Handler as FileHandler
-from boostnode.extension.native import Dictionary, Module, String
-from boostnode.extension.system import CommandLine, Platform
-from boostnode.paradigm.aspectOrientation import JointPoint
-
-
-# # python3.5
-# # if sys.flags.optimize:
-# #     '''
-# #         Add signature checking for all functions and methods with joint \
-# #         points in this module.
-# #     '''
-# #     add_signature_check(point_cut='%s\..+' % Module.get_name(
-# #         frame=inspect.currentframe()))
-pass
-# #
-# endregion
-# region globals
-## region locations
-DOCUMENTATION_BUILD_PATH = 'build/'
-DATA_PATH = 'data/'
-API_DOCUMENTATION_PATH = 'apiDocumentation/', '/api/'
-API_DOCUMENTATION_PATH_SUFFIX = '{name}/{version}/'
-DISTRIBUTION_BUNDLE_FILE_PATH = '%sdistributionBundle.zip' % DATA_PATH
+// region globals
+/// region locations
+const DOCUMENTATION_BUILD_PATH = 'build/'
+const DATA_PATH = 'data/'
+const API_DOCUMENTATION_PATHS = ['apiDocumentation/', '/api/']
+const API_DOCUMENTATION_PATH_SUFFIX = '{name}/{version}/'
+const DISTRIBUTION_BUNDLE_FILE_PATH = `${DATA_PATH}distributionBundle.zip`
 DISTRIBUTION_BUNDLE_DIRECTORY_PATH = '%sdistributionBundle' % DATA_PATH
-## endregion
+/// endregion
 BUILD_DOCUMENTATION_PAGE_COMMAND = [
     '/usr/bin/env', 'yarn', 'build', '{parameterFilePath}']
 BUILD_DOCUMENTATION_PAGE_PARAMETER_TEMPLATE = ('{{' +
@@ -88,26 +47,30 @@ MARKDOWN_EXTENSIONS = (
 )  # , 'nl2br')
 PROJECT_PAGE_COMMIT_MESSAGE = 'Update project homepage content.'
 SCOPE = {'name': '__dummy__', 'version': '1.0.0'}
-# endregion
-
+// endregion
 
 # region functions
-@JointPoint
-# # python3.5 def main() -> None:
-def main():
+def main() -> None:
     '''Entry point for this script.'''
     global API_DOCUMENTATION_PATH_SUFFIX, CONTENT, SCOPE
+
     if markdown is None:
-        __logger__.critical(
+        logging.critical(
             "You haven't install a suitable markdown version. Documentation "
-            "couldn't be updated.")
+            "couldn't be updated."
+        )
+
         return None
-    CommandLine.argument_parser(module_name=__name__)
-    if '* master' in Platform.run('/usr/bin/env git branch')[
-        'standard_output'
-    ] and 'gh-pages' in Platform.run('/usr/bin/env git branch --all')[
-        'standard_output'
-    ]:
+
+    // if (run('git branch').includes('* master')) {
+    if (
+        '* master' in Platform.run('/usr/bin/env git branch')[
+            'standard_output'
+        ] and
+        'gh-pages' in Platform.run('/usr/bin/env git branch --all')[
+            'standard_output'
+        ]
+    ):
         package_file = FileHandler('package.json')
         if package_file.is_file():
             SCOPE = json.loads(package_file.content)

@@ -20,12 +20,13 @@
     "url": "https://torben.website"
   },
   "files": [
-    "index.py",
+    "deploy.js",
+    "deploy.d.ts",
     "source"
   ],
   "main": "source/index.html.ejs",
   "bin": {
-    "documentation-website": "index.py"
+    "documentation-website": "deploy.js"
   },
   "repository": {
     "type": "git",
