@@ -75,18 +75,22 @@ if (
         API_DOCUMENTATION_PATH_SUFFIX, SCOPE
     ).result
 
+    const temporaryDocumentationFolderPath = 'documentationWebsite'
+    if (await Tools.isDirectory(temporaryDocumentationFolderPath))
+        run(`rm --force --recursive '${temporaryDocumentationFolderPath}'`)
+
+    console.info('Compile all readme markdown files to html.')
+
+    for (const filePath of await Tools.walkDirectoryRecursively('./'))
+        addReadme(filePath)
+
     // TODO
-    const temporary_documentation_folder = FileHandler(
-        location=DOCUMENTATION_REPOSITORY[DOCUMENTATION_REPOSITORY.find(
-            '/'
-        ) + 1:-1])
-    if temporary_documentation_folder:
-        temporary_documentation_folder.remove_deep()
-    __logger__.info('Compile all readme markdown files to html5.')
-    FileHandler().iterate_directory(function=add_readme, recursive=True)
     CONTENT = markdown.markdown(
-        CONTENT, output='html5',
-        extensions=builtins.list(MARKDOWN_EXTENSIONS))
+        CONTENT,
+        output='html5',
+        extensions=builtins.list(MARKDOWN_EXTENSIONS)
+    )
+
     distribution_bundle_file = create_distribution_bundle_file()
     if distribution_bundle_file is not None:
         data_location = FileHandler(location=DATA_PATH)
@@ -395,20 +399,19 @@ def copy_repository_file(file, source, target):
         return True
 
 
-@JointPoint
-# # python3.5
-# # def add_readme(file: FileHandler) -> (builtins.bool, builtins.type(None)):
-def add_readme(file):
-# #
+const add_readme = (filePath:string):boolean => {
     '''Merges all readme file.'''
     global CONTENT
+
     if not is_file_ignored(file):
         if file.basename == 'readme':
             __logger__.info('Handle "%s".', file.path)
             if CONTENT:
                 CONTENT += '\n'
             CONTENT += file.content
+
         return True
+}
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
 // vim: foldmethod=marker foldmarker=region,endregion:
