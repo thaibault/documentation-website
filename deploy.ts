@@ -19,8 +19,78 @@
 // region imports
 import Tools from 'clientnode'
 import {execSync} from 'child_process'
+import {marked} from 'marked'
 import {basename, resolve} from 'path'
+import pygmentize from 'pygmentize-bundled'
 // endregion
+marked.use({
+    pedantic: false,
+    gfm: true,
+    breaks: false,
+    sanitize: false,
+    smartLists: true,
+    smartypants: false,
+    xhtml: false
+
+    // A prefix url for any relative link.
+    baseUrl: '',
+    // If true, add <br> on a single line break (copies GitHub behavior on
+    // comments, but not on rendered markdown files). Requires gfm be true.
+    breaks: false,
+    // If true, use approved GitHub Flavored Markdown (GFM) specification.
+    gfm: true,
+    // If true, include an id attribute when emitting headings (h1, h2, h3,
+    // etc).
+    headerIds: true,
+    // A string to prefix the id attribute when emitting headings (h1, h2, h3,
+    // etc).
+    headerPrefix: 'doc-',
+    // A function to highlight code blocks, see Asynchronous highlighting.
+    highlight: (
+        code:string,
+        language:string,
+        callback:(error?:Error, result:string) => void
+    ) => {
+        pygmentize(
+           {lang: language, format: 'html'},
+           code,
+           (error?:Error, result:unknown):void => {
+               callback(error, result.toString())
+           }
+        )
+    },
+    // A string to prefix the className in a <code> block. Useful for syntax
+    // highlighting.
+    langPrefix: 'language-',
+    // If true, autolinked email address is escaped with HTML character
+    // references.
+    mangle: true,
+    // If true, conform to the original markdown.pl as much as possible. Don't
+    // fix original markdown bugs or behavior. Turns off and overrides gfm.
+    pedantic: false,
+    // An object containing functions to render tokens to HTML. See
+    // extensibility for more details.
+    // // renderer: new Renderer(),
+    // A function to sanitize the HTML passed into markdownString.
+    sanitizer: null,
+    // If true, the parser does not throw any exception.
+    silent: false,
+    // If true, use smarter list behavior than those found in markdown.pl.
+    smartLists: true,
+    // If true, use "smart" typographic punctuation for things like quotes and
+    // dashes.
+    smartypants: true,
+    // An object containing functions to create tokens from markdown. See
+    // extensibility for more details.
+    // tokenizer: new Tokenizer(),
+    // A function which is called for every token. See extensibility for more
+    // details.
+    walkTokens: null,
+    // If true, emit self-closing HTML tags for void elements (<br/>, <img/>,
+    // etc.) with a "/" as required by XHTML.
+    xhtml: true
+})
+
 const run = (command:string, options = {}):string =>
     execSync(command, {encoding: 'utf-8', shell: '/bin/bash', ...options})
 
@@ -84,18 +154,16 @@ if (
     for (const filePath of await Tools.walkDirectoryRecursively('./'))
         addReadme(filePath)
 
-    // TODO
-    CONTENT = markdown.markdown(
-        CONTENT,
-        output='html5',
-        extensions=builtins.list(MARKDOWN_EXTENSIONS)
-    )
+    CONTENT = marked.parse(CONTENT)
 
-    distribution_bundle_file = create_distribution_bundle_file()
-    if distribution_bundle_file is not None:
+    // TODO
+    distribution_bundle_file_path = create_distribution_bundle_file()
+    if await Tools.isFile(distribution_bundle_file_path) {
         data_location = FileHandler(location=DATA_PATH)
         data_location.make_directories()
         distribution_bundle_file.directory = data_location
+    }
+
     has_api_documentation = SCOPE['scripts'].get('document', False)
     if has_api_documentation:
         has_api_documentation = Platform.run(
