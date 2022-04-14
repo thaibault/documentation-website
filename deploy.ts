@@ -17,21 +17,15 @@
     endregion
 */
 // region imports
-import Tools from 'clientnode'
 import {execSync} from 'child_process'
+import Tools from 'clientnode'
+import {createReadStream, createWriteStream} from 'fs'
 import {marked} from 'marked'
 import {basename, resolve} from 'path'
 import pygmentize from 'pygmentize-bundled'
+import {createGunzip} from 'zlib'
 // endregion
 marked.use({
-    pedantic: false,
-    gfm: true,
-    breaks: false,
-    sanitize: false,
-    smartLists: true,
-    smartypants: false,
-    xhtml: false
-
     // A prefix url for any relative link.
     baseUrl: '',
     // If true, add <br> on a single line break (copies GitHub behavior on
@@ -133,10 +127,10 @@ let SCOPE = {name: '__dummy__', version: '1.0.0'}
 
 if (
     run('git branch').includes('* master') && 
-    run('/usr/bin/env git branch --all').includes('gh-pages')
+    run('git branch --all').includes('gh-pages')
 ) {
     try {
-        SCOPE = require('./package.json)
+        SCOPE = require('./package.json')
     } catch (error) {
         // Use default scope.
     }
@@ -156,158 +150,157 @@ if (
 
     CONTENT = marked.parse(CONTENT)
 
-    // TODO
-    distribution_bundle_file_path = create_distribution_bundle_file()
-    if await Tools.isFile(distribution_bundle_file_path) {
-        data_location = FileHandler(location=DATA_PATH)
-        data_location.make_directories()
-        distribution_bundle_file.directory = data_location
+    distributionBundleFilePath = createDistributionBundleFile()
+    if (await Tools.isFile(distributionBundleFilePath)) {
+        run(`mkdir --parents '${DATA_PATH}'`)
+        run(`mv '${distributionBundleFilePath' '${data_location}'`)
     }
 
-    has_api_documentation = SCOPE['scripts'].get('document', False)
-    if has_api_documentation:
-        has_api_documentation = Platform.run(
-            '/usr/bin/env yarn document', error=False, log=True
-        )['return_code'] == 0
-    if Platform.run(
-        ('/usr/bin/env git checkout gh-pages', '/usr/bin/env git pull'),
-        error=False, log=True
-    )['return_code'][0] == 0:
-        existing_api_documentation_directory = FileHandler(location='.%s' %
-            API_DOCUMENTATION_PATH[1])
-        if existing_api_documentation_directory.is_directory():
-            existing_api_documentation_directory.remove_deep()
-        FileHandler(location=API_DOCUMENTATION_PATH[0]).path = \
-            existing_api_documentation_directory
-        local_documentation_website_location = FileHandler(
-            location='../%s' % temporary_documentation_folder.name)
-        if local_documentation_website_location.is_directory():
-            temporary_documentation_folder.make_directories()
-            local_documentation_website_location.iterate_directory(
-                function=copy_repository_file, recursive=True,
-                source=local_documentation_website_location,
-                target=temporary_documentation_folder)
-            node_modules_directory = FileHandler(location='%s%s' % (
-                local_documentation_website_location.path, 'node_modules'))
-            if node_modules_directory.is_directory():
-                temporary_documentation_node_modules_directory = \
-                    FileHandler('%snode_modules' %
-                        temporary_documentation_folder.path)
-                '''
-                    NOTE: Symlinking doesn't work since some node modules
-                    need the right absolute location to work.
+    let hasAPIDocumentationCommand =
+        SCOPE.scripts &&
+        Object.prototype.hasOwnProperty.call(SCOPE.scripts, 'document')
+    if (hasAPIDocumentationCommand)
+        try {
+            run('yarn document')
+        } catch (error) {
+            hasAPIDocumentationCommand = false
+        }
 
-                    node_modules_directory.make_symbolic_link(
-                        target='%s%s' % (
-                            temporary_documentation_folder, 'node_modules')
-                    )
-                    return_code = 0
+    run('git checkout gh-pages')
+    run('git pull')
 
-                    NOTE: Coping complete "node_modules" folder takes to
-                    long.
+    const apiDocumentationDirectoryPath = `.${API_DOCUMENTATION_PATHS[1]}`
+    if (await Tools.isDirectory(apiDocumentationDirectoryPath))
+        run(`rm --force --recursive '${apiDocumentationDirectoryPath}'`)
 
-                    node_modules_directory.copy(target='%s%s' % (
-                        temporary_documentation_folder, 'node_modules'))
-                    return_code = 0
+    run(
+        `mv '${API_DOCUMENTATION_PATHS[0]}' '${apiDocumentationDirectoryPath}'`
+    )
 
-                    NOTE: Mounting "node_modules" folder needs root
-                    privileges.
+    const localDocumentationWebsitePath =
+        `../${basename(temporaryDocumentationFolderPath)}`
+    if (await Tools.isDirectory(localDocumentationWebsitePath)) {
+        run(`mkdir --parents '${temporaryDocumentationFolderPath}'`)
 
-                    temporary_documentation_node_modules_directory\
-                        .make_directory(right=777)
-                    return_code = Platform.run(
-                        "/usr/bin/env sudo mount --bind --options ro '%s' "
-                        "'%s'" % (
-                            node_modules_directory.path,
-                            temporary_documentation_node_modules_directory.path
-                        ), native_shell=True, error=False, log=True
-                    )['return_code']
-                '''
-                return_code = Platform.run(
-                    "/usr/bin/env cp --dereference --recursive --reflink=auto '%s' '%s'" % (
-                        node_modules_directory.path,
-                        temporary_documentation_node_modules_directory.path
-                    ),
-                    native_shell=True,
-                    error=False,
-                    log=True
-                )['return_code']
-            else:
-                return_code = Platform.run(
-                    '/usr/bin/env yarn --production=false',
-                    native_shell=True,
-                    error=False,
-                    log=True
-                )['return_code']
-            if return_code == 0:
-                current_working_directory_backup = FileHandler()
-                temporary_documentation_folder.change_working_directory()
-                return_code = Platform.run(
-                    '/usr/bin/env yarn clear', native_shell=True,
-                    error=False, log=True
-                )['return_code']
-                current_working_directory_backup.change_working_directory()
-        else:
-            return_code = Platform.run((
-                'unset GIT_WORK_TREE; /usr/bin/env git clone %s;'
-                'yarn --production=false'
-            ) % DOCUMENTATION_REPOSITORY, native_shell=True, error=False,
-            log=True)['return_code']
-        if return_code == 0:
-            generate_and_push_new_documentation_page(
-                temporary_documentation_folder,
-                distribution_bundle_file,
-                has_api_documentation,
-                temporary_documentation_node_modules_directory)
-        if existing_api_documentation_directory.is_directory():
-            existing_api_documentation_directory.remove_deep()
+        for (const filePath of await Tools.walkDirectoryRecursively(
+            localDocumentationWebsitePath
+        ))
+            copyRepositoryFile(
+                filePath, resolve(temporaryDocumentationFolderPath, filePath)
+            )
+
+        const nodeModulesDirectoryPath =
+            resolve(localDocumentationWebsitePath, 'node_modules')
+        if (await Tools.isDirectory(nodeModulesDirectoryPath)) {
+            temporaryDocumentationNodeModulesDirectoryPath =
+                resolve(temporaryDocumentationFolderPath, 'node_modules')
+            /*
+                We copy just recursively reference files.
+
+                NOTE: Symlinking doesn't work since some node modules
+                need the right absolute location to work.
+
+                NOTE: Coping complete "node_modules" folder takes to
+                long.
+
+                NOTE: Mounting "node_modules" folder needs root
+                privileges.
+            */
+            run(`
+                cp
+                --dereference
+                --recursive
+                --reflink=auto
+                '${nodeModulesDirectoryPath}'
+                '${temporaryDocumentationNodeModulesDirectoryPath}'
+            `)
+        } else:
+            run('yarn --production=false')
+
+        const currentWorkingDirectoryPathBackup = './'
+
+        run('yarn clear', {cwd: temporaryDocumentationFolderPath})
+    } else
+        run(`
+            unset GIT_WORK_TREE;
+            git clone '${DOCUMENTATION_REPOSITORY}';
+            yarn --production=false
+        `)
+
+    generateAndPushNewDocumentationPage(
+        temporaryDocumentationFolderPath,
+        distributionBundleFilePath,
+        hasAPIDocumentation,
+        temporaryDocumentationNodeModulesDirectoryPath
+    )
+
+    if (await Tools.isDirectory(existingAPIDocumentationDirectoryPath)
+        run(`
+            rm
+                --force
+                --recursively
+                '${existingAPIDocumentationDirectoryPath}'
+        `)
 }
 
-@JointPoint
-# # python3.5
-# # def generate_and_push_new_documentation_page(
-# #     temporary_documentation_folder: FileHandler,
-# #     distribution_bundle_file: (FileHandler, builtins.type(None)),
-# #     has_api_documentation: builtins.bool,
-# #     temporary_documentation_node_modules_directory: FileHandler
-# # ) -> None:
-def generate_and_push_new_documentation_page(
-    temporary_documentation_folder,
-    distribution_bundle_file,
-    has_api_documentation,
-    temporary_documentation_node_modules_directory
-):
-# #
-    '''
-        Renders a new index.html file and copies new assets to generate a new \
-        documentation homepage.
-    '''
-    global BUILD_DOCUMENTATION_PAGE_COMMAND
-    __logger__.info('Update documentation design.')
-    if distribution_bundle_file:
-        new_distribution_bundle_file = FileHandler(location='%s%s%s' % (
-            temporary_documentation_folder.path, DOCUMENTATION_BUILD_PATH,
-            DISTRIBUTION_BUNDLE_FILE_PATH))
-        new_distribution_bundle_file.directory.make_directories()
-        distribution_bundle_file.path = new_distribution_bundle_file
-        new_distribution_bundle_directory = FileHandler(location='%s%s%s' % (
-            temporary_documentation_folder.path, DOCUMENTATION_BUILD_PATH,
-            DISTRIBUTION_BUNDLE_DIRECTORY_PATH))
-        new_distribution_bundle_directory.make_directories()
-        zipfile.ZipFile(distribution_bundle_file.path).extractall(
-            new_distribution_bundle_directory.path)
-    favicon = FileHandler(location='favicon.png')
-    if favicon:
-        favicon.copy(target='%s/source/image/favicon.ico' %
-            temporary_documentation_folder.path)
-    parameter = builtins.dict(builtins.map(lambda item: (
-        String(item[0]).camel_case_to_delimited.content.upper(), item[1]
-    ), SCOPE.get('documentationWebsite', {}).items()))
+/**
+ * Renders a new index.html file and copies new assets to generate a new
+ * documentation homepage.
+ */
+const generateAndPushNewDocumentationPage(
+    temporaryDocumentationFolderPath:string,
+    distributionBundleFilePath:null|string,
+    hasAPIDocumentation:boolean,
+    temporaryDocumentationNodeModulesDirectoryPath:string
+):void => {
+    console.info('Update documentation design.')
+
+    if (distributionBundleFilePath) {
+        const newDistributionBundleFilePath =
+            temporaryDocumentationFolderPath +
+            DOCUMENTATION_BUILD_PATH +
+            DISTRIBUTION_BUNDLE_FILE_PATH
+
+        run(`mkdir --parents '${newDistributionBundleFilePath}'`)
+        run(`
+            mv
+                '${distributionBundleFilePath}'
+                '${newDistributionBundleFilePath}'`
+        )
+
+        const newDistributionBundleDirectoryPath =
+            temporaryDocumentationFolderPath +
+            DOCUMENTATION_BUILD_PATH +
+            DISTRIBUTION_BUNDLE_DIRECTORY_PATH
+
+        run(`mkdir --parents '${newDistributionBundleDirectoryPath}'`)
+
+        createReadStream(distributionBundleFilePath)
+            .pipe(createGunzip())
+            .pipe(createWriteStream(newDistributionBundleDirectoryPath))
+    }
+
+    const faviconPath = 'favicon.png'
+    if (await Tools.isFile(favicon))
+        run(`
+            cp
+                '${faviconPath}'
+                '${temporaryDocumentationFolderPath}/source/image/favicon.ico'
+        `)
+
+    const parameter:Mapping<unknown> = {}
+    // TODO
+    for (const key, value of Object.entries(SCOPE.documentationWebsite || {}))
+        parameter = builtins.dict(builtins.map(lambda item: (
+            String(item[0]).camel_case_to_delimited.content.upper(), item[1]
+        ), SCOPE.get('documentationWebsite', {}).items()))
     if 'TAGLINE' not in parameter and 'description' in SCOPE:
         parameter['TAGLINE'] = SCOPE['description']
     if 'NAME' not in parameter and 'name' in SCOPE:
         parameter['NAME'] = SCOPE['name']
-    __logger__.debug('Found parameter "%s".', json.dumps(parameter))
+
+    console.debug(`Found parameter "${Tools.represent(parameter)}".`)
+
     api_documentation_path = None
     if has_api_documentation:
         api_documentation_path = '%s%s' % (
@@ -394,7 +387,7 @@ def generate_and_push_new_documentation_page(
         error=False,
         log=True
     )
-
+}
 
 @JointPoint
 # # python3.5 def create_distribution_bundle_file() -> FileHandler:
