@@ -21,10 +21,12 @@ import {execSync} from 'child_process'
 import Tools from 'clientnode'
 import {Mapping} from 'clientnode/type'
 import {createReadStream, createWriteStream} from 'fs'
+import {writeFile} from 'fs/promises'
 import {marked} from 'marked'
 import {basename, resolve} from 'path'
 import pygmentize from 'pygmentize-bundled'
-import {createGunzip} from 'zlib'
+import {pipeline} from 'stream'
+import {createGunzip, createGzip} from 'zlib'
 // endregion
 marked.use({
     // A prefix url for any relative link.
@@ -98,18 +100,23 @@ let API_DOCUMENTATION_PATH_SUFFIX = '${name}/${version}/'
 const DISTRIBUTION_BUNDLE_FILE_PATH = `${DATA_PATH}distributionBundle.zip`
 const DISTRIBUTION_BUNDLE_DIRECTORY_PATH = `${DATA_PATH}distributionBundle`
 /// endregion
-const BUILD_DOCUMENTATION_PAGE_COMMAND = [
-    'yarn', 'build', '${parametersFilePath}'
-]
-const BUILD_DOCUMENTATION_PAGE_PARAMETER_TEMPLATE =
-    '{{' +
-    'module:{{preprocessor:{{ejs:{{options:{{locals:{serializedParameter}}}}}}}}},' +
+const BUILD_DOCUMENTATION_PAGE_COMMAND = 'yarn build ${parametersFilePath}'
+const BUILD_DOCUMENTATION_PAGE_CONFIGURATION = {
+    module: {
+        preprocessor: {
+            ejs: {
+                options: {
+                    locals: {__evaluate__: 'parameters'}
+                }
+            }
+        }
+    },
     /*
         NOTE: We habe to disable offline features since the domains cache is
         already in use for the main home page.
     */
-    'offline:null' +
-    '}}'
+    offline: null
+}
 const CONTENT = ''
 const DOCUMENTATION_REPOSITORY = 'git@github.com:"thaibault/documentationWebsite"'
 const MARKDOWN_EXTENSIONS = [
@@ -266,8 +273,8 @@ const async generateAndPushNewDocumentationPage(
         run(`
             mv
                 '${distributionBundleFilePath}'
-                '${newDistributionBundleFilePath}'`
-        )
+                '${newDistributionBundleFilePath}'
+        `)
 
         const newDistributionBundleDirectoryPath =
             temporaryDocumentationFolderPath +
@@ -322,48 +329,49 @@ const async generateAndPushNewDocumentationPage(
         if (typeof value === 'string')
             parameters[key] = value.replace('!', '#%%%#')
 
-    const serializedParameters:string = JSON.stringify(parameters)
-    // TODO
-    const parametersFilePath = FileHandler(location=make_secure_temporary_file('.json')[
-        1])
-    parametersFile.content = \
-        BUILD_DOCUMENTATION_PAGE_PARAMETER_TEMPLATE.format(
-            serializedParameter=serialized_parameter, **SCOPE)
-    for index, command in builtins.enumerate(BUILD_DOCUMENTATION_PAGE_COMMAND):
-        BUILD_DOCUMENTATION_PAGE_COMMAND[index] = \
-            BUILD_DOCUMENTATION_PAGE_COMMAND[index].format(
-                serializedParameter=serialized_parameter,
-                parameterFilePath=parameter_file._path,
-                **SCOPE)
+    const parametersFilePath:string = run('mktemp --suffix .json')
+    await writeFile(
+        parametersFilePath,
+        Tools.evaluateDynamicData(
+            BUILD_DOCUMENTATION_PAGE_CONFIGURATION, {parameters, ...SCOPE}
+        )
+    )
+    BUILD_DOCUMENTATION_PAGE_COMMAND = Tools.stringEvaluate(
+        BUILD_DOCUMENTATION_PAGE_COMMAND,
+        {parameters, parametersFilePath, ...SCOPE}
+    )
 
     console.debug(`Use parameters "${serializedParameters}".`)
-    console.info(`Run "${' '.join(BUILD_DOCUMENTATION_PAGE_COMMAND)}".`)
+    console.info(`Run "${BUILD_DOCUMENTATION_PAGE_COMMAND}".`)
 
     run(
-        BUILD_DOCUMENTATION_PAGE_COMMAND.join(),
+        BUILD_DOCUMENTATION_PAGE_COMMAND,
         {cwd: temporaryDocumentationFolderPath}
     )
     run(`rm '${parametersFilePath}'`)
-    for file in FileHandler():
-        if not (file in (temporary_documentation_folder, FileHandler(
-            location='.%s' % API_DOCUMENTATION_PATH[1]
-        )) or is_file_ignored(file)):
-            file.remove_deep()
-    documentation_build_folder = FileHandler(location='%s%s' % (
-        temporary_documentation_folder.path, DOCUMENTATION_BUILD_PATH
-    ), must_exist=True)
-    documentation_build_folder.iterate_directory(
-        function=copy_repository_file, recursive=True,
-        source=documentation_build_folder, target=FileHandler())
-    if (Platform.run(
-        "/usr/bin/env sudo umount '%s'" %
-            temporary_documentation_node_modules_directory.path,
-        native_shell=True, error=False, log=True
-    )['return_code'] == 0):
-        temporary_documentation_folder.remove_deep()
+
+    for (const filePath of await readdir('./'))
+        if (
+            ![
+                temporaryDocumentationFolderPath,
+                `.${API_DOCUMENTATION_PATHS[1]}`
+            ].includes(filePath) ||
+            await isFileIgnored(filePath)
+        )
+            run(`rm '${filePath}'`)
+
+    const documentationBuildFolderPath =
+        temporaryDocumentationFolderPath + DOCUMENTATION_BUILD_PATH
+    for (const filePath of await Tools.walkDirectoryRecursively(
+        documentationBuildFolderPath
+    )
+        copyRepositoryFile(filePath, documentationBuildFolderPath, './')
+
+    run(`sudo umount '${temporaryDocumentationNodeModulesDirectoryPath}'`)
+    run(`rm --force --recursive '${temporaryDocumentationFolder}'`)
 
     run('git add --all')
-    run('git commit --message "${PROJECT_PAGE_COMMIT_MESSAGE}" --all`)
+    run(`git commit --message "${PROJECT_PAGE_COMMIT_MESSAGE}" --all`)
     run('git push')
     run('git checkout master')
 }
@@ -371,43 +379,56 @@ const async generateAndPushNewDocumentationPage(
 /**
  * Creates a distribution bundle file as zip archiv.
  */
-const createDistributionBundleFilePath = ():string => {
-    if not SCOPE['scripts'].get('build:export', SCOPE['scripts'].get(
-        'build', False
-    )) or Platform.run('/usr/bin/env yarn %s' % (
-        'build:export' if SCOPE['scripts'].get('build:export') else 'build'
-    ), error=False, log=True)['return_code'] == 0:
-        __logger__.info('Pack to a zip archive.')
-        distribution_bundle_file = FileHandler(
-            location=make_secure_temporary_file()[1])
-        current_directory_path = FileHandler()._path
-        file_path_list = SCOPE.get('files', [])
-        if 'main' in SCOPE:
-            file_path_list.append(SCOPE['main'])
-        if len(file_path_list) == 0:
-            return None
+const createDistributionBundleFilePath = ():null|string => {
+    if (SCOPE.scripts['build:export'] || SCOPE.scripts.build) ||
+        run(`yarn ${SCOPE.scripts['build:export'] ? 'build:export' : 'build'}`)
 
-        with zipfile.ZipFile(
-            distribution_bundle_file.path, 'w'
-        ) as zip_file:
-            for file_path in file_path_list:
-                file = FileHandler(location=file_path)
-                __logger__.debug(
-                    'Add "%s" to distribution bundle.', file.path)
-                zip_file.write(file._path, file.name)
-                if file.is_directory() and not is_file_ignored(file):
-                    def add(sub_file):
-                        if is_file_ignored(sub_file):
-                            return None
-                        __logger__.debug(
-                            'Add "%s" to distribution bundle.', sub_file.path)
-                        zip_file.write(sub_file._path, sub_file._path[len(
-                            current_directory_path):])
-                        return True
+    console.info('Pack to a zip archive.')
+    const distributionBundleFilePath:string = run('mktemp')
 
-                    file.iterate_directory(function=add, recursive=True)
+    const filePaths = SCOPE.files || []
+    if SCOPE.main:
+        filePaths.push(SCOPE.main)
 
-        return distribution_bundle_file
+    if (filePaths.length === 0)
+        return null
+
+    const gzip = createGzip()
+    const destination = createWriteStream(distributionBundleFilePath)
+
+    for (const filePath of filePaths) {
+        console.debug(`Add "${filePath}" to distribution bundle.`)
+
+        if (!(await isFileIgnored(filePath)))
+            // TODO
+            if file.is_directory() and not :
+                pipeline(
+                    createReadStream(filePath),
+                    gzip,
+                    destination,
+                    (error?:Error) => {
+                        if (error) {
+                            console.error('An error occurred:', err)
+
+                            process.exitCode = 1
+                        }
+                    }
+                )
+
+                def add(sub_file):
+                    if is_file_ignored(sub_file):
+                        return None
+
+                    __logger__.debug(
+                        'Add "%s" to distribution bundle.', sub_file.path)
+                    zip_file.write(sub_file._path, sub_file._path[len(
+                        current_directory_path):])
+
+                    return True
+
+                file.iterate_directory(function=add, recursive=True)
+
+    return distribution_bundle_file
 
 
 const isFileIgnored = async (filePath:string):Promise<boolean> => (
