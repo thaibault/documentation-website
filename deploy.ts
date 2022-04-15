@@ -19,6 +19,7 @@
 // region imports
 import {execSync} from 'child_process'
 import Tools from 'clientnode'
+import {Mapping} from 'clientnode/type'
 import {createReadStream, createWriteStream} from 'fs'
 import {marked} from 'marked'
 import {basename, resolve} from 'path'
@@ -98,7 +99,7 @@ const DISTRIBUTION_BUNDLE_FILE_PATH = `${DATA_PATH}distributionBundle.zip`
 const DISTRIBUTION_BUNDLE_DIRECTORY_PATH = `${DATA_PATH}distributionBundle`
 /// endregion
 const BUILD_DOCUMENTATION_PAGE_COMMAND = [
-    '/usr/bin/env', 'yarn', 'build', '${parameterFilePath}'
+    'yarn', 'build', '${parametersFilePath}'
 ]
 const BUILD_DOCUMENTATION_PAGE_PARAMETER_TEMPLATE =
     '{{' +
@@ -227,7 +228,7 @@ if (
             yarn --production=false
         `)
 
-    generateAndPushNewDocumentationPage(
+    await generateAndPushNewDocumentationPage(
         temporaryDocumentationFolderPath,
         distributionBundleFilePath,
         hasAPIDocumentation,
@@ -247,12 +248,12 @@ if (
  * Renders a new index.html file and copies new assets to generate a new
  * documentation homepage.
  */
-const generateAndPushNewDocumentationPage(
+const async generateAndPushNewDocumentationPage(
     temporaryDocumentationFolderPath:string,
     distributionBundleFilePath:null|string,
     hasAPIDocumentation:boolean,
     temporaryDocumentationNodeModulesDirectoryPath:string
-):void => {
+):Promise<void> => {
     console.info('Update documentation design.')
 
     if (distributionBundleFilePath) {
@@ -288,58 +289,44 @@ const generateAndPushNewDocumentationPage(
                 '${temporaryDocumentationFolderPath}/source/image/favicon.ico'
         `)
 
-    const parameter:Mapping<unknown> = {}
-    // TODO
+    let parameters:Mapping<unknown> = {}
     for (const key, value of Object.entries(SCOPE.documentationWebsite || {}))
-        parameter = builtins.dict(builtins.map(lambda item: (
-            String(item[0]).camel_case_to_delimited.content.upper(), item[1]
-        ), SCOPE.get('documentationWebsite', {}).items()))
-    if 'TAGLINE' not in parameter and 'description' in SCOPE:
-        parameter['TAGLINE'] = SCOPE['description']
-    if 'NAME' not in parameter and 'name' in SCOPE:
-        parameter['NAME'] = SCOPE['name']
+        parameters[Tools.stringCamelCaseToDelimited(key)] = value
+    if (!parameters.TAGLINE && SCOPE.description)
+        parameters.TAGLINE = SCOPE.description
+    if (!parameters.NAME && SCOPE.name)
+        parameters.NAME = SCOPE.name
 
-    console.debug(`Found parameter "${Tools.represent(parameter)}".`)
+    console.debug(`Found parameters "${Tools.represent(parameters)}".`)
 
-    api_documentation_path = None
-    if has_api_documentation:
-        api_documentation_path = '%s%s' % (
-            API_DOCUMENTATION_PATH[1], API_DOCUMENTATION_PATH_SUFFIX)
-        if not FileHandler(location='%s%s' % (
-            FileHandler().path, api_documentation_path
-        )).is_directory():
-            api_documentation_path = API_DOCUMENTATION_PATH[1]
-    parameter.update({
-        'CONTENT': CONTENT,
-        'CONTENT_FILE_PATH': None,
-        'RENDER_CONTENT': False,
-        'API_DOCUMENTATION_PATH': api_documentation_path,
-        'DISTRIBUTION_BUNDLE_FILE_PATH': DISTRIBUTION_BUNDLE_FILE_PATH if (
-            distribution_bundle_file and
-            distribution_bundle_file.is_file()
-        ) else None
+    let apiDocumentationPath:null|string = null
+    if (hasAPIDocumentation) {
+        apiDocumentationPath =
+            API_DOCUMENTATION_PATHS[1] + API_DOCUMENTATION_PATH_SUFFIX
+        if (!(await Tools.isDirectory(apiDocumentationPath))
+            apiDocumentationPath = API_DOCUMENTATION_PATHS[1]
+    }
+
+    parameters = {
+        ...parameters,
+        CONTENT,
+        CONTENT_FILE_PATH: None,
+        RENDER_CONTENT: false,
+        API_DOCUMENTATION_PATH: apiDocumentationPath,
+        DISTRIBUTION_BUNDLE_FILE_PATH: (
+            await Tools.isFile(distributionBundleFile)
+        ) ? DISTRIBUTION_BUNDLE_FILE_PATH : null
     })
-# # python3.5
-# #     parameter = Dictionary(parameter).convert(
-# #         value_wrapper=lambda key, value: value.replace(
-# #             '!', '#%%%#'
-# #         ) if builtins.isinstance(value, builtins.str) else value
-# #     ).content
-    parameter = Dictionary(parameter).convert(
-        value_wrapper=lambda key, value: value.replace(
-            '!', '#%%%#'
-        ) if builtins.isinstance(value, builtins.unicode) else value
-    ).content
-# #
-    if __logger__.isEnabledFor(logging.DEBUG):
-        BUILD_DOCUMENTATION_PAGE_COMMAND = \
-            BUILD_DOCUMENTATION_PAGE_COMMAND[:-1] + [
-                '-debug'
-            ] + BUILD_DOCUMENTATION_PAGE_COMMAND[-1:]
-    serialized_parameter = json.dumps(parameter)
-    parameter_file = FileHandler(location=make_secure_temporary_file('.json')[
+
+    for (const [key, value] of Object.entries(parameters))
+        if (typeof value === 'string')
+            parameters[key] = value.replace('!', '#%%%#')
+
+    const serializedParameters:string = JSON.stringify(parameters)
+    // TODO
+    const parametersFilePath = FileHandler(location=make_secure_temporary_file('.json')[
         1])
-    parameter_file.content = \
+    parametersFile.content = \
         BUILD_DOCUMENTATION_PAGE_PARAMETER_TEMPLATE.format(
             serializedParameter=serialized_parameter, **SCOPE)
     for index, command in builtins.enumerate(BUILD_DOCUMENTATION_PAGE_COMMAND):
@@ -348,16 +335,15 @@ const generateAndPushNewDocumentationPage(
                 serializedParameter=serialized_parameter,
                 parameterFilePath=parameter_file._path,
                 **SCOPE)
-    __logger__.debug('Use parameter "%s".', serialized_parameter)
-    __logger__.info('Run "%s".', ' '.join(BUILD_DOCUMENTATION_PAGE_COMMAND))
-    current_working_directory_backup = FileHandler()
-    temporary_documentation_folder.change_working_directory()
-    Platform.run(
-        command=BUILD_DOCUMENTATION_PAGE_COMMAND[0],
-        command_arguments=BUILD_DOCUMENTATION_PAGE_COMMAND[1:], error=False,
-        log=True)
-    current_working_directory_backup.change_working_directory()
-    parameter_file.remove_file()
+
+    console.debug(`Use parameters "${serializedParameters}".`)
+    console.info(`Run "${' '.join(BUILD_DOCUMENTATION_PAGE_COMMAND)}".`)
+
+    run(
+        BUILD_DOCUMENTATION_PAGE_COMMAND.join(),
+        {cwd: temporaryDocumentationFolderPath}
+    )
+    run(`rm '${parametersFilePath}'`)
     for file in FileHandler():
         if not (file in (temporary_documentation_folder, FileHandler(
             location='.%s' % API_DOCUMENTATION_PATH[1]
@@ -375,24 +361,17 @@ const generateAndPushNewDocumentationPage(
         native_shell=True, error=False, log=True
     )['return_code'] == 0):
         temporary_documentation_folder.remove_deep()
-    Platform.run(
-        (
-            '/usr/bin/env git add --all',
-            '/usr/bin/env git commit --message "%s" --all' %
-                PROJECT_PAGE_COMMIT_MESSAGE,
-            '/usr/bin/env git push',
-            '/usr/bin/env git checkout master'
-        ),
-        native_shell=True,
-        error=False,
-        log=True
-    )
+
+    run('git add --all')
+    run('git commit --message "${PROJECT_PAGE_COMMIT_MESSAGE}" --all`)
+    run('git push')
+    run('git checkout master')
 }
 
-@JointPoint
-# # python3.5 def create_distribution_bundle_file() -> FileHandler:
-def create_distribution_bundle_file():
-    '''Creates a distribution bundle file as zip archiv.'''
+/**
+ * Creates a distribution bundle file as zip archiv.
+ */
+const createDistributionBundleFilePath = ():string => {
     if not SCOPE['scripts'].get('build:export', SCOPE['scripts'].get(
         'build', False
     )) or Platform.run('/usr/bin/env yarn %s' % (
@@ -407,6 +386,7 @@ def create_distribution_bundle_file():
             file_path_list.append(SCOPE['main'])
         if len(file_path_list) == 0:
             return None
+
         with zipfile.ZipFile(
             distribution_bundle_file.path, 'w'
         ) as zip_file:
@@ -424,31 +404,30 @@ def create_distribution_bundle_file():
                         zip_file.write(sub_file._path, sub_file._path[len(
                             current_directory_path):])
                         return True
+
                     file.iterate_directory(function=add, recursive=True)
+
         return distribution_bundle_file
 
 
-@JointPoint
-# # python3.5 def is_file_ignored(file: FileHandler) -> builtins.bool:
-def is_file_ignored(file):
-    return (
-        file.basename.startswith('.') or
-        file.basename == 'dummyDocumentation' or
-        file.is_directory() and file.name in [
-            'node_modules', 'build', '__pycache__'
-        ] or file.is_file() and (
-            file.name in ['params.json'] or file.extension in ('pyc', 'pyo')))
+const isFileIgnored = async (filePath:string):Promise<boolean> => (
+    basename(filePath, extname(filePath)).startsWith('.') ||
+    basename(filePath, extname(filePath)) === 'dummyDocumentation' ||
+    await Tools.isDirectory(filePath) &&
+    ['node_modules', 'build'].includes(basename(filePath)) ||
+    await Tools.isFile(filePath) &&
+    file.name in ['params.json'] or file.extension in ('pyc', 'pyo')))
+)
 
-
-@JointPoint
-# # python3.5
-# # def copy_repository_file(
-# #     file: FileHandler, source:FileHandler, target: FileHandler: FileHandler
-# # ) -> (builtins.bool, builtins.type(None)):
-def copy_repository_file(file, source, target):
-# #
-    '''Copy the website documentation design repository.'''
-    if not (is_file_ignored(file) or file.name == 'readme.md'):
+/**
+ * Copy the website documentation design repository.
+ */
+const async copyRepositoryFile = (
+    filePath:string, sourcePath:string, targetPath:string
+):Promise<boolean|null> => {
+    if (!(
+        await isFileIgnored(filePath) || basename(filePath) === 'readme.md'
+    )) {
         new_path = FileHandler(location='%s/%s' % (
             target.path,  file.path[builtins.len(source.path):]
         )).path
@@ -457,7 +436,12 @@ def copy_repository_file(file, source, target):
             file.copy(target=new_path)
         else:
             FileHandler(location=new_path, make_directory=True)
+
         return True
+    }
+
+    return null
+}
 
 
 const add_readme = (filePath:string):boolean => {
