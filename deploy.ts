@@ -23,7 +23,7 @@ import {Mapping} from 'clientnode/type'
 import {createReadStream, createWriteStream} from 'fs'
 import {writeFile} from 'fs/promises'
 import {marked} from 'marked'
-import {basename, resolve} from 'path'
+import {basename, extname, resolve} from 'path'
 import pygmentize from 'pygmentize-bundled'
 import {pipeline} from 'stream'
 import {createGunzip, createGzip} from 'zlib'
@@ -193,9 +193,7 @@ if (
         for (const filePath of await Tools.walkDirectoryRecursively(
             localDocumentationWebsitePath
         ))
-            copyRepositoryFile(
-                filePath, resolve(temporaryDocumentationFolderPath, filePath)
-            )
+            copyRepositoryFile(filePath, temporaryDocumentationFolderPath)
 
         const nodeModulesDirectoryPath =
             resolve(localDocumentationWebsitePath, 'node_modules')
@@ -254,6 +252,16 @@ if (
 /**
  * Renders a new index.html file and copies new assets to generate a new
  * documentation homepage.
+ * @param temporaryDocumentationFolderPath - Location where to build
+ * documentation build.
+ * @param distributionBundleFilePath - Location where to save the exported
+ * build artefacts.
+ * @param hasAPIDocumentation - Indicates whether there already exists a ready
+ * to use api documentation.
+ * @param temporaryDocumentationNodeModulesDirectoryPath - Location where
+ * node modules can be saved temporary during build process.
+ *
+ * @returns A promise resolving when build process has finished.
  */
 const async generateAndPushNewDocumentationPage(
     temporaryDocumentationFolderPath:string,
@@ -365,7 +373,7 @@ const async generateAndPushNewDocumentationPage(
     for (const filePath of await Tools.walkDirectoryRecursively(
         documentationBuildFolderPath
     )
-        copyRepositoryFile(filePath, documentationBuildFolderPath, './')
+        copyRepositoryFile(filePath, documentationBuildFolderPath)
 
     run(`sudo umount '${temporaryDocumentationNodeModulesDirectoryPath}'`)
     run(`rm --force --recursive '${temporaryDocumentationFolder}'`)
@@ -396,87 +404,91 @@ const createDistributionBundleFilePath = ():null|string => {
     const gzip = createGzip()
     const destination = createWriteStream(distributionBundleFilePath)
 
-    for (const filePath of filePaths) {
-        console.debug(`Add "${filePath}" to distribution bundle.`)
+    const add = async (filePaths:Array<string>):Promise<void> => { 
+        for (const filePath of filePaths) {
+            console.debug(`Add "${filePath}" to distribution bundle.`)
 
-        if (!(await isFileIgnored(filePath)))
-            // TODO
-            if file.is_directory() and not :
-                pipeline(
-                    createReadStream(filePath),
-                    gzip,
-                    destination,
-                    (error?:Error) => {
-                        if (error) {
-                            console.error('An error occurred:', err)
+            if (!(await isFileIgnored(filePath)))
+                if (await Tools.isDirectory(filePath))
+                    await add(await readdir('./'))
+                else
+                    pipeline(
+                        createReadStream(filePath),
+                        gzip,
+                        destination,
+                        (error?:Error) => {
+                            if (error) {
+                                console.error('An error occurred:', err)
 
-                            process.exitCode = 1
+                                process.exitCode = 1
+                            }
                         }
-                    }
-                )
+                    )
+        }
+    }
 
-                def add(sub_file):
-                    if is_file_ignored(sub_file):
-                        return None
+    add(filePaths)
 
-                    __logger__.debug(
-                        'Add "%s" to distribution bundle.', sub_file.path)
-                    zip_file.write(sub_file._path, sub_file._path[len(
-                        current_directory_path):])
+    return distributionBundleFilePath
 
-                    return True
-
-                file.iterate_directory(function=add, recursive=True)
-
-    return distribution_bundle_file
-
-
+/**
+ * Checks if given file path points to a file which should not be distributed
+ * for generic reasons.
+ * @param filePath - File path to check.
+ *
+ * @returns Promise wrapping indicating boolean.
+ */
 const isFileIgnored = async (filePath:string):Promise<boolean> => (
     basename(filePath, extname(filePath)).startsWith('.') ||
     basename(filePath, extname(filePath)) === 'dummyDocumentation' ||
     await Tools.isDirectory(filePath) &&
     ['node_modules', 'build'].includes(basename(filePath)) ||
     await Tools.isFile(filePath) &&
-    file.name in ['params.json'] or file.extension in ('pyc', 'pyo')))
+    basename(filePath) === 'params.json' ||
+    ['pyc', 'pyo'].includes(extname(filePath).substring(1))
 )
 
 /**
  * Copy the website documentation design repository.
+ * @param sourcePath - Location to copy.
+ * @param targetPath - Location where to copy given source.
+ *
+ * @returns Promise resolving when finished coping.
  */
+// TODO break recursion!
 const async copyRepositoryFile = (
-    filePath:string, sourcePath:string, targetPath:string
-):Promise<boolean|null> => {
+    sourcePath:string, targetPath:string
+):Promise<void> => {
     if (!(
-        await isFileIgnored(filePath) || basename(filePath) === 'readme.md'
+        await isFileIgnored(sourcePath) || basename(sourcePath) === 'readme.md'
     )) {
-        new_path = FileHandler(location='%s/%s' % (
-            target.path,  file.path[builtins.len(source.path):]
-        )).path
-        __logger__.debug('Copy "%s" to "%s".', file.path, new_path)
-        if file.is_file():
-            file.copy(target=new_path)
-        else:
-            FileHandler(location=new_path, make_directory=True)
+        console.debug('Copy "%s" to "%s".', sourcePath, targetPath)
 
-        return True
+        if (await Tools.isFile(sourcePath):
+            run(`copy '${sourcePath}' '${targetPath}'`)
+        else
+            run(`mkdir '${targetPath}'`)
     }
-
-    return null
 }
 
+/**
+ * Merges all readme file.
+ * @param filePath - 
+ *
+ * @returns Nothing.
+ */
+// TODO respect recursion break when ignored!
+const addReadme = async (filePath:string):Promise<void> => {
+    if (await !isFileIgnored(filePath))
+        if (basename(filePath, extname(filePath)) === 'readme') {
+            console.info(`Handle "${filePath}".`)
 
-const add_readme = (filePath:string):boolean => {
-    '''Merges all readme file.'''
-    global CONTENT
-
-    if not is_file_ignored(file):
-        if file.basename == 'readme':
-            __logger__.info('Handle "%s".', file.path)
-            if CONTENT:
+            if (CONTENT):
                 CONTENT += '\n'
-            CONTENT += file.content
 
-        return True
+            // TODO
+            CONTENT += filePath.content
+        }
 }
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
