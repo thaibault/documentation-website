@@ -21,7 +21,9 @@ import {execSync} from 'child_process'
 import Tools from 'clientnode'
 import {File, Mapping} from 'clientnode/type'
 import {createReadStream, createWriteStream} from 'fs'
-import {writeFile} from 'fs/promises'
+import {
+    copyFile, mkdir, readFile, rename, rm, rmdir, writeFile
+} from 'fs/promises'
 import {marked} from 'marked'
 import {basename, extname, resolve} from 'path'
 import pygmentize from 'pygmentize-bundled'
@@ -149,7 +151,7 @@ if (
 
     const temporaryDocumentationFolderPath = 'documentationWebsite'
     if (await Tools.isDirectory(temporaryDocumentationFolderPath))
-        run(`rm --force --recursive '${temporaryDocumentationFolderPath}'`)
+        await rmdir(temporaryDocumentationFolderPath, {recursive: true})
 
     console.info('Compile all readme markdown files to html.')
 
@@ -159,8 +161,8 @@ if (
 
     distributionBundleFilePath = createDistributionBundleFile()
     if (await Tools.isFile(distributionBundleFilePath)) {
-        run(`mkdir --parents '${DATA_PATH}'`)
-        run(`mv '${distributionBundleFilePath' '${data_location}'`)
+        await mkdir(DATA_PATH, {recursive: true})
+        await rename(distributionBundleFilePath, data_location)
     }
 
     let hasAPIDocumentationCommand =
@@ -178,20 +180,18 @@ if (
 
     const apiDocumentationDirectoryPath = `.${API_DOCUMENTATION_PATHS[1]}`
     if (await Tools.isDirectory(apiDocumentationDirectoryPath))
-        run(`rm --force --recursive '${apiDocumentationDirectoryPath}'`)
+        await rmdir(apiDocumentationDirectoryPath, {recursive: true})
 
-    run(
-        `mv '${API_DOCUMENTATION_PATHS[0]}' '${apiDocumentationDirectoryPath}'`
-    )
+    await rename(API_DOCUMENTATION_PATHS, apiDocumentationDirectoryPath)
 
     const localDocumentationWebsitePath =
         `../${basename(temporaryDocumentationFolderPath)}`
     if (await Tools.isDirectory(localDocumentationWebsitePath)) {
-        run(`mkdir --parents '${temporaryDocumentationFolderPath}'`)
+        await mkdir(temporaryDocumentationFolderPath, {recursive: true})
 
         await Tools.walkDirectoryRecursively(
             localDocumentationWebsitePath,
-            (file:File): =>
+            (file:File):Promise<false|void> =>
                 copyRepositoryFile(file, temporaryDocumentationFolderPath)
         )
 
@@ -241,12 +241,7 @@ if (
     )
 
     if (await Tools.isDirectory(existingAPIDocumentationDirectoryPath)
-        run(`
-            rm
-                --force
-                --recursively
-                '${existingAPIDocumentationDirectoryPath}'
-        `)
+        await rmdir(existingAPIDocumentationDirectoryPath, {recursuve: true})
 }
 
 /**
@@ -277,19 +272,15 @@ const async generateAndPushNewDocumentationPage(
             DOCUMENTATION_BUILD_PATH +
             DISTRIBUTION_BUNDLE_FILE_PATH
 
-        run(`mkdir --parents '${newDistributionBundleFilePath}'`)
-        run(`
-            mv
-                '${distributionBundleFilePath}'
-                '${newDistributionBundleFilePath}'
-        `)
+        await mkdir(newDistributionBundleFilePath, {rescursive: true})
+        await rename(distributionBundleFilePath, newDistributionBundleFilePath)
 
         const newDistributionBundleDirectoryPath =
             temporaryDocumentationFolderPath +
             DOCUMENTATION_BUILD_PATH +
             DISTRIBUTION_BUNDLE_DIRECTORY_PATH
 
-        run(`mkdir --parents '${newDistributionBundleDirectoryPath}'`)
+        await mkdir(newDistributionBundleDirectoryPath, {recursive: true})
 
         createReadStream(distributionBundleFilePath)
             .pipe(createGunzip())
@@ -298,11 +289,10 @@ const async generateAndPushNewDocumentationPage(
 
     const faviconPath = 'favicon.png'
     if (await Tools.isFile(favicon))
-        run(`
-            cp
-                '${faviconPath}'
-                '${temporaryDocumentationFolderPath}/source/image/favicon.ico'
-        `)
+        await copyFile(
+            faviconPath,
+            `${temporaryDocumentationFolderPath}/source/image/favicon.ico`
+        )
 
     let parameters:Mapping<unknown> = {}
     for (const key, value of Object.entries(SCOPE.documentationWebsite || {}))
@@ -356,7 +346,7 @@ const async generateAndPushNewDocumentationPage(
         BUILD_DOCUMENTATION_PAGE_COMMAND,
         {cwd: temporaryDocumentationFolderPath}
     )
-    run(`rm '${parametersFilePath}'`)
+    await rm(parametersFilePath)
 
     for (const filePath of await readdir('./'))
         if (
@@ -366,18 +356,18 @@ const async generateAndPushNewDocumentationPage(
             ].includes(filePath) ||
             await isFileIgnored(filePath)
         )
-            run(`rm '${filePath}'`)
+            await rm(filePath)
 
     const documentationBuildFolderPath =
         temporaryDocumentationFolderPath + DOCUMENTATION_BUILD_PATH
     await Tools.walkDirectoryRecursively(
         documentationBuildFolderPath,
-        (file:File): =>
+        (file:File):Promise<false|void> =>
             copyRepositoryFile(filePath, documentationBuildFolderPath)
     )
 
     run(`sudo umount '${temporaryDocumentationNodeModulesDirectoryPath}'`)
-    run(`rm --force --recursive '${temporaryDocumentationFolder}'`)
+    await rmdir(temporaryDocumentationFolder, {recursive: true})
 
     run('git add --all')
     run(`git commit --message "${PROJECT_PAGE_COMMIT_MESSAGE}" --all`)
@@ -456,9 +446,9 @@ const isFileIgnored = async (filePath:string):Promise<boolean> => (
  *
  * @returns Promise resolving when finished coping.
  */
-const async copyRepositoryFile = (
-    source:File, targetPath:string
-):Promise<void> => {
+const async copyRepositoryFile = (source:File, targetPath:string):Promise<
+    false|void
+> => {
     if (
         await isFileIgnored(source.path) ||
         basename(source.name) === 'readme.md'
@@ -468,9 +458,9 @@ const async copyRepositoryFile = (
     console.debug('Copy "%s" to "%s".', source.path, targetPath)
 
     if (source.stats.isFile()):
-        run(`copy '${source.path}' '${targetPath}'`)
+        await copyFile(source.path, targetPath)
     else
-        run(`mkdir '${targetPath}'`)
+        await mkdir(targetPath)
 }
 
 /**
@@ -490,8 +480,7 @@ const addReadme = async (file:File):Promise<false|void> => {
         if (CONTENT):
             CONTENT += '\n'
 
-        // TODO
-        CONTENT += filePath.content
+        CONTENT += await readFile(file.path, 'utf8')
     }
 }
 // region vim modline
