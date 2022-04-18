@@ -22,7 +22,7 @@ import Tools from 'clientnode'
 import {File, Mapping} from 'clientnode/type'
 import {createReadStream, createWriteStream} from 'fs'
 import {
-    copyFile, mkdir, readFile, rename, rm, rmdir, writeFile
+    copyFile, mkdir, readdir, readFile, rename, rm, rmdir, writeFile
 } from 'fs/promises'
 import {marked} from 'marked'
 import {basename, extname, resolve} from 'path'
@@ -102,7 +102,7 @@ let API_DOCUMENTATION_PATH_SUFFIX = '${name}/${version}/'
 const DISTRIBUTION_BUNDLE_FILE_PATH = `${DATA_PATH}distributionBundle.zip`
 const DISTRIBUTION_BUNDLE_DIRECTORY_PATH = `${DATA_PATH}distributionBundle`
 /// endregion
-const BUILD_DOCUMENTATION_PAGE_COMMAND = 'yarn build ${parametersFilePath}'
+let BUILD_DOCUMENTATION_PAGE_COMMAND = 'yarn build ${parametersFilePath}'
 const BUILD_DOCUMENTATION_PAGE_CONFIGURATION = {
     module: {
         preprocessor: {
@@ -119,7 +119,7 @@ const BUILD_DOCUMENTATION_PAGE_CONFIGURATION = {
     */
     offline: null
 }
-const CONTENT = ''
+let CONTENT = ''
 const DOCUMENTATION_REPOSITORY = 'git@github.com:"thaibault/documentationWebsite"'
 const MARKDOWN_EXTENSIONS = [
     'toc',
@@ -163,7 +163,7 @@ const generateAndPushNewDocumentationPage = async (
             DOCUMENTATION_BUILD_PATH +
             DISTRIBUTION_BUNDLE_FILE_PATH
 
-        await mkdir(newDistributionBundleFilePath, {rescursive: true})
+        await mkdir(newDistributionBundleFilePath, {recursive: true})
         await rename(distributionBundleFilePath, newDistributionBundleFilePath)
 
         const newDistributionBundleDirectoryPath =
@@ -186,7 +186,9 @@ const generateAndPushNewDocumentationPage = async (
         )
 
     let parameters:Mapping<unknown> = {}
-    for (const key, value of Object.entries(SCOPE.documentationWebsite || {}))
+    for (const [key, value] of Object.entries(
+        SCOPE.documentationWebsite || {}
+    ))
         parameters[Tools.stringCamelCaseToDelimited(key)] = value
     if (!parameters.TAGLINE && SCOPE.description)
         parameters.TAGLINE = SCOPE.description
@@ -206,7 +208,7 @@ const generateAndPushNewDocumentationPage = async (
     parameters = {
         ...parameters,
         CONTENT,
-        CONTENT_FILE_PATH: None,
+        CONTENT_FILE_PATH: null,
         RENDER_CONTENT: false,
         API_DOCUMENTATION_PATH: apiDocumentationPath,
         DISTRIBUTION_BUNDLE_FILE_PATH:
@@ -482,7 +484,7 @@ if (
     )
 
     if (await Tools.isDirectory(existingAPIDocumentationDirectoryPath))
-        await rmdir(existingAPIDocumentationDirectoryPath, {recursuve: true})
+        await rmdir(existingAPIDocumentationDirectoryPath, {recursive: true})
 }
 
 
