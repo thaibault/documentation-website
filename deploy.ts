@@ -159,7 +159,7 @@ if (
 
     CONTENT = marked.parse(CONTENT)
 
-    distributionBundleFilePath = createDistributionBundleFile()
+    distributionBundleFilePath = await createDistributionBundleFile()
     if (await Tools.isFile(distributionBundleFilePath)) {
         await mkdir(DATA_PATH, {recursive: true})
         await rename(distributionBundleFilePath, data_location)
@@ -220,7 +220,7 @@ if (
                 '${nodeModulesDirectoryPath}'
                 '${temporaryDocumentationNodeModulesDirectoryPath}'
             `)
-        } else:
+        } else
             run('yarn --production=false')
 
         const currentWorkingDirectoryPathBackup = './'
@@ -240,7 +240,7 @@ if (
         temporaryDocumentationNodeModulesDirectoryPath
     )
 
-    if (await Tools.isDirectory(existingAPIDocumentationDirectoryPath)
+    if (await Tools.isDirectory(existingAPIDocumentationDirectoryPath))
         await rmdir(existingAPIDocumentationDirectoryPath, {recursuve: true})
 }
 
@@ -258,7 +258,7 @@ if (
  *
  * @returns A promise resolving when build process has finished.
  */
-const async generateAndPushNewDocumentationPage(
+const generateAndPushNewDocumentationPage = async (
     temporaryDocumentationFolderPath:string,
     distributionBundleFilePath:null|string,
     hasAPIDocumentation:boolean,
@@ -308,7 +308,7 @@ const async generateAndPushNewDocumentationPage(
     if (hasAPIDocumentation) {
         apiDocumentationPath =
             API_DOCUMENTATION_PATHS[1] + API_DOCUMENTATION_PATH_SUFFIX
-        if (!(await Tools.isDirectory(apiDocumentationPath))
+        if (!(await Tools.isDirectory(apiDocumentationPath)))
             apiDocumentationPath = API_DOCUMENTATION_PATHS[1]
     }
 
@@ -318,10 +318,11 @@ const async generateAndPushNewDocumentationPage(
         CONTENT_FILE_PATH: None,
         RENDER_CONTENT: false,
         API_DOCUMENTATION_PATH: apiDocumentationPath,
-        DISTRIBUTION_BUNDLE_FILE_PATH: (
-            await Tools.isFile(distributionBundleFile)
-        ) ? DISTRIBUTION_BUNDLE_FILE_PATH : null
-    })
+        DISTRIBUTION_BUNDLE_FILE_PATH:
+            (await Tools.isFile(distributionBundleFile)) ?
+                DISTRIBUTION_BUNDLE_FILE_PATH :
+                null
+    }
 
     for (const [key, value] of Object.entries(parameters))
         if (typeof value === 'string')
@@ -378,15 +379,15 @@ const async generateAndPushNewDocumentationPage(
 /**
  * Creates a distribution bundle file as zip archiv.
  */
-const createDistributionBundleFilePath = ():null|string => {
-    if (SCOPE.scripts['build:export'] || SCOPE.scripts.build) ||
+const createDistributionBundleFilePath = async ():Promise<null|string> => {
+    if (SCOPE.scripts['build:export'] || SCOPE.scripts.build)
         run(`yarn ${SCOPE.scripts['build:export'] ? 'build:export' : 'build'}`)
 
     console.info('Pack to a zip archive.')
     const distributionBundleFilePath:string = run('mktemp')
 
     const filePaths = SCOPE.files || []
-    if SCOPE.main:
+    if (SCOPE.main)
         filePaths.push(SCOPE.main)
 
     if (filePaths.length === 0)
@@ -418,10 +419,10 @@ const createDistributionBundleFilePath = ():null|string => {
         }
     }
 
-    add(filePaths)
+    await add(filePaths)
 
     return distributionBundleFilePath
-
+}
 /**
  * Checks if given file path points to a file which should not be distributed
  * for generic reasons.
@@ -446,7 +447,7 @@ const isFileIgnored = async (filePath:string):Promise<boolean> => (
  *
  * @returns Promise resolving when finished coping.
  */
-const async copyRepositoryFile = (source:File, targetPath:string):Promise<
+const copyRepositoryFile = async (source:File, targetPath:string):Promise<
     false|void
 > => {
     if (
@@ -457,7 +458,7 @@ const async copyRepositoryFile = (source:File, targetPath:string):Promise<
 
     console.debug('Copy "%s" to "%s".', source.path, targetPath)
 
-    if (source.stats.isFile()):
+    if (source.stats.isFile())
         await copyFile(source.path, targetPath)
     else
         await mkdir(targetPath)
@@ -477,7 +478,7 @@ const addReadme = async (file:File):Promise<false|void> => {
     if (basename(file.name, extname(file.name)) === 'readme') {
         console.info(`Handle "${file.path}".`)
 
-        if (CONTENT):
+        if (CONTENT)
             CONTENT += '\n'
 
         CONTENT += await readFile(file.path, 'utf8')
