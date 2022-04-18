@@ -19,7 +19,7 @@
 // region imports
 import {execSync} from 'child_process'
 import Tools from 'clientnode'
-import {Mapping} from 'clientnode/type'
+import {File, Mapping} from 'clientnode/type'
 import {createReadStream, createWriteStream} from 'fs'
 import {writeFile} from 'fs/promises'
 import {marked} from 'marked'
@@ -153,8 +153,7 @@ if (
 
     console.info('Compile all readme markdown files to html.')
 
-    for (const filePath of await Tools.walkDirectoryRecursively('./'))
-        addReadme(filePath)
+    await Tools.walkDirectoryRecursively('./', addReadme)
 
     CONTENT = marked.parse(CONTENT)
 
@@ -190,10 +189,11 @@ if (
     if (await Tools.isDirectory(localDocumentationWebsitePath)) {
         run(`mkdir --parents '${temporaryDocumentationFolderPath}'`)
 
-        for (const filePath of await Tools.walkDirectoryRecursively(
-            localDocumentationWebsitePath
-        ))
-            copyRepositoryFile(filePath, temporaryDocumentationFolderPath)
+        await Tools.walkDirectoryRecursively(
+            localDocumentationWebsitePath,
+            (file:File): =>
+                copyRepositoryFile(file, temporaryDocumentationFolderPath)
+        )
 
         const nodeModulesDirectoryPath =
             resolve(localDocumentationWebsitePath, 'node_modules')
@@ -370,10 +370,11 @@ const async generateAndPushNewDocumentationPage(
 
     const documentationBuildFolderPath =
         temporaryDocumentationFolderPath + DOCUMENTATION_BUILD_PATH
-    for (const filePath of await Tools.walkDirectoryRecursively(
-        documentationBuildFolderPath
+    await Tools.walkDirectoryRecursively(
+        documentationBuildFolderPath,
+        (file:File): =>
+            copyRepositoryFile(filePath, documentationBuildFolderPath)
     )
-        copyRepositoryFile(filePath, documentationBuildFolderPath)
 
     run(`sudo umount '${temporaryDocumentationNodeModulesDirectoryPath}'`)
     run(`rm --force --recursive '${temporaryDocumentationFolder}'`)
@@ -450,45 +451,48 @@ const isFileIgnored = async (filePath:string):Promise<boolean> => (
 
 /**
  * Copy the website documentation design repository.
- * @param sourcePath - Location to copy.
+ * @param source - Location to copy.
  * @param targetPath - Location where to copy given source.
  *
  * @returns Promise resolving when finished coping.
  */
-// TODO break recursion!
 const async copyRepositoryFile = (
-    sourcePath:string, targetPath:string
+    source:File, targetPath:string
 ):Promise<void> => {
-    if (!(
-        await isFileIgnored(sourcePath) || basename(sourcePath) === 'readme.md'
-    )) {
-        console.debug('Copy "%s" to "%s".', sourcePath, targetPath)
+    if (
+        await isFileIgnored(source.path) ||
+        basename(source.name) === 'readme.md'
+    )
+        return false
 
-        if (await Tools.isFile(sourcePath):
-            run(`copy '${sourcePath}' '${targetPath}'`)
-        else
-            run(`mkdir '${targetPath}'`)
-    }
+    console.debug('Copy "%s" to "%s".', source.path, targetPath)
+
+    if (source.stats.isFile()):
+        run(`copy '${source.path}' '${targetPath}'`)
+    else
+        run(`mkdir '${targetPath}'`)
 }
 
 /**
  * Merges all readme file.
- * @param filePath - 
+ * @param file - File to check if it is a readme and should be added to the
+ * output content.
  *
  * @returns Nothing.
  */
-// TODO respect recursion break when ignored!
-const addReadme = async (filePath:string):Promise<void> => {
-    if (await !isFileIgnored(filePath))
-        if (basename(filePath, extname(filePath)) === 'readme') {
-            console.info(`Handle "${filePath}".`)
+const addReadme = async (file:File):Promise<false|void> => {
+    if (await isFileIgnored(file.path))
+        return false
 
-            if (CONTENT):
-                CONTENT += '\n'
+    if (basename(file.name, extname(file.name)) === 'readme') {
+        console.info(`Handle "${file.path}".`)
 
-            // TODO
-            CONTENT += filePath.content
-        }
+        if (CONTENT):
+            CONTENT += '\n'
+
+        // TODO
+        CONTENT += filePath.content
+    }
 }
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
