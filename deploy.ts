@@ -48,7 +48,7 @@ marked.use({
     highlight: (
         code:string,
         language:string,
-        callback:(error?:Error, result:string) => void
+        callback:(error:Error|null, result:string) => void
     ) => {
         pygmentize(
            {lang: language, format: 'html'},
@@ -134,116 +134,7 @@ const MARKDOWN_EXTENSIONS = [
 const PROJECT_PAGE_COMMIT_MESSAGE = 'Update project homepage content.'
 let SCOPE = {name: '__dummy__', version: '1.0.0'}
 // endregion
-
-if (
-    run('git branch').includes('* master') && 
-    run('git branch --all').includes('gh-pages')
-) {
-    try {
-        SCOPE = require('./package.json')
-    } catch (error) {
-        // Use default scope.
-    }
-
-    API_DOCUMENTATION_PATH_SUFFIX = Tools.stringEvaluate(
-        API_DOCUMENTATION_PATH_SUFFIX, SCOPE
-    ).result
-
-    const temporaryDocumentationFolderPath = 'documentationWebsite'
-    if (await Tools.isDirectory(temporaryDocumentationFolderPath))
-        await rmdir(temporaryDocumentationFolderPath, {recursive: true})
-
-    console.info('Compile all readme markdown files to html.')
-
-    await Tools.walkDirectoryRecursively('./', addReadme)
-
-    CONTENT = marked.parse(CONTENT)
-
-    distributionBundleFilePath = await createDistributionBundleFile()
-    if (await Tools.isFile(distributionBundleFilePath)) {
-        await mkdir(DATA_PATH, {recursive: true})
-        await rename(distributionBundleFilePath, data_location)
-    }
-
-    let hasAPIDocumentationCommand =
-        SCOPE.scripts &&
-        Object.prototype.hasOwnProperty.call(SCOPE.scripts, 'document')
-    if (hasAPIDocumentationCommand)
-        try {
-            run('yarn document')
-        } catch (error) {
-            hasAPIDocumentationCommand = false
-        }
-
-    run('git checkout gh-pages')
-    run('git pull')
-
-    const apiDocumentationDirectoryPath = `.${API_DOCUMENTATION_PATHS[1]}`
-    if (await Tools.isDirectory(apiDocumentationDirectoryPath))
-        await rmdir(apiDocumentationDirectoryPath, {recursive: true})
-
-    await rename(API_DOCUMENTATION_PATHS, apiDocumentationDirectoryPath)
-
-    const localDocumentationWebsitePath =
-        `../${basename(temporaryDocumentationFolderPath)}`
-    if (await Tools.isDirectory(localDocumentationWebsitePath)) {
-        await mkdir(temporaryDocumentationFolderPath, {recursive: true})
-
-        await Tools.walkDirectoryRecursively(
-            localDocumentationWebsitePath,
-            (file:File):Promise<false|void> =>
-                copyRepositoryFile(file, temporaryDocumentationFolderPath)
-        )
-
-        const nodeModulesDirectoryPath =
-            resolve(localDocumentationWebsitePath, 'node_modules')
-        if (await Tools.isDirectory(nodeModulesDirectoryPath)) {
-            temporaryDocumentationNodeModulesDirectoryPath =
-                resolve(temporaryDocumentationFolderPath, 'node_modules')
-            /*
-                We copy just recursively reference files.
-
-                NOTE: Symlinking doesn't work since some node modules
-                need the right absolute location to work.
-
-                NOTE: Coping complete "node_modules" folder takes to
-                long.
-
-                NOTE: Mounting "node_modules" folder needs root
-                privileges.
-            */
-            run(`
-                cp
-                --dereference
-                --recursive
-                --reflink=auto
-                '${nodeModulesDirectoryPath}'
-                '${temporaryDocumentationNodeModulesDirectoryPath}'
-            `)
-        } else
-            run('yarn --production=false')
-
-        const currentWorkingDirectoryPathBackup = './'
-
-        run('yarn clear', {cwd: temporaryDocumentationFolderPath})
-    } else
-        run(`
-            unset GIT_WORK_TREE;
-            git clone '${DOCUMENTATION_REPOSITORY}';
-            yarn --production=false
-        `)
-
-    await generateAndPushNewDocumentationPage(
-        temporaryDocumentationFolderPath,
-        distributionBundleFilePath,
-        hasAPIDocumentation,
-        temporaryDocumentationNodeModulesDirectoryPath
-    )
-
-    if (await Tools.isDirectory(existingAPIDocumentationDirectoryPath))
-        await rmdir(existingAPIDocumentationDirectoryPath, {recursuve: true})
-}
-
+// region functions
 /**
  * Renders a new index.html file and copies new assets to generate a new
  * documentation homepage.
@@ -484,6 +375,117 @@ const addReadme = async (file:File):Promise<false|void> => {
         CONTENT += await readFile(file.path, 'utf8')
     }
 }
+// endregion
+if (
+    run('git branch').includes('* master') && 
+    run('git branch --all').includes('gh-pages')
+) {
+    try {
+        SCOPE = require('./package.json')
+    } catch (error) {
+        // Use default scope.
+    }
+
+    API_DOCUMENTATION_PATH_SUFFIX = Tools.stringEvaluate(
+        API_DOCUMENTATION_PATH_SUFFIX, SCOPE
+    ).result
+
+    const temporaryDocumentationFolderPath = 'documentationWebsite'
+    if (await Tools.isDirectory(temporaryDocumentationFolderPath))
+        await rmdir(temporaryDocumentationFolderPath, {recursive: true})
+
+    console.info('Compile all readme markdown files to html.')
+
+    await Tools.walkDirectoryRecursively('./', addReadme)
+
+    CONTENT = marked.parse(CONTENT)
+
+    distributionBundleFilePath = await createDistributionBundleFile()
+    if (await Tools.isFile(distributionBundleFilePath)) {
+        await mkdir(DATA_PATH, {recursive: true})
+        await rename(distributionBundleFilePath, data_location)
+    }
+
+    let hasAPIDocumentationCommand =
+        SCOPE.scripts &&
+        Object.prototype.hasOwnProperty.call(SCOPE.scripts, 'document')
+    if (hasAPIDocumentationCommand)
+        try {
+            run('yarn document')
+        } catch (error) {
+            hasAPIDocumentationCommand = false
+        }
+
+    run('git checkout gh-pages')
+    run('git pull')
+
+    const apiDocumentationDirectoryPath = `.${API_DOCUMENTATION_PATHS[1]}`
+    if (await Tools.isDirectory(apiDocumentationDirectoryPath))
+        await rmdir(apiDocumentationDirectoryPath, {recursive: true})
+
+    await rename(API_DOCUMENTATION_PATHS, apiDocumentationDirectoryPath)
+
+    const localDocumentationWebsitePath =
+        `../${basename(temporaryDocumentationFolderPath)}`
+    if (await Tools.isDirectory(localDocumentationWebsitePath)) {
+        await mkdir(temporaryDocumentationFolderPath, {recursive: true})
+
+        await Tools.walkDirectoryRecursively(
+            localDocumentationWebsitePath,
+            (file:File):Promise<false|void> =>
+                copyRepositoryFile(file, temporaryDocumentationFolderPath)
+        )
+
+        const nodeModulesDirectoryPath =
+            resolve(localDocumentationWebsitePath, 'node_modules')
+        if (await Tools.isDirectory(nodeModulesDirectoryPath)) {
+            temporaryDocumentationNodeModulesDirectoryPath =
+                resolve(temporaryDocumentationFolderPath, 'node_modules')
+            /*
+                We copy just recursively reference files.
+
+                NOTE: Symlinking doesn't work since some node modules
+                need the right absolute location to work.
+
+                NOTE: Coping complete "node_modules" folder takes to
+                long.
+
+                NOTE: Mounting "node_modules" folder needs root
+                privileges.
+            */
+            run(`
+                cp
+                --dereference
+                --recursive
+                --reflink=auto
+                '${nodeModulesDirectoryPath}'
+                '${temporaryDocumentationNodeModulesDirectoryPath}'
+            `)
+        } else
+            run('yarn --production=false')
+
+        const currentWorkingDirectoryPathBackup = './'
+
+        run('yarn clear', {cwd: temporaryDocumentationFolderPath})
+    } else
+        run(`
+            unset GIT_WORK_TREE;
+            git clone '${DOCUMENTATION_REPOSITORY}';
+            yarn --production=false
+        `)
+
+    await generateAndPushNewDocumentationPage(
+        temporaryDocumentationFolderPath,
+        distributionBundleFilePath,
+        hasAPIDocumentation,
+        temporaryDocumentationNodeModulesDirectoryPath
+    )
+
+    if (await Tools.isDirectory(existingAPIDocumentationDirectoryPath))
+        await rmdir(existingAPIDocumentationDirectoryPath, {recursuve: true})
+}
+
+
 // region vim modline
 // vim: set tabstop=4 shiftwidth=4 expandtab:
 // vim: foldmethod=marker foldmarker=region,endregion:
