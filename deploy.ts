@@ -24,9 +24,9 @@ import {createReadStream, createWriteStream} from 'fs'
 import {
     copyFile, mkdir, readdir, readFile, rename, rm, rmdir, writeFile
 } from 'fs/promises'
+import {getLanguage, highlight} from 'highlight.js'
 import {marked} from 'marked'
 import {basename, extname, resolve} from 'path'
-import pygmentize from 'pygmentize-bundled'
 import {pipeline} from 'stream'
 import {createGunzip, createGzip} from 'zlib'
 // endregion
@@ -49,15 +49,12 @@ marked.use({
         code:string,
         language:string,
         callback:(error:Error|null, result:string) => void
-    ) => {
-        pygmentize(
-           {lang: language, format: 'html'},
-           code,
-           (error?:Error, result:unknown):void => {
-               callback(error, result.toString())
-           }
-        )
-    },
+    ) => (
+        highlight(
+            code,
+            {language: getLanguage(language) ? language : 'plaintext'}
+        ).value
+    ),
     // A string to prefix the className in a <code> block. Useful for syntax
     // highlighting.
     langPrefix: 'language-',
