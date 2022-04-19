@@ -33,7 +33,9 @@
     "url": "git@github.io:thaibault/documentation-website.git"
   },
   "scripts": {
-    "build": "weboptimizer build",
+    "build": "yarn build:web && yarn build:deploy",
+    "build:deploy": "weboptimizer build '{__reference__: \"target:deploy\"}'",
+    "build:web": "weboptimizer build",
     "build:stats": "weboptimizer build --profile --json /tmp/stats.json | sed --regexp-extended 's/^Running \".+$//' | sed --regexp-extended 's/^Consolidate module request \".+$//' >/tmp/stats.json && echo 'Results successfully written to \"/tmp/stats.json\".'",
     "check": "yarn check:types; yarn lint",
     "check:types": "weboptimizer check:types",
@@ -208,6 +210,11 @@
           "javaScript": "./",
           "cascadingStyleSheet": "./"
         }
+      }
+    },
+    "target:deploy": {
+      "injection": {
+        "entry": "./deploy"
       }
     }
   }
