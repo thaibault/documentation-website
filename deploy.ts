@@ -18,18 +18,30 @@
 */
 // region imports
 import {execSync} from 'child_process'
-import Tools from 'clientnode'
-import {File, Mapping} from 'clientnode/type'
-import {createReadStream, createWriteStream} from 'fs'
+import Tools, {optionalRequire} from 'clientnode'
+import {File, Mapping, PlainObject} from 'clientnode/type'
+import {createReadStream, createWriteStream, WriteStream} from 'fs'
 import {
     copyFile, mkdir, readdir, readFile, rename, rm, rmdir, writeFile
 } from 'fs/promises'
-import {getLanguage, highlight} from 'highlight.js'
+import highlightModule from 'highlight.js'
 import {marked} from 'marked'
 import {basename, extname, resolve} from 'path'
 import {pipeline} from 'stream'
-import {createGunzip, createGzip} from 'zlib'
+import {createGunzip, createGzip, Gzip} from 'zlib'
 // endregion
+const {getLanguage, highlight} = highlightModule
+
+interface SCOPE_TYPE extends Mapping<unknown> {
+    description?:string
+    documentationWebsite?:PlainObject
+    files?:Array<string>
+    main?:string
+    name:string
+    scripts?:Mapping
+    version:string
+}
+
 marked.use({
     // A prefix url for any relative link.
     baseUrl: '',
@@ -45,14 +57,9 @@ marked.use({
     // etc).
     headerPrefix: 'doc-',
     // A function to highlight code blocks, see Asynchronous highlighting.
-    highlight: (
-        code:string,
-        language:string,
-        callback:(error:Error|null, result:string) => void
-    ) => (
+    highlight: (code:string, language:string):string => (
         highlight(
-            code,
-            {language: getLanguage(language) ? language : 'plaintext'}
+            code, {language: getLanguage(language) ? language : 'plaintext'}
         ).value
     ),
     // A string to prefix the className in a <code> block. Useful for syntax
@@ -68,7 +75,7 @@ marked.use({
     // extensibility for more details.
     // // renderer: new Renderer(),
     // A function to sanitize the HTML passed into markdownString.
-    sanitizer: null,
+    sanitizer: Tools.identity,
     // If true, the parser does not throw any exception.
     silent: false,
     // If true, use smarter list behavior than those found in markdown.pl.
@@ -81,7 +88,7 @@ marked.use({
     // tokenizer: new Tokenizer(),
     // A function which is called for every token. See extensibility for more
     // details.
-    walkTokens: null,
+    walkTokens: undefined,
     // If true, emit self-closing HTML tags for void elements (<br/>, <img/>,
     // etc.) with a "/" as required by XHTML.
     xhtml: true
@@ -117,19 +124,10 @@ const BUILD_DOCUMENTATION_PAGE_CONFIGURATION = {
     offline: null
 }
 let CONTENT = ''
-const DOCUMENTATION_REPOSITORY = 'git@github.com:"thaibault/documentationWebsite"'
-const MARKDOWN_EXTENSIONS = [
-    'toc',
-    'codehilite',
-    'extra',
-    'headerid',
-    'meta',
-    'sane_lists',
-    'wikilinks',
-    'nl2br'
-]
+const DOCUMENTATION_REPOSITORY =
+    'git@github.com:"thaibault/documentationWebsite"'
 const PROJECT_PAGE_COMMIT_MESSAGE = 'Update project homepage content.'
-let SCOPE = {name: '__dummy__', version: '1.0.0'}
+let SCOPE:SCOPE_TYPE = {name: '__dummy__', version: '1.0.0'}
 // endregion
 // region functions
 /**
@@ -139,18 +137,15 @@ let SCOPE = {name: '__dummy__', version: '1.0.0'}
  * documentation build.
  * @param distributionBundleFilePath - Location where to save the exported
  * build artefacts.
- * @param hasAPIDocumentation - Indicates whether there already exists a ready
- * to use api documentation.
- * @param temporaryDocumentationNodeModulesDirectoryPath - Location where
- * node modules can be saved temporary during build process.
+ * @param hasAPIDocumentationCommand - Indicates whether there already exists
+ * a ready to use api documentation.
  *
  * @returns A promise resolving when build process has finished.
  */
 const generateAndPushNewDocumentationPage = async (
     temporaryDocumentationFolderPath:string,
     distributionBundleFilePath:null|string,
-    hasAPIDocumentation:boolean,
-    temporaryDocumentationNodeModulesDirectoryPath:string
+    hasAPIDocumentationCommand:boolean
 ):Promise<void> => {
     console.info('Update documentation design.')
 
@@ -176,7 +171,7 @@ const generateAndPushNewDocumentationPage = async (
     }
 
     const faviconPath = 'favicon.png'
-    if (await Tools.isFile(favicon))
+    if (await Tools.isFile(faviconPath))
         await copyFile(
             faviconPath,
             `${temporaryDocumentationFolderPath}/source/image/favicon.ico`
@@ -195,7 +190,7 @@ const generateAndPushNewDocumentationPage = async (
     console.debug(`Found parameters "${Tools.represent(parameters)}".`)
 
     let apiDocumentationPath:null|string = null
-    if (hasAPIDocumentation) {
+    if (hasAPIDocumentationCommand) {
         apiDocumentationPath =
             API_DOCUMENTATION_PATHS[1] + API_DOCUMENTATION_PATH_SUFFIX
         if (!(await Tools.isDirectory(apiDocumentationPath)))
@@ -209,7 +204,10 @@ const generateAndPushNewDocumentationPage = async (
         RENDER_CONTENT: false,
         API_DOCUMENTATION_PATH: apiDocumentationPath,
         DISTRIBUTION_BUNDLE_FILE_PATH:
-            (await Tools.isFile(distributionBundleFile)) ?
+            (
+                distributionBundleFilePath &&
+                await Tools.isFile(distributionBundleFilePath)
+            ) ?
                 DISTRIBUTION_BUNDLE_FILE_PATH :
                 null
     }
@@ -218,17 +216,16 @@ const generateAndPushNewDocumentationPage = async (
         if (typeof value === 'string')
             parameters[key] = value.replace('!', '#%%%#')
 
-    const parametersFilePath:string = run('mktemp --suffix .json')
-    await writeFile(
-        parametersFilePath,
-        Tools.evaluateDynamicData(
+    const serializedParameters:string =
+        JSON.stringify(Tools.evaluateDynamicData(
             BUILD_DOCUMENTATION_PAGE_CONFIGURATION, {parameters, ...SCOPE}
-        )
-    )
+        ))
+    const parametersFilePath:string = run('mktemp --suffix .json')
+    await writeFile(parametersFilePath, serializedParameters)
     BUILD_DOCUMENTATION_PAGE_COMMAND = Tools.stringEvaluate(
         BUILD_DOCUMENTATION_PAGE_COMMAND,
         {parameters, parametersFilePath, ...SCOPE}
-    )
+    ).result
 
     console.debug(`Use parameters "${serializedParameters}".`)
     console.info(`Run "${BUILD_DOCUMENTATION_PAGE_COMMAND}".`)
@@ -254,11 +251,10 @@ const generateAndPushNewDocumentationPage = async (
     await Tools.walkDirectoryRecursively(
         documentationBuildFolderPath,
         (file:File):Promise<false|void> =>
-            copyRepositoryFile(filePath, documentationBuildFolderPath)
+            copyRepositoryFile(file, documentationBuildFolderPath)
     )
 
-    run(`sudo umount '${temporaryDocumentationNodeModulesDirectoryPath}'`)
-    await rmdir(temporaryDocumentationFolder, {recursive: true})
+    await rmdir(temporaryDocumentationFolderPath, {recursive: true})
 
     run('git add --all')
     run(`git commit --message "${PROJECT_PAGE_COMMIT_MESSAGE}" --all`)
@@ -269,8 +265,11 @@ const generateAndPushNewDocumentationPage = async (
 /**
  * Creates a distribution bundle file as zip archiv.
  */
-const createDistributionBundleFilePath = async ():Promise<null|string> => {
-    if (SCOPE.scripts['build:export'] || SCOPE.scripts.build)
+const createDistributionBundle = async ():Promise<null|string> => {
+    if (
+        SCOPE.scripts &&
+        (SCOPE.scripts['build:export'] || SCOPE.scripts.build)
+    )
         run(`yarn ${SCOPE.scripts['build:export'] ? 'build:export' : 'build'}`)
 
     console.info('Pack to a zip archive.')
@@ -283,10 +282,11 @@ const createDistributionBundleFilePath = async ():Promise<null|string> => {
     if (filePaths.length === 0)
         return null
 
-    const gzip = createGzip()
-    const destination = createWriteStream(distributionBundleFilePath)
+    const gzip:Gzip = createGzip()
+    const destination:WriteStream =
+        createWriteStream(distributionBundleFilePath)
 
-    const add = async (filePaths:Array<string>):Promise<void> => { 
+    const add = async (filePaths:Array<string>):Promise<void> => {
         for (const filePath of filePaths) {
             console.debug(`Add "${filePath}" to distribution bundle.`)
 
@@ -298,9 +298,9 @@ const createDistributionBundleFilePath = async ():Promise<null|string> => {
                         createReadStream(filePath),
                         gzip,
                         destination,
-                        (error?:Error) => {
+                        (error:Error|null) => {
                             if (error) {
-                                console.error('An error occurred:', err)
+                                console.error('An error occurred:', error)
 
                                 process.exitCode = 1
                             }
@@ -348,7 +348,7 @@ const copyRepositoryFile = async (source:File, targetPath:string):Promise<
 
     console.debug('Copy "%s" to "%s".', source.path, targetPath)
 
-    if (source.stats.isFile())
+    if (source.stats!.isFile())
         await copyFile(source.path, targetPath)
     else
         await mkdir(targetPath)
@@ -376,14 +376,10 @@ const addReadme = async (file:File):Promise<false|void> => {
 }
 // endregion
 if (
-    run('git branch').includes('* master') && 
+    run('git branch').includes('* master') &&
     run('git branch --all').includes('gh-pages')
 ) {
-    try {
-        SCOPE = require('./package.json')
-    } catch (error) {
-        // Use default scope.
-    }
+    SCOPE = optionalRequire('./package.json') || SCOPE
 
     API_DOCUMENTATION_PATH_SUFFIX = Tools.stringEvaluate(
         API_DOCUMENTATION_PATH_SUFFIX, SCOPE
@@ -399,14 +395,18 @@ if (
 
     CONTENT = marked.parse(CONTENT)
 
-    distributionBundleFilePath = await createDistributionBundleFile()
-    if (await Tools.isFile(distributionBundleFilePath)) {
+    const distributionBundleFilePath:null|string =
+        await createDistributionBundle()
+    if (
+        distributionBundleFilePath &&
+        await Tools.isFile(distributionBundleFilePath)
+    ) {
         await mkdir(DATA_PATH, {recursive: true})
-        await rename(distributionBundleFilePath, data_location)
+        await rename(distributionBundleFilePath, DATA_PATH)
     }
 
-    let hasAPIDocumentationCommand =
-        SCOPE.scripts &&
+    let hasAPIDocumentationCommand:boolean =
+        Boolean(SCOPE.scripts) &&
         Object.prototype.hasOwnProperty.call(SCOPE.scripts, 'document')
     if (hasAPIDocumentationCommand)
         try {
@@ -422,7 +422,7 @@ if (
     if (await Tools.isDirectory(apiDocumentationDirectoryPath))
         await rmdir(apiDocumentationDirectoryPath, {recursive: true})
 
-    await rename(API_DOCUMENTATION_PATHS, apiDocumentationDirectoryPath)
+    await rename(API_DOCUMENTATION_PATHS[0], apiDocumentationDirectoryPath)
 
     const localDocumentationWebsitePath =
         `../${basename(temporaryDocumentationFolderPath)}`
@@ -438,7 +438,7 @@ if (
         const nodeModulesDirectoryPath =
             resolve(localDocumentationWebsitePath, 'node_modules')
         if (await Tools.isDirectory(nodeModulesDirectoryPath)) {
-            temporaryDocumentationNodeModulesDirectoryPath =
+            const temporaryDocumentationNodeModulesDirectoryPath:string =
                 resolve(temporaryDocumentationFolderPath, 'node_modules')
             /*
                 We copy just recursively reference files.
@@ -463,8 +463,6 @@ if (
         } else
             run('yarn --production=false')
 
-        const currentWorkingDirectoryPathBackup = './'
-
         run('yarn clear', {cwd: temporaryDocumentationFolderPath})
     } else
         run(`
@@ -476,12 +474,11 @@ if (
     await generateAndPushNewDocumentationPage(
         temporaryDocumentationFolderPath,
         distributionBundleFilePath,
-        hasAPIDocumentation,
-        temporaryDocumentationNodeModulesDirectoryPath
+        hasAPIDocumentationCommand
     )
 
-    if (await Tools.isDirectory(existingAPIDocumentationDirectoryPath))
-        await rmdir(existingAPIDocumentationDirectoryPath, {recursive: true})
+    if (await Tools.isDirectory(apiDocumentationDirectoryPath))
+        await rmdir(apiDocumentationDirectoryPath, {recursive: true})
 }
 
 

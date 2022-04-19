@@ -58,7 +58,6 @@
     "@babel/eslint-parser": "*",
     "@babel/runtime": "*",
     "@types/ejs": "*",
-    "@types/highlightjs": "*",
     "@types/html-minifier": "*",
     "@types/jest": "*",
     "@types/jquery": "*",
