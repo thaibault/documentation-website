@@ -101,8 +101,7 @@ const run = (command:string, options = {}):string =>
 /// region locations
 const DOCUMENTATION_BUILD_PATH = resolve('./build/')
 const DATA_PATH = resolve('./data/')
-const API_DOCUMENTATION_PATHS =
-    [resolve('./apiDocumentation/'), resolve('./api/')]
+const API_DOCUMENTATION_PATHS = ['apiDocumentation/', 'api/']
 let API_DOCUMENTATION_PATH_SUFFIX = '${name}/${version}/'
 const DISTRIBUTION_BUNDLE_FILE_PATH = `${DATA_PATH}distributionBundle.zip`
 const DISTRIBUTION_BUNDLE_DIRECTORY_PATH = `${DATA_PATH}distributionBundle`
@@ -126,7 +125,7 @@ const BUILD_DOCUMENTATION_PAGE_CONFIGURATION = {
 }
 let CONTENT = ''
 const DOCUMENTATION_REPOSITORY =
-    'git@github.com:"thaibault/documentationWebsite"'
+    'git@github.com:"thaibault/documentation-website"'
 const PROJECT_PAGE_COMMIT_MESSAGE = 'Update project homepage content.'
 let SCOPE:SCOPE_TYPE = {name: '__dummy__', version: '1.0.0'}
 // endregion
@@ -392,7 +391,7 @@ if (
 
     API_DOCUMENTATION_PATH_SUFFIX = evaluationResult.result
 
-    const temporaryDocumentationFolderPath = 'documentationWebsite'
+    const temporaryDocumentationFolderPath = 'documentation-website'
     if (await Tools.isDirectory(temporaryDocumentationFolderPath))
         await rmdir(temporaryDocumentationFolderPath, {recursive: true})
 
@@ -428,16 +427,20 @@ if (
 
     run('git checkout gh-pages')
     run('git pull')
-    console.log('TODO AAA', hasAPIDocumentationCommand);process.exit()
 
-    const apiDocumentationDirectoryPath = `.${API_DOCUMENTATION_PATHS[1]}`
+    const apiDocumentationDirectoryPath:string =
+        resolve(`./.${API_DOCUMENTATION_PATHS[1]}`)
     if (await Tools.isDirectory(apiDocumentationDirectoryPath))
         await rmdir(apiDocumentationDirectoryPath, {recursive: true})
 
-    await rename(API_DOCUMENTATION_PATHS[0], apiDocumentationDirectoryPath)
+    if (await Tools.isDirectory(resolve(`./${API_DOCUMENTATION_PATHS[0]}`)))
+        await rename(
+            resolve(`./${API_DOCUMENTATION_PATHS[0]}`),
+            apiDocumentationDirectoryPath
+        )
 
-    const localDocumentationWebsitePath =
-        `../${basename(temporaryDocumentationFolderPath)}`
+    const localDocumentationWebsitePath:string =
+        resolve(`../${basename(temporaryDocumentationFolderPath)}`)
     if (await Tools.isDirectory(localDocumentationWebsitePath)) {
         await mkdir(temporaryDocumentationFolderPath, {recursive: true})
 
@@ -446,8 +449,9 @@ if (
             (file:File):Promise<false|void> =>
                 copyRepositoryFile(file, temporaryDocumentationFolderPath)
         )
+    console.log('TODO AAA', localDocumentationWebsitePath, await Tools.isDirectory(localDocumentationWebsitePath));process.exit()
 
-        const nodeModulesDirectoryPath =
+        const nodeModulesDirectoryPath:string =
             resolve(localDocumentationWebsitePath, 'node_modules')
         if (await Tools.isDirectory(nodeModulesDirectoryPath)) {
             const temporaryDocumentationNodeModulesDirectoryPath:string =
