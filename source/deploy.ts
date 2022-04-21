@@ -376,8 +376,9 @@ const addReadme = async (file:File):Promise<false|void> => {
 }
 // endregion
 
-console.log('AAA')
+console.log('TODO AAA')
 process.exit()
+
 if (
     run('git branch').includes('* master') &&
     run('git branch --all').includes('gh-pages')
