@@ -382,20 +382,18 @@ if (
 ) {
     SCOPE = optionalRequire('./package.json') || SCOPE
 
-    console.log('TODO AAA', API_DOCUMENTATION_PATH_SUFFIX, SCOPE, API_DOCUMENTATION_PATH_SUFFIX)
     const evaluationResult:EvaluationResult = Tools.stringEvaluate(
-        API_DOCUMENTATION_PATH_SUFFIX, SCOPE
+        `\`${API_DOCUMENTATION_PATH_SUFFIX}\``, SCOPE
     )
 
-    console.log(evaluationResult)
     API_DOCUMENTATION_PATH_SUFFIX = evaluationResult.result
-    ;process.exit()
 
     const temporaryDocumentationFolderPath = 'documentationWebsite'
     if (await Tools.isDirectory(temporaryDocumentationFolderPath))
         await rmdir(temporaryDocumentationFolderPath, {recursive: true})
 
     console.info('Compile all readme markdown files to html.')
+    console.log('TODO AAA');process.exit()
 
     await Tools.walkDirectoryRecursively('./', addReadme)
 
