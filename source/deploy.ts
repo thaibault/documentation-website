@@ -349,7 +349,9 @@ const copyRepositoryFile = async (source:File, targetPath:string):Promise<
     )
         return false
 
-    console.debug('Copy "%s" to "%s".', source.path, targetPath)
+    targetPath = join(targetPath, source.name)
+
+    console.debug(`Copy "${source.path}" to "${targetPath}".`)
 
     if (source.stats!.isFile())
         await copyFile(source.path, targetPath)
@@ -449,11 +451,11 @@ if (
             (file:File):Promise<false|void> =>
                 copyRepositoryFile(file, temporaryDocumentationFolderPath)
         )
-    console.log('TODO AAA', localDocumentationWebsitePath, await Tools.isDirectory(localDocumentationWebsitePath));process.exit()
 
         const nodeModulesDirectoryPath:string =
             resolve(localDocumentationWebsitePath, 'node_modules')
-        if (await Tools.isDirectory(nodeModulesDirectoryPath)) {
+        if (false && await Tools.isDirectory(nodeModulesDirectoryPath)) {
+            // NOTE: Not working caused by nested symlinks.
             const temporaryDocumentationNodeModulesDirectoryPath:string =
                 resolve(temporaryDocumentationFolderPath, 'node_modules')
             /*
@@ -468,13 +470,14 @@ if (
                 NOTE: Mounting "node_modules" folder needs root
                 privileges.
             */
+            console.log('TODO AAA', nodeModulesDirectoryPath, temporaryDocumentationNodeModulesDirectoryPath)
             run(`
-                cp
-                --dereference
-                --recursive
-                --reflink=auto
-                '${nodeModulesDirectoryPath}'
-                '${temporaryDocumentationNodeModulesDirectoryPath}'
+                cp \
+                    --dereference \
+                    --recursive \
+                    --reflink=auto \
+                    '${nodeModulesDirectoryPath}' \
+                    '${temporaryDocumentationNodeModulesDirectoryPath}'
             `)
         } else
             run('yarn --production=false')
@@ -486,6 +489,7 @@ if (
             git clone '${DOCUMENTATION_REPOSITORY}';
             yarn --production=false
         `)
+    console.log('TODO AAA');process.exit()
 
     await generateAndPushNewDocumentationPage(
         temporaryDocumentationFolderPath,
