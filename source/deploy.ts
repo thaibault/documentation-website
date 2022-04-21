@@ -18,7 +18,7 @@
 */
 // region imports
 import {execSync} from 'child_process'
-import Tools, {currentImport} from 'clientnode'
+import Tools, {optionalRequire} from 'clientnode'
 import {EvaluationResult, File, Mapping, PlainObject} from 'clientnode/type'
 import {createReadStream, createWriteStream, WriteStream} from 'fs'
 import {
@@ -279,7 +279,6 @@ const createDistributionBundle = async ():Promise<null|string> => {
     if (SCOPE.main)
         filePaths.push(SCOPE.main)
 
-    console.log('B', filePaths);return null
     if (filePaths.length === 0)
         return null
 
@@ -381,9 +380,9 @@ if (
     run('git branch').includes('* master') &&
     run('git branch --all').includes('gh-pages')
 ) {
-    SCOPE = (await currentImport('./package.json')) || SCOPE
+    SCOPE = optionalRequire(resolve('./package.json')) || SCOPE
 
-    console.log(await currentImport(resolve('./package.json')))
+    console.log(SCOPE)
 
     const evaluationResult:EvaluationResult = Tools.stringEvaluate(
         `\`${API_DOCUMENTATION_PATH_SUFFIX}\``, SCOPE
