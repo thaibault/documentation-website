@@ -18,7 +18,7 @@
 */
 // region imports
 import {execSync} from 'child_process'
-import Tools, {optionalRequire} from 'clientnode'
+import Tools, {currentImport} from 'clientnode'
 import {EvaluationResult, File, Mapping, PlainObject} from 'clientnode/type'
 import {createReadStream, createWriteStream, WriteStream} from 'fs'
 import {
@@ -279,6 +279,7 @@ const createDistributionBundle = async ():Promise<null|string> => {
     if (SCOPE.main)
         filePaths.push(SCOPE.main)
 
+    console.log('B', filePaths);return null
     if (filePaths.length === 0)
         return null
 
@@ -380,7 +381,9 @@ if (
     run('git branch').includes('* master') &&
     run('git branch --all').includes('gh-pages')
 ) {
-    SCOPE = optionalRequire('./package.json') || SCOPE
+    SCOPE = (await currentImport('./package.json')) || SCOPE
+
+    console.log(await currentImport(resolve('./package.json')))
 
     const evaluationResult:EvaluationResult = Tools.stringEvaluate(
         `\`${API_DOCUMENTATION_PATH_SUFFIX}\``, SCOPE
@@ -392,8 +395,7 @@ if (
     if (await Tools.isDirectory(temporaryDocumentationFolderPath))
         await rmdir(temporaryDocumentationFolderPath, {recursive: true})
 
-    console.info('Compile all readme markdown files to html.')
-    console.log('TODO AAA');process.exit()
+    console.info('Compile read all markdown files and transform to html.')
 
     await Tools.walkDirectoryRecursively('./', addReadme)
 
@@ -401,6 +403,8 @@ if (
 
     const distributionBundleFilePath:null|string =
         await createDistributionBundle()
+
+    console.log('TODO AAA', distributionBundleFilePath);process.exit()
     if (
         distributionBundleFilePath &&
         await Tools.isFile(distributionBundleFilePath)
