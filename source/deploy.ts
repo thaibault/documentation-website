@@ -376,9 +376,6 @@ const addReadme = async (file:File):Promise<false|void> => {
 }
 // endregion
 
-console.log('TODO AAA')
-process.exit()
-
 if (
     run('git branch').includes('* master') &&
     run('git branch --all').includes('gh-pages')
@@ -389,6 +386,7 @@ if (
         API_DOCUMENTATION_PATH_SUFFIX, SCOPE
     ).result
 
+    console.log('TODO AAA', API_DOCUMENTATION_PATH_SUFFIX);process.exit()
     const temporaryDocumentationFolderPath = 'documentationWebsite'
     if (await Tools.isDirectory(temporaryDocumentationFolderPath))
         await rmdir(temporaryDocumentationFolderPath, {recursive: true})
