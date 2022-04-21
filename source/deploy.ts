@@ -470,7 +470,6 @@ if (
                 NOTE: Mounting "node_modules" folder needs root
                 privileges.
             */
-            console.log('TODO AAA', nodeModulesDirectoryPath, temporaryDocumentationNodeModulesDirectoryPath)
             run(`
                 cp \
                     --dereference \
@@ -479,8 +478,10 @@ if (
                     '${nodeModulesDirectoryPath}' \
                     '${temporaryDocumentationNodeModulesDirectoryPath}'
             `)
-        } else
+        } else {
+            console.log('TODO AAA')
             run('yarn --production=false')
+        }
 
         run('yarn clear', {cwd: temporaryDocumentationFolderPath})
     } else
