@@ -287,7 +287,9 @@ const createDistributionBundle = async ():Promise<null|string> => {
         createWriteStream(distributionBundleFilePath)
 
     const add = async (filePaths:Array<string>):Promise<void> => {
-        for (const filePath of filePaths) {
+        for (let filePath of filePaths) {
+            filePath = resolve(`./${filePath}`)
+
             console.debug(`Add "${filePath}" to distribution bundle.`)
 
             if (!(await isFileIgnored(filePath)))
@@ -381,8 +383,6 @@ if (
     run('git branch --all').includes('gh-pages')
 ) {
     SCOPE = optionalRequire(resolve('./package.json')) || SCOPE
-
-    console.log(SCOPE)
 
     const evaluationResult:EvaluationResult = Tools.stringEvaluate(
         `\`${API_DOCUMENTATION_PATH_SUFFIX}\``, SCOPE
