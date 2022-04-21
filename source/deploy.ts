@@ -19,7 +19,7 @@
 // region imports
 import {execSync} from 'child_process'
 import Tools, {optionalRequire} from 'clientnode'
-import {File, Mapping, PlainObject} from 'clientnode/type'
+import {EvaluationResult, File, Mapping, PlainObject} from 'clientnode/type'
 import {createReadStream, createWriteStream, WriteStream} from 'fs'
 import {
     copyFile, mkdir, readdir, readFile, rename, rm, rmdir, writeFile
@@ -382,11 +382,15 @@ if (
 ) {
     SCOPE = optionalRequire('./package.json') || SCOPE
 
-    API_DOCUMENTATION_PATH_SUFFIX = Tools.stringEvaluate(
+    console.log('TODO AAA', API_DOCUMENTATION_PATH_SUFFIX, SCOPE, API_DOCUMENTATION_PATH_SUFFIX)
+    const evaluationResult:EvaluationResult = Tools.stringEvaluate(
         API_DOCUMENTATION_PATH_SUFFIX, SCOPE
-    ).result
+    )
 
-    console.log('TODO AAA', API_DOCUMENTATION_PATH_SUFFIX);process.exit()
+    console.log(evaluationResult)
+    API_DOCUMENTATION_PATH_SUFFIX = evaluationResult.result
+    ;process.exit()
+
     const temporaryDocumentationFolderPath = 'documentationWebsite'
     if (await Tools.isDirectory(temporaryDocumentationFolderPath))
         await rmdir(temporaryDocumentationFolderPath, {recursive: true})
