@@ -26,7 +26,7 @@ import {
 } from 'fs/promises'
 import highlightModule from 'highlight.js'
 import {marked} from 'marked'
-import {basename, extname, resolve} from 'path'
+import {basename, extname, join, resolve} from 'path'
 import {pipeline} from 'stream'
 import {createGunzip, createGzip, Gzip} from 'zlib'
 // endregion
@@ -99,9 +99,10 @@ const run = (command:string, options = {}):string =>
 
 // region globals
 /// region locations
-const DOCUMENTATION_BUILD_PATH = 'build/'
-const DATA_PATH = 'data/'
-const API_DOCUMENTATION_PATHS = ['apiDocumentation/', '/api/']
+const DOCUMENTATION_BUILD_PATH = resolve('./build/')
+const DATA_PATH = resolve('./data/')
+const API_DOCUMENTATION_PATHS =
+    [resolve('./apiDocumentation/'), resolve('./api/')]
 let API_DOCUMENTATION_PATH_SUFFIX = '${name}/${version}/'
 const DISTRIBUTION_BUNDLE_FILE_PATH = `${DATA_PATH}distributionBundle.zip`
 const DISTRIBUTION_BUNDLE_DIRECTORY_PATH = `${DATA_PATH}distributionBundle`
@@ -220,7 +221,7 @@ const generateAndPushNewDocumentationPage = async (
         JSON.stringify(Tools.evaluateDynamicData(
             BUILD_DOCUMENTATION_PAGE_CONFIGURATION, {parameters, ...SCOPE}
         ))
-    const parametersFilePath:string = run('mktemp --suffix .json')
+    const parametersFilePath:string = run('mktemp --suffix .json').trim()
     await writeFile(parametersFilePath, serializedParameters)
     BUILD_DOCUMENTATION_PAGE_COMMAND = Tools.stringEvaluate(
         BUILD_DOCUMENTATION_PAGE_COMMAND,
@@ -273,7 +274,8 @@ const createDistributionBundle = async ():Promise<null|string> => {
         run(`yarn ${SCOPE.scripts['build:export'] ? 'build:export' : 'build'}`)
 
     console.info('Pack to a zip archive.')
-    const distributionBundleFilePath:string = run('mktemp')
+    const distributionBundleFilePath:string =
+        run('mktemp --suffix .zip').trim()
 
     const filePaths = SCOPE.files || []
     if (SCOPE.main)
@@ -403,13 +405,15 @@ if (
     const distributionBundleFilePath:null|string =
         await createDistributionBundle()
 
-    console.log('TODO AAA', distributionBundleFilePath);process.exit()
     if (
         distributionBundleFilePath &&
         await Tools.isFile(distributionBundleFilePath)
     ) {
         await mkdir(DATA_PATH, {recursive: true})
-        await rename(distributionBundleFilePath, DATA_PATH)
+        await copyFile(
+            distributionBundleFilePath,
+            join(DATA_PATH, basename(distributionBundleFilePath))
+        )
     }
 
     let hasAPIDocumentationCommand:boolean =
@@ -424,6 +428,7 @@ if (
 
     run('git checkout gh-pages')
     run('git pull')
+    console.log('TODO AAA', hasAPIDocumentationCommand);process.exit()
 
     const apiDocumentationDirectoryPath = `.${API_DOCUMENTATION_PATHS[1]}`
     if (await Tools.isDirectory(apiDocumentationDirectoryPath))
