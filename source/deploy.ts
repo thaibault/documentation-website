@@ -17,6 +17,7 @@
     endregion
 */
 // region imports
+import archiver from 'archiver'
 import {execSync} from 'child_process'
 import Tools, {optionalRequire} from 'clientnode'
 import {EvaluationResult, File, Mapping, PlainObject} from 'clientnode/type'
@@ -26,9 +27,9 @@ import {
 } from 'fs/promises'
 import highlightModule from 'highlight.js'
 import {marked} from 'marked'
-import {basename, extname, join, resolve} from 'path'
+import {basename, extname, join, relative, resolve} from 'path'
 import {pipeline} from 'stream'
-import {createGunzip, createGzip, Gzip} from 'zlib'
+import {createGunzip} from 'zlib'
 // endregion
 const {getLanguage, highlight} = highlightModule
 
@@ -276,43 +277,65 @@ const createDistributionBundle = async ():Promise<null|string> => {
     const distributionBundleFilePath:string =
         run('mktemp --suffix .zip').trim()
 
-    const filePaths = SCOPE.files || []
+    let filePaths = SCOPE.files || []
     if (SCOPE.main)
         filePaths.push(SCOPE.main)
 
     if (filePaths.length === 0)
         return null
 
-    const gzip:Gzip = createGzip()
-    const destination:WriteStream =
-        createWriteStream(distributionBundleFilePath)
+    const determineFilePaths = async (
+        filePaths:Array<string>
+    ):Promise<Array<string>> => {
+        let result:Array<string> = []
 
-    const add = async (filePaths:Array<string>):Promise<void> => {
         for (let filePath of filePaths) {
             filePath = resolve(`./${filePath}`)
 
-            console.debug(`Add "${filePath}" to distribution bundle.`)
-
             if (!(await isFileIgnored(filePath)))
                 if (await Tools.isDirectory(filePath))
-                    await add(await readdir('./'))
-                else
-                    pipeline(
-                        createReadStream(filePath),
-                        gzip,
-                        destination,
-                        (error:Error|null) => {
-                            if (error) {
-                                console.error('An error occurred:', error)
-
-                                process.exitCode = 1
-                            }
-                        }
+                    result = result.concat(
+                        await determineFilePaths(await readdir(filePath))
                     )
+                else {
+                    console.debug(`Add "${filePath}" to distribution bundle.`)
+
+                    result.push(filePath)
+                }
         }
+
+        return result
     }
 
-    await add(filePaths)
+
+    const archive = archiver('zip', {zlib: {level: 9}})
+    archive.pipe(createWriteStream(distributionBundleFilePath))
+
+    const promise = new Promise<void>((
+        resolve:() => void, reject:(reason:Error) => void
+    ):void => {
+        archive.on('error', (error:Error):void => {
+            reject(error)
+        })
+
+        archive.on('warning', (error:Error):void => {
+            console.warn(error)
+        })
+
+        archive.on('progress', ({entries: {total, processed}}):void => {
+            if (total === processed)
+                resolve()
+        })
+    }) 
+
+    for (const filePath of await determineFilePaths(filePaths))
+        archive.append(
+            createReadStream(filePath), {name: relative('./', filePath)}
+        )
+
+    archive.finalize()
+
+    await promise
 
     return distributionBundleFilePath
 }
@@ -403,8 +426,17 @@ if (
 
     CONTENT = marked.parse(CONTENT)
 
-    const distributionBundleFilePath:null|string =
-        await createDistributionBundle()
+    let distributionBundleFilePath:null = null
+    try {
+        distributionBundleFilePath = await createDistributionBundle()
+    } catch (error) {
+        console.error(
+            'Error occurred during building distribution bundle:', error
+        )
+
+        process.exitCode = 1
+    }
+    
 
     if (
         distributionBundleFilePath &&
@@ -479,7 +511,7 @@ if (
                     '${temporaryDocumentationNodeModulesDirectoryPath}'
             `)
         } else {
-            console.log('TODO AAA')
+            console.log('TODO AAA wrong directory')
             run('yarn --production=false')
         }
 
