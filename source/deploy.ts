@@ -152,10 +152,11 @@ const generateAndPushNewDocumentationPage = async (
     if (distributionBundleFilePath) {
         console.info('Prepare distribution files.')
 
-        const newDistributionBundleFilePath =
-            temporaryDocumentationFolderPath +
-            DOCUMENTATION_BUILD_PATH +
-            DISTRIBUTION_BUNDLE_FILE_PATH
+        const newDistributionBundleFilePath = join(
+            temporaryDocumentationFolderPath,
+            DOCUMENTATION_BUILD_PATH,
+            relative('./', DISTRIBUTION_BUNDLE_FILE_PATH)
+        )
 
         await mkdir(newDistributionBundleFilePath, {recursive: true})
         await copyFile(
@@ -163,10 +164,11 @@ const generateAndPushNewDocumentationPage = async (
         )
         await rm(distributionBundleFilePath)
 
-        const newDistributionBundleDirectoryPath =
-            temporaryDocumentationFolderPath +
-            DOCUMENTATION_BUILD_PATH +
-            DISTRIBUTION_BUNDLE_DIRECTORY_PATH
+        const newDistributionBundleDirectoryPath = join(
+            temporaryDocumentationFolderPath,
+            DOCUMENTATION_BUILD_PATH,
+            relative('./', DISTRIBUTION_BUNDLE_FILE_PATH)
+        )
 
         await mkdir(newDistributionBundleDirectoryPath, {recursive: true})
 
@@ -435,7 +437,7 @@ if (
     if (await Tools.isDirectory(temporaryDocumentationFolderPath))
         await rmdir(temporaryDocumentationFolderPath, {recursive: true})
 
-    console.info('Compile read all markdown files and transform to html.')
+    console.info('Read and Compile all markdown files and transform to html.')
 
     await Tools.walkDirectoryRecursively('./', addReadme)
 
