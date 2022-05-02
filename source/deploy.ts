@@ -103,8 +103,9 @@ const DOCUMENTATION_BUILD_PATH = resolve('./build/')
 const DATA_PATH = resolve('./data/')
 const API_DOCUMENTATION_PATHS = ['apiDocumentation/', 'api/']
 let API_DOCUMENTATION_PATH_SUFFIX = '${name}/${version}/'
-const DISTRIBUTION_BUNDLE_FILE_PATH = `${DATA_PATH}distributionBundle.zip`
-const DISTRIBUTION_BUNDLE_DIRECTORY_PATH = `${DATA_PATH}distributionBundle`
+const DISTRIBUTION_BUNDLE_FILE_PATH = join(DATA_PATH, 'distributionBundle.zip')
+const DISTRIBUTION_BUNDLE_DIRECTORY_PATH =
+    join(DATA_PATH, 'distributionBundle')
 /// endregion
 let BUILD_DOCUMENTATION_PAGE_COMMAND = 'yarn build ${parametersFilePath}'
 const BUILD_DOCUMENTATION_PAGE_CONFIGURATION = {
@@ -154,7 +155,7 @@ const generateAndPushNewDocumentationPage = async (
 
         const newDistributionBundleFilePath = join(
             temporaryDocumentationFolderPath,
-            DOCUMENTATION_BUILD_PATH,
+            relative('./', DOCUMENTATION_BUILD_PATH),
             relative('./', DISTRIBUTION_BUNDLE_FILE_PATH)
         )
 
@@ -166,7 +167,7 @@ const generateAndPushNewDocumentationPage = async (
 
         const newDistributionBundleDirectoryPath = join(
             temporaryDocumentationFolderPath,
-            DOCUMENTATION_BUILD_PATH,
+            relative('./', DOCUMENTATION_BUILD_PATH),
             relative('./', DISTRIBUTION_BUNDLE_FILE_PATH)
         )
 
@@ -260,8 +261,10 @@ const generateAndPushNewDocumentationPage = async (
 
     console.info('Copy all build artefacts.')
 
-    const documentationBuildFolderPath =
-        temporaryDocumentationFolderPath + DOCUMENTATION_BUILD_PATH
+    const documentationBuildFolderPath = join(
+        temporaryDocumentationFolderPath,
+        resolve('./', DOCUMENTATION_BUILD_PATH)
+    )
     await Tools.walkDirectoryRecursively(
         documentationBuildFolderPath,
         (file:File):Promise<false|void> =>
@@ -371,8 +374,7 @@ const isFileIgnored = async (filePath:string):Promise<boolean> => (
     await Tools.isDirectory(filePath) &&
     ['node_modules', 'build'].includes(basename(filePath)) ||
     await Tools.isFile(filePath) &&
-    basename(filePath) === 'params.json' ||
-    ['pyc', 'pyo'].includes(extname(filePath).substring(1))
+    basename(filePath) === 'params.json'
 )
 
 /**
