@@ -28,7 +28,7 @@ import {
 import highlightModule from 'highlight.js'
 import {marked} from 'marked'
 import {basename, dirname, extname, join, relative, resolve} from 'path'
-import {createGunzip} from 'zlib'
+import {Extract} from 'unzipper'
 // endregion
 const {getLanguage, highlight} = highlightModule
 
@@ -107,7 +107,7 @@ const DISTRIBUTION_BUNDLE_FILE_PATH = join(DATA_PATH, 'distributionBundle.zip')
 const DISTRIBUTION_BUNDLE_DIRECTORY_PATH =
     join(DATA_PATH, 'distributionBundle')
 /// endregion
-let BUILD_DOCUMENTATION_PAGE_COMMAND = 'yarn build ${parametersFilePath}'
+let BUILD_DOCUMENTATION_PAGE_COMMAND = '`yarn build ${parametersFilePath}`'
 const BUILD_DOCUMENTATION_PAGE_CONFIGURATION = {
     module: {
         preprocessor: {
@@ -175,15 +175,12 @@ const generateAndPushNewDocumentationPage = async (
 
         await new Promise<void>((
             resolve:() => void, reject:(reason:Error) => void
-        ):void =>
+        ):void => {
             createReadStream(newDistributionBundleFilePath)
-                .pipe(createGunzip())
-                .pipe(createWriteStream(newDistributionBundleDirectoryPath))
+                .pipe(Extract({path: newDistributionBundleDirectoryPath}))
+                .on('close', ():void => resolve())
                 .on('error', (error:Error):void => reject(error))
-                .on('finish', ():void => {
-                    resolve()
-                })
-        )
+        })
     }
 
     console.info('Prepare favicon file.')
@@ -214,12 +211,9 @@ const generateAndPushNewDocumentationPage = async (
     if (hasAPIDocumentationCommand) {
         apiDocumentationPath =
             API_DOCUMENTATION_PATHS[1] + API_DOCUMENTATION_PATH_SUFFIX
-        console.log('a', Tools.isDirectory, apiDocumentationPath)
         if (!(await Tools.isDirectory(apiDocumentationPath)))
             apiDocumentationPath = API_DOCUMENTATION_PATHS[1]
     }
-
-    console.log('A')
 
     parameters = {
         ...parameters,
@@ -235,7 +229,6 @@ const generateAndPushNewDocumentationPage = async (
                 DISTRIBUTION_BUNDLE_FILE_PATH :
                 null
     }
-    console.log('B')
 
     for (const [key, value] of Object.entries(parameters))
         if (typeof value === 'string')
@@ -246,9 +239,8 @@ const generateAndPushNewDocumentationPage = async (
             BUILD_DOCUMENTATION_PAGE_CONFIGURATION, {parameters, ...SCOPE}
         ))
     const parametersFilePath:string = run('mktemp --suffix .json').trim()
-    console.log('C')
     await writeFile(parametersFilePath, serializedParameters)
-    console.log('D')
+
     BUILD_DOCUMENTATION_PAGE_COMMAND = Tools.stringEvaluate(
         BUILD_DOCUMENTATION_PAGE_COMMAND,
         {parameters, parametersFilePath, ...SCOPE}

@@ -66,6 +66,7 @@
     "@types/jsdom": "*",
     "@types/marked": "*",
     "@types/node": "*",
+    "@types/unzipper": "*",
     "@typescript-eslint/eslint-plugin": "*",
     "@typescript-eslint/parser": "*",
     "archiver": "*",
@@ -101,6 +102,7 @@
     "stylelint": "*",
     "stylelint-config-standard": "*",
     "ua-parser-js": "*",
+    "unzipper": "*",
     "weboptimizer": "*",
     "webpack-dev-server": "*",
     "website-utilities": "*"
