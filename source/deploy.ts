@@ -147,16 +147,21 @@ const generateAndPushNewDocumentationPage = async (
     distributionBundleFilePath:null|string,
     hasAPIDocumentationCommand:boolean
 ):Promise<void> => {
-    console.info('Update documentation design.')
+    console.info('Generate document website artefacts.')
 
     if (distributionBundleFilePath) {
+        console.info('Prepare distribution files.')
+
         const newDistributionBundleFilePath =
             temporaryDocumentationFolderPath +
             DOCUMENTATION_BUILD_PATH +
             DISTRIBUTION_BUNDLE_FILE_PATH
 
         await mkdir(newDistributionBundleFilePath, {recursive: true})
-        await rename(distributionBundleFilePath, newDistributionBundleFilePath)
+        await copyFile(
+            distributionBundleFilePath, newDistributionBundleFilePath
+        )
+        await rm(distributionBundleFilePath)
 
         const newDistributionBundleDirectoryPath =
             temporaryDocumentationFolderPath +
@@ -170,12 +175,15 @@ const generateAndPushNewDocumentationPage = async (
             .pipe(createWriteStream(newDistributionBundleDirectoryPath))
     }
 
+    console.info('Prepare favicon file.')
     const faviconPath = 'favicon.png'
     if (await Tools.isFile(faviconPath))
         await copyFile(
             faviconPath,
             `${temporaryDocumentationFolderPath}/source/image/favicon.ico`
         )
+
+    console.info('Render html.')
 
     let parameters:Mapping<unknown> = {}
     for (const [key, value] of Object.entries(
@@ -187,7 +195,9 @@ const generateAndPushNewDocumentationPage = async (
     if (!parameters.NAME && SCOPE.name)
         parameters.NAME = SCOPE.name
 
-    console.debug(`Found parameters "${Tools.represent(parameters)}".`)
+    console.debug(
+        `Found parameters "${Tools.represent(parameters)}" to render.`
+    )
 
     let apiDocumentationPath:null|string = null
     if (hasAPIDocumentationCommand) {
@@ -227,7 +237,7 @@ const generateAndPushNewDocumentationPage = async (
         {parameters, parametersFilePath, ...SCOPE}
     ).result
 
-    console.debug(`Use parameters "${serializedParameters}".`)
+    console.debug(`Use final parameters "${serializedParameters}".`)
     console.info(`Run "${BUILD_DOCUMENTATION_PAGE_COMMAND}".`)
 
     run(
@@ -245,6 +255,8 @@ const generateAndPushNewDocumentationPage = async (
             await isFileIgnored(filePath)
         )
             await rm(filePath)
+
+    console.info('Copy all build artefacts.')
 
     const documentationBuildFolderPath =
         temporaryDocumentationFolderPath + DOCUMENTATION_BUILD_PATH
