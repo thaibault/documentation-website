@@ -513,13 +513,11 @@ if (
                     '${nodeModulesDirectoryPath}' \
                     '${temporaryDocumentationNodeModulesDirectoryPath}'
             `)
-        } else {
-            console.log('TODO A', temporaryDocumentationFolderPath)
+        } else
             run(
                 'yarn --production=false',
                 {cwd: temporaryDocumentationFolderPath}
             )
-        }
 
         run('yarn clear', {cwd: temporaryDocumentationFolderPath})
     } else {
