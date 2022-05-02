@@ -436,7 +436,6 @@ if (
 
         process.exitCode = 1
     }
-    
 
     if (
         distributionBundleFilePath &&
@@ -511,18 +510,19 @@ if (
                     '${temporaryDocumentationNodeModulesDirectoryPath}'
             `)
         } else {
-            console.log('TODO AAA wrong directory')
-            run('yarn --production=false')
+            console.log('TODO A', temporaryDocumentationFolderPath)
+            run(
+                'yarn --production=false',
+                {cwd: temporaryDocumentationFolderPath}
+            )
         }
 
         run('yarn clear', {cwd: temporaryDocumentationFolderPath})
-    } else
-        run(`
-            unset GIT_WORK_TREE;
-            git clone '${DOCUMENTATION_REPOSITORY}';
-            yarn --production=false
-        `)
-    console.log('TODO AAA');process.exit()
+    } else {
+        run(`unset GIT_WORK_TREE; git clone '${DOCUMENTATION_REPOSITORY}'`)
+        run('yarn --production=false', {cwd: temporaryDocumentationFolderPath})
+    }
+    console.log('TODO B');process.exit()
 
     await generateAndPushNewDocumentationPage(
         temporaryDocumentationFolderPath,
