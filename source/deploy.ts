@@ -21,14 +21,13 @@ import archiver from 'archiver'
 import {execSync} from 'child_process'
 import Tools, {optionalRequire} from 'clientnode'
 import {EvaluationResult, File, Mapping, PlainObject} from 'clientnode/type'
-import {createReadStream, createWriteStream, WriteStream} from 'fs'
+import {createReadStream, createWriteStream} from 'fs'
 import {
     copyFile, mkdir, readdir, readFile, rename, rm, rmdir, writeFile
 } from 'fs/promises'
 import highlightModule from 'highlight.js'
 import {marked} from 'marked'
 import {basename, extname, join, relative, resolve} from 'path'
-import {pipeline} from 'stream'
 import {createGunzip} from 'zlib'
 // endregion
 const {getLanguage, highlight} = highlightModule
@@ -252,10 +251,16 @@ const generateAndPushNewDocumentationPage = async (
     await Tools.walkDirectoryRecursively(
         documentationBuildFolderPath,
         (file:File):Promise<false|void> =>
-            copyRepositoryFile(file, documentationBuildFolderPath)
+            copyRepositoryFile(
+                documentationBuildFolderPath,
+                documentationBuildFolderPath,
+                file
+            )
     )
 
     await rmdir(temporaryDocumentationFolderPath, {recursive: true})
+
+    console.log('TODO; Halt before push'); process.exit()
 
     run('git add --all')
     run(`git commit --message "${PROJECT_PAGE_COMMIT_MESSAGE}" --all`)
@@ -277,7 +282,7 @@ const createDistributionBundle = async ():Promise<null|string> => {
     const distributionBundleFilePath:string =
         run('mktemp --suffix .zip').trim()
 
-    let filePaths = SCOPE.files || []
+    const filePaths = SCOPE.files || []
     if (SCOPE.main)
         filePaths.push(SCOPE.main)
 
@@ -326,14 +331,14 @@ const createDistributionBundle = async ():Promise<null|string> => {
             if (total === processed)
                 resolve()
         })
-    }) 
+    })
 
     for (const filePath of await determineFilePaths(filePaths))
         archive.append(
             createReadStream(filePath), {name: relative('./', filePath)}
         )
 
-    archive.finalize()
+    await archive.finalize()
 
     await promise
 
@@ -358,26 +363,24 @@ const isFileIgnored = async (filePath:string):Promise<boolean> => (
 
 /**
  * Copy the website documentation design repository.
- * @param source - Location to copy.
+ * @param sourcePath - Location to copy from.
  * @param targetPath - Location where to copy given source.
+ * @param file - Location to copy.
  *
  * @returns Promise resolving when finished coping.
  */
 const copyRepositoryFile = async (
-    sourcePath:string, targetPath:string, source:File
+    sourcePath:string, targetPath:string, file:File
 ):Promise<false|void> => {
-    if (
-        await isFileIgnored(source.path) ||
-        basename(source.name) === 'readme.md'
-    )
+    if (await isFileIgnored(file.path) || basename(file.name) === 'readme.md')
         return false
 
-    targetPath = join(targetPath, relative(sourcePath, source.path))
+    targetPath = join(targetPath, relative(sourcePath, file.path))
 
-    console.debug(`Copy "${source.path}" to "${targetPath}".`)
+    console.debug(`Copy "${file.path}" to "${targetPath}".`)
 
-    if (source.stats!.isFile())
-        await copyFile(source.path, targetPath)
+    if (file.stats!.isFile())
+        await copyFile(file.path, targetPath)
     else
         await mkdir(targetPath)
 }
@@ -426,7 +429,7 @@ if (
 
     CONTENT = marked.parse(CONTENT)
 
-    let distributionBundleFilePath:null = null
+    let distributionBundleFilePath:null|string = null
     try {
         distributionBundleFilePath = await createDistributionBundle()
     } catch (error) {
@@ -524,7 +527,6 @@ if (
         run(`unset GIT_WORK_TREE; git clone '${DOCUMENTATION_REPOSITORY}'`)
         run('yarn --production=false', {cwd: temporaryDocumentationFolderPath})
     }
-    console.log('TODO B');process.exit()
 
     await generateAndPushNewDocumentationPage(
         temporaryDocumentationFolderPath,
