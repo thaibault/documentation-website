@@ -363,16 +363,16 @@ const isFileIgnored = async (filePath:string):Promise<boolean> => (
  *
  * @returns Promise resolving when finished coping.
  */
-const copyRepositoryFile = async (source:File, targetPath:string):Promise<
-    false|void
-> => {
+const copyRepositoryFile = async (
+    sourcePath:string, targetPath:string, source:File
+):Promise<false|void> => {
     if (
         await isFileIgnored(source.path) ||
         basename(source.name) === 'readme.md'
     )
         return false
 
-    targetPath = join(targetPath, source.name)
+    targetPath = join(targetPath, relative(sourcePath, source.path))
 
     console.debug(`Copy "${source.path}" to "${targetPath}".`)
 
@@ -480,7 +480,11 @@ if (
         await Tools.walkDirectoryRecursively(
             localDocumentationWebsitePath,
             (file:File):Promise<false|void> =>
-                copyRepositoryFile(file, temporaryDocumentationFolderPath)
+                copyRepositoryFile(
+                    localDocumentationWebsitePath,
+                    temporaryDocumentationFolderPath,
+                    file
+                )
         )
 
         const nodeModulesDirectoryPath:string =
