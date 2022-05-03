@@ -23,7 +23,7 @@ import Tools, {optionalRequire} from 'clientnode'
 import {EvaluationResult, File, Mapping, PlainObject} from 'clientnode/type'
 import {createReadStream, createWriteStream} from 'fs'
 import {
-    copyFile, mkdir, readdir, readFile, rename, rm, rmdir, writeFile
+    copyFile, mkdir, readdir, readFile, rename, rm, writeFile
 } from 'fs/promises'
 import highlightModule from 'highlight.js'
 import {marked} from 'marked'
@@ -107,7 +107,8 @@ const DISTRIBUTION_BUNDLE_FILE_PATH = join(DATA_PATH, 'distributionBundle.zip')
 const DISTRIBUTION_BUNDLE_DIRECTORY_PATH =
     join(DATA_PATH, 'distributionBundle')
 /// endregion
-let BUILD_DOCUMENTATION_PAGE_COMMAND = '`yarn build ${parametersFilePath}`'
+let BUILD_DOCUMENTATION_PAGE_COMMAND =
+    '`yarn build:web \'{__reference__: "${parametersFilePath}"}\'`'
 const BUILD_DOCUMENTATION_PAGE_CONFIGURATION = {
     module: {
         preprocessor: {
@@ -255,35 +256,30 @@ const generateAndPushNewDocumentationPage = async (
     )
     await rm(parametersFilePath)
 
-    console.log('E')
     for (const filePath of await readdir('./'))
-        if (
-            ![
-                temporaryDocumentationFolderPath,
-                `.${API_DOCUMENTATION_PATHS[1]}`
-            ].includes(filePath) ||
+        if (!(
+            [
+                resolve(temporaryDocumentationFolderPath),
+                resolve(`.${API_DOCUMENTATION_PATHS[1]}`)
+            ].includes(resolve(filePath)) ||
             await isFileIgnored(filePath)
-        )
-            await rm(filePath)
+        ))
+            await rm(filePath, {recursive: true})
 
     console.info('Copy all build artefacts.')
 
     const documentationBuildFolderPath = join(
         temporaryDocumentationFolderPath,
-        resolve('./', DOCUMENTATION_BUILD_PATH)
+        relative('./', DOCUMENTATION_BUILD_PATH)
     )
     await Tools.walkDirectoryRecursively(
         documentationBuildFolderPath,
         (file:File):Promise<false|void> =>
-            copyRepositoryFile(
-                documentationBuildFolderPath,
-                documentationBuildFolderPath,
-                file
-            )
+            copyRepositoryFile(documentationBuildFolderPath, './', file)
     )
     console.log('F')
 
-    await rmdir(temporaryDocumentationFolderPath, {recursive: true})
+    await rm(temporaryDocumentationFolderPath, {recursive: true})
 
     console.log('TODO; Halt before push'); process.exit()
 
@@ -445,7 +441,7 @@ if (
 
     const temporaryDocumentationFolderPath = 'documentation-website'
     if (await Tools.isDirectory(temporaryDocumentationFolderPath))
-        await rmdir(temporaryDocumentationFolderPath, {recursive: true})
+        await rm(temporaryDocumentationFolderPath, {recursive: true})
 
     console.info('Read and Compile all markdown files and transform to html.')
 
@@ -491,7 +487,7 @@ if (
     const apiDocumentationDirectoryPath:string =
         resolve(`./.${API_DOCUMENTATION_PATHS[1]}`)
     if (await Tools.isDirectory(apiDocumentationDirectoryPath))
-        await rmdir(apiDocumentationDirectoryPath, {recursive: true})
+        await rm(apiDocumentationDirectoryPath, {recursive: true})
 
     if (await Tools.isDirectory(resolve(`./${API_DOCUMENTATION_PATHS[0]}`)))
         await rename(
@@ -559,7 +555,7 @@ if (
     )
 
     if (await Tools.isDirectory(apiDocumentationDirectoryPath))
-        await rmdir(apiDocumentationDirectoryPath, {recursive: true})
+        await rm(apiDocumentationDirectoryPath, {recursive: true})
 }
 
 
