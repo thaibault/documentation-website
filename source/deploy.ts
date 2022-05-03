@@ -260,7 +260,7 @@ const generateAndPushNewDocumentationPage = async (
         if (!(
             [
                 resolve(temporaryDocumentationFolderPath),
-                resolve(`.${API_DOCUMENTATION_PATHS[1]}`)
+                resolve(API_DOCUMENTATION_PATHS[1])
             ].includes(resolve(filePath)) ||
             await isFileIgnored(filePath)
         ))
@@ -277,11 +277,8 @@ const generateAndPushNewDocumentationPage = async (
         (file:File):Promise<false|void> =>
             copyRepositoryFile(documentationBuildFolderPath, './', file)
     )
-    console.log('F')
 
     await rm(temporaryDocumentationFolderPath, {recursive: true})
-
-    console.log('TODO; Halt before push'); process.exit()
 
     run('git add --all')
     run(`git commit --message "${PROJECT_PAGE_COMMIT_MESSAGE}" --all`)
@@ -485,13 +482,13 @@ if (
     run('git pull')
 
     const apiDocumentationDirectoryPath:string =
-        resolve(`./.${API_DOCUMENTATION_PATHS[1]}`)
+        resolve(API_DOCUMENTATION_PATHS[1])
     if (await Tools.isDirectory(apiDocumentationDirectoryPath))
         await rm(apiDocumentationDirectoryPath, {recursive: true})
 
-    if (await Tools.isDirectory(resolve(`./${API_DOCUMENTATION_PATHS[0]}`)))
+    if (await Tools.isDirectory(API_DOCUMENTATION_PATHS[0]))
         await rename(
-            resolve(`./${API_DOCUMENTATION_PATHS[0]}`),
+            resolve(API_DOCUMENTATION_PATHS[0]),
             apiDocumentationDirectoryPath
         )
 
