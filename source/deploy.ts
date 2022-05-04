@@ -224,7 +224,7 @@ const generateAndPushNewDocumentationPage = async (
         API_DOCUMENTATION_PATH: apiDocumentationPath,
         DISTRIBUTION_BUNDLE_FILE_PATH:
             await Tools.isFile(DISTRIBUTION_BUNDLE_FILE_PATH) ?
-                relative('./', DISTRIBUTION_BUNDLE_DIRECTORY_PATH) :
+                relative('./', DISTRIBUTION_BUNDLE_FILE_PATH) :
                 null
     }
 
