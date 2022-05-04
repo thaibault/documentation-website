@@ -551,6 +551,9 @@ if (
         if (await Tools.isDirectory(path))
             await rm(path, {recursive: true})
     // endregion
+
+    // Prepare build artefacts for further local usage.
+    run('yarn build')
 }
 
 
