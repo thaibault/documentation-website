@@ -192,7 +192,7 @@
           "options": {
             "locals": {
               "API_DOCUMENTATION_PATH": "/apiDocumentation/",
-              "CONTENT": "dummyReadme.md",
+              "CONTENT": "source/dummyReadme.md",
               "DISTRIBUTION_BUNDLE_FILE_PATH": "dummyDistributionBundle.zip",
               "LANGUAGES": {
                 "__evaluate__": "self.module.preprocessor.html.options.locals.NAME === 'documentation-website' ? ['enUS', 'deDE', 'frFR'] : ['enUS']"
