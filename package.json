@@ -35,7 +35,7 @@
   "scripts": {
     "build": "yarn build:web; yarn build:deploy",
     "build:deploy": "weboptimizer build '{__reference__: \"target:deploy\"}'",
-    "build:web": "weboptimizer build",
+    "build:web": "weboptimizer build '{__reference__: \"target:debug\"}'",
     "build:stats": "weboptimizer build --profile --json /tmp/stats.json | sed --regexp-extended 's/^Running \".+$//' | sed --regexp-extended 's/^Consolidate module request \".+$//' >/tmp/stats.json && echo 'Results successfully written to \"/tmp/stats.json\".'",
     "check": "yarn check:types; yarn lint",
     "check:types": "weboptimizer check:types",
@@ -138,7 +138,7 @@
       "chunks": false,
       "entry": {
         "#": "errorreporter\": \"errorreporter",
-        "__evaluate__": "2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2].startsWith('test') ? {testBundle: './test.ts'} : {index: ['ua-parser-js', `./${path.relative(self.path.source.base, self.path.source.asset.cascadingStyleSheet)}/index`, './index']}"
+        "__evaluate__": "2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2].startsWith('test') ? {testBundle: './test.ts'} : {index: ['ua-parser-js', './index.css', './index']}"
       }
     },
     "library": false,
@@ -265,13 +265,21 @@
     "path": {
       "source": {
         "asset": {
+          "cascadingStyleSheet": "./",
           "javaScript": "./"
         }
       },
       "target": {
         "asset": {
-          "javaScript": "./",
-          "cascadingStyleSheet": "./"
+          "cascadingStyleSheet": "./",
+          "javaScript": "./"
+        }
+      }
+    },
+    "target:debug": {
+      "module": {
+        "optimizer": {
+          "cssnano": null
         }
       }
     },
