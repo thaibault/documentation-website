@@ -370,7 +370,10 @@ const addReadme = async (file:File):Promise<false|void> => {
     if (basename(file.name, extname(file.name)) === 'readme') {
         console.info(`Handle "${file.path}".`)
 
-        CONTENT = file.path
+        if (CONTENT)
+            CONTENT += '\n'
+
+        CONTENT += await readFile(file.path, 'utf8')
     }
 }
 // endregion
