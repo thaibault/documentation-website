@@ -28,6 +28,7 @@ describe('Documentation', ():void => {
     require('internationalisation')
     require('website-utilities')
     require('./index')
+
     beforeAll(async ():Promise<void> => {
         documentation = (await $.Documentation()) as Documentation
     })
