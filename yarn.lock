@@ -11958,9 +11958,9 @@ webpack@*:
     webpack-sources "^3.2.3"
 
 website-utilities@*:
-  version "1.0.286"
-  resolved "https://registry.yarnpkg.com/website-utilities/-/website-utilities-1.0.286.tgz#e8e3c923f5dc31863669648eb306a8476bffd5c2"
-  integrity sha512-Y/WSG84IoB2Pnb7iuxe1BqQ3QIm3EZ3g2rPWZ3mmXYqI120JWq/k8ro32YvK5ucaqt5SdR44xShv37W5ACoANA==
+  version "1.0.287"
+  resolved "https://registry.yarnpkg.com/website-utilities/-/website-utilities-1.0.287.tgz#70c24a7aee35318eaf5c3073a61b80ddfd12f57e"
+  integrity sha512-BJU1KRQhJWR4rdkeWPVOrdwnNxmLQIUAvCHiWmnykGGoe4P4S+i7mYTzg5Zvl0P9ZDmEjjb8GZb1N5qGO2L4vA==
   dependencies:
     "@types/webpack" "https://registry.yarnpkg.com/@favware/skip-dependency/-/skip-dependency-1.1.1.tgz"
 
