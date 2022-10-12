@@ -27,9 +27,6 @@ endregion */
     --color10: #0090ff;
     --color11: #0069ba;
     /** endregion */
-    /** region space */
-    --default-space: 20px;
-    /** endregion */
     /* endregion */
     /* region custom properties */
     /* stylelint-disable at-rule-no-unknown */
