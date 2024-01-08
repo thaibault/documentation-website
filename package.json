@@ -94,7 +94,6 @@
     "postcss-preset-env": "*",
     "postcss-sprites": "*",
     "postcss-url": "*",
-    "sharp": "*",
     "spin.js": "*",
     "style-loader": "*",
     "stylelint": "*",
