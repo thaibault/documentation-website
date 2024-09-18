@@ -54,7 +54,7 @@
     "@aws-sdk/client-s3": "^3.637.0",
     "@babel/eslint-parser": "^7.25.1",
     "@babel/runtime": "^7.25.4",
-    "@stylistic/eslint-plugin": "^2.6.4",
+    "@stylistic/eslint-plugin-ts": "^2.8.0",
     "@types/archiver": "^6.0.2",
     "@types/ejs": "^3.1.5",
     "@types/html-minifier": "^4.0.5",
