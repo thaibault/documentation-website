@@ -14,6 +14,10 @@ runs:
       with:
         debug: ${{ inputs.debug }}
 
+    - name: Change Owner of Container Working Directory
+      run: chown root:root .
+      shell: bash
+
     - name: Trigger deployment script.
       run: yarn run documentation-website
       shell: bash
