@@ -19,5 +19,5 @@ runs:
       shell: bash
 
     - name: Trigger deployment script.
-      run: yarn run documentation-website
+      run: yarn run update:documentation
       shell: bash
