@@ -418,7 +418,7 @@ const addReadme = async (file: File): Promise<false | null> => {
 }
 // endregion
 
-console.info('Start deploying documentation website:')
+console.log('TODO', run('git branch --all'))
 
 if (
     run('git branch').includes('* main') &&
