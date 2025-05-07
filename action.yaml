@@ -18,14 +18,6 @@ runs:
       run: chown root:root .
       shell: bash
 
-    - name: Checkout gh-pages branch.
-      uses: actions/checkout@v4
-      with:
-        ref: gh-pages
-
-    - name: Switch back to default branch.
-      uses: actions/checkout@v4
-
     - name: Trigger deployment script.
       run: yarn run update:documentation
       shell: bash
