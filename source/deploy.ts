@@ -225,16 +225,14 @@ const generateAndPushNewDocumentationPage = async (
         (evaluationResult as PositiveEvaluationResult).result
 
     console.debug(`Use final parameters "${serializedParameters}".`)
-
-    // TODO
-    console.log()
-    console.log(run('pwd'))
-    console.log(run('ls -lha'))
-    console.log(temporaryDocumentationFolderPath)
-
     console.info(`Run "${buildDocumentationPageCommand}".`)
 
-    run(buildDocumentationPageCommand, {cwd: temporaryDocumentationFolderPath})
+    console.debug(
+        run(
+            buildDocumentationPageCommand,
+            {cwd: temporaryDocumentationFolderPath}
+        )
+    )
     await rm(parametersFilePath)
 
     for (const filePath of await readdir('./'))
@@ -261,10 +259,12 @@ const generateAndPushNewDocumentationPage = async (
 
     await rm(temporaryDocumentationFolderPath, {recursive: true})
 
-    run('git add --all')
-    run(`git commit --message "${PROJECT_PAGE_COMMIT_MESSAGE}" --all`)
-    run('git push')
-    run('git checkout main')
+    console.debug(run('git add --all'))
+    console.debug(
+        run(`git commit --message "${PROJECT_PAGE_COMMIT_MESSAGE}" --all`)
+    )
+    console.debug(run('git push'))
+    console.debug(run('git checkout main'))
 }
 /**
  * Creates a distribution bundle file as zip archiv.
@@ -289,7 +289,7 @@ const createDistributionBundle = async (): Promise<null | string> => {
                         'build'
             )
         console.info(`Build distribution bundle via "${buildCommand}".`)
-        run(buildCommand)
+        console.debug(run(buildCommand))
     }
 
     console.info('Pack to a zip archive.')
@@ -424,12 +424,12 @@ const addReadme = async (file: File): Promise<false | null> => {
 // endregion
 
 if (!run('git branch --all').includes('gh-pages')) {
-    run('git fetch --all')
-    run('git checkout gh-pages')
+    console.debug(run('git fetch --all'))
+    console.debug(run('git checkout gh-pages'))
 }
 
 if (!run('git branch').includes('* main'))
-    run('git checkout main')
+    console.debug(run('git checkout main'))
 
 if (
     run('git branch').includes('* main') &&
@@ -481,12 +481,12 @@ if (
         Object.prototype.hasOwnProperty.call(SCOPE.scripts, 'document')
     if (hasAPIDocumentationCommand)
         try {
-            run('yarn document')
+            console.debug(run('yarn document'))
         } catch {
             hasAPIDocumentationCommand = false
         }
 
-    run('git checkout gh-pages')
+    console.debug(run('git checkout gh-pages'))
 
     const apiDocumentationDirectoryPath: string =
         resolve(API_DOCUMENTATION_PATHS[1])
@@ -535,14 +535,14 @@ if (
 
                 NOTE: Mounting "node_modules" folder needs root privileges.
             * /
-            run(`
+            console.debug(run(`
                 cp \
                     --dereference \
                     --recursive \
                     --reflink=auto \
                     '${nodeModulesDirectoryPath}' \
                     '${temporaryDocumentationNodeModulesDirectoryPath}'
-            `)
+            `))
         } else
 
         */
@@ -551,19 +551,25 @@ if (
             'No local existing documentation-website found getting it remotely.'
         )
 
-        run(`unset GIT_WORK_TREE; git clone '${DOCUMENTATION_REPOSITORY}'`)
+        console.debug(
+            run(`unset GIT_WORK_TREE; git clone '${DOCUMENTATION_REPOSITORY}'`)
+        )
     }
 
-    run('corepack enable', {cwd: temporaryDocumentationFolderPath})
-    run('corepack install', {cwd: temporaryDocumentationFolderPath})
-    run(
+    console.debug(
+        run('corepack enable', {cwd: temporaryDocumentationFolderPath})
+    )
+    console.debug(
+        run('corepack install', {cwd: temporaryDocumentationFolderPath})
+    )
+    console.info(run(
         'yarn install',
         {
             cwd: temporaryDocumentationFolderPath,
             env: {...process.env, NODE_ENV: 'debug'}
         }
-    )
-    run('yarn clear', {cwd: temporaryDocumentationFolderPath})
+    ))
+    console.debug(run('yarn clear', {cwd: temporaryDocumentationFolderPath}))
 
     console.log()
     console.log('TODO 1')
@@ -586,5 +592,5 @@ if (
         Object.prototype.hasOwnProperty.call(SCOPE.scripts, 'build')
     )
         // Prepare build artefacts for further local usage.
-        run('yarn build')
+        console.debug(run('yarn build'))
 }
