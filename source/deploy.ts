@@ -574,10 +574,6 @@ if (
     ))
     console.debug(run('yarn clear', {cwd: temporaryDocumentationFolderPath}))
 
-    console.log()
-    console.log('TODO 1')
-    console.log()
-
     await generateAndPushNewDocumentationPage(
         temporaryDocumentationFolderPath,
         distributionBundleFilePath,
