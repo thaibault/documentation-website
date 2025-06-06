@@ -84,8 +84,9 @@ const BUILD_DOCUMENTATION_PAGE_CONFIGURATION = {
     offline: null
 }
 let CONTENT = ''
+const DOCUMENTATION_WEBSITE_NAME = 'documentation-website'
 const DOCUMENTATION_REPOSITORY =
-    'git@github.com:"thaibault/documentation-website"'
+    `git@github.com:"thaibault/${DOCUMENTATION_WEBSITE_NAME}"`
 const PROJECT_PAGE_COMMIT_MESSAGE = 'Update project homepage content.'
 let SCOPE: SCOPE_TYPE = {name: '__dummy__', version: '1.0.0'}
 // endregion
@@ -368,7 +369,7 @@ const createDistributionBundle = async (): Promise<null | string> => {
  */
 const isFileIgnored = async (filePath: string): Promise<boolean> => (
     basename(filePath, extname(filePath)).startsWith('.') &&
-    basename(filePath) !== '.yarn' ||
+    !basename(filePath).startsWith('.yarn') ||
     basename(filePath, extname(filePath)) === 'dummyDocumentation' ||
     await isDirectory(filePath) &&
     ['node_modules', 'build'].includes(basename(filePath)) ||
@@ -447,7 +448,8 @@ if (
     API_DOCUMENTATION_PATH_SUFFIX =
         (evaluationResult as PositiveEvaluationResult).result
 
-    const temporaryDocumentationFolderPath = 'documentation-website'
+    const temporaryDocumentationFolderPath =
+        run(`mktemp --directory --suffix ${DOCUMENTATION_WEBSITE_NAME}`).trim()
     if (await isDirectory(temporaryDocumentationFolderPath))
         await rm(temporaryDocumentationFolderPath, {recursive: true})
 
@@ -500,10 +502,10 @@ if (
         )
 
     const localDocumentationWebsitePath: string =
-        resolve(`../${basename(temporaryDocumentationFolderPath)}`)
+        resolve(`../${DOCUMENTATION_WEBSITE_NAME}`)
 
     if (await isDirectory(localDocumentationWebsitePath)) {
-        console.info('Copy local existing documentation-website.')
+        console.info(`Copy local existing ${DOCUMENTATION_WEBSITE_NAME}.`)
 
         await mkdir(temporaryDocumentationFolderPath, {recursive: true})
 
@@ -548,7 +550,8 @@ if (
         */
     } else {
         console.info(
-            'No local existing documentation-website found getting it remotely.'
+            `No local existing ${DOCUMENTATION_WEBSITE_NAME} found getting it`,
+            'remotely.'
         )
 
         console.debug(
@@ -562,7 +565,7 @@ if (
     console.debug(
         run('corepack install', {cwd: temporaryDocumentationFolderPath})
     )
-    console.info(run(
+    console.debug(run(
         'yarn install',
         {
             cwd: temporaryDocumentationFolderPath,
