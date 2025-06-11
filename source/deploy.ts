@@ -456,7 +456,7 @@ if (
     API_DOCUMENTATION_PATH_SUFFIX =
         (evaluationResult as PositiveEvaluationResult).result
 
-    const temporaryDocumentationFolderPath =
+    let temporaryDocumentationFolderPath =
         run(`mktemp --directory --suffix ${DOCUMENTATION_WEBSITE_NAME}`).trim()
     if (await isDirectory(temporaryDocumentationFolderPath))
         await rm(temporaryDocumentationFolderPath, {recursive: true})
@@ -567,13 +567,32 @@ if (
         )
 
         console.debug(
-            run(`unset GIT_WORK_TREE; git clone '${DOCUMENTATION_REPOSITORY}'`)
+            run(
+                `unset GIT_WORK_TREE; git clone '${DOCUMENTATION_REPOSITORY}'`,
+                {cwd: temporaryDocumentationFolderPath}
+            )
         )
+
+        temporaryDocumentationFolderPath =
+            resolve(temporaryDocumentationFolderPath, DOCUMENTATION_REPOSITORY)
     }
+
+    console.log('TODO 1', temporaryDocumentationFolderPath)
+    console.debug(
+        'TODO 1.1',
+        run('pwd', {cwd: temporaryDocumentationFolderPath})
+    )
+    console.debug(
+        'TODO 1.2',
+        run('type corepack', {cwd: temporaryDocumentationFolderPath})
+    )
 
     console.debug(
         run('corepack enable', {cwd: temporaryDocumentationFolderPath})
     )
+
+    console.log('TODO 2', temporaryDocumentationFolderPath)
+
     console.debug(
         run('corepack install', {cwd: temporaryDocumentationFolderPath})
     )
