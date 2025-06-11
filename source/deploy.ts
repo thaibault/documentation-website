@@ -85,7 +85,7 @@ const BUILD_DOCUMENTATION_PAGE_CONFIGURATION = {
 let CONTENT = ''
 const DOCUMENTATION_WEBSITE_NAME = 'documentation-website'
 const DOCUMENTATION_REPOSITORY =
-    `git@github.com:"thaibault/${DOCUMENTATION_WEBSITE_NAME}"`
+    `git@github.com:thaibault/${DOCUMENTATION_WEBSITE_NAME}`
 const PROJECT_PAGE_COMMIT_MESSAGE = 'Update project homepage content.'
 let SCOPE: SCOPE_TYPE = {name: '__dummy__', version: '1.0.0'}
 // endregion
@@ -513,6 +513,7 @@ if (
         resolve(`../${DOCUMENTATION_WEBSITE_NAME}`)
 
     if (
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         ALLOW_LOCAL_DOCUMENTATION_WEBSITE &&
         await isDirectory(localDocumentationWebsitePath)
     ) {
