@@ -306,7 +306,17 @@ const generateAndPushNewDocumentationPage = async (
     console.debug(
         run(
             buildDocumentationPageCommand,
-            {cwd: temporaryDocumentationFolderPath}
+            {
+                cwd: temporaryDocumentationFolderPath,
+                env: {
+                    ...process.env,
+                    /* eslint-disable camelcase */
+                    npm_package_json: '',
+                    npm_package_name: '',
+                    npm_package_version: ''
+                    /* eslint-enable camelcase */
+                }
+            }
         )
     )
     await rm(parametersFilePath)
