@@ -70,7 +70,7 @@ const DISTRIBUTION_BUNDLE_FILE_PATH = join(DATA_PATH, 'distributionBundle.zip')
 const DISTRIBUTION_BUNDLE_DIRECTORY_PATH =
     join(DATA_PATH, 'distributionBundle')
 /// endregion
-const ALLOW_LOCAL_DOCUMENTATION_WEBSITE = false
+const ALLOW_LOCAL_DOCUMENTATION_WEBSITE = true
 const BUILD_DOCUMENTATION_PAGE_COMMAND_TEMPLATE =
     '`yarn build:web \'{__reference__: "${parametersFilePath}"}\'`'
 const BUILD_DOCUMENTATION_PAGE_CONFIGURATION = {
