@@ -289,10 +289,15 @@ const generateAndPushNewDocumentationPage = async (
     console.debug(`Use final parameters "${serializedParameters}".`)
     console.info(`Run "${buildDocumentationPageCommand}".`)
 
-    console.info(`TODO WAIT`)
     console.debug(
         run(
-            'sleep 99999999',
+            'env',
+            {cwd: temporaryDocumentationFolderPath}
+        )
+    )
+    console.debug(
+        run(
+            'sleep 10',
             {cwd: temporaryDocumentationFolderPath}
         )
     )
