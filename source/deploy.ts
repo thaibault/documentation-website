@@ -293,13 +293,19 @@ const generateAndPushNewDocumentationPage = async (
     console.debug(
         run(
             'env',
-            {cwd: temporaryDocumentationFolderPath}
-        )
-    )
-    console.debug(
-        run(
-            'sleep 10',
-            {cwd: temporaryDocumentationFolderPath}
+            {
+                cwd: temporaryDocumentationFolderPath,
+                env: {
+                    ...process.env,
+                    /* eslint-disable camelcase */
+                    npm_execpath: '',
+                    npm_node_execpath: '',
+                    npm_package_json: '',
+                    npm_package_name: '',
+                    npm_package_version: ''
+                    /* eslint-enable camelcase */
+                }
+            }
         )
     )
 
@@ -311,6 +317,8 @@ const generateAndPushNewDocumentationPage = async (
                 env: {
                     ...process.env,
                     /* eslint-disable camelcase */
+                    npm_execpath: '',
+                    npm_node_execpath: '',
                     npm_package_json: '',
                     npm_package_name: '',
                     npm_package_version: ''
