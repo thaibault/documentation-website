@@ -73,8 +73,7 @@ const LOCATIONS_TO_TIDY_UP: Array<string> = []
 /// endregion
 const ALLOW_LOCAL_DOCUMENTATION_WEBSITE = true
 const BUILD_DOCUMENTATION_PAGE_COMMAND_TEMPLATE =
-    '`bash -c \\\'yarn build:web ' +
-    '\'{__reference__: "${parametersFilePath}"}\'\\\'`'
+    '`yarn build:web \'{__reference__: "${parametersFilePath}"}\'`'
 const BUILD_DOCUMENTATION_PAGE_CONFIGURATION = {
     module: {
         preprocessor: {
@@ -291,7 +290,7 @@ const generateAndPushNewDocumentationPage = async (
     console.debug(`Use final parameters "${serializedParameters}".`)
     console.info(`Run "${buildDocumentationPageCommand}".`)
 
-    const env = {...process.env}
+    const environment = {...process.env}
     for (const name of [
         'BERRY_BIN_FOLDER',
         'INIT_CWD',
@@ -304,19 +303,14 @@ const generateAndPushNewDocumentationPage = async (
         'npm_package_version',
         'PROJECT_CWD'
     ])
-        delete env[name]
+        delete environment[name]
 
     // TODO
-    console.debug(
-        run(
-            'env',
-            {cwd: temporaryDocumentationFolderPath, env}
-        )
-    )
+    console.debug('TODO', temporaryDocumentationFolderPath)
     console.debug(
         run(
             buildDocumentationPageCommand,
-            {cwd: temporaryDocumentationFolderPath, env}
+            {cwd: temporaryDocumentationFolderPath, env: environment}
         )
     )
     await rm(parametersFilePath)
@@ -520,9 +514,10 @@ const tidyUp = async (): Promise<void> => {
 
     const oldAPIDocumentationDirectoryPath = resolve(API_DOCUMENTATION_PATHS[1])
     if (!(await isDirectory(oldAPIDocumentationDirectoryPath)))
-        console.log(
-            'TODO restore something in ', oldAPIDocumentationDirectoryPath
-        )
+        run(`git checkout '${oldAPIDocumentationDirectoryPath}'`)
+
+    if (!run('git branch').includes('* main'))
+        console.debug(run('git checkout main'))
 }
 /**
  * Main procedure.
@@ -586,13 +581,13 @@ const main = async (): Promise<void> => {
             distributionBundleFilePath &&
             await isFile(distributionBundleFilePath)
         ) {
-            LOCATIONS_TO_TIDY_UP.push(distributionBundleFilePath)
+            const targetFilePath =
+                join(DATA_PATH, basename(distributionBundleFilePath))
 
             await mkdir(DATA_PATH, {recursive: true})
-            await copyFile(
-                distributionBundleFilePath,
-                join(DATA_PATH, basename(distributionBundleFilePath))
-            )
+            await copyFile(distributionBundleFilePath, targetFilePath)
+
+            LOCATIONS_TO_TIDY_UP.push(targetFilePath)
         }
 
         let hasAPIDocumentationCommand: boolean =
