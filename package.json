@@ -205,7 +205,7 @@
                 "__evaluate__": "fs.readFileSync"
               },
               "RENDER_MARKDOWN": {
-                "__evaluate__": "require(path.resolve(currentPath, 'source/renderMarkdown.mjs')).default"
+                "__evaluate__": "require(path.resolve(currentPath, 'source/renderMarkdown.mjs')).default(self.module.preprocessor.ejs.options.locals.MARKED_OPTIONS)"
               },
               "META_TAGS": [],
               "SOURCE_URL": {

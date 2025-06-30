@@ -19,10 +19,13 @@ const marked = new Marked(
 
 const {parse, use} = marked
 
-use(self.module.preprocessor.ejs.options.locals.MARKED_OPTIONS)
 // Include an id attribute when emitting headings (h1, h2, h3, etc).
 use(gfmHeadingId({prefix: 'doc-'}))
 // Favors self-closing xhtml tags.
 use(markedXhtml())
 
-export default parse
+export default (options) => {
+    use(options)
+
+    return parse
+}
