@@ -25,4 +25,4 @@ use(gfmHeadingId({prefix: 'doc-'}))
 // Favors self-closing xhtml tags.
 use(markedXhtml())
 
-return parse
+export default parse

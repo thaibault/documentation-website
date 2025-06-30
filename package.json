@@ -205,7 +205,7 @@
                 "__evaluate__": "fs.readFileSync"
               },
               "RENDER_MARKDOWN": {
-                "__execute__": "fs.readFileSync('./source/renderMarkdown.cjs', 'utf8')"
+                "__evaluate__": "require(path.resolve(currentPath, 'source/renderMarkdown.mjs')).default"
               },
               "META_TAGS": [],
               "SOURCE_URL": {
