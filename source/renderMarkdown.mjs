@@ -17,15 +17,12 @@ const marked = new Marked(
     })
 )
 
-const {parse, use} = marked
-
-// Include an id attribute when emitting headings (h1, h2, h3, etc).
-use(gfmHeadingId({prefix: 'doc-'}))
-// Favors self-closing xhtml tags.
-use(markedXhtml())
-
 export default (options) => {
-    use(options)
+    marked.setOptions(options)
+    // Include an id attribute when emitting headings (h1, h2, h3, etc).
+    marked.use(gfmHeadingId({prefix: 'doc-'}))
+    // Favors self-closing xhtml tags.
+    marked.use(markedXhtml())
 
-    return parse
+    return marked.parse
 }

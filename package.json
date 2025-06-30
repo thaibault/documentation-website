@@ -50,7 +50,7 @@
     "watch": "weboptimizer build --watch"
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.839.0",
+    "@aws-sdk/client-s3": "^3.840.0",
     "@babel/eslint-parser": "^7.27.5",
     "@babel/runtime": "^7.27.6",
     "@stylistic/eslint-plugin": "^5.1.0",
@@ -62,8 +62,8 @@
     "@types/marked": "^6.0.0",
     "@types/node": "^24.0.7",
     "@types/unzipper": "^0.10.11",
-    "@typescript-eslint/eslint-plugin": "^8.35.0",
-    "@typescript-eslint/parser": "^8.35.0",
+    "@typescript-eslint/eslint-plugin": "^8.35.1",
+    "@typescript-eslint/parser": "^8.35.1",
     "archiver": "^7.0.1",
     "clientnode": "^3.0.1296",
     "css-loader": "^7.1.2",
@@ -99,7 +99,7 @@
     "style-loader": "^4.0.0",
     "stylelint": "^16.21.0",
     "stylelint-config-standard": "^38.0.0",
-    "typescript-eslint": "^8.35.0",
+    "typescript-eslint": "^8.35.1",
     "ua-parser-js": "^2.0.4",
     "unzipper": "^0.12.3",
     "weboptimizer": "^2.0.1591",
