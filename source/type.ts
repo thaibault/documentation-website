@@ -24,15 +24,6 @@ import {
 import Documentation from './index'
  // endregion
 // region exports
-export type DocumentationFunction =
-    ((..._parameters: Array<unknown>) => unknown) &
-    {class: typeof Documentation}
-declare global {
-    interface JQueryStatic {
-        Documentation: DocumentationFunction
-    }
-}
-
 export type DomNodes<Type = string> =
     BaseDomNodes<Type> &
     {
