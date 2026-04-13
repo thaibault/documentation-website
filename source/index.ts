@@ -147,7 +147,7 @@ export class Documentation<
         if (Object.keys(this.options).length === 0)
             this.onUpdateAttribute('options', '{}')
 
-        // TODO await until Internationalization has finished
+        // TODO await until WebInternationalization has finished
         this.grabDomNodes()
 
         if (globalContext.location && !globalContext.location.hash)
@@ -167,7 +167,8 @@ export class Documentation<
 
         this._generateTableOfContentsLinks()
         for (const domNode of this.tableOfContentLinkDomNodes)
-            domNode.addEventListener(
+            this.addSecureEventListener(
+                domNode,
                 'click',
                 (event: Event) => {
                     const hashReference =

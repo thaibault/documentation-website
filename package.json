@@ -76,7 +76,7 @@
     "favicons": "^7.2.0",
     "favicons-webpack-plugin": "^6.0.1",
     "highlight.js": "^11.11.1",
-    "internationalisation": "^1.0.353",
+    "web-internationalization": "^2.0.1",
     "jest": "^30.3.0",
     "jsdoc": "^4.0.5",
     "legal-notes": "^1.0.28",
@@ -101,7 +101,7 @@
     "typescript-eslint": "^8.58.1",
     "ua-parser-js": "^2.0.9",
     "unzipper": "^0.12.3",
-    "web-component-wrapper": "^0.0.554",
+    "web-component-wrapper": "^0.0.556",
     "weboptimizer": "^3.0.21",
     "webpack-dev-server": "^5.2.3",
     "website-utilities": "^1.0.375"
