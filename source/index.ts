@@ -17,11 +17,11 @@
     endregion
 */
 // region imports
-import {$, $T, extend, Logger, NOOP, RecursivePartial, Tools} from 'clientnode'
+import {extend, Logger, NOOP, RecursivePartial} from 'clientnode'
 import Internationalisation from 'internationalisation'
 import WebsiteUtilities from 'website-utilities'
 
-import {DocumentationFunction, DomNodes, DefaultOptions, Options} from './type'
+import {DefaultOptions, Options} from './type'
 // endregion
 // region declaration
 declare const LANGUAGES: Array<string>
@@ -34,8 +34,8 @@ export const log = new Logger({name: 'documentation-website'})
  * initializer method.
  * @property _commonOptions.onExamplesLoaded - Callback to trigger when all
  * example loaded.
- * @property _commonOptions.domNodeSelectorInfix - Something indicating
- * controlled nodes.
+ * @property _commonOptions.selectors - Object with a mapping of needed dom node
+ * descriptions to their corresponding selectors.
  * @property _commonOptions.showExample - Options object to configure code
  * example representation.
  * @property _commonOptions.showExample.pattern - Regular expression to
@@ -43,31 +43,18 @@ export const log = new Logger({name: 'documentation-website'})
  * @property _commonOptions.showExample.domNodeName - Dom node name to indicate
  * a declarative example section.
  * @property _commonOptions.showExample.htmlWrapper - HTML example wrapper.
- * @property _commonOptions.domNodes - Object with a mapping of needed dom node
- * descriptions to their corresponding selectors.
  * @property _commonOptions.section - Configuration object for section switches
  * between the main page and legal notes descriptions.
- * @property _commonOptions.section.aboutThisWebsite - Configuration object for
- * transitions concerning the legal notes section.
- * @property _commonOptions.section.aboutThisWebsite.fadeOutOptions - Fade out
- * configurations.
- * @property _commonOptions.section.aboutThisWebsite.fadeInOptions - Fade in
- * configurations.
- * @property _commonOptions.section.main - Configuration object for transitions
- * concerning the main section.
- * @property _commonOptions.section.main.fadeOutOptions {Object} - Fade
- * out configurations.
- * @property _commonOptions.section.main.fadeInOptions {Object} - Fade in
- * configurations.
  * @property options - Finally configured given options.
  * @property startUpAnimationIsComplete - Indicates whether start up animations
  * has been completed.
- * @property _activateLanguageSupport - Indicates whether a language switcher
- * should be activated.
  */
 export class Documentation extends WebsiteUtilities {
     static _commonOptions: DefaultOptions = {
-        domNodes: {
+        name: 'Documentation',
+        onExamplesLoaded: NOOP,
+
+        selectors: {
             aboutThisWebsiteLink: 'a[href="#about-this-website"]',
             aboutThisWebsiteSection: '.section__about-this-website',
 
@@ -83,20 +70,8 @@ export class Documentation extends WebsiteUtilities {
                 '.section__main h5, .section__main h6',
             tableOfContent: '.doc-toc',
             tableOfContentLinks: '.doc-toc ul li a[href^="#"]'
-        } as DomNodes,
-        domNodeSelectorInfix: 'doc',
-        name: 'Documentation',
-        onExamplesLoaded: NOOP,
-        section: {
-            aboutThisWebsite: {
-                fadeInOptions: {duration: 'fast'},
-                fadeOutOptions: {duration: 'fast'}
-            },
-            main: {
-                fadeInOptions: {duration: 'fast'},
-                fadeOutOptions: {duration: 'fast'}
-            }
         },
+
         showExample: {
             domNodeName: '#comment',
             htmlWrapper: `

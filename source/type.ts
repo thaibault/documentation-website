@@ -17,50 +17,31 @@
 */
 // region imports
 import {ProcedureFunction} from 'clientnode'
-import {
-    DomNodes as BaseDomNodes, Options as BaseOptions
-} from 'website-utilities/type'
-
-import Documentation from './index'
- // endregion
+// endregion
 // region exports
-export type DomNodes<Type = string> =
-    BaseDomNodes<Type> &
-    {
-        aboutThisWebsiteLink: Type
-        aboutThisWebsiteSection: Type
-
-        codeWrapper: Type
-        code: Type
-
-        homeLink: Type
-        mainSection: Type
-
-        headlines: Type
-        tableOfContent: Type
-        tableOfContentLinks: Type
-    }
-
 export interface DefaultOptions {
-    domNodes: DomNodes
-    domNodeSelectorInfix: null | string
-    name: string
     onExamplesLoaded: ProcedureFunction
-    section: {
-        aboutThisWebsite: {
-            fadeInOptions: JQuery.EffectsOptions<HTMLElement>
-            fadeOutOptions: JQuery.EffectsOptions<HTMLElement>
-        }
-        main: {
-            fadeInOptions: JQuery.EffectsOptions<HTMLElement>
-            fadeOutOptions: JQuery.EffectsOptions<HTMLElement>
-        }
+
+    selectors: {
+        aboutThisWebsiteLink: string
+        aboutThisWebsiteSection: string
+
+        codeWrapper: string
+        code: string
+
+        homeLink: string
+        mainSection: string
+
+        headlines: string
+        tableOfContent: string
+        tableOfContentLinks: string
     }
+
     showExample: {
         domNodeName: string
         htmlWrapper: string
         pattern: string
     }
 }
-export type Options = BaseOptions & DefaultOptions
+export type Options = DefaultOptions
 // endregion
