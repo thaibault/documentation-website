@@ -20,11 +20,11 @@
 import {
     camelCaseToDelimited,
     extend,
+    globalContext,
     Logger,
     Mapping,
     NOOP,
-    ProcedureFunction,
-    RecursivePartial
+    ProcedureFunction
 } from 'clientnode'
 import {func, object} from 'clientnode/property-types'
 import {property} from 'web-component-wrapper/decorator'
@@ -97,7 +97,23 @@ export class Documentation<
     }
 
     readonly self = Documentation
+    // region domNodes
+    aboutThisWebsiteLinkDomNodes = null as unknown as NodeListOf<HTMLElement>
+    aboutThisWebsiteSectionDomNode: HTMLDivElement | null = null
 
+    codeWrapperDomNodes = null as unknown as NodeListOf<HTMLElement>
+    codeDomNodes = null as unknown as NodeListOf<HTMLElement>
+
+    homeLinkDomNodes =
+        null as unknown as NodeListOf<HTMLElement>
+    mainSectionDomNode: HTMLElement | null = null
+
+    headlineDomNodes=
+        null as unknown as NodeListOf<HTMLElement>
+    tableOfContentDomNodes=
+        null as unknown as NodeListOf<HTMLElement>
+    tableOfContentLinkDomNodes = null as unknown as NodeListOf<HTMLElement>
+    // endregion
     @property({type: object})
         options = {} as Options
 
@@ -126,39 +142,61 @@ export class Documentation<
     }
     /**
      * Initializes the interactive web application.
-     * @param options - An options object.
-     * @returns Returns the current instance.
-     */
-    /**
-     * Initializes the interactive web application.
      */
     connectedCallback(): void {
         if (Object.keys(this.options).length === 0)
             this.onUpdateAttribute('options', '{}')
 
-        return super.initialize(extend(
-            true, {} as Options, Documentation._commonOptions, options
-        )).then((): Documentation => {
-            if ($.global.location && !$.global.location.hash)
-                $.global.location.hash =
-                    this.$domNodes.homeLink.attr('href') ?? ''
+        // TODO await until Internationalization has finished
+        // region grab dom nodes
+        this.aboutThisWebsiteLinkDomNodes = this.root.querySelectorAll(
+            this.options.selectors.aboutThisWebsiteLink
+        )
+        this.aboutThisWebsiteSectionDomNode = this.root.querySelector(
+            this.options.selectors.aboutThisWebsiteSection
+        )
 
-            this.$domNodes.aboutThisWebsiteSection.hide()
+        this.codeWrapperDomNodes =
+            this.root.querySelectorAll(this.options.selectors.codeWrapper)
+        this.codeDomNodes =
+            this.root.querySelectorAll(this.options.selectors.code)
 
-            /*
-                NOTE: We have to render examples first to avoid having dots in
-                example code.
-            */
-            this._showExamples()
-            this._makeCodeEllipsis()
+        this.homeLinkDomNodes =
+            this.root.querySelectorAll(this.options.selectors.homeLink)
+        this.mainSectionDomNode =
+            this.root.querySelector(this.options.selectors.mainSection)
 
-            this._generateTableOfContentsLinks()
-            this.on(
-                this.$domNodes.tableOfContentLinks,
+        this.headlineDomNodes =
+            this.root.querySelectorAll(this.options.selectors.headlines)
+        this.tableOfContentDomNodes =
+            this.root.querySelectorAll(this.options.selectors.tableOfContent)
+        this.tableOfContentLinkDomNodes = this.root.querySelectorAll(
+            this.options.selectors.tableOfContentLinks
+        )
+        // endregion
+        if (globalContext.location && !globalContext.location.hash)
+            globalContext.location.hash =
+                this.homeLinkDomNodes.item(0)
+                    .getAttribute('href') ?? ''
+
+        if (this.aboutThisWebsiteSectionDomNode)
+            this.aboutThisWebsiteSectionDomNode.style.display = 'none'
+
+        /*
+            NOTE: We have to render examples first to avoid having dots in
+            example code.
+        */
+        this._showExamples()
+        this._makeCodeEllipsis()
+
+        this._generateTableOfContentsLinks()
+        for (const domNode of this.tableOfContentLinkDomNodes)
+            domNode.addEventListener(
                 'click',
                 (event: Event) => {
-                    const hashReference: string | undefined =
-                        $(event.target as HTMLLinkElement).attr('href')
+                    const hashReference =
+                        (event.target as HTMLLinkElement).getAttribute('href')
+
                     if (hashReference && hashReference !== '#')
                         this.fireEvent(
                             'switchSection',
@@ -170,39 +208,36 @@ export class Documentation<
                 }
             )
 
-            /*
-                Handle section switch between documentation and legal notes
-                section.
-            */
-            this.options.section.aboutThisWebsite.fadeOutOptions.always =
-                () => {
-                    this.$domNodes.mainSection.fadeIn(
-                        this.options.section.main.fadeInOptions
-                    )
-                }
-            this.options.section.main.fadeOutOptions.always = () => {
-                this.$domNodes.aboutThisWebsiteSection.fadeIn(
-                    this.options.section.aboutThisWebsite.fadeInOptions
+        /*
+            Handle section switch between documentation and legal notes
+            section.
+        */
+        this.options.section.aboutThisWebsite.fadeOutOptions.always =
+            () => {
+                this.$domNodes.mainSection.fadeIn(
+                    this.options.section.main.fadeInOptions
                 )
             }
-
-
-            if (
-                $.global.location?.hash &&
-                this.options.initialSectionName !==
-                    $.global.location.hash.substring('#'.length)
+        this.options.section.main.fadeOutOptions.always = () => {
+            this.$domNodes.aboutThisWebsiteSection.fadeIn(
+                this.options.section.aboutThisWebsite.fadeInOptions
             )
-                this.fireEvent(
-                    'switchSection',
-                    false,
-                    this,
-                    $.global.location.hash.substring('#'.length)
-                )
-            else
-                this.currentSectionName = this.options.initialSectionName
+        }
 
-            return this
-        }) as unknown as R
+
+        if (
+            $.global.location?.hash &&
+            this.options.initialSectionName !==
+                $.global.location.hash.substring('#'.length)
+        )
+            this.fireEvent(
+                'switchSection',
+                false,
+                this,
+                $.global.location.hash.substring('#'.length)
+            )
+        else
+            this.currentSectionName = this.options.initialSectionName
     }
     /// endregion
     // endregion
