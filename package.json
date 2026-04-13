@@ -101,6 +101,7 @@
     "typescript-eslint": "^8.58.1",
     "ua-parser-js": "^2.0.9",
     "unzipper": "^0.12.3",
+    "web-component-wrapper": "^0.0.554",
     "weboptimizer": "^3.0.21",
     "webpack-dev-server": "^5.2.3",
     "website-utilities": "^1.0.375"

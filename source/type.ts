@@ -20,8 +20,6 @@ import {ProcedureFunction} from 'clientnode'
 // endregion
 // region exports
 export interface DefaultOptions {
-    onExamplesLoaded: ProcedureFunction
-
     selectors: {
         aboutThisWebsiteLink: string
         aboutThisWebsiteSection: string

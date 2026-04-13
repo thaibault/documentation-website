@@ -17,9 +17,19 @@
     endregion
 */
 // region imports
-import {extend, Logger, NOOP, RecursivePartial} from 'clientnode'
-import Internationalisation from 'internationalisation'
-import WebsiteUtilities from 'website-utilities'
+import {
+    camelCaseToDelimited,
+    extend,
+    Logger,
+    Mapping,
+    NOOP,
+    ProcedureFunction,
+    RecursivePartial
+} from 'clientnode'
+import {func, object} from 'clientnode/property-types'
+import {property} from 'web-component-wrapper/decorator'
+import {WebComponentAPI} from 'web-component-wrapper/type'
+import {Web} from 'web-component-wrapper/Web'
 
 import {DefaultOptions, Options} from './type'
 // endregion
@@ -30,30 +40,29 @@ export const log = new Logger({name: 'documentation-website'})
 // region plugins/classes
 /**
  * This plugin holds all needed methods to extend a whole documentation site.
- * @property _commonOptions - Options extended by the options given to the
+ * @property _defaultOptions - Options extended by the options given to the
  * initializer method.
- * @property _commonOptions.onExamplesLoaded - Callback to trigger when all
- * example loaded.
- * @property _commonOptions.selectors - Object with a mapping of needed dom node
- * descriptions to their corresponding selectors.
- * @property _commonOptions.showExample - Options object to configure code
+ * @property _defaultOptions.selectors - Object with a mapping of needed dom
+ * node descriptions to their corresponding selectors.
+ * @property _defaultOptions.showExample - Options object to configure code
  * example representation.
- * @property _commonOptions.showExample.pattern - Regular expression to
+ * @property _defaultOptions.showExample.pattern - Regular expression to
  * introduce a code example section.
- * @property _commonOptions.showExample.domNodeName - Dom node name to indicate
- * a declarative example section.
- * @property _commonOptions.showExample.htmlWrapper - HTML example wrapper.
- * @property _commonOptions.section - Configuration object for section switches
- * between the main page and legal notes descriptions.
+ * @property _defaultOptions.showExample.domNodeName - Dom node name to
+ * indicate a declarative example section.
+ * @property _defaultOptions.showExample.htmlWrapper - HTML example wrapper.
+ * @property _defaultOptions.section - Configuration object for section
+ * switches between the main page and legal notes descriptions.
  * @property options - Finally configured given options.
- * @property startUpAnimationIsComplete - Indicates whether start up animations
- * has been completed.
  */
-export class Documentation extends WebsiteUtilities {
-    static _commonOptions: DefaultOptions = {
-        name: 'Documentation',
-        onExamplesLoaded: NOOP,
+export class Documentation<
+    TElement = HTMLElement,
+    ExternalProperties extends Mapping<unknown> = Mapping<unknown>,
+    InternalProperties extends Mapping<unknown> = Mapping<unknown>
+> extends Web<TElement, ExternalProperties, InternalProperties> {
+    static _name = 'WebsiteUtilities'
 
+    static _defaultOptions: DefaultOptions = {
         selectors: {
             aboutThisWebsiteLink: 'a[href="#about-this-website"]',
             aboutThisWebsiteSection: '.section__about-this-website',
@@ -87,25 +96,45 @@ export class Documentation extends WebsiteUtilities {
         }
     }
 
-    options = null as unknown as Options
+    readonly self = Documentation
+
+    @property({type: object})
+        options = {} as Options
+
+    @property({type: func})
+        onExamplesLoaded: ProcedureFunction = NOOP
 
     _activateLanguageSupport = false
-    // region public methods
-    /// region special
+    // region public
+    /// region live-cycle
+    /**
+     * Triggered when ever a given attribute has changed and triggers to update
+     * configured dom content.
+     * @param name - Attribute name which was updates.
+     * @param newValue - New updated value.
+     */
+    onUpdateAttribute(name: string, newValue: string) {
+        super.onUpdateAttribute(name, newValue)
+
+        if (name === 'options')
+            this.options = extend<Options>(
+                true,
+                {} as Options,
+                this.self._defaultOptions,
+                this.options
+            )
+    }
     /**
      * Initializes the interactive web application.
      * @param options - An options object.
      * @returns Returns the current instance.
      */
-    initialize<R = Promise<Documentation>>(
-        options: RecursivePartial<Options> = {}
-    ): R {
-        this._activateLanguageSupport = options.activateLanguageSupport ?? true
-        /*
-            NOTE: We will initialize language support after examples are
-            injected if activated via options.
-        */
-        options.activateLanguageSupport = false
+    /**
+     * Initializes the interactive web application.
+     */
+    connectedCallback(): void {
+        if (Object.keys(this.options).length === 0)
+            this.onUpdateAttribute('options', '{}')
 
         return super.initialize(extend(
             true, {} as Options, Documentation._commonOptions, options
@@ -487,25 +516,15 @@ export class Documentation extends WebsiteUtilities {
     }
     // endregion
 }
+export const api: WebComponentAPI<
+    HTMLElement, Mapping<unknown>, Mapping<unknown>, typeof Web
+> = {
+    component: Documentation,
+    register: (
+        tagName: string = camelCaseToDelimited(Documentation._name)
+    ) => {
+        customElements.define(tagName, Documentation)
+    }
+}
 export default Documentation
-// endregion
-// region handle $ extending
-$.Documentation = ((...parameter: Array<unknown>): unknown =>
-    Tools.controller(Documentation, parameter)
-) as DocumentationFunction
-$.Documentation.class = Documentation
-// NOTE: We make jQuery available to make bootstrapping examples with deferred
-// script loading simpler.
-;($.global as unknown as {$documentationWebsite: JQueryStatic})
-    .$documentationWebsite = $
-// endregion
-// region bootstrap
-$.noConflict(true)(($: JQueryStatic) => {
-    $.Documentation({
-        language: {
-            selection: typeof LANGUAGES === 'undefined' ? [] : LANGUAGES,
-            sessionDescription: 'documentationWebsite{1}'
-        }
-    })
-})
 // endregion

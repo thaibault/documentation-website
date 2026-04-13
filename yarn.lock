@@ -9558,6 +9558,7 @@ __metadata:
     typescript-eslint: "npm:^8.58.1"
     ua-parser-js: "npm:^2.0.9"
     unzipper: "npm:^0.12.3"
+    web-component-wrapper: "npm:^0.0.554"
     weboptimizer: "npm:^3.0.21"
     webpack-dev-server: "npm:^5.2.3"
     website-utilities: "npm:^1.0.375"
@@ -19043,6 +19044,31 @@ __metadata:
   dependencies:
     minimalistic-assert: "npm:^1.0.0"
   checksum: 10c0/56edcc5ef2b3d30913ba8f1f5cccc364d180670b24d5f3f8849c1e6fb514e5c7e3a87548ae61227a82859eba6269c11393ae24ce12a2ea1ecb9b465718ddced7
+  languageName: node
+  linkType: hard
+
+"web-component-wrapper@npm:^0.0.554":
+  version: 0.0.554
+  resolution: "web-component-wrapper@npm:0.0.554"
+  peerDependencies:
+    "@babel/runtime": "*"
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    clientnode: "*"
+    react: "*"
+    react-dom: "*"
+  peerDependenciesMeta:
+    "@babel/runtime":
+      optional: true
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/c7b28ebb1654382c3d27f63c15fe4f0ddecf7d43dfb51b6a8b5744550c970092789552f1e21b7399a8718fbadfd1cc4b29d62aa9447148c735b3be2404f5d23f
   languageName: node
   linkType: hard
 
