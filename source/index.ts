@@ -148,32 +148,8 @@ export class Documentation<
             this.onUpdateAttribute('options', '{}')
 
         // TODO await until Internationalization has finished
-        // region grab dom nodes
-        this.aboutThisWebsiteLinkDomNodes = this.root.querySelectorAll(
-            this.options.selectors.aboutThisWebsiteLink
-        )
-        this.aboutThisWebsiteSectionDomNode = this.root.querySelector(
-            this.options.selectors.aboutThisWebsiteSection
-        )
+        this.grabDomNodes()
 
-        this.codeWrapperDomNodes =
-            this.root.querySelectorAll(this.options.selectors.codeWrapper)
-        this.codeDomNodes =
-            this.root.querySelectorAll(this.options.selectors.code)
-
-        this.homeLinkDomNodes =
-            this.root.querySelectorAll(this.options.selectors.homeLink)
-        this.mainSectionDomNode =
-            this.root.querySelector(this.options.selectors.mainSection)
-
-        this.headlineDomNodes =
-            this.root.querySelectorAll(this.options.selectors.headlines)
-        this.tableOfContentDomNodes =
-            this.root.querySelectorAll(this.options.selectors.tableOfContent)
-        this.tableOfContentLinkDomNodes = this.root.querySelectorAll(
-            this.options.selectors.tableOfContentLinks
-        )
-        // endregion
         if (globalContext.location && !globalContext.location.hash)
             globalContext.location.hash =
                 this.homeLinkDomNodes.item(0)
@@ -224,22 +200,47 @@ export class Documentation<
             )
         }
 
-
         if (
-            $.global.location?.hash &&
+            globalContext.location?.hash &&
             this.options.initialSectionName !==
-                $.global.location.hash.substring('#'.length)
+                globalContext.location.hash.substring('#'.length)
         )
             this.fireEvent(
                 'switchSection',
                 false,
                 this,
-                $.global.location.hash.substring('#'.length)
+                globalContext.location.hash.substring('#'.length)
             )
         else
             this.currentSectionName = this.options.initialSectionName
     }
     /// endregion
+    grabDomNodes(): void {
+        this.aboutThisWebsiteLinkDomNodes = this.root.querySelectorAll(
+            this.options.selectors.aboutThisWebsiteLink
+        )
+        this.aboutThisWebsiteSectionDomNode = this.root.querySelector(
+            this.options.selectors.aboutThisWebsiteSection
+        )
+
+        this.codeWrapperDomNodes =
+            this.root.querySelectorAll(this.options.selectors.codeWrapper)
+        this.codeDomNodes =
+            this.root.querySelectorAll(this.options.selectors.code)
+
+        this.homeLinkDomNodes =
+            this.root.querySelectorAll(this.options.selectors.homeLink)
+        this.mainSectionDomNode =
+            this.root.querySelector(this.options.selectors.mainSection)
+
+        this.headlineDomNodes =
+            this.root.querySelectorAll(this.options.selectors.headlines)
+        this.tableOfContentDomNodes =
+            this.root.querySelectorAll(this.options.selectors.tableOfContent)
+        this.tableOfContentLinkDomNodes = this.root.querySelectorAll(
+            this.options.selectors.tableOfContentLinks
+        )
+    }
     // endregion
     // region protected methods
     /// region event handler
@@ -252,7 +253,7 @@ export class Documentation<
             NOTE: After injecting new dom nodes we have to grab them for
             further controller logic.
         */
-        this.$domNodes = this.grabDomNodes(this.options.domNodes)
+        this.grabDomNodes()
 
         // New injected dom nodes may take effect on language handler.
         if (
