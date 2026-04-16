@@ -95,8 +95,6 @@ export class Documentation<
             pattern: '^ *showExample(: *([^ ]+))? *$'
         }
     }
-
-    readonly self = Documentation
     // region domNodes
     aboutThisWebsiteLinkDomNodes = null as unknown as NodeListOf<HTMLElement>
     aboutThisWebsiteSectionDomNode: HTMLDivElement | null = null
