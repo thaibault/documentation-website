@@ -17,10 +17,10 @@
 import {beforeAll, describe, expect, test} from '@jest/globals'
 import {$} from 'clientnode'
 
-import Documentation from './index'
+import WebDocumentation from './index'
 // endregion
 describe('Documentation', () => {
-    let documentation: Documentation
+    let documentation: WebDocumentation
     /*
         NOTE: Import plugins with side effects (augmenting "$" scope /
         registering plugin) when other imports are only used as type.
@@ -32,7 +32,7 @@ describe('Documentation', () => {
     /* eslint-enable @typescript-eslint/no-require-imports */
 
     beforeAll(async (): Promise<void> => {
-        documentation = (await $.Documentation()) as Documentation
+        documentation = (await $.Documentation()) as WebDocumentation
     })
     // region tests
     /// region public methods

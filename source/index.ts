@@ -55,12 +55,12 @@ export const log = new Logger({name: 'documentation-website'})
  * switches between the main page and legal notes descriptions.
  * @property options - Finally configured given options.
  */
-export class Documentation<
+export class WebDocumentation<
     TElement = HTMLElement,
     ExternalProperties extends Mapping<unknown> = Mapping<unknown>,
     InternalProperties extends Mapping<unknown> = Mapping<unknown>
 > extends Web<TElement, ExternalProperties, InternalProperties> {
-    static _name = 'WebsiteUtilities'
+    static _name = 'WebDocumentation'
 
     static _defaultOptions: DefaultOptions = {
         selectors: {
@@ -95,32 +95,44 @@ export class Documentation<
             pattern: '^ *showExample(: *([^ ]+))? *$'
         }
     }
+
+    readonly self = WebDocumentation
+
     // region domNodes
-    aboutThisWebsiteLinkDomNodes = null as unknown as NodeListOf<HTMLElement>
+    aboutThisWebsiteLinkDomNodes: NodeListOf<HTMLElement> | null = null
     aboutThisWebsiteSectionDomNode: HTMLDivElement | null = null
 
-    codeWrapperDomNodes = null as unknown as NodeListOf<HTMLElement>
-    codeDomNodes = null as unknown as NodeListOf<HTMLElement>
+    codeWrapperDomNodes: NodeListOf<HTMLElement> | null = null
+    codeDomNodes: NodeListOf<HTMLElement> | null = null
 
-    homeLinkDomNodes =
-        null as unknown as NodeListOf<HTMLElement>
+    homeLinkDomNodes: NodeListOf<HTMLElement> | null = null
     mainSectionDomNode: HTMLElement | null = null
 
-    headlineDomNodes=
-        null as unknown as NodeListOf<HTMLElement>
-    tableOfContentDomNodes=
-        null as unknown as NodeListOf<HTMLElement>
-    tableOfContentLinkDomNodes = null as unknown as NodeListOf<HTMLElement>
+    headlineDomNodes: NodeListOf<HTMLElement> | null = null
+    tableOfContentDomNodes: NodeListOf<HTMLElement> | null = null
+    tableOfContentLinkDomNodes: NodeListOf<HTMLElement> | null = null
     // endregion
     @property({type: object})
         options = {} as Options
 
     @property({type: func})
         onExamplesLoaded: ProcedureFunction = NOOP
-
-    _activateLanguageSupport = false
     // region public
     /// region live-cycle
+    /**
+     * Defines dynamic getter and setter interface and resolves configuration
+     * object. Initializes the map implementation.
+     */
+    constructor() {
+        super()
+        /*
+            Babels property declaration transformation overwrites defined
+            properties at the end of an implicit constructor. So we have to
+            redefined them as long as we want to declare expected component
+            interface properties to enable static type checks.
+        */
+        this.defineGetterAndSetterInterface()
+    }
     /**
      * Triggered when ever a given attribute has changed and triggers to update
      * configured dom content.
@@ -139,18 +151,20 @@ export class Documentation<
             )
     }
     /**
-     * Initializes the interactive web application.
+     * Updates controlled dom elements.
+     * @param reason - Why an update has been triggered.
      */
-    connectedCallback(): void {
+    async render(reason?: string): Promise<void> {
+        await super.render(reason)
+
         if (Object.keys(this.options).length === 0)
             this.onUpdateAttribute('options', '{}')
 
-        // TODO await until WebInternationalization has finished
         this.grabDomNodes()
 
         if (globalContext.location && !globalContext.location.hash)
             globalContext.location.hash =
-                this.homeLinkDomNodes.item(0)
+                this.homeLinkDomNodes?.item(0)
                     .getAttribute('href') ?? ''
 
         if (this.aboutThisWebsiteSectionDomNode)
@@ -164,7 +178,7 @@ export class Documentation<
         this._makeCodeEllipsis()
 
         this._generateTableOfContentsLinks()
-        for (const domNode of this.tableOfContentLinkDomNodes)
+        for (const domNode of this.tableOfContentLinkDomNodes || [])
             this.addSecureEventListener(
                 domNode,
                 'click',
@@ -173,12 +187,8 @@ export class Documentation<
                         (event.target as HTMLLinkElement).getAttribute('href')
 
                     if (hashReference && hashReference !== '#')
-                        this.fireEvent(
-                            'switchSection',
-                            false,
-                            this,
-                            hashReference.substring(1),
-                            event
+                        this.switchSection(
+                            hashReference.substring(1), event
                         )
                 }
             )
@@ -198,20 +208,6 @@ export class Documentation<
                 this.options.section.aboutThisWebsite.fadeInOptions
             )
         }
-
-        if (
-            globalContext.location?.hash &&
-            this.options.initialSectionName !==
-                globalContext.location.hash.substring('#'.length)
-        )
-            this.fireEvent(
-                'switchSection',
-                false,
-                this,
-                globalContext.location.hash.substring('#'.length)
-            )
-        else
-            this.currentSectionName = this.options.initialSectionName
     }
     /// endregion
     grabDomNodes(): void {
@@ -554,12 +550,12 @@ export class Documentation<
 export const api: WebComponentAPI<
     HTMLElement, Mapping<unknown>, Mapping<unknown>, typeof Web
 > = {
-    component: Documentation,
+    component: WebDocumentation,
     register: (
-        tagName: string = camelCaseToDelimited(Documentation._name)
+        tagName: string = camelCaseToDelimited(WebDocumentation._name)
     ) => {
-        customElements.define(tagName, Documentation)
+        customElements.define(tagName, WebDocumentation)
     }
 }
-export default Documentation
+export default WebDocumentation
 // endregion
