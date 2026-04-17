@@ -18,8 +18,11 @@
 */
 // region imports
 import {
-    camelCaseToDelimited, createDomNodes,
-    extend, getParents, getText,
+    camelCaseToDelimited,
+    createDomNodes,
+    extend,
+    getParents,
+    getText,
     globalContext,
     Logger,
     Mapping,
@@ -309,9 +312,8 @@ export class WebDocumentation<
                 } else if (textContent.length >= excess) {
                     /*
                         NOTE: We have to ensure that no HTML tag will be
-                        shorten: We work on "textContent" property only.
+                        shortened: We work on "textContent" property only.
                     */
-                    // @ts-expect-error writing into "textContent" is safe.
                     domNode.textContent =
                         textContent.substring(
                             0, textContent.length - excess - 1

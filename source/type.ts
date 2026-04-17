@@ -27,9 +27,6 @@ export interface DefaultOptions {
         codeWrapper: string
         code: string
 
-        homeLink: string
-        mainSection: string
-
         headlines: string
         tableOfContent: string
         tableOfContentLinks: string
