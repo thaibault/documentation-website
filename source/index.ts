@@ -18,8 +18,8 @@
 */
 // region imports
 import {
-    camelCaseToDelimited,
-    extend,
+    camelCaseToDelimited, createDomNodes,
+    extend, getText,
     globalContext,
     Logger,
     Mapping,
@@ -109,8 +109,8 @@ export class WebDocumentation<
     mainSectionDomNode: HTMLElement | null = null
 
     headlineDomNodes: NodeListOf<HTMLElement> | null = null
-    tableOfContentDomNodes: NodeListOf<HTMLElement> | null = null
-    tableOfContentLinkDomNodes: NodeListOf<HTMLElement> | null = null
+    tableOfContentDomNode: HTMLElement | null = null
+    tableOfContentLinkDomNodes: NodeListOf<HTMLAnchorElement> | null = null
     // endregion
     @property({type: object})
         options = {} as Options
@@ -178,36 +178,6 @@ export class WebDocumentation<
         this._makeCodeEllipsis()
 
         this._generateTableOfContentsLinks()
-        for (const domNode of this.tableOfContentLinkDomNodes || [])
-            this.addSecureEventListener(
-                domNode,
-                'click',
-                (event: Event) => {
-                    const hashReference =
-                        (event.target as HTMLLinkElement).getAttribute('href')
-
-                    if (hashReference && hashReference !== '#')
-                        this.switchSection(
-                            hashReference.substring(1), event
-                        )
-                }
-            )
-
-        /*
-            Handle section switch between documentation and legal notes
-            section.
-        */
-        this.options.section.aboutThisWebsite.fadeOutOptions.always =
-            () => {
-                this.$domNodes.mainSection.fadeIn(
-                    this.options.section.main.fadeInOptions
-                )
-            }
-        this.options.section.main.fadeOutOptions.always = () => {
-            this.$domNodes.aboutThisWebsiteSection.fadeIn(
-                this.options.section.aboutThisWebsite.fadeInOptions
-            )
-        }
     }
     /// endregion
     grabDomNodes(): void {
@@ -230,11 +200,8 @@ export class WebDocumentation<
 
         this.headlineDomNodes =
             this.root.querySelectorAll(this.options.selectors.headlines)
-        this.tableOfContentDomNodes =
-            this.root.querySelectorAll(this.options.selectors.tableOfContent)
-        this.tableOfContentLinkDomNodes = this.root.querySelectorAll(
-            this.options.selectors.tableOfContentLinks
-        )
+        this.tableOfContentDomNode =
+            this.root.querySelector(this.options.selectors.tableOfContent)
     }
     // endregion
     // region protected methods
@@ -340,24 +307,21 @@ export class WebDocumentation<
      * Generates a table of contents via creating links referring to headlines.
      */
     _generateTableOfContentsLinks(): void {
-        if (!Object.prototype.hasOwnProperty.call(
-            this.$domNodes, 'tableOfContent'
-        ))
+        if (!this.tableOfContentDomNode)
             return
 
         let listItems = '<ul>'
         let level = 0
         let firstLevel = 0
-        this.$domNodes.headlines.each((
-            index: number, element: HTMLElement
-        ): void => {
-            if ($(element).closest('.show-example-wrapper').length)
+        let first = true
+        for (const domNode of this.headlineDomNodes ?? []) {
+            if ($(domNode).closest('.show-example-wrapper').length)
                 return
 
             const newLevel: number =
-                parseInt(element.nodeName.replace(/\D/g, ''))
+                parseInt(domNode.nodeName.replace(/\D/g, ''))
 
-            if (index === 0)
+            if (first)
                 firstLevel = newLevel
 
             if (newLevel > level)
@@ -367,14 +331,15 @@ export class WebDocumentation<
 
             listItems += `
                 <li>
-                    <a href="#${element.getAttribute('id') ?? 'unknown'}">
-                        ${element.innerText}
+                    <a href="#${domNode.getAttribute('id') ?? 'unknown'}">
+                        ${domNode.innerText}
                     </a>
                 </li>
             `
 
             level = newLevel
-        })
+            first = false
+        }
         // Close remaining inner lists.
         while (level < firstLevel) {
             listItems += '</ul>'
@@ -383,12 +348,12 @@ export class WebDocumentation<
 
         listItems += '</ul>'
 
-        this.$domNodes.tableOfContent.append(listItems)
+        this.tableOfContentDomNode.append(listItems)
 
-        this.$domNodes.tableOfContentLinks =
-            $(this.options.domNodes.tableOfContentLinks)
+        this.tableOfContentLinkDomNodes =
+            this.tableOfContentDomNode.querySelectorAll<HTMLAnchorElement>('a')
 
-        this.$domNodes.tableOfContent.css('display', 'initial')
+        this.tableOfContent.sytle.display = 'initial'
     }
     /**
      * This method makes dotes after code lines which are too long. This
@@ -397,13 +362,9 @@ export class WebDocumentation<
     _makeCodeEllipsis(): void {
         const lengthLimit = 89 // 79
 
-        this.$domNodes.code.each((
-            index: number, domNode: HTMLElement
-        ): void => {
-            const $domNode: $T = $(domNode)
-
+        for (const domNode of this.codeDomNodes ?? []) {
             let newContent = ''
-            const codeLines: Array<string> = $domNode.html().split('\n')
+            const codeLines: Array<string> = domNode.innerHTML.split('\n')
 
             let subIndex = 0
             for (const value of codeLines) {
@@ -411,8 +372,9 @@ export class WebDocumentation<
                     NOTE: Wrap a div object to grantee that $ will accept the
                     input.
                 */
-                const excess: number = $(`<div>${value}</div>`).text(
-                ).length - lengthLimit
+                const excess: number =
+                    getText(createDomNodes(`<div>${value}</div>`)).length -
+                    lengthLimit
                 if (excess > 0)
                     newContent += this._replaceExcessWithDots(value, excess)
                 else
@@ -422,8 +384,9 @@ export class WebDocumentation<
 
                 subIndex += 1
             }
-            $domNode.html(newContent)
-        })
+
+            domNode.innerHTML = newContent
+        }
     }
     /**
      * Replaces given html content with a shorter version trimmed by given
@@ -558,4 +521,7 @@ export const api: WebComponentAPI<
     }
 }
 export default WebDocumentation
+
+if ((globalContext as Mapping<boolean>).AUTO_DEFINE_WEB_DOCUMENTATION)
+    api.register()
 // endregion
