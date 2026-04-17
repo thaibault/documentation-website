@@ -372,7 +372,7 @@ body {
             padding-top: 40px;
         }
 
-        .section__main {
+        .section__home {
             p {
                 margin: var(--w-default-space) 0 0 0;
             }
@@ -450,7 +450,7 @@ body {
 
                 .header__inner__links__left-arrow { margin-left: 0; }
 
-                .section__main {
+                .section__home {
                     code {
                         font-size: 0.8em;
                         width: 695px;
@@ -471,7 +471,7 @@ body {
                 @media (--w-medium) {
                     .top-link { right: 45px; }
 
-                    .section__main code {
+                    .section__home code {
                         font-size: 0.9em;
                     }
                 }

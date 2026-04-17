@@ -53,17 +53,39 @@ _%>
 
         <div class="wu-window-loading-cover">
             <div class="loading-text">
-                <span>L</span>
-                <span>O</span>
-                <span>A</span>
-                <span>D</span>
-                <span>I</span>
-                <span>N</span>
-                <span>G</span>
+                <lang-replace>
+                    <span>L</span>
+                    <span>O</span>
+                    <span>A</span>
+                    <span>D</span>
+                    <span>I</span>
+                    <span>N</span>
+                    <span>G</span>
+                </lang-replace>
+                <!--deDE:
+                    <span>L</span>
+                    <span>A</span>
+                    <span>D</span>
+                    <span>E</span>
+                -->
+                <!--frFR:
+                    <span>C</span>
+                    <span>H</span>
+                    <span>A</span>
+                    <span>r</span>
+                    <span>g</span>
+                    <span>e</span>
+                    <span>m</span>
+                    <span>e</span>
+                    <span>n</span>
+                    <span>t</span>
+                -->
             </div>
         </div>
         <web-documentation>
-            <website-utilities>
+            <website-utilities options="{
+                sectionNames: ['home', 'about-this-website']
+            }">
                 <web-internationalization>
                     <!--region header-->
                     <header class="header">
@@ -165,7 +187,10 @@ _%>
                     <!--region sections-->
                     <section class="wu-section">
                         <!--region main-->
-                        <div class="section__inner section__main">
+                        <div
+                            class="section__inner section__home"
+                            data-website-utilities-section="home"
+                        >
                             <%_ if (CONTENT && !CONTENT.trim().startsWith('<!--html-->'))
                                 if (CONTENT.endsWith('.html'))
                                     CONTENT = READ_FILE(CONTENT, configuration.encoding)
@@ -181,7 +206,10 @@ _%>
                         </div>
                         <!--endregion-->
                         <!--region about this website-->
-                        <div class="section__about-this-website section__inner">
+                        <div
+                            class="section__inner section__about-this-website"
+                            data-website-utilities-section="about-this-website"
+                        >
                             <h2 id="about-this-website">
                                 About this website
                                 <!--deDE:Impressum-->
@@ -219,11 +247,8 @@ _%>
                                 <!--frFR:Site:-->
                                 <a href="https://torben.website">https://torben.website</a>
                                 <br>
-                                <span class="section__inner__arrow-left-home icon icon-arrow-left tools-visible-on-javascript-enabled"></span>
-                                <a
-                                    class="tools-visible-on-javascript-enabled"
-                                    href="#home"
-                                >
+                                <span class="section__inner__arrow-left-home icon icon-arrow-left"></span>
+                                <a href="#home">
                                     home
                                     <!--deDE:Startseite-->
                                     <!--frFR:Maison-->

@@ -70,9 +70,6 @@ export class WebDocumentation<
             codeWrapper: 'pre',
             code: 'code',
 
-            homeLink: 'a[href="#home"]',
-            mainSection: '.section__main',
-
             headlines:
                 '.section__main h1, .section__main h2, ' +
                 '.section__main h3, .section__main h4, ' +
@@ -104,9 +101,6 @@ export class WebDocumentation<
 
     codeWrapperDomNodes: NodeListOf<HTMLElement> | null = null
     codeDomNodes: NodeListOf<HTMLElement> | null = null
-
-    homeLinkDomNodes: NodeListOf<HTMLElement> | null = null
-    mainSectionDomNode: HTMLElement | null = null
 
     headlineDomNodes: NodeListOf<HTMLElement> | null = null
     tableOfContentDomNode: HTMLElement | null = null
@@ -162,19 +156,15 @@ export class WebDocumentation<
 
         this.grabDomNodes()
 
-        if (globalContext.location && !globalContext.location.hash)
-            globalContext.location.hash =
-                this.homeLinkDomNodes?.item(0)
-                    .getAttribute('href') ?? ''
-
-        if (this.aboutThisWebsiteSectionDomNode)
-            this.aboutThisWebsiteSectionDomNode.style.display = 'none'
-
         /*
             NOTE: We have to render examples first to avoid having dots in
             example code.
         */
         this._showExamples()
+
+        // TODO we may need to delay internationalization until this has been
+        // finished rendering
+
         this._makeCodeEllipsis()
 
         this._generateTableOfContentsLinks()
@@ -193,11 +183,6 @@ export class WebDocumentation<
         this.codeDomNodes =
             this.root.querySelectorAll(this.options.selectors.code)
 
-        this.homeLinkDomNodes =
-            this.root.querySelectorAll(this.options.selectors.homeLink)
-        this.mainSectionDomNode =
-            this.root.querySelector(this.options.selectors.mainSection)
-
         this.headlineDomNodes =
             this.root.querySelectorAll(this.options.selectors.headlines)
         this.tableOfContentDomNode =
@@ -206,67 +191,6 @@ export class WebDocumentation<
     // endregion
     // region protected methods
     /// region event handler
-    /**
-     * This method triggers if all examples loaded.
-     * @returns Returns the current instance.
-     */
-    async _onExamplesLoaded(): Promise<void> {
-        /*
-            NOTE: After injecting new dom nodes we have to grab them for
-            further controller logic.
-        */
-        this.grabDomNodes()
-
-        // New injected dom nodes may take effect on language handler.
-        if (
-            this.startUpAnimationIsComplete &&
-            this._activateLanguageSupport &&
-            !this.languageHandler
-        )
-            this.languageHandler = (
-                await $(this.$domNodes.parent as unknown as HTMLBodyElement)
-                    .Internationalisation(this.options.language)
-            ).data('Internationalisation') as Internationalisation
-    }
-    /**
-     * This method triggers if we change the current section.
-     * @param sectionName - New section which should be switched to.
-     * @param event - Triggered event object.
-     */
-    _onSwitchSection(sectionName: string, event?: Event): void {
-        const hashReference = `#${sectionName}`
-        const $target = $(hashReference)
-        if (sectionName && $target.length) {
-            event?.preventDefault()
-
-            const offset = $target.offset()
-            if (offset)
-                $('html, body')
-                    .stop()
-                    .animate(
-                        {scrollTop: offset.top},
-                        {
-                            ...this.options.scrollToTop.options,
-                            complete: () => {
-                                if (window.location.hash !== hashReference)
-                                    window.location.hash = hashReference
-                            }
-                        }
-                    )
-        } else
-            this.scrollToTop()
-
-        if (sectionName === 'about-this-website')
-            this.$domNodes.mainSection.fadeOut(
-                this.options.section.main.fadeOutOptions
-            )
-        else
-            this.$domNodes.aboutThisWebsiteSection.fadeOut(
-                this.options.section.aboutThisWebsite.fadeOutOptions
-            )
-
-        super._onSwitchSection(sectionName)
-    }
     /**
      * This method triggers if all startup animations are ready.
      * @returns Promise resolving when language handler has been initialized.
@@ -353,7 +277,7 @@ export class WebDocumentation<
         this.tableOfContentLinkDomNodes =
             this.tableOfContentDomNode.querySelectorAll<HTMLAnchorElement>('a')
 
-        this.tableOfContent.sytle.display = 'initial'
+        this.tableOfContentDomNode.style.display = 'initial'
     }
     /**
      * This method makes dotes after code lines which are too long. This
