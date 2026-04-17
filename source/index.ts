@@ -19,7 +19,7 @@
 // region imports
 import {
     camelCaseToDelimited, createDomNodes,
-    extend, getText,
+    extend, getParents, getText,
     globalContext,
     Logger,
     Mapping,
@@ -191,41 +191,6 @@ export class WebDocumentation<
     // endregion
     // region protected methods
     /// region event handler
-    /**
-     * This method triggers if all startup animations are ready.
-     * @returns Promise resolving when language handler has been initialized.
-     */
-    async _onStartUpAnimationComplete(): Promise<void> {
-        /*
-            NOTE: We reference "Internationalisation" here to make sure that
-            static tree shaking includes this module.
-        */
-        if (
-            /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-            Internationalisation &&
-            /* eslint-enable @typescript-eslint/no-unnecessary-condition */
-            this._activateLanguageSupport &&
-            !this.languageHandler
-        )
-            this.languageHandler = (
-                await $(this.$domNodes.parent as unknown as HTMLBodyElement)
-                    .Internationalisation(this.options.language)
-            ).data('Internationalisation') as Internationalisation
-
-        if ($.global.location)
-            this.$domNodes.tableOfContentLinks
-                .add(this.$domNodes.aboutThisWebsiteLink)
-                .filter(
-                    'a[href="' +
-                    $.global.location.href.substring(
-                        $.global.location.href.indexOf('#')
-                    ) +
-                    '"]'
-                )
-                .trigger('click')
-
-        void super._onStartUpAnimationComplete()
-    }
     /// endregion
     /**
      * Generates a table of contents via creating links referring to headlines.
@@ -239,7 +204,11 @@ export class WebDocumentation<
         let firstLevel = 0
         let first = true
         for (const domNode of this.headlineDomNodes ?? []) {
-            if ($(domNode).closest('.show-example-wrapper').length)
+            if (getParents(domNode).some((domNode: Node) =>
+                (domNode as Partial<Element>).classList?.contains(
+                    'show-example-wrapper'
+                )
+            ))
                 return
 
             const newLevel: number =
