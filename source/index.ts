@@ -21,13 +21,15 @@ import {
     camelCaseToDelimited,
     createDomNodes,
     extend,
+    format,
+    getAll,
     getParents,
     getText,
     globalContext,
     Logger,
     Mapping,
     NOOP,
-    ProcedureFunction
+    wrap
 } from 'clientnode'
 import {func, object} from 'clientnode/property-types'
 import {property} from 'web-component-wrapper/decorator'
@@ -35,9 +37,6 @@ import {WebComponentAPI} from 'web-component-wrapper/type'
 import {Web} from 'web-component-wrapper/Web'
 
 import {DefaultOptions, Options} from './type'
-// endregion
-// region declaration
-declare const LANGUAGES: Array<string>
 // endregion
 export const log = new Logger({name: 'documentation-website'})
 // region plugins/classes
@@ -90,6 +89,7 @@ export class WebDocumentation<
                         <!--deDE:Beispiel:-->
                         <!--frFR:Exemple:-->
                     </h3>
+                    {1}
                 </div>
             `,
             pattern: '^ *showExample(: *([^ ]+))? *$'
@@ -102,7 +102,6 @@ export class WebDocumentation<
     aboutThisWebsiteLinkDomNodes: NodeListOf<HTMLElement> | null = null
     aboutThisWebsiteSectionDomNode: HTMLDivElement | null = null
 
-    codeWrapperDomNodes: NodeListOf<HTMLElement> | null = null
     codeDomNodes: NodeListOf<HTMLElement> | null = null
 
     headlineDomNodes: NodeListOf<HTMLElement> | null = null
@@ -113,7 +112,7 @@ export class WebDocumentation<
         options = {} as Options
 
     @property({type: func})
-        onExamplesLoaded: ProcedureFunction = NOOP
+        onExamplesLoaded: (this: WebDocumentation) => void = NOOP
     // region public
     /// region live-cycle
     /**
@@ -181,8 +180,6 @@ export class WebDocumentation<
             this.options.selectors.aboutThisWebsiteSection
         )
 
-        this.codeWrapperDomNodes =
-            this.root.querySelectorAll(this.options.selectors.codeWrapper)
         this.codeDomNodes =
             this.root.querySelectorAll(this.options.selectors.code)
 
@@ -295,16 +292,16 @@ export class WebDocumentation<
         // Add space for ending dots.
         excess += '...'.length
         let newContent = ''
-        const contentDomNodes = getAll(
-            createDomNodes(`<wrapper>${content}</wrapper>`)
-        )
+        const contentDomNodes =
+            getAll(createDomNodes(`<wrapper>${content}</wrapper>`))
         contentDomNodes.reverse()
         for (const domNode of contentDomNodes) {
-            const wrapper = $(domNode).wrap('<wrapper>').parent() as $T
+            const wrapper = createDomNodes<HTMLElement>('<wrapper><wrapper>')
+            wrap(domNode, wrapper)
 
-            const textContent: string = domNode.textContent || ''
+            const textContent = domNode.textContent || ''
 
-            let contentSnippet: string = $wrapper.html()
+            let contentSnippet = wrapper.innerHTML
             if (!contentSnippet)
                 contentSnippet = textContent
 
@@ -325,7 +322,7 @@ export class WebDocumentation<
 
                     excess = 0
 
-                    contentSnippet = $wrapper.html()
+                    contentSnippet = wrapper.innerHTML
                     if (!contentSnippet)
                         contentSnippet = domNode.textContent
                 }
@@ -338,73 +335,69 @@ export class WebDocumentation<
      * Shows marked example codes directly in browser.
      */
     _showExamples(): void {
-        this.$domNodes.parent?.find(':not(iframe)')
-            .contents()
-            .each((index: number, domNode: Node): void => {
-                if (
-                    domNode.nodeName === this.options.showExample.domNodeName
-                ) {
-                    const match: null | RegExpMatchArray =
-                        (domNode.textContent || '').match(
-                            new RegExp(this.options.showExample.pattern)
+        for (const domNode of getAll(this.root))
+            if (domNode.nodeName === this.options.showExample.domNodeName) {
+                const match: null | RegExpMatchArray =
+                    (domNode.textContent || '').match(
+                        new RegExp(this.options.showExample.pattern)
+                    )
+                const codeDomNode = domNode.nextSibling as HTMLElement | null
+                if (match && codeDomNode) {
+                    const codeWrapper: HTMLElement | null =
+                        codeDomNode.querySelector(
+                            this.options.selectors.codeWrapper
                         )
-                    if (match) {
-                        const $codeDomNode: $T<Node> = $(domNode).next()
+                    let code = codeWrapper?.innerText
 
-                        let code: string = $codeDomNode
-                            .find(this.$domNodes.codeWrapper)
-                            .text()
+                    if (!code)
+                        code = codeDomNode.innerText
 
-                        if (!code)
-                            code = $codeDomNode.text()
-
-                        try {
-                            if (match.length > 2 && match[2])
-                                if (
-                                    ['javascript', 'javascripts', 'js']
-                                        .includes(match[2].toLowerCase())
-                                )
-                                    $codeDomNode.after(
-                                        $('<script>')
-                                            .attr('type', 'text/javascript')
-                                            .text(code)
-                                    )
-                                else if ([
-                                    'css', 'cascadingstylesheet',
-                                    'cascadingstylesheets', 'stylesheet',
-                                    'stylesheets', 'sheet', 'sheets', 'style',
-                                    'styles'
-                                ].includes(match[2].toLowerCase()))
-                                    $codeDomNode.after(
-                                        $('<style>')
-                                            .attr('type', 'text/css')
-                                            .text(code)
-                                    )
-                                else if (match[2].toLowerCase() === 'hidden')
-                                    $codeDomNode.after(code)
-                                else
-                                    $codeDomNode.after(
-                                        $(
-                                            this.options.showExample
-                                                .htmlWrapper
-                                        ).append(code)
-                                    )
+                    try {
+                        let domNode: HTMLElement | string = ''
+                        if (match.length > 2 && match[2])
+                            if (
+                                ['javascript', 'javascripts', 'js']
+                                    .includes(match[2].toLowerCase())
+                            ) {
+                                domNode = (globalContext.document as Document)
+                                    .createElement('script')
+                                domNode.setAttribute('type', 'text/javascript')
+                                domNode.innerText = code
+                            } else if ([
+                                'css', 'cascadingstylesheet',
+                                'cascadingstylesheets', 'stylesheet',
+                                'stylesheets', 'sheet', 'sheets', 'style',
+                                'styles'
+                            ].includes(match[2].toLowerCase())) {
+                                domNode = (globalContext.document as Document)
+                                    .createElement('style')
+                                domNode.setAttribute('type', 'text/css')
+                                domNode.innerText = code
+                            } else if (match[2].toLowerCase() === 'hidden')
+                                domNode = code
                             else
-                                $codeDomNode.after(
-                                    $(this.options.showExample.htmlWrapper)
-                                        .append(code)
-                                )
-                        } catch (error) {
-                            log.critical(
-                                `Error while integrating code "${code}":`,
-                                String(error)
-                            )
-                        }
+                                domNode = createDomNodes(format(
+                                    this.options.showExample.htmlWrapper,
+                                    code
+                                ))
+                        else
+                            domNode = createDomNodes(format(
+                                this.options.showExample.htmlWrapper,
+                                code
+                            ))
+
+                        codeDomNode.after(domNode)
+                    } catch (error) {
+                        log.critical(
+                            `Error while integrating code "${code}":`,
+                            String(error)
+                        )
                     }
                 }
-            })
+            }
 
-        this.fireEvent('examplesLoaded')
+
+        this.onExamplesLoaded.call(this)
     }
     // endregion
 }

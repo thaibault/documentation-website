@@ -15,9 +15,6 @@
     See https://creativecommons.org/licenses/by/3.0/deed.de
     endregion
 */
-// region imports
-import {ProcedureFunction} from 'clientnode'
-// endregion
 // region exports
 export interface DefaultOptions {
     selectors: {
