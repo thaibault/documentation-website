@@ -23,16 +23,16 @@ _%>
         <meta charset="utf-8">
         <meta
             name="description"
-            content="<%- TAGLINE.replace(/^(.+?)<!--.+-->$/, '$1').replace("'", "\\'") %>"
+            content="<%- _.TAGLINE.replace(/^(.+?)<!--.+-->$/, '$1').replace("'", "\\'") %>"
         >
         <meta name="author" content="Torben Sickert">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <%_ for (const metaTag of META_TAGS) { _%>
+        <%_ for (const metaTag of _.META_TAGS) { _%>
             <meta <%_ for (const key in metaTag) { _%>
                 <%- key %>="<%- metaTag[key] %>"
             <%_ } _%>>
         <%_ } _%>
-        <title><%- NAME %></title>
+        <title><%- _.NAME %></title>
         <%-_.include('web-component-wrapper/polyfill.html') %>
         <script>
             AUTO_DEFINE_DOCUMENTATION_WEBSITE = true
@@ -92,7 +92,7 @@ _%>
                         <div class="header__inner">
                             <a
                                 class="header__inner__forkme-banner wu-start-up-animation-number-<%- getStartUpAnimationNumber() %>"
-                                href="<%- SOURCE_URL %>"
+                                href="<%- _.SOURCE_URL %>"
                             >
                                 View on GitHub
                                 <!--deDE:GitHub-Projekt-->
@@ -103,46 +103,46 @@ _%>
                             </a>
                             <h1
                                 class="header__inner__title wu-start-up-animation-number-<%- getStartUpAnimationNumber() %>"
-                            ><a href="<%- URL %>"><%- NAME %></a>
+                            ><a href="<%- _.URL %>"><%- _.NAME %></a>
                             <h2
                                 class="header__inner__tagline wu-start-up-animation-number-<%- getStartUpAnimationNumber() %>"
                             >
-                                <%- TAGLINE %>
+                                <%- _.TAGLINE %>
                                 <br />
                             </h2>
                             <div class="header__inner__links">
                                 <!--NOTE: These elements are shown in reverse order.-->
                                 <%_
                                     let numberOfLanguageLinks = 0
-                                    if (1 < LANGUAGES.length) {
-                                        numberOfLanguageLinks = LANGUAGES.length
+                                    if (1 < _.LANGUAGES.length) {
+                                        numberOfLanguageLinks = _.LANGUAGES.length
                                         START_UP_ANIMATION_NUMBER += numberOfLanguageLinks
                                     }
-                                    if (API_DOCUMENTATION_PATH)
+                                    if (_.API_DOCUMENTATION_PATH)
                                         START_UP_ANIMATION_NUMBER += 4
                                     else
                                         START_UP_ANIMATION_NUMBER += 2
                                     START_UP_ANIMATION_NUMBER += 1
                                 _%>
-                                <%_ if (DISTRIBUTION_BUNDLE_FILE_PATH) { _%>
+                                <%_ if (_.DISTRIBUTION_BUNDLE_FILE_PATH) { _%>
                                     <a
                                         class="header__inner__links__download wu-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
-                                        href="https://github.com/thaibault/<%- NAME %>/zipball/main"
+                                        href="https://github.com/thaibault/<%- _.NAME %>/zipball/main"
                                     >src.zip</a>
                                     <%_ START_UP_ANIMATION_NUMBER -= 1 _%>
                                     <a
                                         class="header__inner__links__download wu-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
-                                        href="<%- `${URL}/${DISTRIBUTION_BUNDLE_FILE_PATH}` %>"
+                                        href="<%- `${_.URL}/${_.DISTRIBUTION_BUNDLE_FILE_PATH}` %>"
                                     >app.zip</a>
                                 <%_ } else { _%>
                                     <a
                                         class="header__inner__links__download wu-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
-                                        href="https://github.com/thaibault/<%- NAME %>/zipball/main"
+                                        href="https://github.com/thaibault/<%- _.NAME %>/zipball/main"
                                     >.zip</a>
                                     <%_ START_UP_ANIMATION_NUMBER -= 1 _%>
                                     <a
                                         class="header__inner__links__download wu-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
-                                        href="https://github.com/thaibault/<%- NAME %>/tarball/main"
+                                        href="https://github.com/thaibault/<%- _.NAME %>/tarball/main"
                                     >.tar.gz</a>
                                 <%_ }
                                 START_UP_ANIMATION_NUMBER -= 1 _%>
@@ -151,7 +151,7 @@ _%>
                                 ></i>
                                 <%_
                                     if (numberOfLanguageLinks)
-                                        for (const language of LANGUAGES) {
+                                        for (const language of _.LANGUAGES) {
                                             START_UP_ANIMATION_NUMBER -= 1
                                 _%>
                                             <a
@@ -159,7 +159,7 @@ _%>
                                                 href="#lang-<%- language %>"
                                             ><%- language.slice(0, 2) %></a>
                                 <%_      }
-                                    if (API_DOCUMENTATION_PATH) {
+                                    if (_.API_DOCUMENTATION_PATH) {
                                         START_UP_ANIMATION_NUMBER -= 1
                                 _%>
                                         <span
@@ -168,7 +168,7 @@ _%>
                                         <%_ START_UP_ANIMATION_NUMBER -= 1 _%>
                                         <a
                                             class="header__inner__links__api-link wu-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
-                                            href="<%- URL %>/<%- API_DOCUMENTATION_PATH %>"
+                                            href="<%- _.URL %>/<%- _.API_DOCUMENTATION_PATH %>"
                                         >
                                             <lang-replace>
                                                 API <span>Documentation</span>
@@ -191,18 +191,20 @@ _%>
                             class="section__inner section__home"
                             data-website-utilities-section="home"
                         >
-                            <%_ if (CONTENT && !CONTENT.trim().startsWith('<!--html-->'))
-                                if (CONTENT.endsWith('.html'))
-                                    CONTENT = READ_FILE(CONTENT, configuration.encoding)
-                                else if (CONTENT.endsWith('.md'))
-                                    CONTENT = RENDER_MARKDOWN(READ_FILE(
-                                        CONTENT, configuration.encoding
+                            <%_
+                                let content = ''
+                            if (_.CONTENT && !_.CONTENT.trim().startsWith('<!--html-->'))
+                                if (_.CONTENT.endsWith('.html'))
+                                    content = _.READ_FILE(_.CONTENT, _.configuration.encoding)
+                                else if (_.CONTENT.endsWith('.md'))
+                                    content = _.RENDER_MARKDOWN(_.READ_FILE(
+                                        _.CONTENT, _.configuration.encoding
                                     ))
                                 else
-                                    CONTENT = RENDER_MARKDOWN(CONTENT)
+                                    content = _.RENDER_MARKDOWN(_.CONTENT)
                             _%>
 
-                            <%- CONTENT %>
+                            <%- content %>
                         </div>
                         <!--endregion-->
                         <!--region about this website-->
@@ -219,8 +221,8 @@ _%>
                                 Provider of
                                 <!--deDE:Anbieter von-->
                                 <!--frFR:Fournisseur de-->
-                                <a href="https://torben.website/<%- NAME %>">
-                                    https://torben.website/<%- NAME %>
+                                <a href="https://torben.website/<%- _.NAME %>">
+                                    https://torben.website/<%- _.NAME %>
                                 </a>
                                 :
                                 <br>
@@ -254,7 +256,7 @@ _%>
                                     <!--frFR:Maison-->
                                 </a>
                             </p>
-                            <%- include('legal-notes') %>
+                            <%- _.include('legal-notes') %>
                         </div>
                         <!--endregion-->
                     </section>
@@ -266,9 +268,9 @@ _%>
                             <p
                                 class="wu-start-up-animation-number-<%- START_UP_ANIMATION_NUMBER %>"
                             >
-                                <%- NAME %> maintained by
-                                <!--deDE:<%- NAME %> betrieben von-->
-                                <!--frFR:<%- NAME %> exploité par-->
+                                <%- _.NAME %> maintained by
+                                <!--deDE:<%- _.NAME %> betrieben von-->
+                                <!--frFR:<%- _.NAME %> exploité par-->
                                 <%_ /*
                                     We need an explicit whitespace here preserve whitespaces
                                     after language switches.
@@ -290,7 +292,7 @@ _%>
                 </web-internationalization>
             </website-utilities>
         </web-documentation>
-        <%_ if (configuration.offline) { _%>
+        <%_ if (_.configuration.offline) { _%>
             <noscript>
                 <iframe src="manifest.html" style="display: none"></iframe>
             </noscript>
