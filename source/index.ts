@@ -293,11 +293,14 @@ export class WebDocumentation<
      */
     _replaceExcessWithDots(content: string, excess: number): string {
         // Add space for ending dots.
-        excess += 3
+        excess += '...'.length
         let newContent = ''
-        const $content: $T = $(`<wrapper>${content}</wrapper>`)
-        for (const domNode of $content.contents().get().reverse()) {
-            const $wrapper: $T = $(domNode).wrap('<wrapper>').parent() as $T
+        const contentDomNodes = getAll(
+            createDomNodes(`<wrapper>${content}</wrapper>`)
+        )
+        contentDomNodes.reverse()
+        for (const domNode of contentDomNodes) {
+            const wrapper = $(domNode).wrap('<wrapper>').parent() as $T
 
             const textContent: string = domNode.textContent || ''
 
