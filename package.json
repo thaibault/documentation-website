@@ -142,8 +142,8 @@
     "injection": {
       "chunks": false,
       "entry": {
-        "#": "errorreporter\": \"errorreporter",
-        "__evaluate__": "2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2].startsWith('test') ? {testBundle: './test.ts'} : {index: ['ua-parser-js', './index.css', './index']}"
+        "#": "errorreporter\": [\"ua-parser-js\", \"errorreporter\"]",
+        "__evaluate__": "2 < self.givenCommandLineArguments.length && self.givenCommandLineArguments[2].startsWith('test') ? {testBundle: './test.ts'} : {index: ['./index.css', './index']}"
       }
     },
     "library": false,
