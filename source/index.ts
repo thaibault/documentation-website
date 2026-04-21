@@ -35,6 +35,8 @@ import {func, object} from 'clientnode/property-types'
 import {property} from 'web-component-wrapper/decorator'
 import {WebComponentAPI} from 'web-component-wrapper/type'
 import {Web} from 'web-component-wrapper/Web'
+import {api as websiteUtilitiesAPI} from 'website-utilities'
+import {api as webInternationalizationAPI} from 'web-internationalization'
 
 import {DefaultOptions, Options} from './type'
 // endregion
@@ -62,6 +64,16 @@ export class WebDocumentation<
     ExternalProperties extends Mapping<unknown> = Mapping<unknown>,
     InternalProperties extends Mapping<unknown> = Mapping<unknown>
 > extends Web<TElement, ExternalProperties, InternalProperties> {
+    static content = `
+        <website-utilities
+            options="{sectionNames: ['home', 'about-this-website']}"
+        >
+            <web-internationalization>
+                <slot>Please provide a template to transclude.</slot>
+            </web-internationalization>
+        </website-utilities>
+    `
+
     static _name = 'WebDocumentation'
 
     static _defaultOptions: DefaultOptions = {
@@ -408,6 +420,9 @@ export const api: WebComponentAPI<
     register: (
         tagName: string = camelCaseToDelimited(WebDocumentation._name)
     ) => {
+        websiteUtilitiesAPI.register()
+        webInternationalizationAPI.register()
+
         customElements.define(tagName, WebDocumentation)
     }
 }
