@@ -112,6 +112,8 @@ export class WebDocumentation<
     // region api properties
     @property({type: object})
         options = {} as Options
+    @property({type: func})
+        onExamplesLoaded: (this: WebDocumentation) => void = NOOP
     // endregion
     // region domNodes
     aboutThisWebsiteLinkDomNodes: NodeListOf<HTMLElement> | null = null
