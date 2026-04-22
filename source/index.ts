@@ -1,10 +1,10 @@
 // #!/usr/bin/env babel-node
 // -*- coding: utf-8 -*-
-/** @module documentation-website */
+/** @module web-documentation */
 'use strict'
 /* !
     region header
-    [Project page](https://github.com/documentation-website)
+    [Project page](https://github.com/web-documentation)
 
     Copyright Torben Sickert (info["~at~"]torben.website) 16.12.2012
 
@@ -40,7 +40,7 @@ import {api as webInternationalizationAPI} from 'web-internationalization'
 
 import {DefaultOptions, Options} from './type'
 // endregion
-export const log = new Logger({name: 'documentation-website'})
+export const log = new Logger({name: 'web-documentation'})
 // region plugins/classes
 /**
  * This plugin holds all needed methods to extend a whole documentation site.
@@ -109,7 +109,10 @@ export class WebDocumentation<
     }
 
     readonly self = WebDocumentation
-
+    // region api properties
+    @property({type: object})
+        options = {} as Options
+    // endregion
     // region domNodes
     aboutThisWebsiteLinkDomNodes: NodeListOf<HTMLElement> | null = null
     aboutThisWebsiteSectionDomNode: HTMLDivElement | null = null
@@ -120,11 +123,6 @@ export class WebDocumentation<
     tableOfContentDomNode: HTMLElement | null = null
     tableOfContentLinkDomNodes: NodeListOf<HTMLAnchorElement> | null = null
     // endregion
-    @property({type: object})
-        options = {} as Options
-
-    @property({type: func})
-        onExamplesLoaded: (this: WebDocumentation) => void = NOOP
     // region public
     /// region live-cycle
     /**
@@ -413,6 +411,7 @@ export class WebDocumentation<
     }
     // endregion
 }
+// endregion
 export const api: WebComponentAPI<
     HTMLElement, Mapping<unknown>, Mapping<unknown>, typeof Web
 > = {
@@ -430,4 +429,3 @@ export default WebDocumentation
 
 if ((globalContext as Mapping<boolean>).AUTO_DEFINE_WEB_DOCUMENTATION)
     api.register()
-// endregion
