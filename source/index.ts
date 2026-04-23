@@ -151,12 +151,7 @@ export class WebDocumentation<
         super.onUpdateAttribute(name, newValue)
 
         if (name === 'options')
-            this.options = extend<Options>(
-                true,
-                {},
-                this.self._defaultOptions,
-                this.options
-            )
+            this._extendOptions()
     }
     /**
      * Updates controlled dom elements.
@@ -166,7 +161,7 @@ export class WebDocumentation<
         await super.render(reason)
 
         if (Object.keys(this.options).length === 0)
-            this.onUpdateAttribute('options', '{}')
+            this._extendOptions()
 
         this.grabDomNodes()
 
@@ -204,6 +199,14 @@ export class WebDocumentation<
     // region protected methods
     /// region event handler
     /// endregion
+    /**
+     * Extends given options by default options.
+     */
+    _extendOptions() {
+        this.options = extend<Options>(
+            true, {}, this.self._defaultOptions, this.options
+        )
+    }
     /**
      * Generates a table of contents via creating links referring to headlines.
      */
