@@ -27,7 +27,7 @@ describe('WebDocumentation', () => {
         root = document.createElement('web-documentation') as WebDocumentation
         document.body.appendChild(root)
 
-        await root.rendered
+        await root.renderState.promise
     })
     // region tests
     test('should be defined', () => {
