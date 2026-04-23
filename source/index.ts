@@ -68,7 +68,9 @@ export class WebDocumentation<
         <website-utilities
             options="{sectionNames: ['home', 'about-this-website']}"
         >
-            <web-internationalization>
+            <web-internationalization
+                options="{selectors: {knownTranslation: '.doc-toc'}}"
+            >
                 <slot>Please provide a template to transclude.</slot>
             </web-internationalization>
         </website-utilities>
