@@ -160,6 +160,7 @@ export class WebDocumentation<
      * @param reason - Why an update has been triggered.
      */
     async render(reason?: string): Promise<void> {
+        console.log('render dw', reason)
         await super.render(reason)
 
         if (Object.keys(this.options).length === 0)
@@ -205,8 +206,13 @@ export class WebDocumentation<
      * Extends given options by default options.
      */
     _extendOptions() {
-        this.options = extend<Options>(
-            true, {}, this.self._defaultOptions, this.options
+        /*
+            NOTE: Using the internal setter avoids to trigger an additinal
+            rendering.
+        */
+        this.setPropertyValue(
+            'options',
+            extend<Options>(true, {}, this.self._defaultOptions, this.options)
         )
     }
     /**
