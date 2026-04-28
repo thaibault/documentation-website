@@ -160,7 +160,6 @@ export class WebDocumentation<
      * @param reason - Why an update has been triggered.
      */
     async render(reason?: string): Promise<void> {
-        console.log('render dw', reason)
         await super.render(reason)
 
         if (Object.keys(this.options).length === 0)
