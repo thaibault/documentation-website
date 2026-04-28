@@ -171,38 +171,39 @@ export class WebDocumentation<
         if (Object.keys(this.options).length === 0)
             this._extendOptions()
 
-        void Promise.all(this.self.pendingRenderPromises).then(() => {
-            this.grabDomNodes()
+        await this.waitForNestedComponentRendering()
 
-            /*
-                NOTE: We have to render examples first to avoid having dots in
-                example code.
-            */
-            this._showExamples()
+        this.grabDomNodes()
 
-            this._makeCodeEllipsis()
+        /*
+            NOTE: We have to render examples first to avoid having dots in
+            example code.
+        */
+        this._showExamples()
 
-            this._generateTableOfContentsLinks()
-        })
+        this._makeCodeEllipsis()
 
-        await this.resolveRenderingPromise(reason, resolveRendering)
+        this._generateTableOfContentsLinks()
+
+        await this.resolveRenderingPromiseIfSet(reason, resolveRendering)
     }
     /// endregion
     grabDomNodes(): void {
-        this.aboutThisWebsiteLinkDomNodes = this.root.querySelectorAll(
+        this.aboutThisWebsiteLinkDomNodes = this.rootDomNode.querySelectorAll(
             this.options.selectors.aboutThisWebsiteLink
         )
-        this.aboutThisWebsiteSectionDomNode = this.root.querySelector(
+        this.aboutThisWebsiteSectionDomNode = this.rootDomNode.querySelector(
             this.options.selectors.aboutThisWebsiteSection
         )
 
         this.codeDomNodes =
-            this.root.querySelectorAll(this.options.selectors.code)
+            this.rootDomNode.querySelectorAll(this.options.selectors.code)
 
         this.headlineDomNodes =
-            this.root.querySelectorAll(this.options.selectors.headlines)
-        this.tableOfContentDomNode =
-            this.root.querySelector(this.options.selectors.tableOfContent)
+            this.rootDomNode.querySelectorAll(this.options.selectors.headlines)
+        this.tableOfContentDomNode = this.rootDomNode.querySelector(
+            this.options.selectors.tableOfContent
+        )
     }
     // endregion
     // region protected methods
@@ -365,7 +366,7 @@ export class WebDocumentation<
      * Shows marked example codes directly in browser.
      */
     _showExamples(): void {
-        for (const domNode of getAll(this.root))
+        for (const domNode of getAll(this.rootDomNode))
             if (domNode.nodeName === this.options.showExample.domNodeName) {
                 const match: null | RegExpMatchArray =
                     (domNode.textContent || '').match(
