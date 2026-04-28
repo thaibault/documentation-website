@@ -158,27 +158,34 @@ export class WebDocumentation<
     /**
      * Updates controlled dom elements.
      * @param reason - Why an update has been triggered.
+     * @param resolveRendering - Indicates whether rendering should be resolved
+     * finally. Should be set to "false" via super calls in inherited render
+     * methods which do further dom manipulations afterwards and resolve the
+     * rendering process by their own.
+     * @returns A promise resolving when rendering has finished. A promise may
+     * be needed for classes inheriting from this class.
      */
-    async render(reason?: string): Promise<void> {
-        await super.render(reason)
+    async render(reason = 'unknown', resolveRendering = true): Promise<void> {
+        await super.render(reason, false)
 
         if (Object.keys(this.options).length === 0)
             this._extendOptions()
 
-        this.grabDomNodes()
+        void Promise.all(this.self.pendingRenderPromises).then(() => {
+            this.grabDomNodes()
 
-        /*
-            NOTE: We have to render examples first to avoid having dots in
-            example code.
-        */
-        this._showExamples()
+            /*
+                NOTE: We have to render examples first to avoid having dots in
+                example code.
+            */
+            this._showExamples()
 
-        // TODO we may need to delay internationalization until this has been
-        // finished rendering
+            this._makeCodeEllipsis()
 
-        this._makeCodeEllipsis()
+            this._generateTableOfContentsLinks()
+        })
 
-        this._generateTableOfContentsLinks()
+        await this.resolveRenderingPromise(reason, resolveRendering)
     }
     /// endregion
     grabDomNodes(): void {
