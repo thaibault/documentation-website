@@ -189,19 +189,19 @@ export class WebDocumentation<
     }
     /// endregion
     grabDomNodes(): void {
-        this.aboutThisWebsiteLinkDomNodes = this.rootDomNode.querySelectorAll(
+        this.aboutThisWebsiteLinkDomNodes = this.hostDomNode.querySelectorAll(
             this.options.selectors.aboutThisWebsiteLink
         )
-        this.aboutThisWebsiteSectionDomNode = this.rootDomNode.querySelector(
+        this.aboutThisWebsiteSectionDomNode = this.hostDomNode.querySelector(
             this.options.selectors.aboutThisWebsiteSection
         )
 
         this.codeDomNodes =
-            this.rootDomNode.querySelectorAll(this.options.selectors.code)
+            this.hostDomNode.querySelectorAll(this.options.selectors.code)
 
         this.headlineDomNodes =
-            this.rootDomNode.querySelectorAll(this.options.selectors.headlines)
-        this.tableOfContentDomNode = this.rootDomNode.querySelector(
+            this.hostDomNode.querySelectorAll(this.options.selectors.headlines)
+        this.tableOfContentDomNode = this.hostDomNode.querySelector(
             this.options.selectors.tableOfContent
         )
     }
@@ -366,7 +366,7 @@ export class WebDocumentation<
      * Shows marked example codes directly in browser.
      */
     _showExamples(): void {
-        for (const domNode of getAll(this.rootDomNode))
+        for (const domNode of getAll(this.hostDomNode))
             if (domNode.nodeName === this.options.showExample.domNodeName) {
                 const match: null | RegExpMatchArray =
                     (domNode.textContent || '').match(

@@ -67,7 +67,7 @@
     "@typescript-eslint/parser": "^8.59.1",
     "@webcomponents/webcomponentsjs": "^2.8.0",
     "archiver": "^7.0.1",
-    "clientnode": "^4.0.1391",
+    "clientnode": "^4.0.1392",
     "css-loader": "^7.1.4",
     "cssnano": "^7.1.7",
     "default-gateway": "^7.2.2",
@@ -103,11 +103,11 @@
     "typescript-eslint": "^8.59.1",
     "ua-parser-js": "^2.0.9",
     "unzipper": "^0.12.3",
-    "web-component-wrapper": "^0.0.575",
-    "web-internationalization": "^2.0.12",
+    "web-component-wrapper": "^0.0.578",
+    "web-internationalization": "^2.0.16",
     "weboptimizer": "^3.0.22",
     "webpack-dev-server": "^5.2.3",
-    "website-utilities": "^1.0.394"
+    "website-utilities": "^1.0.397"
   },
   "engines": {
     "node": ">=24",
