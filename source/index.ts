@@ -57,6 +57,9 @@ export const log = new Logger({name: 'web-documentation'})
  * @property _defaultOptions.showExample.htmlWrapper - HTML example wrapper.
  * @property _defaultOptions.section - Configuration object for section
  * switches between the main page and legal notes descriptions.
+ * @property self - Reference to this class.
+ * @property doRender - Indicates that this components should evaluate given
+ * body content.
  * @property options - Finally configured given options.
  */
 export class WebDocumentation<
@@ -109,6 +112,8 @@ export class WebDocumentation<
             pattern: '^ *showExample(: *([^ ]+))? *$'
         }
     }
+
+    static doRender = true
 
     readonly self = WebDocumentation
     // region api properties
