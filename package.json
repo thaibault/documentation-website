@@ -165,16 +165,6 @@
         }
       },
       "optimizer": {
-        "babelMinify": {
-          "#": "To provide a logging output we need to exclude this feature.",
-          "bundle": {
-            "transform": {
-              "removeConsole": false
-            }
-          },
-          "#1": "Avoids wrong this binding in some callbacks with class bound closure (e.g. in \"performStartUpEffects -> animate -> always\".",
-          "module": null
-        },
         "#": "We have to add disable \"mergeRules\" since it removes header link color over writing.",
         "cssnano": {
           "__evaluate__": "self.debug ? null : {preset: [optionalRequire('cssnano-preset-default'), {autoprefixer: false, discardUnused: !self.library, mergeRules: false}]}"
@@ -191,6 +181,19 @@
               "__evaluate__": "/^showExample(?::[a-zA-Z]+)?$/"
             }
           ]
+        },
+        "terser": {
+          "terserOptions": {
+            "compress": {
+              "#": "To provide a logging output we need to exclude this feature.",
+              "drop_console": {
+                "__evaluate__": "false"
+              },
+              "drop_debugger": {
+                "__evaluate__": "false"
+              }
+            }
+          }
         }
       },
       "preprocessor": {
@@ -298,15 +301,17 @@
       },
       "module": {
         "optimizer": {
-          "babelMinify": {
-            "#": "To provide a logging output we need to exclude this feature.",
-            "bundle": {
-              "transform": {
-                "removeConsole": false
+          "terser": {
+            "terserOptions": {
+              "compress": {
+                "#": "To provide a logging output we need to exclude this feature.",
+                "drop_console": {
+                  "__evaluate__": "false"
+                },
+                "drop_debugger": {
+                  "__evaluate__": "false"
+                }
               }
-            },
-            "module": {
-              "removeConsole": false
             }
           }
         }
