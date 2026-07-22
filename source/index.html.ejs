@@ -33,7 +33,7 @@ _%>
             <%_ } _%>>
         <%_ } _%>
         <title><%- _.NAME %></title>
-        <%- _.include(
+        <%- await _.include(
             'web-component-wrapper/polyfill.html', {webComponents: false}
         ) %>
         <script>
@@ -257,7 +257,7 @@ _%>
                             </lang-replacement>
                         </a>
                     </p>
-                    <%- _.include('legal-notes') %>
+                    <%- await _.include('legal-notes') %>
                 </section>
                 <!--endregion-->
             </main>
