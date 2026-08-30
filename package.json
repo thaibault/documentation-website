@@ -289,7 +289,7 @@
         "javaScript": {
           "pattern": {
             "#": "This is how we can make our main exported artefact executable.",
-            "__evaluate__": "`#!/usr/bin/env node\n// -*- coding: utf-8 -*-\n{1}`"
+            "__evaluate__": "`#!/usr/bin/env node\n// -*- coding: utf-8 -*-\n${self.generic.assetPattern?.javaScript?.pattern ?? ''}\n{1}`"
           }
         }
       },
